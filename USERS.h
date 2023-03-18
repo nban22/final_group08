@@ -1,6 +1,7 @@
 #ifndef USERS_H_
 #define USERS_H_
 
+#include <iostream>
 #include <string>
 #include <cstring>
 #include "SEMESTER.h"

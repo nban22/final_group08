@@ -127,14 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\test\projectOfGroup08\Roke%27s_commit\USERS.cpp" />
     <ClCompile Include="function.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="USERS.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\test\projectOfGroup08\Roke%27s_commit\LINKED_LIST.h" />
-    <ClInclude Include="..\test\projectOfGroup08\Roke%27s_commit\SEMESTER.h" />
-    <ClInclude Include="..\test\projectOfGroup08\Roke%27s_commit\USERS.h" />
+    <ClInclude Include="LINKED_LIST.h" />
+    <ClInclude Include="SEMESTER.h" />
+    <ClInclude Include="USERS.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

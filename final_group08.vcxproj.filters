@@ -21,18 +21,18 @@
     <ClCompile Include="function.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\test\projectOfGroup08\Roke%27s_commit\USERS.cpp">
+    <ClCompile Include="USERS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\test\projectOfGroup08\Roke%27s_commit\LINKED_LIST.h">
+    <ClInclude Include="SEMESTER.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\test\projectOfGroup08\Roke%27s_commit\SEMESTER.h">
+    <ClInclude Include="USERS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\test\projectOfGroup08\Roke%27s_commit\USERS.h">
+    <ClInclude Include="LINKED_LIST.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
