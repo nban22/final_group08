@@ -21,18 +21,9 @@
     <ClCompile Include="function.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="USERS.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SEMESTER.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="USERS.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LINKED_LIST.h">
+    <ClInclude Include="header.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
