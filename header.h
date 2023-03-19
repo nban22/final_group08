@@ -39,7 +39,6 @@ struct STUDENT {
     std::string Password;
     std::string FName, LName, Gender;
     std::string SocialID;
-    std::string Gen;
     DATE DoB; //Date of Birth
     CLASS Classes;
 
@@ -74,7 +73,7 @@ struct STFF_NODE {
     STFF_NODE* prev;
 };
 
-//Doc thong tin cua giao vien vào DLL
+//Doc thong tin cua giao vien vï¿½o DLL
 void getData_A_Teacher(std::ifstream& input, STAFF& teacher);
 void getDataTeachers_csv(std::ifstream& input, STFF_NODE*& head);
 
