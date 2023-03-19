@@ -6,7 +6,7 @@
 #include <cstring>
 #include <fstream>
 
-//using namespace std;
+//Using namespace std;
 //Shouldn't use namespace in a header files!
 
 //**********************SEMESTER.h
@@ -20,7 +20,7 @@ struct SEMESTER {
 
 struct CLASS {
     std::string name;
-    int num;
+    std::string ClassID;
 };
 
 struct COURSE {
@@ -40,7 +40,7 @@ struct STUDENT {
     std::string FName, LName, Gender;
     std::string SocialID;
     DATE DoB; //Date of Birth
-    CLASS Classes;
+    CLASS Classes; 
 
     void View_Courses();
     //......add more later
@@ -50,7 +50,7 @@ struct STAFF {
     int No_Staff;
     std::string TeacherID;
     std::string Password;
-    std::string FName, LName, Gen;
+    std::string FName, LName, Gender;
     DATE DoB; //Date of Birth
     std::string SocialID;
     std::string Faculty;
@@ -76,6 +76,7 @@ struct STFF_NODE {
 //Doc thong tin cua giao vien v�o DLL
 void getData_A_Teacher(std::ifstream& input, STAFF& teacher);
 void getDataTeachers_csv(std::ifstream& input, STFF_NODE*& head);
+//Read Student's Data and create D_Linked List
 
 
 #endif
