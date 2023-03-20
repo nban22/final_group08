@@ -25,6 +25,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SEMESTER.cpp">
+    <ClCompile Include="SEMESTER.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="USER.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

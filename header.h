@@ -54,7 +54,7 @@ struct STUDENT {
     std::string FName, LName, Gender;
     std::string SocialID;
     DATE DoB; //Date of Birth
-    CLASS Classes; 
+    CLASS Classes;
 
     void ViewCourses();
     void LoginStudent();
@@ -78,7 +78,7 @@ struct STAFF {
     DATE DoB; //Date of Birth
     std::string SocialID;
     std::string Faculty;
-    
+
     //Same funcs as students
     void LoginStaff();
     void LogoutStaff();
@@ -123,5 +123,9 @@ void print_Staffs(STFF_NODE* head);
 void getData_A_Student(std::ifstream& input, STU_NODE*& head);
 void getDataStudents_csv(STUDENT student, STU_NODE*& head);
 void print_Students(STU_NODE* head);
+
+//checkAcount
+int checkExistOfStudentAccount(STU_NODE* head, std::string user, std::string password);
+int checkExistOfStaffAccount(STFF_NODE* head, std::string user, std::string password);
 
 #endif
