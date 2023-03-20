@@ -5,31 +5,50 @@ using namespace std;
 //***********GET DATA AND BUILD LINKED LISTS**********
 
 //STAFF
-void getData_A_Teacher(ifstream& input, STAFF& teacher)
-{
-	input >> teacher.No_Staff;
-	input.seekg(1);
-	getline(input, teacher.TeacherID, ',');
-	getline(input, teacher.Password, ',');
-	getline(input, teacher.LName, ',');
-	getline(input, teacher.FName, ',');
-	getline(input, teacher.Gender, ',');
-	input >> teacher.DoB.day;
-	input.seekg(1);
-	input >> teacher.DoB.month;
-	input.seekg(1);
-	input >> teacher.DoB.year;
-	input.seekg(1);
-	getline(input, teacher.SocialID, ',');
-	getline(input, teacher.Faculty, ',');
+void getData_A_Teacher(ifstream& input, STFF_NODE*& head) {
+    input.open("teachers.csv");
+
+	STAFF teacher; 
+    while (!input.eof()) {
+		cin >> teacher.No_Staff;
+        getline(input, teacher.TeacherID, ',');
+		cin >> ws;
+		getline(input, teacher.Password, ',');
+		cin >> ws;
+		getline(input, teacher.LName, ',');
+		cin >> ws;
+		getline(input, teacher.FName, ',');
+		cin >> ws;
+		getline(input, teacher.Gender, ',');
+		cin >> ws;
+		cin >> teacher.DoB.day >> teacher.DoB.month >> teacher.DoB.year;
+		getline(input, teacher.SocialID, ',');
+		cin >> ws;
+		getline(input, teacher.Faculty, ',');
+		getDataTeachers_csv(teacher, head);
+    }
+
+    input.close();
 }
 
-void getDataTeachers_csv(ifstream& input, STFF_NODE*& head)
-{
-	
+void getDataTeachers_csv(STAFF staff, STFF_NODE*& head) {
+    STFF_NODE* tmp = new STFF_NODE;
+    tmp->staff = staff;
+    tmp->next = nullptr;
+
+    if (!head) {
+        head = tmp;
+		head->prev = nullptr;
+    } else {
+        STFF_NODE* cur = head;
+        while (cur->next) {
+            cur = cur->next;
+        }
+        cur->next = tmp;
+		tmp->prev = cur;
+    }
 
 } 
-
 
 //STUDENT
 void getData_A_Student(ifstream& input, STU_NODE*& head) {
@@ -54,7 +73,6 @@ void getData_A_Student(ifstream& input, STU_NODE*& head) {
 		getline(input, student.Classes.name, ',');
 		cin >> ws;
 		getline(input, student.Classes.ClassID, ',');
-		cin >> ws;
 		getDataStudents_csv(student, head);
     }
 
@@ -77,12 +95,4 @@ void getDataStudents_csv(STUDENT student, STU_NODE*& head) {
         cur->next = tmp;
 		tmp->prev = cur;
     }
-}
-
-void print_Students(STU_NODE* head) {
-        STU_NODE* cur = head;
-	while (cur) {
-		cout << cur->student.No_Student << " " << cur->student.StudentID << " " << cur->student.LName << " " << cur->student.FName << " " << cur->student.Gender << " " << cur->student.SocialID <<  " " << cur->student.Classes.ClassID << " " << cur->student.Classes.name << "\n";
-		cur = cur->next;
-	}
 }

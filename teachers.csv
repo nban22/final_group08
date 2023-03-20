@@ -10,14 +10,14 @@
 9,11289303,123456,Nguyen Van,Han,Nam,02/12/1987,091185512266,Ky thuat thong tin va truyen thong
 10,56349112,123456,Nguyen Thanh,Tuan,Nam,04/05/1983,077357342997,Ky thuat dien tu
 11,40124029,123456,Tran Duc,Dung,Nam,12/28/1985,079751155794,Nghien cuu Robot
-12,65419458,123456,Nguyen Van,Loi,Nam,07/02/1985,084133675457,"Ky thuat dien, dien tu"
+12,65419458,123456,Nguyen Van,Loi,Nam,07/02/1985,084133675457,Ky thuat dien, dien tu
 13,28656408,123456,Nguyen Thi,Thuy,Nu,10/24/1988,011691102183,Tu dong hoa
 14,73217028,123456,Nguyen Thanh,Vinh,Nam,04/13/1989,013638844803,Ky thuat dien tu
 15,57832530,123456,Le Nam,Tuan,Nam,01/19/1995,085377780331,Ky thuat dien tu
 16,74986880,123456,Nguyen Van,Hoa,Nam,12/24/1985,065704095055,Cong nghe va ky thuat hoa chat
 17,76426142,123456,Tran Thi Hoang,Quyen,Nu,03/22/1984,083288084778,Hoa sinh
 18,53610877,123456,Tran Quang,Ngoc,Nam,01/29/1990,073949413987,Hoa hoc va hoa ly cac hop chat polymer
-19,41360397,123456,Hoang Thi Trang,Nguyen,Nu,02/19/1992,066737501652,"Vat lieu huu co, cau truc nano va tinh ben vung"
+19,41360397,123456,Hoang Thi Trang,Nguyen,Nu,02/19/1992,066737501652,Vat lieu huu co, cau truc nano va tinh ben vung
 20,19698232,123456,Ha Thi Hai,Yen,Nu,02/14/1994,053704332089,Hoa ky thuat
 21,82010843,123456,Phan Vinh,Thinh,Nam,05/05/1995,038106057879,Hoa hoc
 22,14808476,123456,Tran Thi Thao,Vy,Nu,10/01/1983,020118013296,Ky thuat hoa hoc
@@ -26,7 +26,7 @@
 25,75770745,123456,Nguyen Thi My,Trang,Nu,04/23/1986,068204031961,Cong nghe che bien thuy san
 26,62248985,123456,Nguyen Anh,Tuan,Nam,07/12/1995,035231675544,Cong nghe san pham tu thit va ca
 27,84734912,123456,Nguyen Thi,Thuc,Nu,11/02/1985,041306612968,Cong nghe che bien thuy san
-28,62535256,123456,Nguyen Trong,Bach,Nam,01/07/1983,011191729469,"Hoa hoc, hoa ly Polime"
+28,62535256,123456,Nguyen Trong,Bach,Nam,01/07/1983,011191729469,Hoa hoc, hoa ly Polime
 29,70279162,123456,Huynh Nguyen Duy,Bao,Nam,06/11/1996,056961903307,Sinh hoc bien ung dung
 30,16822589,123456,Pham Van,Dat,Nam,04/05/1990,033986969319,Cong nghe che bien thuy san
 31,22198392,123456,Nguyen Xuan,Duy,Nam,07/16/1989,017669602841,Cong nghe che bien thuy san
@@ -39,7 +39,7 @@
 38,93198729,123456,Dang Thi To,Uyen,Nu,11/07/1992,062812053750,Cong nghe che bien thuy san
 39,52655330,123456,Pham Hong Ngoc,Thuy,Nu,07/11/1992,051857514288,Khoa hoc thuc pham
 40,46891184,123456,Nguyen Hong,Ngan,Nu,01/14/1990,012364287295,Cong nghe sau thu hoach
-41,37794602,123456,Do Le Huu,Nam,Nam,09/03/1991,053798767899,"Cong nghe thit ca, sua va lanh dong"
+41,37794602,123456,Do Le Huu,Nam,Nam,09/03/1991,053798767899,Cong nghe thit ca, sua va lanh dong
 42,12549357,123456,Nguyen Phuoc Bao,Hoang,Nam,02/02/1990,074260672943,Cong nghe sau thu hoach
 43,30073716,123456,Ngo Thi Hoai,Duong,Nu,07/13/1996,011303344793,Cong nghe che bien thuy san
 44,94685493,123456,Nguyen Thi Thanh,Hai,Nu,03/04/1993,035836986492,Cong nghe che bien thuy san
