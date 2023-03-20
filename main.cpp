@@ -8,6 +8,6 @@ int main()
 	STFF_NODE *staff = nullptr;
 	getData_A_Teacher(input, staff);
 	print_Staffs(staff);  //for testing
-	//system("pause");
+	system("pause");
 	return 0;
 }

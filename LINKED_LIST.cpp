@@ -5,31 +5,46 @@ using namespace std;
 //***********GET DATA AND BUILD LINKED LISTS**********
 
 //STAFF
-void getData_A_Teacher(ifstream& input, STFF_NODE*& head) {
-    input.open("teachers.csv");
+void getData_A_Teacher(ifstream& input, STFF_NODE*& head)
+{
+	input.open("teachers.csv");
+	STAFF teacher;
 
-	STAFF teacher; 
-    while (!input.eof()) {
-		cin >> teacher.No_Staff;
-        getline(input, teacher.TeacherID, ',');
-		cin >> ws;
+	getline(input, teacher.TeacherID, ',');
+	getline(input, teacher.TeacherID, ',');
+	getline(input, teacher.TeacherID, ',');
+	getline(input, teacher.TeacherID, ',');
+	getline(input, teacher.TeacherID, ',');
+	getline(input, teacher.TeacherID, ',');
+	getline(input, teacher.TeacherID, ',');
+	getline(input, teacher.TeacherID, ',');
+	getline(input, teacher.TeacherID);
+	
+
+	while (!input.eof())
+	{
+		
+		string tmp;
+		getline(input, tmp, ',');
+		teacher.No_Staff = stoi(tmp);
+		getline(input, teacher.TeacherID, ',');
 		getline(input, teacher.Password, ',');
-		cin >> ws;
 		getline(input, teacher.LName, ',');
-		cin >> ws;
 		getline(input, teacher.FName, ',');
-		cin >> ws;
 		getline(input, teacher.Gender, ',');
-		cin >> ws;
-		cin >> teacher.DoB.day >> teacher.DoB.month >> teacher.DoB.year;
+		getline(input, tmp, '/');
+		teacher.DoB.day = stoi(tmp);
+		getline(input, tmp, '/');
+		teacher.DoB.month = stoi(tmp);
+		getline(input, tmp, ',');
+		teacher.DoB.year = stoi(tmp);
 		getline(input, teacher.SocialID, ',');
-		cin >> ws;
-		getline(input, teacher.Faculty, ',');
-		getDataTeachers_csv(teacher, head);
-    }
+		getline(input, teacher.Faculty);
 
-    input.close();
-}
+		getDataTeachers_csv(teacher, head);
+	}
+	input.close();
+};
 
 void getDataTeachers_csv(STAFF staff, STFF_NODE*& head) {
     STFF_NODE* tmp = new STFF_NODE;

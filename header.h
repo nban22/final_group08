@@ -116,6 +116,8 @@ struct STFF_NODE {
 };
 
 //Doc thong tin cua giao vien v�o DLL
+//void getData_A_Teacher(std::ifstream& input, STFF_NODE*& head);
+//void getDataTeachers_csv(STAFF staff, STFF_NODE*& head);
 void getData_A_Teacher(std::ifstream& input, STFF_NODE*& head);
 void getDataTeachers_csv(STAFF staff, STFF_NODE*& head);
 void print_Staffs(STFF_NODE* head);
