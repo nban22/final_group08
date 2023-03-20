@@ -103,11 +103,4 @@ void getDataStudents_csv(STUDENT student, STU_NODE*& head) {
 		tmp->prev = cur;
     }
 }
-
-void print_Students(STU_NODE* head) {
-        STU_NODE* cur = head;
-	while (cur) {
-		cout << cur->student.No_Student << " " << cur->student.StudentID << " " << cur->student.LName << " " << cur->student.FName << " " << cur->student.Gender << " " << cur->student.SocialID <<  " " << cur->student.Classes.ClassID << " " << cur->student.Classes.name << "\n";
-		cur = cur->next;
-	}
-} //for testing
+ //for testing
