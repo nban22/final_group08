@@ -1,6 +1,4 @@
-#include "USER.cpp"
-#include "SEMESTER.cpp"
-#include "LINKED_LIST.cpp"
+#include "header.h"
 
 using namespace std;
 
