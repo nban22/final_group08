@@ -5,7 +5,7 @@ using namespace std;
 //***********GET DATA AND BUILD LINKED LISTS**********
 
 //STAFF
-void getData_A_Teacher(ifstream& input, STFF_NODE*& head)
+void getDataTeachers_csv(ifstream& input, STFF_NODE*& head)
 {
 	input.open("teachers.csv");
 	STAFF teacher;
@@ -41,12 +41,12 @@ void getData_A_Teacher(ifstream& input, STFF_NODE*& head)
 		getline(input, teacher.SocialID, ',');
 		getline(input, teacher.Faculty);
 
-		getDataTeachers_csv(teacher, head);
+		getData_A_Teacher(teacher, head);
 	}
 	input.close();
 };
 
-void getDataTeachers_csv(STAFF staff, STFF_NODE*& head) {
+void getData_A_Teacher(STAFF staff, STFF_NODE*& head) {
     STFF_NODE* tmp = new STFF_NODE;
     tmp->staff = staff;
     tmp->next = nullptr;
@@ -73,35 +73,45 @@ void print_Staffs(STFF_NODE* head) {
 } //for testing
 
 //STUDENT
-void getData_A_Student(ifstream& input, STU_NODE*& head) {
+void getDataStudents_csv(ifstream& input, STU_NODE*& head) {
     input.open("students.csv");
 
-	STUDENT student; 
+	STUDENT student;
+	getline(input, student.StudentID, ',');
+	getline(input, student.StudentID, ',');
+	getline(input, student.StudentID, ',');
+	getline(input, student.StudentID, ',');
+	getline(input, student.StudentID, ',');
+	getline(input, student.StudentID, ',');
+	getline(input, student.StudentID, ',');
+	getline(input, student.StudentID, ',');
+	getline(input, student.StudentID);
+
     while (!input.eof()) {
-		cin >> student.No_Student;
-        getline(input, student.StudentID, ',');
-		cin >> ws;
+		string tmp;
+		getline(input, tmp, ',');
+		student.No_Student = stoi(tmp);
+		getline(input, student.StudentID, ',');
 		getline(input, student.Password, ',');
-		cin >> ws;
 		getline(input, student.LName, ',');
-		cin >> ws;
 		getline(input, student.FName, ',');
-		cin >> ws;
 		getline(input, student.Gender, ',');
-		cin >> ws;
-		cin >> student.DoB.day >> student.DoB.month >> student.DoB.year;
+		getline(input, tmp, '/');
+		student.DoB.day = stoi(tmp);
+		getline(input, tmp, '/');
+		student.DoB.month = stoi(tmp);
+		getline(input, tmp, ',');
+		student.DoB.year = stoi(tmp);
 		getline(input, student.SocialID, ',');
-		cin >> ws;
 		getline(input, student.Classes.name, ',');
-		cin >> ws;
-		getline(input, student.Classes.ClassID, ',');
-		getDataStudents_csv(student, head);
+		getline(input, student.Classes.ClassID);
+		getData_A_Student(student, head);
     }
 
     input.close();
 }
 
-void getDataStudents_csv(STUDENT student, STU_NODE*& head) {
+void getData_A_Student(STUDENT student, STU_NODE*& head) {
     STU_NODE* tmp = new STU_NODE;
     tmp->student = student;
     tmp->next = nullptr;

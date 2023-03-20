@@ -118,12 +118,12 @@ struct STFF_NODE {
 //Doc thong tin cua giao vien v�o DLL
 //void getData_A_Teacher(std::ifstream& input, STFF_NODE*& head);
 //void getDataTeachers_csv(STAFF staff, STFF_NODE*& head);
-void getData_A_Teacher(std::ifstream& input, STFF_NODE*& head);
-void getDataTeachers_csv(STAFF staff, STFF_NODE*& head);
+void getData_A_Teacher(STAFF staff, STFF_NODE*& head);
+void getDataTeachers_csv(std::ifstream& input, STFF_NODE*& head);
 void print_Staffs(STFF_NODE* head);
 //Read Student's Data and create D_Linked List
-void getData_A_Student(std::ifstream& input, STU_NODE*& head);
-void getDataStudents_csv(STUDENT student, STU_NODE*& head);
+void getData_A_Student(STUDENT student, STU_NODE*& head);
+void getDataStudents_csv(std::ifstream& input, STU_NODE*& head);
 void print_Students(STU_NODE* head);
 
 //checkAcount
