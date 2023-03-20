@@ -47,8 +47,15 @@ void getDataTeachers_csv(STAFF staff, STFF_NODE*& head) {
         cur->next = tmp;
 		tmp->prev = cur;
     }
-
 } 
+
+void print_Staff(STFF_NODE* head) {
+        STFF_NODE* cur = head;
+	while (cur) {
+		cout << cur->staff.No_Staff << " " << cur->staff.TeacherID << " " << cur->staff.LName << " " << cur->staff.FName << " " << cur->staff.Gender << " " << cur->staff.SocialID <<  " " << cur->staff.Faculty << "\n";
+		cur = cur->next;
+	}
+} //for testing
 
 //STUDENT
 void getData_A_Student(ifstream& input, STU_NODE*& head) {
@@ -96,3 +103,11 @@ void getDataStudents_csv(STUDENT student, STU_NODE*& head) {
 		tmp->prev = cur;
     }
 }
+
+void print_Students(STU_NODE* head) {
+        STU_NODE* cur = head;
+	while (cur) {
+		cout << cur->student.No_Student << " " << cur->student.StudentID << " " << cur->student.LName << " " << cur->student.FName << " " << cur->student.Gender << " " << cur->student.SocialID <<  " " << cur->student.Classes.ClassID << " " << cur->student.Classes.name << "\n";
+		cur = cur->next;
+	}
+} //for testing

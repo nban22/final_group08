@@ -14,27 +14,6 @@ struct DATE {
     int year, month, day;
 };
 
-struct CLASS {
-    std::string name;
-    std::string ClassID;
-};
-
-struct COURSE {
-    std::string ID;
-    std::string CName;
-    std::string Class;
-    string teacherName;
-    int Credits;
-    int Max_stdn;
-    WEEKDAY *dayOfWeek;
-    SESSION *session;
-};
-
-struct SEMESTER {
-    DATE startDate, endDate;
-    COURSE *courses;
-};
-
 enum WEEKDAY {
   MON, TUE, WED, THU, FRI, SAT
 };
@@ -44,6 +23,27 @@ enum SESSION {
   S2,
   S3,
   S4
+};
+
+struct CLASS {
+    std::string name;
+    std::string ClassID;
+};
+
+struct COURSE {
+    std::string ID;
+    std::string CName;
+    std::string Class;
+    std::string teacherName;
+    int Credits;
+    int Max_stdn;
+    WEEKDAY *dayOfWeek;
+    SESSION *session;
+};
+
+struct SEMESTER {
+    DATE startDate, endDate;
+    COURSE *courses;
 };
 
 //*********************USERS.h
@@ -117,7 +117,7 @@ struct STFF_NODE {
 
 //Doc thong tin cua giao vien v�o DLL
 void getData_A_Teacher(std::ifstream& input, STAFF& teacher);
-void getDataTeachers_csv(std::ifstream& input, STFF_NODE*& head);
+void getDataTeachers_csv(STAFF staff, STFF_NODE*& head);
 //Read Student's Data and create D_Linked List
 void getData_A_Student(std::ifstream& input, STU_NODE*& head);
 void getDataStudents_csv(STUDENT student, STU_NODE*& head);

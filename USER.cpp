@@ -27,11 +27,3 @@ void LoginStudent(std::string Username, std::string Pass, STU_NODE* head) {
 		cur = cur->next;
 	}
 }
-
-/* void print_Students(STU_NODE* head) {
-        STU_NODE* cur = head;
-	while (cur) {
-		cout << cur->student.No_Student << " " << cur->student.StudentID << " " << cur->student.LName << " " << cur->student.FName << " " << cur->student.Gender << " " << cur->student.SocialID <<  " " << cur->student.Classes.ClassID << " " << cur->student.Classes.name << "\n";
-		cur = cur->next;
-	}
-} */ //for testing

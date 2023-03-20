@@ -6,10 +6,10 @@ using namespace std;
 
 int main()
 {	
-/* 	ifstream input;
-	STU_NODE *student = nullptr;
-	getData_A_Student(input, student);
-	print_Students(student); */ //for testing
+ 	ifstream input;
+	STFF_NODE *staff = nullptr;
+	getData_A_Teacher(input, staff);
+	print_Staff(staff);  //for testing
 	system("pause");
 	return 0;
 }
