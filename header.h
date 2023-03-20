@@ -18,33 +18,33 @@ struct CLASS {
     std::string name;
     std::string ClassID;
 };
+enum WEEKDAY {
+    MON, TUE, WED, THU, FRI, SAT
+};
+
+enum SESSION {
+    S1,
+    S2,
+    S3,
+    S4
+};
 
 struct COURSE {
     std::string ID;
     std::string CName;
     std::string Class;
-    string teacherName;
+    std::string teacherName;
     int Credits;
     int Max_stdn;
-    WEEKDAY *dayOfWeek;
-    SESSION *session;
+    WEEKDAY* dayOfWeek;
+    SESSION* session;
 };
 
 struct SEMESTER {
     DATE startDate, endDate;
-    COURSE *courses;
+    COURSE* courses;
 };
 
-enum WEEKDAY {
-  MON, TUE, WED, THU, FRI, SAT
-};
-
-enum SESSION {
-  S1,
-  S2,
-  S3,
-  S4
-};
 
 //*********************USERS.h
 struct STUDENT {
@@ -54,7 +54,7 @@ struct STUDENT {
     std::string FName, LName, Gender;
     std::string SocialID;
     DATE DoB; //Date of Birth
-    CLASS Classes; 
+    CLASS Classes;
 
     void ViewCourses();
     void LoginStudent();
@@ -78,7 +78,7 @@ struct STAFF {
     DATE DoB; //Date of Birth
     std::string SocialID;
     std::string Faculty;
-    
+
     //Same funcs as students
     void LoginStaff();
     void LogoutStaff();
