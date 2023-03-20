@@ -49,7 +49,7 @@ void getDataTeachers_csv(STAFF staff, STFF_NODE*& head) {
     }
 } 
 
-void print_Staff(STFF_NODE* head) {
+void print_Staffs(STFF_NODE* head) {
         STFF_NODE* cur = head;
 	while (cur) {
 		cout << cur->staff.No_Staff << " " << cur->staff.TeacherID << " " << cur->staff.LName << " " << cur->staff.FName << " " << cur->staff.Gender << " " << cur->staff.SocialID <<  " " << cur->staff.Faculty << "\n";

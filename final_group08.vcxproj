@@ -127,8 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="function.cpp" />
+    <ClCompile Include="LINKED_LIST.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SEMESTER.cpp" />
+    <ClCompile Include="USER.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.h" />
