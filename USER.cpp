@@ -16,13 +16,15 @@ void LoginStaff(std::string Username, std::string Pass, STFF_NODE* head) {
 	}
 }
 
-int checkExistOfStaffAccount(STFF_NODE* head, std::string user, std::string password) {
+int checkExistOfStaffAccount(STFF_NODE* head, std::string user, std::string password, STAFF& logged) {
 
 	STFF_NODE* current = head;
 
 	while (current) {
-		if (user == current->staff.TeacherID && password == current->staff.Password)
+		if (user == current->staff.TeacherID && password == current->staff.Password) {
+			logged = current->staff;
 			return 1;
+		}
 		else if (user == current->staff.TeacherID && password != current->staff.Password)
 			return -1;
 		else
@@ -30,6 +32,15 @@ int checkExistOfStaffAccount(STFF_NODE* head, std::string user, std::string pass
 	}
 	return 0;
 }
+void print_Staffs(STFF_NODE* head) {
+	STFF_NODE* cur = head;
+	while (cur) {
+		cout << cur->staff.No_Staff << " " << cur->staff.TeacherID << " " << cur->staff.LName << " " << cur->staff.FName << " " << cur->staff.Gender << " " << cur->staff.SocialID << " " << cur->staff.Faculty << "\n";
+		cur = cur->next;
+	}
+} //for testing
+
+
 
 
 //STUDENT
@@ -43,14 +54,16 @@ void LoginStudent(std::string Username, std::string Pass, STU_NODE* head) {
 		cur = cur->next;
 	}
 }
-int checkExistOfStudentAccount(STU_NODE* head, std::string user, std::string password) {
+int checkExistOfStudentAccount(STU_NODE* head, std::string user, std::string password, STUDENT& logged) {
 
 
 	STU_NODE* current = head;
 
 	while (current) {
-		if (user == current->student.StudentID && password == current->student.Password)
+		if (user == current->student.StudentID && password == current->student.Password) {
+			logged = current->student;
 			return 1;
+		}
 		else if (user == current->student.StudentID && password != current->student.Password)
 			return -1;
 		else
@@ -66,3 +79,5 @@ void print_Students(STU_NODE* head) {
 		cur = cur->next;
 	}
 } //for testing
+
+

@@ -105,29 +105,35 @@ struct STAFF {
 
 struct STU_NODE {
     STUDENT student;
-    STU_NODE* next;
-    STU_NODE* prev;
+    STU_NODE* next = nullptr;
+    STU_NODE* prev = nullptr;
 };
 
 struct STFF_NODE {
     STAFF staff;
-    STFF_NODE* next;
-    STFF_NODE* prev;
+    STFF_NODE* next = nullptr;
+    STFF_NODE* prev = nullptr;
 };
 
-//Doc thong tin cua giao vien v�o DLL
-//void getData_A_Teacher(std::ifstream& input, STFF_NODE*& head);
-//void getDataTeachers_csv(STAFF staff, STFF_NODE*& head);
+//Doc thong tin cua giao vien vao DLL
+
 void getData_A_Teacher(STAFF staff, STFF_NODE*& head);
 void getDataTeachers_csv(std::ifstream& input, STFF_NODE*& head);
 void print_Staffs(STFF_NODE* head);
+
 //Read Student's Data and create D_Linked List
 void getData_A_Student(STUDENT student, STU_NODE*& head);
 void getDataStudents_csv(std::ifstream& input, STU_NODE*& head);
 void print_Students(STU_NODE* head);
 
 //checkAcount
-int checkExistOfStudentAccount(STU_NODE* head, std::string user, std::string password);
-int checkExistOfStaffAccount(STFF_NODE* head, std::string user, std::string password);
+int checkExistOfStudentAccount(STU_NODE* head, std::string user, std::string password, STUDENT& logged);
+int checkExistOfStaffAccount(STFF_NODE* head, std::string user, std::string password, STAFF& logged);
+
+//TEACHER'S OPTIONAL FUNCTIONS
+
+
+//STUDENT'S OPTIONAL FUNCTIONS
+
 
 #endif

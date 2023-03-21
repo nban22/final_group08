@@ -10,20 +10,9 @@ void getDataTeachers_csv(ifstream& input, STFF_NODE*& head)
 	input.open("teachers.csv");
 	STAFF teacher;
 
-	getline(input, teacher.TeacherID, ',');
-	getline(input, teacher.TeacherID, ',');
-	getline(input, teacher.TeacherID, ',');
-	getline(input, teacher.TeacherID, ',');
-	getline(input, teacher.TeacherID, ',');
-	getline(input, teacher.TeacherID, ',');
-	getline(input, teacher.TeacherID, ',');
-	getline(input, teacher.TeacherID, ',');
 	getline(input, teacher.TeacherID);
-	
-
 	while (!input.eof())
 	{
-		
 		string tmp;
 		getline(input, tmp, ',');
 		teacher.No_Staff = stoi(tmp);
@@ -64,29 +53,13 @@ void getData_A_Teacher(STAFF staff, STFF_NODE*& head) {
     }
 } 
 
-void print_Staffs(STFF_NODE* head) {
-        STFF_NODE* cur = head;
-	while (cur) {
-		cout << cur->staff.No_Staff << " " << cur->staff.TeacherID << " " << cur->staff.LName << " " << cur->staff.FName << " " << cur->staff.Gender << " " << cur->staff.SocialID <<  " " << cur->staff.Faculty << "\n";
-		cur = cur->next;
-	}
-} //for testing
-
 //STUDENT
 void getDataStudents_csv(ifstream& input, STU_NODE*& head) {
     input.open("students.csv");
 
 	STUDENT student;
-	getline(input, student.StudentID, ',');
-	getline(input, student.StudentID, ',');
-	getline(input, student.StudentID, ',');
-	getline(input, student.StudentID, ',');
-	getline(input, student.StudentID, ',');
-	getline(input, student.StudentID, ',');
-	getline(input, student.StudentID, ',');
-	getline(input, student.StudentID, ',');
+	
 	getline(input, student.StudentID);
-
     while (!input.eof()) {
 		string tmp;
 		getline(input, tmp, ',');
@@ -128,4 +101,3 @@ void getData_A_Student(STUDENT student, STU_NODE*& head) {
 		tmp->prev = cur;
     }
 }
- //for testing
