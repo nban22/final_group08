@@ -124,3 +124,23 @@ bool Read_After_Update_Teachers(STFF_NODE*& head) {
 	outfile.close();
 	return 1;
 }
+bool Read_After_Update_Students(STU_NODE*& head) {
+	ofstream outfile;
+	outfile.open("Test.csv");
+	if (!outfile.is_open()) {
+		return 0;
+	}
+	outfile << "No.,Student ID,Password,Last Name,First Name,Gender,Date Of Birth,Social ID,Classes,Class ID" << endl;
+	for (STU_NODE* h = head; h != nullptr; h = h->next) {
+		outfile << h->student.No_Student << "," << h->student.StudentID << "," << h->student.Password << "," << h->student.LName << ","
+			<< h->student.FName << "," << h->student.Gender << ","
+			<< h->student.DoB.day / 10 << h->student.DoB.day % 10 << "/" << h->student.DoB.month / 10 << h->student.DoB.month % 10 << "/"
+			<< h->student.DoB.year << "," << h->student.SocialID << "," << h->student.Classes.name << "," << h->student.Classes.ClassID;
+		if (h->next != nullptr)
+			outfile << "\n";
+	}
+	outfile.close();
+	return 1;
+}
+
+
