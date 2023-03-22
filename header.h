@@ -134,7 +134,7 @@ int checkExistOfStaffAccount(STFF_NODE*& head, std::string user, std::string pas
 bool Read_After_Update_Teachers(STFF_NODE*& head);
 
 //STUDENT'S OPTIONAL FUNCTIONS
-
+bool Read_After_Update_Students(STU_NODE*& head);
 
 
 #endif
