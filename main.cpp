@@ -211,6 +211,8 @@ int main()
 							system("pause");
 							continue;
 						}
+						loggedinStudent->student.Password = newPass;
+						Read_After_Update_Students(student);
 						cout << "Change password successfully.\n";
 						system("pause");
 						break;
