@@ -36,17 +36,17 @@ int main()
 			check_S = checkExistOfStudentAccount(student, user, pass, loggedinStudent);
 
 			if (check_T == 1 || check_S == 1) {
-				cout << "Logged in successfully.\n";
+				cout << "Logged in successfully.\n\n";
 				system("pause");
 				continue;
 			}
 			if (check_T == -1 || check_S == -1) {
-				cout << "Your password isn't correct. Please, enter again.\n";
+				cout << "Your password isn't correct. Please, enter again.\n\n";
 				system("pause");
 				continue;
 			}
 			if (check_T == 0 || check_S == 0) {
-				cout << "Your account doesn't exist. Please, enter again.\n";
+				cout << "Your account doesn't exist. Please, enter again.\n\n";
 				system("pause");
 			}
 		} while (!(check_T == 1 || check_S == 1));
@@ -91,7 +91,7 @@ int main()
 					cout << "Enter your old password: ";
 					getline(cin, oldPass);
 					if (loggedinStaff.Password != oldPass) {
-						cout << "Your old password has been entered incorrectly. Please, enter again.\n";
+						cout << "Your old password has been entered incorrectly. Please, enter again.\n\n";
 						system("pause");
 						continue;
 					}
@@ -101,11 +101,11 @@ int main()
 						cout << "Enter your new password again: ";
 						getline(cin, newPassAgain);
 						if (newPass != newPassAgain) {
-							cout << "Confirmation password is not correct. Please, enter again.\n";
+							cout << "Confirmation password is not correct. Please, enter again.\n\n";
 							system("pause");
 							continue;
 						}
-						cout << "Change password successfully.\n";
+						cout << "Change password successfully.\n\n";
 						system("pause");
 					}
 				} while (loggedinStaff.Password != oldPass || newPass != newPassAgain);
@@ -149,7 +149,7 @@ int main()
 				return 0;
 			}
 			else {
-				cout << "Invalid selection, please enter again.\n";
+				cout << "Invalid selection, please enter again.\n\n";
 				system("pause");
 			}
 		}
@@ -209,8 +209,6 @@ int main()
 					}
 				} while (loggedinStudent.Password != oldPass || newPass != newPassAgain);
 				
-
-
 				
 			}
 			else if (choose == 2) {
@@ -242,7 +240,7 @@ int main()
 				return 0;
 			}
 			else {
-				cout << "Invalid selection, please enter again.\n";
+				cout << "Invalid selection, please enter again.\n\n";
 				system("pause");
 			}
 
