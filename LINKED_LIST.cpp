@@ -53,6 +53,69 @@ void getData_A_Teacher(STAFF staff, STFF_NODE*& head) {
     }
 } 
 
+//COURSE
+void getDataCourse_csv(ifstream& input, CR_NODE *& head) {
+	input.open("courses.csv"); //put this in main.cpp
+	COURSE course;
+
+	getline(input, course.ID);
+	while (!input.eof())
+	{
+		string tmp;
+		getline(input, course.ID, ',');
+		getline(input, course.CName, ',');
+		getline(input, course.teacherName, ',');
+		input >> course.Credits;
+		input >> course.Max_stdn;
+
+		//GET ENUM VARIABLE:
+		string weekday;
+		getline(input, weekday, ',');
+		WEEKDAY enumwd = ConvertEnumWD(weekday);
+		course.dayOfWeek = enumwd;
+		string session;
+		getline(input, session, ',');
+		SESSION enumss = ConvertEnumSS(session);
+		course.session = enumss;
+
+		getline(input, tmp, '/');
+		course.startDate.day = stoi(tmp);
+		getline(input, tmp, '/');
+		course.startDate.month = stoi(tmp);
+		getline(input, tmp, '/');
+		course.startDate.year = stoi(tmp);
+		getline(input, tmp, '/');
+
+		course.endDate.day = stoi(tmp);
+		getline(input, tmp, '/');
+		course.endDate.month = stoi(tmp);
+		getline(input, tmp, '/');
+		course.endDate.year = stoi(tmp);
+
+		getData_A_Course(course, head);
+	}
+	input.close();
+	return;
+}
+
+void getData_A_Course(COURSE course, CR_NODE *& head) {
+    CR_NODE* tmp = new CR_NODE;
+    tmp->course = course;
+    tmp->next = nullptr;
+
+    if (!head) {
+        head = tmp;
+		head->prev = nullptr;
+    } else {
+        CR_NODE* cur = head;
+        while (cur->next) {
+            cur = cur->next;
+        }
+        cur->next = tmp;
+		tmp->prev = cur;
+    }
+}
+
 //STUDENT
 void getDataStudents_csv(ifstream& input, STU_NODE*& head) {
     input.open("students.csv");
@@ -101,3 +164,4 @@ void getData_A_Student(STUDENT student, STU_NODE*& head) {
 		tmp->prev = cur;
     }
 }
+

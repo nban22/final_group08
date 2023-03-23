@@ -15,14 +15,13 @@ struct DATE {
 };
 
 enum WEEKDAY {
-  MON, TUE, WED, THU, FRI, SAT
+    MON, TUE, WED, THU, FRI, SAT
+    //convert function below
 };
 
 enum SESSION {
-  S1,
-  S2,
-  S3,
-  S4
+    S1, S2, S3, S4
+    //convert function below
 };
 
 struct CLASS {
@@ -37,9 +36,17 @@ struct COURSE {
     std::string teacherName;
     int Credits;
     int Max_stdn;
-    WEEKDAY *dayOfWeek;
-    SESSION *session;
+    WEEKDAY dayOfWeek; //ONLY 1 SESSION/WEEK/COURSE
+    SESSION session;
+    DATE startDate, endDate;
+
+    void ViewCourses();
+    void UpdateCourseInfo();
+    void DeleteCourse();
+    void Back();
 };
+
+
 
 struct SEMESTER {
     DATE startDate, endDate;
@@ -115,8 +122,13 @@ struct STFF_NODE {
     STFF_NODE* prev = nullptr;
 };
 
-//Doc thong tin cua giao vien vao DLL
+struct CR_NODE {
+    COURSE course;
+    CR_NODE* next = nullptr;
+    CR_NODE* prev = nullptr;
+};
 
+//Read Teacher's Data and create D_Linked List
 void getData_A_Teacher(STAFF staff, STFF_NODE*& head);
 void getDataTeachers_csv(std::ifstream& input, STFF_NODE*& head);
 void print_Staffs(STFF_NODE* head);
@@ -125,6 +137,10 @@ void print_Staffs(STFF_NODE* head);
 void getData_A_Student(STUDENT student, STU_NODE*& head);
 void getDataStudents_csv(std::ifstream& input, STU_NODE*& head);
 void print_Students(STU_NODE* head);
+
+//Read Student's Data and create D_Linked List
+void getDataCourse_csv(ifstream& input, CR_NODE *& head);
+void getData_A_Course(COURSE course, CR_NODE *& head);
 
 //checkAcount
 int checkExistOfStudentAccount(STU_NODE* head, std::string user, std::string password, STUDENT& logged);
@@ -135,5 +151,24 @@ int checkExistOfStaffAccount(STFF_NODE* head, std::string user, std::string pass
 
 //STUDENT'S OPTIONAL FUNCTIONS
 
+
+//COURSE'S OPTIONAL FUNCTIONS
+//WEEKDAY
+WEEKDAY ConvertEnumWD(std::string &str) {
+    if (str.compare("MON") == 0) return MON;
+    else if (str.compare("TUE") == 0) return TUE;
+    else if (str.compare("WED") == 0) return WED;
+    else if (str.compare("THU") == 0) return THU;
+    else if (str.compare("FRI") == 0) return FRI;
+    else if (str.compare("SAT") == 0) return SAT;
+}
+
+//SESSION
+SESSION ConvertEnumSS(std::string &str) {
+    if (str.compare("S1") == 0) return S1;
+    else if (str.compare("S2") == 0) return S2;
+    else if (str.compare("S3") == 0) return S3;
+    else if (str.compare("S4") == 0) return S4;
+}
 
 #endif
