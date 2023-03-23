@@ -1,4 +1,4 @@
-﻿No,Teacher ID,Password,Last Name,First Name,Gender,Date Of Birth,Social ID,Faculty
+No,Teacher ID,Password,Last Name,First Name,Gender,Date Of Birth,Social ID,Faculty
 1,33383147,123456,Bui Thuc,Minh,Nam,02/19/1983,064600354250,Nang luong va moi truong dien tu
 2,33517241,123456,Le Thi,Huong,Nu,08/19/1991,056289033449,Ky thuat dien
 3,86379084,123456,Nguyen Hoai,Bao,Nam,10/04/1989,083967240944,Thiet bi mang va nha may dien
@@ -46,6 +46,6 @@
 45,22983710,123456,Pham Ngoc Minh,Quynh,Nu,03/15/1984,068293055118,Khoa hoc thuc pham
 46,35365848,123456,Hoang Ngoc,Anh,Nam,12/18/1993,058849183779,Cong nghe sau thu hoach
 47,88278511,123456,Nguyen Van,Tuong,Nam,02/25/1992,072348671509,Che tao may va thiet bi
-48,54520890,123456,Nguyen Minh,Quan,Nam,08/12/1988,082006580032,Quan ly san xuat
-49,74937437,123456,Ngo Quang,Trong,Nam,01/20/1996,087371680415,Cong nghe che tao may
+48,54520890,nguyenbaan,Nguyen Minh,Quan,Nam,08/12/1988,082006580032,Quan ly san xuat
+49,74937437,123,Ngo Quang,Trong,Nam,01/20/1996,087371680415,Cong nghe che tao may
 50,24061530,123456,Trinh Thi,Linh,Nu,11/15/1988,024433692385,Ky thuat vat lieu

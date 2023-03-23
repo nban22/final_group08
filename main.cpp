@@ -86,36 +86,7 @@ int main()
 			cin.ignore();
 
 			if (choose == 1) {
-				string oldPass;
-				string newPass;
-				string newPassAgain;
-				do {
-					system("cls");
-					cout << "Enter your old password: ";
-					getline(cin, oldPass);
-					if (loggedinStaff->staff.Password != oldPass) {
-						cout << "Your old password has been entered incorrectly. Please, enter again.\n\n";
-						system("pause");
-						continue;
-					}
-					else {
-						cout << "Enter your new password: ";
-						getline(cin, newPass);
-						cout << "Enter your new password again: ";
-						getline(cin, newPassAgain);
-						if (newPass != newPassAgain) {
-							cout << "Confirmation password is not correct. Please, enter again.\n\n";
-							system("pause");
-							continue;
-						}
-						loggedinStaff->staff.Password = newPass;
-						Read_After_Update_Teachers(staff);
-						cout << "Change password successfully.\n\n";
-						system("pause");
-						break;
-					}
-				} while (loggedinStaff->staff.Password != oldPass || newPass != newPassAgain);
-
+				changePassWordOfStaffAccount(staff, loggedinStaff);
 			}
 			else if (choose == 2) {
 
@@ -180,7 +151,7 @@ int main()
 			cout << "Numerical order: " << loggedinStudent->student.No_Student << endl;
 			cout << "Full name: " << loggedinStudent->student.LName << " " << loggedinStudent->student.FName << "\tStudent ID: " << loggedinStudent->student.StudentID << endl;
 			cout << "Gender: " << loggedinStudent->student.Gender << "\tDate of birth: " 
-				<< loggedinStudent->student.DoB.day << "/" << loggedinStudent->student.DoB.month << "/" << loggedinStudent->student.DoB.year << endl;
+				<< loggedinStudent->student.DoB.day/10 << loggedinStudent->student.DoB.day % 10 << "/" << loggedinStudent->student.DoB.month/10 << loggedinStudent->student.DoB.month % 10 << "/" << loggedinStudent->student.DoB.year << endl;
 			cout << "Class name: " << loggedinStudent->student.Classes.name << "\tClass ID: " << loggedinStudent->student.Classes.ClassID << "\n\n";
 
 			cout << "Enter select the option you want to choose: ";
@@ -189,35 +160,7 @@ int main()
 			cin.ignore();
 
 			if (choose == 1) {
-				string oldPass;
-				string newPass;
-				string newPassAgain;
-				do {
-					system("cls");
-					cout << "Enter your old password: ";
-					getline(cin, oldPass);
-					if (loggedinStudent->student.Password != oldPass) {
-						cout << "Your old password has been entered incorrectly. Please, enter again.\n";
-						system("pause");
-						continue;
-					}
-					else {
-						cout << "Enter your new password: ";
-						getline(cin, newPass);
-						cout << "Enter your new password again: ";
-						getline(cin, newPassAgain);
-						if (newPass != newPassAgain) {
-							cout << "Confirmation password is not correct. Please, enter again.\n";
-							system("pause");
-							continue;
-						}
-						cout << "Change password successfully.\n";
-						system("pause");
-						break;
-					}
-				} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
-				
-				
+				changePasswordOfStudentAccount(student, loggedinStudent);				
 			}
 			else if (choose == 2) {
 
