@@ -6,8 +6,9 @@ using namespace std;
 int main()
 {
 	ifstream input;
-	STFF_NODE* staff = nullptr;
+	STFF_NODE* staff = nullptr; 
 	getDataTeachers_csv(input, staff);
+	//STFF_NODE* staff2 = staff;
 	//print_Staffs(staff);  //for testing
 	//system("pause");
 
@@ -18,9 +19,10 @@ int main()
 	ifstream input_S;
 	STU_NODE* student = nullptr;
 	getDataStudents_csv(input_S, student);
+	/*STU_NODE* student2 = student;*/
 
-	STAFF loggedinStaff;
-	STUDENT loggedinStudent;
+	STFF_NODE* loggedinStaff = new STFF_NODE;
+	STU_NODE* loggedinStudent = new STU_NODE;
 
 	while (69) {
 		int check_T, check_S;
@@ -72,10 +74,11 @@ int main()
 			cout << "========================END========================\n\n";
 
 			cout << "Teacher.\n";
-			cout << "Numerical order: " << loggedinStaff.No_Staff << endl;
-			cout << "Full name: " << loggedinStaff.LName << " " << loggedinStaff.FName << "\tTeacher ID: " << loggedinStaff.TeacherID << endl;
-			cout << "Gender: " << loggedinStaff.Gender << "\tDate of birth: " << loggedinStaff.DoB.day << "/" << loggedinStaff.DoB.month << "/" << loggedinStaff.DoB.year << endl;
-			cout << "Faculty: " << loggedinStaff.Faculty << "\n\n";
+			cout << "Numerical order: " << loggedinStaff->staff.No_Staff << endl;
+			cout << "Full name: " << loggedinStaff->staff.LName << " " << loggedinStaff->staff.FName << "\tTeacher ID: " << loggedinStaff->staff.TeacherID << endl;
+			cout << "Gender: " << loggedinStaff->staff.Gender << "\tDate of birth: " 
+				<< loggedinStaff->staff.DoB.day << "/" << loggedinStaff->staff.DoB.month << "/" << loggedinStaff->staff.DoB.year << endl;
+			cout << "Faculty: " << loggedinStaff->staff.Faculty << "\n\n";
 
 			cout << "Enter select the option you want to choose: ";
 			int choose;
@@ -90,7 +93,7 @@ int main()
 					system("cls");
 					cout << "Enter your old password: ";
 					getline(cin, oldPass);
-					if (loggedinStaff.Password != oldPass) {
+					if (loggedinStaff->staff.Password != oldPass) {
 						cout << "Your old password has been entered incorrectly. Please, enter again.\n\n";
 						system("pause");
 						continue;
@@ -105,10 +108,13 @@ int main()
 							system("pause");
 							continue;
 						}
+						loggedinStaff->staff.Password = newPass;
+						Read_After_Update_Teachers(staff);
 						cout << "Change password successfully.\n\n";
 						system("pause");
+						break;
 					}
-				} while (loggedinStaff.Password != oldPass || newPass != newPassAgain);
+				} while (loggedinStaff->staff.Password != oldPass || newPass != newPassAgain);
 
 			}
 			else if (choose == 2) {
@@ -171,10 +177,11 @@ int main()
 			cout << "========================END========================\n";
 
 			cout << "Student.\n";
-			cout << "Numerical order: " << loggedinStudent.No_Student << endl;
-			cout << "Full name: " << loggedinStudent.LName << " " << loggedinStudent.FName << "\tStudent ID: " << loggedinStudent.StudentID << endl;
-			cout << "Gender: " << loggedinStudent.Gender << "\tDate of birth: " << loggedinStudent.DoB.day << "/" << loggedinStudent.DoB.month << "/" << loggedinStudent.DoB.year << endl;
-			cout << "Class name: " << loggedinStudent.Classes.name << "\tClass ID: " << loggedinStudent.Classes.ClassID << "\n\n";
+			cout << "Numerical order: " << loggedinStudent->student.No_Student << endl;
+			cout << "Full name: " << loggedinStudent->student.LName << " " << loggedinStudent->student.FName << "\tStudent ID: " << loggedinStudent->student.StudentID << endl;
+			cout << "Gender: " << loggedinStudent->student.Gender << "\tDate of birth: " 
+				<< loggedinStudent->student.DoB.day << "/" << loggedinStudent->student.DoB.month << "/" << loggedinStudent->student.DoB.year << endl;
+			cout << "Class name: " << loggedinStudent->student.Classes.name << "\tClass ID: " << loggedinStudent->student.Classes.ClassID << "\n\n";
 
 			cout << "Enter select the option you want to choose: ";
 			int choose;
@@ -189,7 +196,7 @@ int main()
 					system("cls");
 					cout << "Enter your old password: ";
 					getline(cin, oldPass);
-					if (loggedinStudent.Password != oldPass) {
+					if (loggedinStudent->student.Password != oldPass) {
 						cout << "Your old password has been entered incorrectly. Please, enter again.\n";
 						system("pause");
 						continue;
@@ -206,8 +213,9 @@ int main()
 						}
 						cout << "Change password successfully.\n";
 						system("pause");
+						break;
 					}
-				} while (loggedinStudent.Password != oldPass || newPass != newPassAgain);
+				} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
 				
 				
 			}
