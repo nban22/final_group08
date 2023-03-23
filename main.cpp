@@ -160,7 +160,39 @@ int main()
 			cin.ignore();
 
 			if (choose == 1) {
-				changePasswordOfStudentAccount(student, loggedinStudent);				
+				string oldPass;
+				string newPass;
+				string newPassAgain;
+				do {
+					system("cls");
+					cout << "Enter your old password: ";
+					getline(cin, oldPass);
+					if (loggedinStudent->student.Password != oldPass) {
+						cout << "Your old password has been entered incorrectly. Please, enter again.\n";
+						system("pause");
+						continue;
+					}
+					else {
+						cout << "Enter your new password: ";
+						getline(cin, newPass);
+						cout << "Enter your new password again: ";
+						getline(cin, newPassAgain);
+						if (newPass != newPassAgain) {
+							cout << "Confirmation password is not correct. Please, enter again.\n";
+							system("pause");
+							continue;
+						}
+						loggedinStudent->student.Password = newPass;
+						Read_After_Update_Students(student);
+						cout << "Change password successfully.\n";
+						system("pause");
+						break;
+					}
+				} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
+				
+
+
+				
 			}
 			else if (choose == 2) {
 
