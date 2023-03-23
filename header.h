@@ -143,13 +143,17 @@ void getDataCourse_csv(ifstream& input, CR_NODE *& head);
 void getData_A_Course(COURSE course, CR_NODE *& head);
 
 //checkAcount
-int checkExistOfStudentAccount(STU_NODE* head, std::string user, std::string password, STUDENT& logged);
-int checkExistOfStaffAccount(STFF_NODE* head, std::string user, std::string password, STAFF& logged);
+int checkExistOfStudentAccount(STU_NODE*& head, std::string user, std::string password, STU_NODE*& logged);
+int checkExistOfStaffAccount(STFF_NODE*& head, std::string user, std::string password, STFF_NODE*& logged);
 
 //TEACHER'S OPTIONAL FUNCTIONS
-
+bool Read_After_Update_Teachers(STFF_NODE*& head);
+void changePassWordOfStaffAccount(STFF_NODE*& staff, STFF_NODE*& loggedinStaff);
 
 //STUDENT'S OPTIONAL FUNCTIONS
+bool Read_After_Update_Students(STU_NODE*& head);
+void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStudent);
+
 
 
 //COURSE'S OPTIONAL FUNCTIONS

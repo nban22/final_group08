@@ -2,27 +2,16 @@
 
 using namespace std;
 
-//****************LOGIN/LOGOUT*****************
+//*****************LOGIN/LOGOUT*****************
 
 //STAFF
-void LoginStaff(std::string Username, std::string Pass, STFF_NODE* head) {
-	STFF_NODE* cur = head;
-	while (cur) {
-		if ((Username.compare(cur->staff.TeacherID) == 0) && (Pass.compare(cur->staff.Password) == 0)) {
-			cout << "LOGIN SUCCESS";
-			//********RUN THE PROGRAM*********
-		} 
-		cur = cur->next;
-	}
-}
-
-int checkExistOfStaffAccount(STFF_NODE* head, std::string user, std::string password, STAFF& logged) {
+int checkExistOfStaffAccount(STFF_NODE*& head, std::string user, std::string password, STFF_NODE*& logged) {
 
 	STFF_NODE* current = head;
 
 	while (current) {
 		if (user == current->staff.TeacherID && password == current->staff.Password) {
-			logged = current->staff;
+			logged = current;
 			return 1;
 		}
 		else if (user == current->staff.TeacherID && password != current->staff.Password)
@@ -32,6 +21,7 @@ int checkExistOfStaffAccount(STFF_NODE* head, std::string user, std::string pass
 	}
 	return 0;
 }
+
 void print_Staffs(STFF_NODE* head) {
 	STFF_NODE* cur = head;
 	while (cur) {
@@ -40,28 +30,47 @@ void print_Staffs(STFF_NODE* head) {
 	}
 } //for testing
 
+void changePassWordOfStaffAccount(STFF_NODE*& staff, STFF_NODE*& loggedinStaff) {
+	string oldPass;
+	string newPass;
+	string newPassAgain;
+	do {
+		system("cls");
+		cout << "Enter your old password: ";
+		getline(cin, oldPass);
+		if (loggedinStaff->staff.Password != oldPass) {
+			cout << "Your old password has been entered incorrectly. Please, enter again.\n\n";
+			system("pause");
+			continue;
+		}
+		else {
+			cout << "Enter your new password: ";
+			getline(cin, newPass);
+			cout << "Enter your new password again: ";
+			getline(cin, newPassAgain);
+			if (newPass != newPassAgain) {
+				cout << "Confirmation password is not correct. Please, enter again.\n\n";
+				system("pause");
+				continue;
+			}
+			loggedinStaff->staff.Password = newPass;
+			Read_After_Update_Teachers(staff);
+			cout << "Change password successfully.\n\n";
+			system("pause");
+			break;
+		}
+	} while (loggedinStaff->staff.Password != oldPass || newPass != newPassAgain);
+}
 
 
 
 //STUDENT
-void LoginStudent(std::string Username, std::string Pass, STU_NODE* head) {
-	STU_NODE* cur = head;
-	while (cur) {
-		if ((Username.compare(cur->student.StudentID) == 0) && (Pass.compare(cur->student.Password) == 0)) {
-			cout << "LOGIN SUCCESS";
-			//********RUN THE PROGRAM*********
-		} 
-		cur = cur->next;
-	}
-}
-int checkExistOfStudentAccount(STU_NODE* head, std::string user, std::string password, STUDENT& logged) {
-
-
+int checkExistOfStudentAccount(STU_NODE*& head, std::string user, std::string password, STU_NODE*& logged) {
 	STU_NODE* current = head;
 
 	while (current) {
 		if (user == current->student.StudentID && password == current->student.Password) {
-			logged = current->student;
+			logged = current;
 			return 1;
 		}
 		else if (user == current->student.StudentID && password != current->student.Password)
@@ -80,4 +89,34 @@ void print_Students(STU_NODE* head) {
 	}
 } //for testing
 
-
+void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStudent) {
+	string oldPass;
+	string newPass;
+	string newPassAgain;
+	do {
+		system("cls");
+		cout << "Enter your old password: ";
+		getline(cin, oldPass);
+		if (loggedinStudent->student.Password != oldPass) {
+			cout << "Your old password has been entered incorrectly. Please, enter again.\n";
+			system("pause");
+			continue;
+		}
+		else {
+			cout << "Enter your new password: ";
+			getline(cin, newPass);
+			cout << "Enter your new password again: ";
+			getline(cin, newPassAgain);
+			if (newPass != newPassAgain) {
+				cout << "Confirmation password is not correct. Please, enter again.\n";
+				system("pause");
+				continue;
+			}
+			loggedinStudent->student.Password = newPass;
+			Read_After_Update_Students(student);
+			cout << "Change password successfully.\n";
+			system("pause");
+			break;
+		}
+	} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
+}
