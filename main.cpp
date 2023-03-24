@@ -120,7 +120,7 @@ int main()
 				cout << "what is the id of the student?" << endl;
 				cin >> student_id;
 				EnterCourseScore(student_id, stu_course, course);
-				//Read_After_Update_CourseStudents(stu_course);
+				Read_After_Update_CourseStudents(stu_course);
 				count = 7;
 				system("pause");
 			}

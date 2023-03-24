@@ -195,7 +195,7 @@ SESSION ConvertEnumSS(std::string& str);
 // viet danh sach sinh vien da dang ky khoa hoc, (mac dinh moi sinh vien 1 mon hoc) random cac mon hoc cho sinh  vien.
 void WriteRegisterStuDefault(CR_NODE* C, STU_NODE* S, STU_COURSE_NODE*& SC);
 
-//bool Read_After_Update_CourseStudents(STU_COURSE_NODE*& head);
+bool Read_After_Update_CourseStudents(STU_COURSE_NODE*& head);
 
 void EnterCourseScore(std::string student_ID, STU_COURSE_NODE* SC, CR_NODE* C);
 #endif

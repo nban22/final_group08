@@ -222,6 +222,25 @@ void WriteRegisterStuDefault(CR_NODE* C, STU_NODE* S, STU_COURSE_NODE*& SC) {
 	cur_stu = cur_stu->next;
 }
 
+bool Read_After_Update_CourseStudents(STU_COURSE_NODE*& head) {
+	ofstream outfile;
+	outfile.open("Test2.csv");
+	if (!outfile.is_open()) {
+		return 0;
+	}
+	outfile << "ID,CName,teacherName,Credits,Max_stdn,Weekday,Session,Start date,End date" << endl;
+	for (STU_COURSE_NODE* h = head; h != nullptr; h = h->next) {
+		outfile << h->stu_course.CouID << "," << h->stu_course.Cname << "," << h->stu_course.Tname << "," << h->stu_course.credits << ","
+			<< h->stu_course.Max_stdn << "," << h->stu_course.day1 << ","
+			<< h->stu_course.session1 << "," << h->stu_course.startdate.day << "/" << h->stu_course.startdate.month << "/" << h->stu_course.startdate.year << ","
+			<< h->stu_course.enddate.day << "/" << h->stu_course.enddate.month << "/" << h->stu_course.enddate.year;
+		if (h->next != nullptr)
+			outfile << "\n";
+	}
+	outfile.close();
+	return 1;
+}
+
 //STUDENT
 void getDataStudents_csv(ifstream& input, STU_NODE*& head) {
 	input.open("students.csv");
