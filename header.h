@@ -46,7 +46,27 @@ struct COURSE {
     void Back();
 };
 
-
+struct STU_COURSE {
+    int No;
+    std::string StuID;
+    std::string Fname;
+    std::string Lname;
+    std::string Gen;
+    std::string Class;
+    std::string CouID;
+    std::string Cname;
+    int credits;
+    int Max_stdn;
+    std::string Tname;
+    std::string day1;
+    std::string session1;
+    DATE startdate;
+    DATE enddate;
+    float other;
+    float midterm;
+    float final;
+    float total;
+};
 
 struct SEMESTER {
     DATE startDate, endDate;
@@ -128,6 +148,12 @@ struct CR_NODE {
     CR_NODE* prev = nullptr;
 };
 
+struct STU_COURSE_NODE {
+    STU_COURSE stu_course;
+    STU_COURSE_NODE* next;
+    STU_COURSE_NODE* prev;
+};
+
 //Read Teacher's Data and create D_Linked List
 void getData_A_Teacher(STAFF staff, STFF_NODE*& head);
 void getDataTeachers_csv(std::ifstream& input, STFF_NODE*& head);
@@ -138,8 +164,8 @@ void getData_A_Student(STUDENT student, STU_NODE*& head);
 void getDataStudents_csv(std::ifstream& input, STU_NODE*& head);
 void print_Students(STU_NODE* head);
 
-//Read Student's Data and create D_Linked List
-void getDataCourse_csv(ifstream& input, CR_NODE *& head);
+//Read Course's Data and create D_Linked List
+void getDataCourse_csv(std::ifstream& input, CR_NODE *& head);
 void getData_A_Course(COURSE course, CR_NODE *& head);
 
 //checkAcount
@@ -175,4 +201,10 @@ SESSION ConvertEnumSS(std::string &str) {
     else if (str.compare("S4") == 0) return S4;
 }
 
+// viet danh sach sinh vien da dang ky khoa hoc, (mac dinh moi sinh vien 1 mon hoc) random cac mon hoc cho sinh  vien.
+void WriteRegisterStuDefault(CR_NODE* C, STU_NODE* S, STU_COURSE_NODE*& SC);
+
+bool Read_After_Update_Course(STU_COURSE_NODE*& head);
+
+void EnterCourseScore(std::string student_ID, STU_COURSE_NODE* SC, CR_NODE* C);
 #endif
