@@ -57,7 +57,25 @@ void getData_A_Teacher(STAFF staff, STFF_NODE*& head) {
 
 
 //COURSE
-void getDataCourse_csv(std::ifstream& input, CR_NODE*& head){
+//Weekday
+WEEKDAY ConvertEnumWD(std::string& str) {
+	if (str.compare("MON") == 0) return MON;
+	else if (str.compare("TUE") == 0) return TUE;
+	else if (str.compare("WED") == 0) return WED;
+	else if (str.compare("THU") == 0) return THU;
+	else if (str.compare("FRI") == 0) return FRI;
+	else return SAT;
+}
+
+//Session
+SESSION ConvertEnumSS(std::string& str) {
+	if (str.compare("S1") == 0) return S1;
+	else if (str.compare("S2") == 0) return S2;
+	else if (str.compare("S3") == 0) return S3;
+	else return S4;
+}
+
+void getDataCourse_csv(ifstream& input, CR_NODE *& head) {
 	input.open("courses.csv"); //put this in main.cpp
 	COURSE course;
 
@@ -291,23 +309,23 @@ bool Read_After_Update_Students(STU_NODE*& head) {
 	return 1;
 }
 
-
-bool Read_After_Update_Course(STU_COURSE_NODE*& head) {
+bool Read_After_Update_Courses(CR_NODE*& head) {
 	ofstream outfile;
-	outfile.open("Test2.csv");
+	outfile.open("coursetest.csv");
 	if (!outfile.is_open()) {
 		return 0;
 	}
-	outfile << "ID,CName,teacherName,Credits,Max_stdn,Weekday,Session,Start date,End date" << endl;
-	for (STU_COURSE_NODE* h = head; h != nullptr; h = h->next) {
-		outfile << h->stu_course.CouID << "," << h->stu_course.Cname << "," << h->stu_course.Tname << "," << h->stu_course.credits << ","
-			<< h->stu_course.Max_stdn << "," << h->stu_course.day1 << ","
-			<< h->stu_course.session1 << "," << h->stu_course.startdate.day << "/" << h->stu_course.startdate.month << "/" << h->stu_course.startdate.year << ","
-			<< h->stu_course.enddate.day << "/" << h->stu_course.enddate.month << "/" << h->stu_course.enddate.year;
-		if (h->next != nullptr)
+	outfile << "ID,Cname,teacherName,Credits,Max_stdn,Weekday,Session,Start date,End date" << endl;
+	for (CR_NODE* c = head; c != nullptr; c = c->next) {
+		outfile << c->course.ID << "," << c->course.CName << "," << c->course.teacherName << ","
+			<< c->course.Credits << "," << c->course.Max_stdn << "," << c->course.dayOfWeek << ","
+			<< c->course.session << "," 
+			<< c->course.startDate.day / 10 << c->course.startDate.day % 10 << "/" << c->course.startDate.month / 10 << c->course.startDate.month % 10 << "/" << c->course.startDate.year << ","
+			<< c->course.endDate.day / 10 << c->course.endDate.day % 10 << "/" << c->course.endDate.month / 10 << c->course.endDate.month % 10 << "/" << c->course.endDate.year;
+		if (c->next != nullptr) {
 			outfile << "\n";
+		}
 	}
 	outfile.close();
 	return 1;
 }
-

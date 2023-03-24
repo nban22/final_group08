@@ -6,6 +6,7 @@
 #include <cstring>
 #include <fstream>
 
+
 //Using namespace std;
 //Shouldn't use namespace in a header files!
 
@@ -157,12 +158,12 @@ struct STU_COURSE_NODE {
 //Read Teacher's Data and create D_Linked List
 void getData_A_Teacher(STAFF staff, STFF_NODE*& head);
 void getDataTeachers_csv(std::ifstream& input, STFF_NODE*& head);
-void print_Staffs(STFF_NODE* head);
+void print_Staffs(STFF_NODE* head); //for testing
 
 //Read Student's Data and create D_Linked List
 void getData_A_Student(STUDENT student, STU_NODE*& head);
 void getDataStudents_csv(std::ifstream& input, STU_NODE*& head);
-void print_Students(STU_NODE* head);
+void print_Students(STU_NODE* head); //for testing
 
 //Read Course's Data and create D_Linked List
 void getDataCourse_csv(std::ifstream& input, CR_NODE *& head);
@@ -180,31 +181,21 @@ void changePassWordOfStaffAccount(STFF_NODE*& staff, STFF_NODE*& loggedinStaff);
 bool Read_After_Update_Students(STU_NODE*& head);
 void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStudent);
 
-
-
 //COURSE'S OPTIONAL FUNCTIONS
-//WEEKDAY
-WEEKDAY ConvertEnumWD(std::string &str) {
-    if (str.compare("MON") == 0) return MON;
-    else if (str.compare("TUE") == 0) return TUE;
-    else if (str.compare("WED") == 0) return WED;
-    else if (str.compare("THU") == 0) return THU;
-    else if (str.compare("FRI") == 0) return FRI;
-    else if (str.compare("SAT") == 0) return SAT;
-}
+bool Read_After_Update_Course(CR_NODE*& head);
+int DisplayMenu(int& choice);
+void getOption(int& choice, CR_NODE* head);
 
-//SESSION
-SESSION ConvertEnumSS(std::string &str) {
-    if (str.compare("S1") == 0) return S1;
-    else if (str.compare("S2") == 0) return S2;
-    else if (str.compare("S3") == 0) return S3;
-    else if (str.compare("S4") == 0) return S4;
-}
+//Weekday
+WEEKDAY ConvertEnumWD(std::string& str);
+
+//Session
+SESSION ConvertEnumSS(std::string& str);
 
 // viet danh sach sinh vien da dang ky khoa hoc, (mac dinh moi sinh vien 1 mon hoc) random cac mon hoc cho sinh  vien.
 void WriteRegisterStuDefault(CR_NODE* C, STU_NODE* S, STU_COURSE_NODE*& SC);
 
-bool Read_After_Update_Course(STU_COURSE_NODE*& head);
+//bool Read_After_Update_CourseStudents(STU_COURSE_NODE*& head);
 
 void EnterCourseScore(std::string student_ID, STU_COURSE_NODE* SC, CR_NODE* C);
 #endif
