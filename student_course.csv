@@ -1,0 +1,21 @@
+﻿No,Student ID,Student Name,Gender,Class Name,Course ID,Course Name,Credits,Max_stdn,Teacher Name,Teacher ID,Week day,session,day start,month start,day end,month end,Midterm Mark,Final Mark,Other Mark,Total Mark
+1,22140014,Huynh Dinh Gia An,Nam,22CLC01,CNTT001,Cong Nghe Thong Tin,3,100,Minh,33383147,MON,S1,30,5,24,8,0,0,0,0
+2,22140018,Quan Vu Hoang Anh,Nam,22CLC01,TTH001,Vi Tich Phan,3,75,Phuong,90176147,SAT,S3,15,9,22,12,0,0,0,0
+3,22140130,Vo Hoang Phuong Uyen,Nu,22CLC02,TTH002,Xac Suat Thong Ke,3,100,Hoan,90596489,FRI,S4,3,1,27,5,0,0,0,0
+4,22140140,Trinh Tran Anh Thu,Nu,22CLC02,TTH003,Toan Cao Cap,3,100,Thom,49375740,THU,S3,17,1,27,5,0,0,0,0
+5,22140396,Phan The Phong,Nam,22CLC03,HH002,Hoa Dai Cuong 1,3,120,Loi,65419458,SAT,S1,16,3,24,8,0,0,0,0
+6,22140400,Trieu My Phuoc,Nam,22CLC03,HH005,Hoa Dai Cuong 2,4,60,Tuan,57832530,TUE,S4,13,6,24,8,0,0,0,0
+7,22146052,Nguyen Thi Tuyet Lan,Nu,22CLC04,SH002,Sinh Dai Cuong 1,3,50,Quyen,76426142,THU,S2,13,6,24,8,0,0,0,0
+8,22146056,Tran Vo Truc Linh,Nu,22CLC04,SH001,Gioi Thieu Nganh Sinh Hoc,2,75,Hoa,74986880,FRI,S2,3,1,27,5,0,0,0,0
+9,22170048,Pham Nguyen Anh Thu,Nu,22CLC05,VLH002,Vat Ly Dai Cuong 1,3,75,Vy,14808476,TUE,S2,30,5,24,8,0,0,0,0
+10,22170063,Tran Thi Phuong  Anh,Nu,22CLC05,VLH005,Vat Ly Dai Cuong 2,4,80,Trang,75770745,FRI,S4,30,5,24,8,0,0,0,0
+11,22177010,Le Nguyen Anh Khue,Nam,22CLC06,MTH004,Con Nguoi Va Moi Truong,4,90,Bao,70279162,WED,S1,13,6,24,8,0,0,0,0
+12,22180047,Nguyen Thu Huyen,Nam,22CLC06,DC002,The Duc 1,2,80,Huong,33517241,SAT,S1,30,5,24,8,0,0,0,0
+13,22180337,Nguyen Thi Thao Nguyen,Nu,22CLC07,DC003,The Duc 2,2,80,Bao,86379084,MON,S2,1,9,22,12,0,0,0,0
+14,22180365,Tran My Tho,Nu,22CLC07,DC004,Triet Hoc Mac Lenin,3,90,Huy,17761815,THU,S2,1,9,22,12,0,0,0,0
+15,22120179,Nguyen Dang Dang Khoa,Nam,22APCS1,DC008,Phap Luat Dai Cuong,3,120,Bao,86379084,MON,S4,17,1,27,5,0,0,0,0
+16,22120184,Le Thi Minh Thu,Nam,22APCS1,TTH005,Dai So Tuyen Tinh,3,50,Tuan,56349112,MON,S3,30,5,24,8,0,0,0,0
+17,22120303,Ngo Thanh Nhan,Nu,22APCS2,HH004,Hoa Dai Cuong 2,4,50,Vinh,73217028,WED,S1,17,1,27,5,0,0,0,0
+18,22120313,Tran Nam Phuong,Nu,22APCS2,VLH001,Gioi Thieu Nganh Vat Ly,2,50,Thinh,82010843,MON,S1,30,5,24,8,0,0,0,0
+19,22120426,Huynh Phat Dat,Nam,22APCS3,DC001,Ky Nang Lam Viec Nhom,2,110,Minh,33383147,MON,S3,13,6,24,8,0,0,0,0
+20,22120435,Le Phan Xuan Dung,Nu,22APCS3,DC006,Lich Su Dang,3,100,Minh,33383147,TUE,S3,30,5,24,8,0,0,0,0
