@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-	int count;
+	int count = 0;
 
 	ifstream input;
 	STFF_NODE* staff = nullptr; 
@@ -23,10 +23,13 @@ int main()
 	getDataStudents_csv(input_S, student);
 	/*STU_NODE* student2 = student;*/
 
-	ifstream input_C;
-	CR_NODE* course = nullptr;
+	ifstream input_STU_CR;
 	STU_COURSE_NODE *stu_course = nullptr;
-	Get_Data_StudentCourse_csv(input_C, stu_course);
+	Get_Data_StudentCourse_csv(input_STU_CR, stu_course);
+
+	ifstream input_CR;
+	CR_NODE* course = nullptr;
+	getDataCourse_csv(input_CR, course);
 
 	STFF_NODE* loggedinStaff = new STFF_NODE;
 	STU_NODE* loggedinStudent = new STU_NODE;
@@ -130,7 +133,22 @@ int main()
 				system("pause");
 			}
 			else if (choose == 8) {
-
+				if (count != 7) {
+					system("cls");
+					cout << "you have not enter the scoreboard for this course" << endl;
+					system("pause");
+					return 0;
+				}
+				int check;
+				system("cls");
+				cout << "\n\t\t\t ********************************************" << endl;
+				cout << "\t\t\t\t      ";
+				cout << "View the scoreboard of a course." << endl;
+				ViewScoreBoard(stu_course, course, loggedinStaff, check);
+				if (check != 0) {
+					count = 8;
+				}
+				system("pause");
 			}
 			else if (choose == 9) {
 
