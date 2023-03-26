@@ -31,6 +31,8 @@ int main()
 	STFF_NODE* loggedinStaff = new STFF_NODE;
 	STU_NODE* loggedinStudent = new STU_NODE;
 
+	
+
 	while (69) {
 		int check_T, check_S;
 		do {
@@ -99,7 +101,11 @@ int main()
 
 			}
 			else if (choose == 3) {
-
+				system("cls");
+				cout << " Create a school year " << endl;
+				int schoolYear;
+				CreateSchoolYear(schoolYear);
+				system("pause");
 			}
 			else if (choose == 4) {
 

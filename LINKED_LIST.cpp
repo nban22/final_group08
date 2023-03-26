@@ -402,3 +402,22 @@ bool Read_After_Update_Student_Course(STU_COURSE_NODE*& head) {
 	outfile.close();
 	return 1;
 }
+void CreateSchoolYear(int& sYEAR) {
+	std::cout << "Input the starting year of the school year: ";
+	std::cin >> sYEAR;
+
+	std::ofstream outfile("NewSchoolYear.csv");
+	if (!outfile.is_open()) {
+		std::cout << "Failed to create file." << std::endl;
+		return;
+	}
+	outfile << "School Year" << std::endl;
+	outfile << sYEAR << "-" << sYEAR + 1 << std::endl;
+	outfile.close();
+
+	std::cout << "New school year created: " << sYEAR << "-" << sYEAR + 1 << std::endl;
+}
+
+
+
+
