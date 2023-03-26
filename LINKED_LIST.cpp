@@ -347,6 +347,7 @@ bool Read_After_Update_Teachers(STFF_NODE*& head) {
 	outfile.close();
 	return 1;
 }
+
 bool Read_After_Update_Students(STU_NODE*& head) {
 	ofstream outfile;
 	outfile.open("Test1.csv");
@@ -366,7 +367,7 @@ bool Read_After_Update_Students(STU_NODE*& head) {
 	return 1;
 }
 
-bool Read_After_Update_Courses(CR_NODE*& head) {
+bool Read_After_Update_Course(CR_NODE*& head) {
 	ofstream outfile;
 	outfile.open("coursetest.csv");
 	if (!outfile.is_open()) {
