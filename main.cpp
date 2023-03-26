@@ -111,7 +111,7 @@ int main()
 
 			}
 			else if (choose == 5) {
-				DisplayMenu(choose);
+				DisplayMenu();
 			}
 			else if (choose == 6) {
 

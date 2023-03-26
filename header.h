@@ -39,6 +39,7 @@ struct COURSE {
     std::string teacherID;
     int Credits;
     int Max_stdn;
+    int Cur_stdn;
     WEEKDAY dayOfWeek; //ONLY 1 SESSION/WEEK/COURSE
     SESSION session;
     DATE startDate, endDate;
@@ -46,7 +47,6 @@ struct COURSE {
     void ViewCourses();
     void UpdateCourseInfo();
     void DeleteCourse();
-    void Back();
 };
 
 struct STU_COURSE {
@@ -183,23 +183,26 @@ void changePassWordOfStaffAccount(STFF_NODE*& staff, STFF_NODE*& loggedinStaff);
 bool Read_After_Update_Students(STU_NODE*& head);
 void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStudent);
 
-//COURSE'S OPTIONAL FUNCTIONS
+//SEMESTER'S OPTIONAL FUNCTIONS
+//COURSE
 bool Read_After_Update_Course(CR_NODE*& head);
-int DisplayMenu(int& choice);
+int DisplayMenu();
 void getOption(int& choice, CR_NODE* head);
+CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID);
 
-//Weekday
+//----Weekday----
 WEEKDAY ConvertEnumWD(std::string& str);
 
-//Session
+//----Session----
 SESSION ConvertEnumSS(std::string& str);
 
+//COURSE_STUDENT
 void getData_A_StuCourse(STU_COURSE studentcourse, STU_COURSE_NODE*& head);
 void Get_Data_StudentCourse_csv(std::ifstream& input, STU_COURSE_NODE*& head);
 bool Read_After_Update_Student_Course(STU_COURSE_NODE*& head);
-
 void EnterCourseScore( STU_COURSE_NODE* &SC, CR_NODE* C, STFF_NODE* loggedinStaff, int &check);
 
+//SCHOOL_YEAR
 void CreateSchoolYear(int& sYEAR);
 
 #endif
