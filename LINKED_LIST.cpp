@@ -84,6 +84,10 @@ void getDataCourse_csv(ifstream& input, CR_NODE *& head) {
 	{
 		string tmp;
 		getline(input, tmp, ',');
+		if (tmp == "") {
+			input.close();
+			return;
+		}
 		course.No = stoi(tmp);
 		getline(input, course.ID, ',');
 		getline(input, course.CName, ',');
@@ -109,14 +113,14 @@ void getDataCourse_csv(ifstream& input, CR_NODE *& head) {
 		course.startDate.day = stoi(tmp);
 		getline(input, tmp, '/');
 		course.startDate.month = stoi(tmp);
-		getline(input, tmp, '/');
+		getline(input, tmp, ',');
 		course.startDate.year = stoi(tmp);
 		getline(input, tmp, '/');
 
 		course.endDate.day = stoi(tmp);
 		getline(input, tmp, '/');
 		course.endDate.month = stoi(tmp);
-		getline(input, tmp, '/');
+		getline(input, tmp);
 		course.endDate.year = stoi(tmp);
 
 		getData_A_Course(course, head);
@@ -186,7 +190,7 @@ void EnterCourseScore(STU_COURSE_NODE* &SC, CR_NODE* C, STFF_NODE* loggedinStaff
 	cout << "\n\n";
 
 	while (cur1) {
-		if (courseID == cur1->stu_course.Cname) {
+		if (courseID == cur1->stu_course.CouID) {
 			cout << "\t\tEnter Score for student:" << endl;
 			cout << cur1->stu_course.StudentName << "  " << cur1->stu_course.StuID << "  " << endl;
 			cout << "Midterm mark: ";
@@ -214,6 +218,7 @@ void Get_Data_StudentCourse_csv(std::ifstream& input, STU_COURSE_NODE*& head) {
 		string tmp;
 		getline(input, tmp, ',');
 		if (tmp == "") {
+			input.close();
 			break;
 		}
 		studentcourse.No = stoi(tmp);
@@ -402,3 +407,76 @@ bool Read_After_Update_Student_Course(STU_COURSE_NODE*& head) {
 	outfile.close();
 	return 1;
 }
+void CreateSchoolYear(int& sYEAR) {
+	std::cout << "Input the starting year of the school year: ";
+	std::cin >> sYEAR;
+
+	std::ofstream outfile("NewSchoolYear.csv");
+	if (!outfile.is_open()) {
+		std::cout << "Failed to create file." << std::endl;
+		return;
+	}
+	outfile << "School Year" << std::endl;
+	outfile << sYEAR << "-" << sYEAR + 1 << std::endl;
+	outfile.close();
+
+	std::cout << "New school year created: " << sYEAR << "-" << sYEAR + 1 << std::endl;
+}
+
+void ViewScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check) {
+	STU_COURSE_NODE *studentcourse = SC;
+	CR_NODE *course = C;
+	int choice;
+	int count = 0;
+	std::string courseID = "";
+
+	cout << "choose a course" << endl;
+	while (course) {
+		if (course->course.teacherID == loggedinStaff->staff.TeacherID) {
+			cout << course->course.No << "  " << course->course.ID << "  " << course->course.CName << endl;
+			count++;
+		}
+		course = course->next;
+	}
+	if (count == 0) {
+		cout << "you have not attend any course" << endl;
+		check = 0;
+		return;
+	}
+
+	cout << "your choice: ";
+	cin >> choice;
+	while (studentcourse) {
+		if (studentcourse->stu_course.No == choice) {
+			courseID = studentcourse->stu_course.CouID;
+			break;
+		}
+		else
+			studentcourse = studentcourse->next;
+	}
+
+	if (courseID == "0") {
+		cout << "Invalid selection, please enter again.\n\n";
+		check = 0;
+		system("pause");
+		return;
+	}
+
+	studentcourse = SC;
+	cout << "\n\n";
+
+	cout << "Name              Student ID   \tMidTerm   Final   Other   Total" << endl;
+
+	while (studentcourse) {
+		if (studentcourse->stu_course.CouID == courseID) {
+			cout << studentcourse->stu_course.StudentName << "  " << studentcourse->stu_course.StuID << "       " << studentcourse->stu_course.midterm << "       "
+				<< studentcourse->stu_course.final << "      " << studentcourse->stu_course.other << "      " << studentcourse->stu_course.total << endl;
+		}
+		studentcourse = studentcourse->next;
+	}
+	check = 1;
+}
+
+
+
+

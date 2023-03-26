@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-	int count;
+	int count = 0;
 
 	ifstream input;
 	STFF_NODE* staff = nullptr; 
@@ -21,11 +21,13 @@ int main()
 	getDataStudents_csv(input_S, student);
 	STU_NODE* loggedinStudent = new STU_NODE;
 
-	ifstream input_C;
-	CR_NODE* course = nullptr;
+	ifstream input_STU_CR;
 	STU_COURSE_NODE *stu_course = nullptr;
-	Get_Data_StudentCourse_csv(input_C, stu_course);
+	Get_Data_StudentCourse_csv(input_STU_CR, stu_course);
 
+	ifstream input_CR;
+	CR_NODE* course = nullptr;
+	getDataCourse_csv(input_CR, course);
 
 	while (69) {
 		int check_T, check_S;
@@ -98,7 +100,7 @@ int main()
 			if (choose == 1) { //Create new
 				system("cls");
 				cout << "======================Look up======================";
-				cout << "\n\t1.Create a new school."
+				cout << "\n\t1.Create a new school year."
 					<< "\n\t2.Create semester."
 					<< "\n\t3.List of courses."
 					<< "\n\t0.Come back.\n";
@@ -106,10 +108,15 @@ int main()
 				cin >> choose;
 				cin.ignore();
 				if (choose == 1) {
-
+					system("cls");
+					cout << " Create a school year " << endl;
+					int schoolYear;
+					CreateSchoolYear(schoolYear);
+					system("pause");
 				}
 				else if (choose == 2) {
 
+			
 				}
 				else if (choose == 3) {
 
@@ -134,21 +141,40 @@ int main()
 					<< "\n\t4.Export the file to import the list of students in each class."//Xuat file nhap DSSV tung lop
 					<< "\n\t5.Delete a course."//Xoa khoa hoc
 					<< "\n\t6.Update a course."//Cap nhat khoa hoc
-					<< "\n\t7.update the marks in a course."//Cap nhat diem trong khoa hoc
+					<< "\n\t7.Update the marks in a course."//Cap nhat diem trong khoa hoc
 					<< "\n\t0.Come back.\n";
 				cout << "========================END========================\n\n";
 				cin >> choose;
 				cin.ignore();
-				if (choose == 1) {
+				if (choose == 1) { //Add new 1st year students to 1st year classes
 
 				}
-				else if (choose == 2) {
+				else if (choose == 2) { //Create a course registration session
 
 				}
-				else if (choose == 3) {
+				else if (choose == 3) { //Add a course
 
 				}
-				else if (choose == 4) {
+				else if (choose == 4) { //Export the file to import the list of students in each class
+					int check;
+					system("cls");
+					cout << "\n\t\t\t ********************************************" << endl;
+					cout << "\t\t\t\t      ";
+					cout << "Enter the scoreboard of a course." << endl;
+					EnterCourseScore(stu_course, course, loggedinStaff, check);
+					if (check != 0) {
+						Read_After_Update_Student_Course(stu_course);
+						count = 7;
+					}
+					system("pause");
+				}
+				else if (choose == 5) { //Delete a course
+
+				}
+				else if (choose == 6) { //Update a course
+
+				}
+				else if (choose == 7) { //Update the marks in a course
 
 				}
 				else if (choose == 0) {
@@ -168,26 +194,45 @@ int main()
 					<< "\n\t4.List of students in a course." //Danh sach sinh vien trong trong khoa hoc
 					<< "\n\t5.View a scoreboard in a course." //Xem bang diem trong khoa hoc
 					<< "\n\t6.View a scoreboard in class." //Xem bang diem trong lop
-					<< "\n\t4.Export csv file about a scoreboard of students in course to enter score."
+					<< "\n\t7.Export csv file about a scoreboard of students in course to enter score."
 					//Xuat csv file bang diem sinh vien trong khoa hoc de nhap diem
 					<< "\n\t0.Come back.\n";
 				cout << "========================END========================\n\n";
 				cin >> choose;
 				cin.ignore();
-				if (choose == 1) {
+				if (choose == 1) { //List of classes
 					/*STU_NODE* listclass = new STU_NODE;*/
 					
 				}
-				else if (choose == 2) {
+				else if (choose == 2) { //List of students in class
 
 				}
-				else if (choose == 3) {
+				else if (choose == 3) { //List of courses
 
 				}
-				else if (choose == 4) {
+				else if (choose == 4) { //List of students in a course
 
 				}
-				else if (choose == 0) {
+				else if (choose == 5) { //View a scoreboard in a course
+					int check;
+					system("cls");
+					cout << "\n\t\t\t ********************************************" << endl;
+					cout << "\t\t\t\t      ";
+					cout << "Enter the scoreboard of a course." << endl;
+					EnterCourseScore(stu_course, course, loggedinStaff, check);
+					if (check != 0) {
+						Read_After_Update_Student_Course(stu_course);
+						count = 7;
+					}
+					system("pause");
+				}
+				else if (choose == 6) { //View a scoreboard in class
+
+				}
+				else if (choose == 7) { //View a scoreboard in class
+
+				}
+				else if (choose == 0) { //Export csv file about a scoreboard of students in course to enter score
 					break;
 				}
 				else {
