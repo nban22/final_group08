@@ -31,10 +31,12 @@ struct CLASS {
 };
 
 struct COURSE {
+    int No;
     std::string ID;
     std::string CName;
     std::string Class;
     std::string teacherName;
+    std::string teacherID;
     int Credits;
     int Max_stdn;
     WEEKDAY dayOfWeek; //ONLY 1 SESSION/WEEK/COURSE
@@ -50,17 +52,17 @@ struct COURSE {
 struct STU_COURSE {
     int No;
     std::string StuID;
-    std::string Fname;
-    std::string Lname;
+    std::string StudentName;
     std::string Gen;
     std::string Class;
     std::string CouID;
     std::string Cname;
     int credits;
     int Max_stdn;
-    std::string Tname;
-    std::string day1;
-    std::string session1;
+    std::string Teachername;
+    std::string TeacherID;
+    std::string weekday;
+    std::string session;
     DATE startdate;
     DATE enddate;
     float other;
@@ -192,10 +194,9 @@ WEEKDAY ConvertEnumWD(std::string& str);
 //Session
 SESSION ConvertEnumSS(std::string& str);
 
-// viet danh sach sinh vien da dang ky khoa hoc, (mac dinh moi sinh vien 1 mon hoc) random cac mon hoc cho sinh  vien.
-void WriteRegisterStuDefault(CR_NODE* C, STU_NODE* S, STU_COURSE_NODE*& SC);
+void getData_A_StuCourse(STU_COURSE studentcourse, STU_COURSE_NODE*& head);
+void Get_Data_StudentCourse_csv(std::ifstream& input, STU_COURSE_NODE*& head);
+bool Read_After_Update_Student_Course(STU_COURSE_NODE*& head);
 
-bool Read_After_Update_CourseStudents(STU_COURSE_NODE*& head);
-
-void EnterCourseScore(std::string student_ID, STU_COURSE_NODE* SC, CR_NODE* C);
+void EnterCourseScore( STU_COURSE_NODE* &SC, CR_NODE* C, STFF_NODE* loggedinStaff, int &check);
 #endif

@@ -26,8 +26,7 @@ int main()
 	ifstream input_C;
 	CR_NODE* course = nullptr;
 	STU_COURSE_NODE *stu_course = nullptr;
-	getDataCourse_csv(input_C, course);
-	WriteRegisterStuDefault(course, student, stu_course);
+	Get_Data_StudentCourse_csv(input_C, stu_course);
 
 	STFF_NODE* loggedinStaff = new STFF_NODE;
 	STU_NODE* loggedinStudent = new STU_NODE;
@@ -112,16 +111,16 @@ int main()
 
 			}
 			else if (choose == 7) {
+				int check;
 				system("cls");
 				cout << "\n\t\t\t ********************************************" << endl;
 				cout << "\t\t\t\t      ";
 				cout << "Enter the scoreboard of a course." << endl;
-				string student_id;
-				cout << "what is the id of the student?" << endl;
-				cin >> student_id;
-				EnterCourseScore(student_id, stu_course, course);
-				Read_After_Update_CourseStudents(stu_course);
-				count = 7;
+				EnterCourseScore(stu_course, course, loggedinStaff, check);
+				if (check != 0) {
+					Read_After_Update_Student_Course(stu_course);
+					count = 7;
+				}
 				system("pause");
 			}
 			else if (choose == 8) {

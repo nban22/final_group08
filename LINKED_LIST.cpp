@@ -83,11 +83,17 @@ void getDataCourse_csv(ifstream& input, CR_NODE *& head) {
 	while (!input.eof())
 	{
 		string tmp;
+		getline(input, tmp, ',');
+		course.No = stoi(tmp);
 		getline(input, course.ID, ',');
 		getline(input, course.CName, ',');
+		getline(input, tmp, ',');
 		getline(input, course.teacherName, ',');
-		input >> course.Credits;
-		input >> course.Max_stdn;
+		getline(input, course.teacherID, ',');
+		getline(input, tmp, ',');
+		course.Credits = stoi(tmp);
+		getline(input, tmp, ',');
+		course.Max_stdn = stoi(tmp);
 
 		//GET ENUM VARIABLE:
 		string weekday;
@@ -137,109 +143,136 @@ void getData_A_Course(COURSE course, CR_NODE *& head) {
     }
 }
 
-void EnterCourseScore(std::string student_ID, STU_COURSE_NODE* SC, CR_NODE* C) {
+void EnterCourseScore(STU_COURSE_NODE* &SC, CR_NODE* C, STFF_NODE* loggedinStaff, int &check) {
 
 	STU_COURSE_NODE* cur1 = SC;
 	CR_NODE* cur2 = C;
+	int choice;
+	int count = 0;
+	std::string courseID = "0";
 
-	while (cur1 && cur2) {
-		if (cur2->course.ID == cur1->stu_course.CouID && student_ID == cur1->stu_course.StuID) {
+	cout << "choose a course" << endl;
+	while (cur2) {
+		if (cur2->course.teacherID == loggedinStaff->staff.TeacherID) {
+			cout << cur2->course.No << "  " << cur2->course.ID << "  " << cur2->course.CName << endl;
+			count++;
+		}
+		cur2 = cur2->next;
+	}
+	if (count == 0) {
+		cout << "you have not attend any course" << endl;
+		check = 0;
+		return;
+	}
+	cout << "your choice: ";
+	cin >> choice;
+	while (cur1) {
+		if (cur1->stu_course.No == choice) {
+			courseID = cur1->stu_course.CouID;
+			break;
+		}
+		else
+			cur1 = cur1->next;
+	}
+
+	if (courseID == "0") {
+		cout << "Invalid selection, please enter again.\n\n";
+		check = 0;
+		system("pause");
+		return;
+	}
+
+	cur1 = SC;
+	cout << "\n\n";
+
+	while (cur1) {
+		if (courseID == cur1->stu_course.Cname) {
 			cout << "\t\tEnter Score for student:" << endl;
-			cout << cur1->stu_course.Lname << endl;
-			cout << "Final mark: ";
-			cin >> cur1->stu_course.final;
+			cout << cur1->stu_course.StudentName << "  " << cur1->stu_course.StuID << "  " << endl;
 			cout << "Midterm mark: ";
 			cin >> cur1->stu_course.midterm;
+			cout << "Final mark: ";
+			cin >> cur1->stu_course.final;
 			cout << "Other mark: ";
 			cin >> cur1->stu_course.other;
 			cur1->stu_course.total = (cur1->stu_course.other + cur1->stu_course.midterm + 2 * cur1->stu_course.final) / 4;
 			system("cls");
 		}
-			cur1 = cur1->next;
+		cur1 = cur1->next;
 	}
+	check = 1;
 }
 
-// viet danh sach sinh vien da dang ky khoa hoc, (mac dinh moi sinh vien 1 mon hoc) random cac mon hoc cho sinh  vien.
-void WriteRegisterStuDefault(CR_NODE* C, STU_NODE* S, STU_COURSE_NODE*& SC) {
-	STU_COURSE_NODE* cur_stu_node = SC;
-	STU_NODE* cur_stu = S;
-	CR_NODE* cur_cr = C;
 
-	while (cur_stu && cur_cr) {
-		if (SC == nullptr) {
-			SC = new STU_COURSE_NODE;
-			SC->stu_course.No = cur_stu->student.No_Student;
-			SC->stu_course.StuID = cur_stu->student.StudentID;
-			SC->stu_course.Fname = cur_stu->student.FName;
-			SC->stu_course.Lname = cur_stu->student.LName;
-			SC->stu_course.Gen = cur_stu->student.Gender;
-			SC->stu_course.Class = cur_stu->student.Classes.name;
+void Get_Data_StudentCourse_csv(std::ifstream& input, STU_COURSE_NODE*& head) {
+	input.open("student_course.csv"); //put this in main.cpp
+	STU_COURSE studentcourse;
 
-			SC->stu_course.CouID = cur_cr->course.ID;
-			SC->stu_course.Max_stdn = cur_cr->course.Max_stdn;
-			SC->stu_course.Cname = cur_cr->course.CName;
-			SC->stu_course.credits = cur_cr->course.Credits;
-			SC->stu_course.Tname = cur_cr->course.teacherName;
-			SC->stu_course.day1 = cur_cr->course.dayOfWeek;
-			SC->stu_course.session1 = cur_cr->course.session;
-			SC->stu_course.startdate = cur_cr->course.startDate;
-			SC->stu_course.enddate = cur_cr->course.endDate;
-			SC->stu_course.other = rand() % 11;
-			SC->stu_course.midterm = rand() % 11;
-			SC->stu_course.final = rand() % 11;
-			SC->stu_course.total = (SC->stu_course.other + SC->stu_course.midterm + 2 * SC->stu_course.final) / 4;
-			cur_stu_node = SC;
+	getline(input, studentcourse.StuID);
+	while (!input.eof())
+	{
+		string tmp;
+		getline(input, tmp, ',');
+		if (tmp == "") {
+			break;
 		}
-		else {
-			STU_COURSE_NODE* tmp = new STU_COURSE_NODE;
-			cur_stu_node->next = tmp;
-			tmp->prev = cur_stu_node;
-			tmp->next = nullptr;
-			tmp->stu_course.No = cur_stu->student.No_Student;
-			tmp->stu_course.StuID = cur_stu->student.StudentID;
-			tmp->stu_course.Fname = cur_stu->student.FName;
-			tmp->stu_course.Lname = cur_stu->student.LName;
-			tmp->stu_course.Gen = cur_stu->student.Gender;
-			tmp->stu_course.Class = cur_stu->student.Classes.name;
+		studentcourse.No = stoi(tmp);
+		getline(input, studentcourse.StuID, ',');
+		getline(input, studentcourse.StudentName, ',');
+		getline(input, studentcourse.Gen, ',');
+		getline(input, studentcourse.Class, ',');
+		getline(input, studentcourse.CouID, ',');
+		getline(input, studentcourse.Cname, ',');
+		getline(input, tmp, ',');
+		studentcourse.credits = stoi(tmp);
+		getline(input, tmp, ',');
+		studentcourse.Max_stdn = stoi(tmp);
+		getline(input, studentcourse.Teachername, ',');
+		getline(input, studentcourse.TeacherID, ',');
+		getline(input, studentcourse.weekday, ',');
+		getline(input, studentcourse.session, ',');
+		getline(input, tmp, ',');
+		studentcourse.startdate.day = stoi(tmp);
+		getline(input, tmp, ',');
+		studentcourse.startdate.month = stoi(tmp);
+		getline(input, tmp, ',');
+		studentcourse.enddate.day = stoi(tmp);
+		getline(input, tmp, ',');
+		studentcourse.enddate.month = stoi(tmp);
+		getline(input, tmp, ',');
+		studentcourse.midterm = stoi(tmp);
+		getline(input, tmp, ',');
+		studentcourse.final = stoi(tmp);
+		getline(input, tmp, ',');
+		studentcourse.other = stoi(tmp);
+		getline(input, tmp);
+		studentcourse.total = stoi(tmp);
 
-			tmp->stu_course.CouID = cur_cr->course.ID;
-			tmp->stu_course.Cname = cur_cr->course.CName;
-			tmp->stu_course.Max_stdn = cur_cr->course.Max_stdn;
-			tmp->stu_course.credits = cur_cr->course.Credits;
-			tmp->stu_course.Tname = cur_cr->course.teacherName;
-			tmp->stu_course.day1 = cur_cr->course.dayOfWeek;
-			tmp->stu_course.session1 = cur_cr->course.session;
-			tmp->stu_course.startdate = cur_cr->course.startDate;
-			tmp->stu_course.enddate = cur_cr->course.endDate;
-			tmp->stu_course.other = rand() % 11;
-			tmp->stu_course.midterm = rand() % 11;
-			tmp->stu_course.final = rand() % 11;
-			tmp->stu_course.total = (SC->stu_course.other + SC->stu_course.midterm + 2 * SC->stu_course.final) / 4;
-			cur_stu_node = cur_stu_node->next;
+		getData_A_StuCourse(studentcourse, head);
+	}
+	input.close();
+	return;
+}
+
+void getData_A_StuCourse(STU_COURSE studentcourse, STU_COURSE_NODE*& head) {
+	STU_COURSE_NODE* tmp = new STU_COURSE_NODE;
+	tmp->stu_course = studentcourse;
+	tmp->next = nullptr;
+
+	if (!head) {
+		head = tmp;
+		head->prev = nullptr;
+	}
+	else {
+		STU_COURSE_NODE* cur = head;
+		while (cur->next) {
+			cur = cur->next;
 		}
+		cur->next = tmp;
+		tmp->prev = cur;
 	}
-	cur_cr = cur_cr->next;
-	cur_stu = cur_stu->next;
 }
 
-bool Read_After_Update_CourseStudents(STU_COURSE_NODE*& head) {
-	ofstream outfile;
-	outfile.open("Test2.csv");
-	if (!outfile.is_open()) {
-		return 0;
-	}
-	outfile << "ID,CName,teacherName,Credits,Max_stdn,Weekday,Session,Start date,End date" << endl;
-	for (STU_COURSE_NODE* h = head; h != nullptr; h = h->next) {
-		outfile << h->stu_course.CouID << "," << h->stu_course.Cname << "," << h->stu_course.Tname << "," << h->stu_course.credits << ","
-			<< h->stu_course.Max_stdn << "," << h->stu_course.day1 << ","
-			<< h->stu_course.session1 << "," << h->stu_course.startdate.day << "/" << h->stu_course.startdate.month << "/" << h->stu_course.startdate.year << ","
-			<< h->stu_course.enddate.day << "/" << h->stu_course.enddate.month << "/" << h->stu_course.enddate.year;
-		if (h->next != nullptr)
-			outfile << "\n";
-	}
-	outfile.close();
-	return 1;
-}
 
 //STUDENT
 void getDataStudents_csv(ifstream& input, STU_NODE*& head) {
@@ -344,6 +377,27 @@ bool Read_After_Update_Courses(CR_NODE*& head) {
 		if (c->next != nullptr) {
 			outfile << "\n";
 		}
+	}
+	outfile.close();
+	return 1;
+}
+
+bool Read_After_Update_Student_Course(STU_COURSE_NODE*& head) {
+	ofstream outfile;
+	outfile.open("UpdatedStudentCourse.csv");
+	if (!outfile.is_open()) {
+		return 0;
+	}
+	outfile << "No.,Student ID,Student Name,Gender,Class Name,Course ID,Course Name,Credits,Max_stdn,Teacher Name, Teacher ID, Week day, Session, Day start, Month start, Day end, Month end, Midterm Mark, Final Mark, Other Mark, Total Mark" << endl;
+	for (STU_COURSE_NODE* h = head; h != nullptr; h = h->next) {
+		outfile << h->stu_course.No << "," << h->stu_course.StuID << "," << h->stu_course.StudentName << "," << h->stu_course.Gen << ","
+			<< h->stu_course.Class << "," << h->stu_course.Class << ","
+			<< h->stu_course.CouID << h->stu_course.Cname << h->stu_course.credits << h->stu_course.Max_stdn << "/"
+			<< h->stu_course.Teachername << "," << h->stu_course.TeacherID << "," << h->stu_course.weekday << "," << h->stu_course.session << "," << h->stu_course.startdate.day
+			<< "," << h->stu_course.startdate.month << "," << h->stu_course.enddate.day << "," << h->stu_course.enddate.month
+			<< "," << h->stu_course.midterm << "," << h->stu_course.final << "," << h->stu_course.other << "," << h->stu_course.total;
+		if (h->next != nullptr)
+			outfile << "\n";
 	}
 	outfile.close();
 	return 1;
