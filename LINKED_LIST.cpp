@@ -279,7 +279,7 @@ void getData_A_StuCourse(STU_COURSE studentcourse, STU_COURSE_NODE*& head) {
 }
 
 
-//STUDENT
+//========================STUDENT============================
 void getDataStudents_csv(ifstream& input, STU_NODE*& head) {
 	input.open("students.csv");
 
@@ -328,7 +328,8 @@ void getData_A_Student(STUDENT student, STU_NODE*& head) {
 		tmp->prev = cur;
 	}
 }
-// Doc lai file sau khi da cap nhat
+
+// ===============Doc lai file sau khi da cap nhat=============
 bool Read_After_Update_Teachers(STFF_NODE*& head) {
 	ofstream outfile;
 	outfile.open("Test.csv");

@@ -5,6 +5,7 @@
 #include <string>
 #include <cstring>
 #include <fstream>
+#include <iomanip>
 
 
 //Using namespace std;
@@ -205,5 +206,13 @@ void ViewScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, i
 
 //SCHOOL_YEAR
 void CreateSchoolYear(int& sYEAR);
+
+//=============view list of classes============
+STU_NODE*  checkExistClassIDinDLL(STU_NODE*& listclass, std::string classID);
+void deleteSTU_NODE(STU_NODE*& head);
+void displayLISTOFCLASS(STU_NODE*& student, STU_NODE* listclass);
+
+//=============view list students of class============
+void displayListStudentsOfCourse(STU_NODE*& student, std::string classID);
 
 #endif
