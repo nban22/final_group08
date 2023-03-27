@@ -497,3 +497,30 @@ void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff) {
 	cout << "Faculty: ";
 	cin >> loggedinStaff->staff.Faculty;
 }
+//Update student
+void UpdateStudentInfo(STU_NODE* student, STU_NODE* loggedinStudent) {
+	if (!student || !loggedinStudent) {
+		std::cout << "Invalid input.\n";
+		return;
+	}
+
+	// check if the logged in staff is authorized to update student info
+	if (loggedinStudent->student.Classes.ClassID != student->student.Classes.ClassID) {
+		std::cout << "You are not authorized to update this student's information.\n";
+		return;
+	}
+
+	std::cout << "Enter new first name: ";
+	std::getline(std::cin, student->student.FName);
+	std::cout << "Enter new last name: ";
+	std::getline(std::cin, student->student.LName);
+	std::cout << "Enter new social ID: ";
+	std::getline(std::cin, student->student.SocialID);
+	std::cout << "Enter new gender: ";
+	std::getline(std::cin, student->student.Gender);
+	std::cout << "Enter new date of birth (format: DD/MM/YYYY): ";
+	std::cin >> student->student.DoB.day >> student->student.DoB.month >> student->student.DoB.year;
+
+	std::cout << "Student information updated successfully.\n";
+}
+

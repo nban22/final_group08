@@ -361,6 +361,10 @@ int main()
 				} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
 			}
 			else if (choose == 2) {
+				       std::system("cls");
+				       std::cout << "Update personal information." << endl;
+					   UpdateStudentInfo(student, loggedinStudent);
+				       std::system("pause");
 
 			}
 			else if (choose == 3) {
