@@ -214,5 +214,7 @@ void displayLISTOFCLASS(STU_NODE*& student, STU_NODE* listclass);
 
 //=============view list students of class============
 void displayListStudentsOfCourse(STU_NODE*& student, std::string classID);
+// Update teacher
+void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff);
 
 #endif

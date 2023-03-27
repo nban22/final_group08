@@ -102,6 +102,10 @@ int main()
 						std::system("pause");
 					}
 					else if (choose == 2) {
+						std::system("cls");
+						std::cout << "Update personal information." << endl;
+						UpdateStaffInfo(staff, loggedinStaff);
+						std::system("pause");
 
 
 					}

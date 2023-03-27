@@ -478,7 +478,22 @@ void ViewScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, i
 	}
 	check = 1;
 }
-
-
-
-
+void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff) {
+	cout << "Enter new information:" << endl;
+	cout << "Teacher ID: ";
+	cin >> loggedinStaff->staff.TeacherID;
+	cout << "Password: ";
+	cin >> loggedinStaff->staff.Password;
+	cout << "First Name: ";
+	cin >> loggedinStaff->staff.FName;
+	cout << "Last Name: ";
+	cin >> loggedinStaff->staff.LName;
+	cout << "Gender: ";
+	cin >> loggedinStaff->staff.Gender;
+	cout << "Date of Birth (DD MM YYYY): ";
+	cin >> loggedinStaff->staff.DoB.day >> loggedinStaff->staff.DoB.month >> loggedinStaff->staff.DoB.year;
+	cout << "Social ID: ";
+	cin >> loggedinStaff->staff.SocialID;
+	cout << "Faculty: ";
+	cin >> loggedinStaff->staff.Faculty;
+}
