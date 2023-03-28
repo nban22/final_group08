@@ -675,7 +675,7 @@ void AddStudent(STU_NODE*& head) {
 	std::cin.ignore(); // Loại bỏ kí tự newline từ cin trước đó
 
 	std::cout << "Enter Class: ";
-	std::getline(std::cin, new_node->student.Classes.ClassName);
+	std::getline(std::cin, new_node->student.Classes.ClassID);
 
 	// Chèn node mới vào danh sách liên kết
 	if (head == nullptr) {
