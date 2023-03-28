@@ -21,7 +21,7 @@ CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID) {
 void ViewCourses(CR_NODE *head) {
     system("cls");
 
-    cout << " ID Course name\t Teacher\t  Credits  Max Student Current Student  Session\t Start Date\t End Date";
+    cout << " ID  | Course name\t | Teacher\t | Credits | Max Student | Current Student | Session\t | Start Date\t | End Date";
     CR_NODE* cur = head;
     while (cur) {
         cout << cur->course.No << " " << cur->course.ID << " " << cur->course.CName << " " << cur->course.teacherName << " " << cur->course.Credits<< " "
@@ -48,7 +48,12 @@ void CreateNewCourse(CR_NODE *&head) {
     cout << "Enter Course ID: ";
     cin >> NewID;
     NewCourse->course.ID = NewID;
-    NewCourse->course.No = cur->prev->course.No++;
+    if (!cur->prev) {
+        NewCourse->course.No = 1;
+    }
+    else {
+        NewCourse->course.No = cur->prev->course.No++;
+    }
     string NewTeacher;
     cout << "Enter Teacher name: ";
     cin >> NewTeacher;
@@ -73,13 +78,13 @@ void CreateNewCourse(CR_NODE *&head) {
     cin >> NewCourse->course.endDate.day >> NewCourse->course.endDate.month >> NewCourse->course.endDate.year;
     cur->next = NewCourse;
     system("cls");
-    cout << "Added Course Successfully";
-    Read_After_Update_Course(head);
-    system("pause");
+    cout << "Added Course Successfully\n";
+    Read_After_Update_Course(*&head);
     return;
 }
 
 void UpdateCourseInfo(CR_NODE *&head) {
+    cout << "Enter Course ID: ";
     string UpID;
     cin >> UpID;
     CR_NODE *UpNode = checkExistOfCourseRecord(head, UpID);
@@ -99,6 +104,8 @@ void UpdateCourseInfo(CR_NODE *&head) {
             << "\t10. Course End Date.\n";
         cout << "========================END========================\n\n";
         cout << "What would you like to update?: ";
+
+        system("pause");
 
         int choice;
         cin >> choice;
@@ -149,20 +156,19 @@ void UpdateCourseInfo(CR_NODE *&head) {
             } break;
             default: {
                 cout << "Invalid selection, please enter again.\n\n";
-                system("pause");
+                //system("pause");
             } break;
         }
 
         system("cls");
-        cout << "Update Course Successfully";
-        Read_After_Update_Course(head);
-        system("pause");
+        cout << "Update Course Successfully\n";
+        Read_After_Update_Course(*&head);
         return;
     }
     else {
         cout << "No Course Founded!";
         cout << "\nSearch for Course again? (y/n)";
-        system("pause");
+        //system("pause");
         char ans;
         cin >> ans;
         if(ans == 'y' || ans == 'Y') {
@@ -186,14 +192,14 @@ void DeleteCourse(CR_NODE *&head) {
 
         system("cls");
         cout << "Delete Course Successfully";
-        Read_After_Update_Course(head);
+        Read_After_Update_Course(*&head);
         system("pause");
         return;
     }
     else {
         cout << "No Course Founded!";
         cout << "\nSearch for Course again? (y/n)";
-        system("pause");
+        //system("pause");
         char ans;
         cin >> ans;
         if(ans == 'y' || ans == 'Y') {
@@ -228,6 +234,7 @@ void getOption(int &choice, CR_NODE *head) {
     switch (choice) {
         case 1: {
             ViewCourses(head);
+            system("pause");
             DisplayMenu();
         } break;
 
@@ -247,17 +254,14 @@ void getOption(int &choice, CR_NODE *head) {
         } break;
 
         case 0: {
-            //Should be MainMenu() Please Add
         } break;
 
         case -1: {
-            system("pause");
             return;
         } break;
 
         default: {
             cout << "Invalid selection, please enter again.\n\n";
-            system("pause");
         } break;
     }
 }

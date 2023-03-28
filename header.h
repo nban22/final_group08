@@ -7,7 +7,6 @@
 #include <fstream>
 #include <iomanip>
 
-
 //Using namespace std;
 //Shouldn't use namespace in a header files!
 
@@ -190,6 +189,10 @@ bool Read_After_Update_Course(CR_NODE*& head);
 int DisplayMenu();
 void getOption(int& choice, CR_NODE* head);
 CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID);
+void ViewCourses(CR_NODE *head);
+void CreateNewCourse(CR_NODE *&head);
+void UpdateCourseInfo(CR_NODE *&head);
+void DeleteCourse(CR_NODE *&head);
 
 //----Weekday----
 WEEKDAY ConvertEnumWD(std::string& str);

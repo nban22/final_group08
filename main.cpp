@@ -107,9 +107,8 @@ int main()
 						UpdateStaffInfo(staff, loggedinStaff);
 						std::system("pause");
 
-
 					}
-					else if (choose == 3) {
+					else if (choose == 3) { 
 
 					}
 					else if (choose == 0) {
@@ -140,7 +139,9 @@ int main()
 
 					}
 					else if (choose == 2) { //Create a course registration session
-
+						std::system("cls");
+						int option = DisplayMenu();
+						getOption(option, course);
 					}
 					else if (choose == 3) { //Add a course
 

@@ -76,9 +76,9 @@ SESSION ConvertEnumSS(std::string& str) {
 }
 
 void getDataCourse_csv(ifstream& input, CR_NODE *& head) {
-	input.open("courses.csv"); //put this in main.cpp
+	input.open("coursestest.csv"); //put this in main.cpp
 	COURSE course;
-
+	int i = 0;
 	getline(input, course.ID);
 	while (!input.eof())
 	{
@@ -88,7 +88,7 @@ void getDataCourse_csv(ifstream& input, CR_NODE *& head) {
 			input.close();
 			return;
 		}
-		course.No = stoi(tmp);
+		course.No = i++;
 		getline(input, course.ID, ',');
 		getline(input, course.CName, ',');
 		getline(input, tmp, ',');
@@ -370,7 +370,7 @@ bool Read_After_Update_Students(STU_NODE*& head) {
 
 bool Read_After_Update_Course(CR_NODE*& head) {
 	ofstream outfile;
-	outfile.open("coursetest.csv");
+	outfile.open("coursestest.csv");
 	if (!outfile.is_open()) {
 		return 0;
 	}
