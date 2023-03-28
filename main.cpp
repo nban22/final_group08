@@ -262,19 +262,40 @@ int main()
 						std::system("cls");
 						std::cout << "\n\t\t\t ********************************************" << endl;
 						std::cout << "\t\t\t\t      ";
-						std::cout << "Enter the scoreboard of a course." << endl;
-						EnterCourseScore(stu_course, course, loggedinStaff, check);
-						if (check != 0) {
-							Read_After_Update_Student_Course(stu_course);
-							count = 7;
-						}
+						std::cout << "View the scoreboard of a course." << endl;
+						ViewScoreBoard_Course(stu_course, course, loggedinStaff, check);
 						std::system("pause");
 					}
 					else if (choose == 6) { //View a scoreboard in class
-
+						int check;
+						std::string classname;
+						std::system("cls");
+						std::cout << "\n\t\t\t ********************************************" << endl;
+						std::cout << "\t\t\t\t      ";
+						std::cout << "View the scoreboard of a course." << endl;
+						std::cout << "\nEnter class ID:";
+						cin >> classname;
+						ViewScoreBoard_Class(classname, stu_course, course, loggedinStaff, check);
+						std::system("pause");
 					}
 					else if (choose == 7) { //Export csv file about a scoreboard of students in course to enter score
-
+						
+						
+							int check;
+							std::system("cls");
+							std::cout << "\n\t\t\t ********************************************" << endl;
+							std::cout << "\t\t\t\t      ";
+							std::cout << "Export the scoreboard of a course." << endl;
+							ExportScoreBoard(stu_course, course, loggedinStaff, check);
+							if (check != 0) {
+								cout << "export succsessfully" << endl;
+								system("pause");
+							}
+							else {
+								cout << "export failed" << endl;
+								system("pause");
+							
+						}
 					}
 					else if (choose == 0) {
 						break;

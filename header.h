@@ -202,7 +202,9 @@ void getData_A_StuCourse(STU_COURSE studentcourse, STU_COURSE_NODE*& head);
 void Get_Data_StudentCourse_csv(std::ifstream& input, STU_COURSE_NODE*& head);
 bool Read_After_Update_Student_Course(STU_COURSE_NODE*& head);
 void EnterCourseScore( STU_COURSE_NODE* &SC, CR_NODE* C, STFF_NODE* loggedinStaff, int &check);
-void ViewScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
+void ViewScoreBoard_Course(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
+void ViewScoreBoard_Class(std::string classname, STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
+void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
 
 //SCHOOL_YEAR
 void CreateSchoolYear(int& sYEAR);
