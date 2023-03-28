@@ -136,7 +136,10 @@ int main()
 					std::cin >> choose;
 					std::cin.ignore();
 					if (choose == 1) { //Add new 1st year students to 1st year classes
-
+						std::system("cls");
+						STU_NODE* new_node = new STU_NODE();
+						AddStudent(new_node);
+						std::system("pause");
 					}
 					else if (choose == 2) { //Create a course registration session
 						std::system("cls");

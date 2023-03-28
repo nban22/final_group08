@@ -1,4 +1,4 @@
-#include "header.h"
+﻿#include "header.h"
 
 using namespace std;
 
@@ -646,4 +646,51 @@ void UpdateStudentInfo(STU_NODE* student, STU_NODE* loggedinStudent) {
 
 	std::cout << "Student information updated successfully.\n";
 }
+void AddStudent(STU_NODE*& head) {
+	// Tạo node mới
+	STU_NODE* new_node = new STU_NODE();
+
+	// Nhập thông tin của sinh viên mới từ bàn phím
+	std::cout << "Enter Student ID: ";
+	std::getline(std::cin, new_node->student.StudentID);
+
+	std::cout << "Enter Password: ";
+	std::getline(std::cin, new_node->student.Password);
+
+	std::cout << "Enter First Name: ";
+	std::getline(std::cin, new_node->student.FName);
+
+	std::cout << "Enter Last Name: ";
+	std::getline(std::cin, new_node->student.LName);
+
+	std::cout << "Enter Gender: ";
+	std::getline(std::cin, new_node->student.Gender);
+
+	std::cout << "Enter Social ID: ";
+	std::getline(std::cin, new_node->student.SocialID);
+
+	std::cout << "Enter Date of Birth (DD MM YYYY): ";
+	std::cin >> new_node->student.DoB.day >> new_node->student.DoB.month >> new_node->student.DoB.year;
+
+	std::cin.ignore(); // Loại bỏ kí tự newline từ cin trước đó
+
+	std::cout << "Enter Class: ";
+	std::getline(std::cin, new_node->student.Classes.ClassName);
+
+	// Chèn node mới vào danh sách liên kết
+	if (head == nullptr) {
+		head = new_node;
+	}
+	else {
+		STU_NODE* curr_node = head;
+		while (curr_node->next != nullptr) {
+			curr_node = curr_node->next;
+		}
+		curr_node->next = new_node;
+		new_node->prev = curr_node;
+	}
+
+	std::cout << "Student added successfully!" << std::endl;
+}
+
 

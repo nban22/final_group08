@@ -223,5 +223,8 @@ void displayListStudentsOfCourse(STU_NODE*& student, std::string classID);
 void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff);
 // Update student
 void UpdateStudentInfo(STU_NODE* student, STU_NODE* loggedinStaff);
+// add student
+void AddStudent(STU_NODE*& head);
+
 
 #endif
