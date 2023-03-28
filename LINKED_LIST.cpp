@@ -88,16 +88,18 @@ void getDataCourse_csv(ifstream& input, CR_NODE *& head) {
 			input.close();
 			return;
 		}
+		getline(input, tmp);
 		course.No = i++;
 		getline(input, course.ID, ',');
 		getline(input, course.CName, ',');
-		getline(input, tmp, ',');
 		getline(input, course.teacherName, ',');
-		getline(input, course.teacherID, ',');
+		//getline(input, course.teacherID, ',');
 		getline(input, tmp, ',');
 		course.Credits = stoi(tmp);
 		getline(input, tmp, ',');
 		course.Max_stdn = stoi(tmp);
+		getline(input, tmp, ',');
+		course.Cur_stdn = stoi(tmp);
 
 		//GET ENUM VARIABLE:
 		string weekday;
