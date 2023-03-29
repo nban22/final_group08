@@ -4,7 +4,7 @@ using namespace std;
 
 //COURSE
 //-------Support functions------
-CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID) {
+CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, string ID) {
 	CR_NODE* current = head;
     CR_NODE* FoundNode = nullptr;
 	while (current) {
@@ -172,7 +172,6 @@ void UpdateCourseInfo(CR_NODE *&head) {
             } break;
             default: {
                 cout << "Invalid selection, please enter again.\n\n";
-                //system("pause");
             } break;
         }
 
@@ -204,8 +203,13 @@ void DeleteCourse(CR_NODE *&head) {
     if(DelNode) {    
         CR_NODE *tmp = DelNode;
         (DelNode->next)->prev = tmp->prev;
-        (DelNode->prev)->next = tmp->next;
-        delete tmp;
+        if (!DelNode->prev) {
+            DelNode->prev = nullptr;
+        }
+        else {
+            (DelNode->prev)->next = tmp->next;
+            delete tmp;
+        }
 
         system("cls");
         cout << "Delete Course Successfully";
@@ -252,20 +256,25 @@ void getOption(int &choice, CR_NODE *&head) {
             ViewCourses(head);
             system("pause");
         } DisplayMenu();
+        break;
 
         case 2: {
             CreateNewCourse(head);
         } DisplayMenu();
+        break;
 
         case 3: {
             UpdateCourseInfo(head); 
         }  DisplayMenu();
+        break;
 
         case 4: {
             DeleteCourse(head);
         }  DisplayMenu();
+        break;
 
         case 0: {
+            return;
         } break;
 
         default: {
