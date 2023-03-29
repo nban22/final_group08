@@ -187,7 +187,7 @@ void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStude
 //COURSE
 bool Read_After_Update_Course(CR_NODE*& head);
 int DisplayMenu();
-void getOption(int& choice, CR_NODE* head);
+void getOption(int& choice, CR_NODE*& head);
 CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID);
 void ViewCourses(CR_NODE *head);
 void CreateNewCourse(CR_NODE *&head);

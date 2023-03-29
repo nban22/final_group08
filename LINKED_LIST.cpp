@@ -88,9 +88,9 @@ void getDataCourse_csv(ifstream& input, CR_NODE *& head) {
 			input.close();
 			return;
 		}
-		getline(input, tmp);
+		//getline(input, tmp, ',');
 		course.No = i++;
-		getline(input, course.ID, ',');
+		course.ID = tmp;
 		getline(input, course.CName, ',');
 		getline(input, course.teacherName, ',');
 		//getline(input, course.teacherID, ',');
@@ -117,8 +117,8 @@ void getDataCourse_csv(ifstream& input, CR_NODE *& head) {
 		course.startDate.month = stoi(tmp);
 		getline(input, tmp, ',');
 		course.startDate.year = stoi(tmp);
-		getline(input, tmp, '/');
 
+		getline(input, tmp, '/');
 		course.endDate.day = stoi(tmp);
 		getline(input, tmp, '/');
 		course.endDate.month = stoi(tmp);
@@ -376,10 +376,10 @@ bool Read_After_Update_Course(CR_NODE*& head) {
 	if (!outfile.is_open()) {
 		return 0;
 	}
-	outfile << "ID,Cname,teacherName,Credits,Max_stdn,Weekday,Session,Start date,End date" << endl;
+	outfile << "ID,Cname,teacherName,Credits,Max_stdn,Cur_stdn,Weekday,Session,Start date,End date" << endl;
 	for (CR_NODE* c = head; c != nullptr; c = c->next) {
 		outfile << c->course.ID << "," << c->course.CName << "," << c->course.teacherName << ","
-			<< c->course.Credits << "," << c->course.Max_stdn << "," << c->course.dayOfWeek << ","
+			<< c->course.Credits << "," << c->course.Max_stdn << "," << c->course.Cur_stdn << "," << c->course.dayOfWeek << ","
 			<< c->course.session << "," 
 			<< c->course.startDate.day / 10 << c->course.startDate.day % 10 << "/" << c->course.startDate.month / 10 << c->course.startDate.month % 10 << "/" << c->course.startDate.year << ","
 			<< c->course.endDate.day / 10 << c->course.endDate.day % 10 << "/" << c->course.endDate.month / 10 << c->course.endDate.month % 10 << "/" << c->course.endDate.year;
