@@ -108,7 +108,7 @@ void displayListStudentsOfCourse(STU_NODE*& student, std::string classID) {
 		<< setw(10) << left << "Gender" << setw(5) << left << "|"
 		<< setw(15) << left << "Date of birth" << setw(5) << left << "|"
 		<< setw(30) << left << "social ID" << endl;
-	cout << setfill('-') << setw(5 + 15 + 20 + 10 + 10 + 15 + 30 + 20) << "-" << setfill(' ') << endl;
+	cout << setfill('-') << setw(125) << "-" << setfill(' ') << endl;
 	while (cur_student) {
 		if (cur_student->student.Classes.ClassID == classID) {
 			cout << "     " << setw(5) << left << i++ << setw(5) << left << "|"

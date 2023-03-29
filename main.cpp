@@ -92,6 +92,7 @@ int main()
 						//<< "\n\t3.List of courses."
 						<< "\n\t0.Come back.\n";
 					std::cout << "=========================END==========================\n\n";
+					std::cout << "\nEnter select the option you want to choose: ";
 					std::cin >> choose;
 					std::cin.ignore();
 					if (choose == 1) {
@@ -132,13 +133,80 @@ int main()
 						<< "\n\t6.Update the marks in a course."//Cap nhat diem trong khoa hoc
 						<< "\n\t0.Come back.\n";
 					std::cout << "=============================END=============================\n\n";
+					std::cout << "\nEnter select the option you want to choose: ";
 					std::cin >> choose;
 					std::cin.ignore();
 					if (choose == 1) { //Add new 1st year students to 1st year classes
-						std::system("cls");
-						STU_NODE* new_node = new STU_NODE();
-						AddStudent(new_node);
-						std::system("pause");
+						STU_NODE* new_student = new STU_NODE;
+
+						bool check;
+						STU_NODE* cur_student = student;
+						do {
+							check = 0;
+							std::system("cls");
+							cout << "Enter student's class id: ";
+							getline(cin, new_student->student.Classes.ClassID);
+							cur_student = student;
+							while (cur_student) {
+								if (cur_student->student.Classes.ClassID == new_student->student.Classes.ClassID)
+									check = 1;
+								cur_student = cur_student->next;
+							}
+							if (check == 0) {
+								cout << "Your class ID which you entered it does not exist. Please enter again.\n";
+								std::system("pause");
+							}
+						} while (check == 0);
+						cout << "Enter student's last name: ";
+						getline(cin, new_student->student.LName);
+						cout << "Enter student's first name: ";
+						getline(cin, new_student->student.FName);
+						cout << "Enter student's gender: ";
+						getline(cin, new_student->student.Gender);
+						cout << "Enter student's date of birth: (dd mm yyyy): ";
+						cin >> new_student->student.DoB.day >> new_student->student.DoB.month >> new_student->student.DoB.year;
+						cin.ignore();
+						cout << "Enter student's social ID: ";
+						getline(cin, new_student->student.SocialID);
+
+						system("cls");
+						cur_student = student;
+						check = 0;
+						while (cur_student->next) {
+							if (cur_student->student.Classes.ClassID == new_student->student.Classes.ClassID) {
+								check = 1;
+								new_student->student.Classes.name = cur_student->student.Classes.name;
+							}
+							if (check == 1 && cur_student->next->student.Classes.name != new_student->student.Classes.name)
+								break;
+							cur_student = cur_student->next;
+						}
+						new_student->student.StudentID = to_string(stoi(cur_student->student.StudentID) + 1);
+						new_student->student.Password = "678910";
+
+						system("cls");
+						cout << "Information of new student is: \n";
+						cout << "ID: " << new_student->student.StudentID
+							<< "\nPassword: " << new_student->student.Password
+							<< "\nFull name: " << new_student->student.LName << " " << new_student->student.FName
+							<< "\nDate of birth: " << new_student->student.DoB.day << "/" << new_student->student.DoB.month << "/" << new_student->student.DoB.year
+							<< "\nSocial ID: " << new_student->student.SocialID
+							<< "\nClass name: " << new_student->student.Classes.name
+							<< "\nClass ID: " << new_student->student.Classes.ClassID << endl;
+						system("pause");
+
+						new_student->next = cur_student->next;
+						new_student->prev = cur_student;
+						cur_student->next->prev = new_student;
+						cur_student->next = new_student;
+
+
+						int i = 1;
+						cur_student = student;
+						while (cur_student) {
+							cur_student->student.No_Student = i++;
+							cur_student = cur_student->next;
+						}
 					}
 					/* else if (choose == 2) { //Create a course registration session
  						std::system("cls");
@@ -196,6 +264,7 @@ int main()
 						//Xuat csv file bang diem sinh vien trong khoa hoc de nhap diem
 						<< "\n\t0.Come back.\n";
 					std::cout << "========================END========================\n\n";
+					std::cout << "\nEnter select the option you want to choose: ";
 					std::cin >> choose;
 					std::cin.ignore();
 					if (choose == 1) { //List of classes

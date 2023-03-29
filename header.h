@@ -109,23 +109,23 @@ struct STAFF {
     std::string SocialID;
     std::string Faculty;
 
-    //Same funcs as students
-    void LoginStaff();
-    void LogoutStaff();
-    void ChangeStaffPass();
-    void UpdateStaffInfo();
-    void CreateSchoolYear();
+    ////Same funcs as students
+    //void LoginStaff();
+    //void LogoutStaff();
+    //void ChangeStaffPass();
+    //void UpdateStaffInfo();
+    //void CreateSchoolYear();
 
-    //Distinct funcs
-    void AddStudent();
-    void RemoveStudent();
-    void CreateCourseRegis();
-    void ExportStudentinCourse();
-    void EnterCourseScore();
-    void ViewCourseScore();
-    void ImportCourseScore();
-    void UpdateSudentRes();
-    void ViewClassScore();
+    ////Distinct funcs
+    //void AddStudent();
+    //void RemoveStudent();
+    //void CreateCourseRegis();
+    //void ExportStudentinCourse();
+    //void EnterCourseScore();
+    //void ViewCourseScore();
+    //void ImportCourseScore();
+    //void UpdateSudentRes();
+    //void ViewClassScore();
 
     //......add more later (if needed, above are all of the requirements)
 };
