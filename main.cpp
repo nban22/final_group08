@@ -299,9 +299,7 @@ int main()
 						std::cout << "\n\t\t\t ********************************************" << endl;
 						std::cout << "\t\t\t\t      ";
 						std::cout << "View the scoreboard of a course." << endl;
-						std::cout << "\nEnter class ID:";
-						cin >> classname;
-						ViewScoreBoard_Class(classname, stu_course, course, loggedinStaff, check);
+						ViewScoreBoard_Class(stu_course, course, loggedinStaff, check);
 						std::system("pause");
 					}
 					else if (choose == 7) { //Export csv file about a scoreboard of students in course to enter score

@@ -430,14 +430,27 @@ void CreateSchoolYear(int& sYEAR) {
 void ViewScoreBoard_Course(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check) {
 	STU_COURSE_NODE *studentcourse = SC;
 	CR_NODE *course = C;
-	int choice;
 	int count = 0;
-	std::string courseID = "";
+	std::string courseID = "0";
 
-	cout << "choose a course" << endl;
+	cout << "============================================LIST OF COURSES============================================\n\n";
+	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
+		<< setw(10) << left << "Course ID" << setw(5) << left << "|"
+		<< setw(30) << left << "Course name" << setw(5) << left << "|"
+		<< setw(20) << left << "Teacher name" << setw(5) << left << "|"
+		<< setw(10) << left << "Credits" << setw(5) << left << "|"
+		<< setw(10) << left << "Registered" << setw(5) << left << "|"
+		<< setw(20) << left << "Calendar" << endl;
+	std::cout << setfill('-') << setw(125) << left << "-" << setfill(' ') << endl;
 	while (course) {
 		if (course->course.teacherID == loggedinStaff->staff.TeacherID) {
-			cout << course->course.No << "  " << course->course.ID << "  " << course->course.CName << endl;
+			cout << setw(5) << left << " " << setw(5) << left << course->course.No << setw(5) << left << "|"
+				<< setw(10) << left << course->course.ID << setw(5) << left << "|"
+				<< setw(30) << left << course->course.CName << setw(5) << left << "|"
+				<< setw(20) << left << course->course.teacherName << setw(5) << left << "|"
+				<< setw(10) << left << course->course.Credits << setw(5) << left << "|"
+				<< setw(10) << left << course->course.Max_stdn << setw(5) << left << "|"
+				<< course->course.dayOfWeek << setw(20) << left << course->course.session << endl;
 			count++;
 		}
 		course = course->next;
@@ -450,48 +463,58 @@ void ViewScoreBoard_Course(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinS
 
 	course = C;
 
-	cout << "your choice: ";
-	cin >> choice;
-	while (course) {
-		if (course->course.No == choice) {
-			courseID = course->course.ID;
-			break;
-		}
-		else
-			course = course->next;
-	}
+	cout << "INSERT COURSE ID: ";
+	cin >> courseID;
 
-	if (courseID == "0") {
-		cout << "Invalid selection, please enter again.\n\n";
-		check = 0;
-		system("pause");
-		return;
-	}
 
 	studentcourse = SC;
 	cout << "\n\n";
 
-	cout << "Name                      Student ID   \tMidTerm   Final   Other   Total" << endl;
+	cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+	cout << "| " << setw(12) << left << "No"
+		<< "| " << setw(35) << left << "Student Name"
+		<< "| " << setw(20) << left << "Student ID"
+		<< "| " << setw(25) << left << "MidTerm"
+		<< "| " << setw(5) << left << "Final"
+		<< "| " << setw(10) << left << "Other"
+		<< "| " << setw(15) << left << "Total";
+	cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
 
 	while (studentcourse) {
 		if (studentcourse->stu_course.CouID == courseID) {
-			cout << studentcourse->stu_course.StudentName << "           " << studentcourse->stu_course.StuID << "       " << studentcourse->stu_course.midterm << "        "
-				<< studentcourse->stu_course.final << "       " << studentcourse->stu_course.other << "       " << studentcourse->stu_course.total << endl;
+			cout << "| " << setw(12) << left << studentcourse->stu_course.No
+				<< "| " << setw(35) << left << studentcourse->stu_course.StudentName
+				<< "| " << setw(20) << left << studentcourse->stu_course.StuID
+				<< "| " << setw(25) << left << studentcourse->stu_course.midterm
+				<< "| " << setw(7) << left << studentcourse->stu_course.final
+				<< "| " << setw(12) << left << studentcourse->stu_course.other
+				<< "| " << setw(15) << left << studentcourse->stu_course.total;
+			cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+
 		}
 		studentcourse = studentcourse->next;
 	}
 	check = 1;
 }
 
-void ViewScoreBoard_Class(std::string classname, STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check) {
+void ViewScoreBoard_Class(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check) {
 	STU_COURSE_NODE* studentcourse = SC;
 	CR_NODE* course = C;
-	int choice;
 	int count = 0;
-	std::string courseID = "";
+	std::string ClassID = "";
 
-	cout << "choose a course" << endl;
-	while (course) {
+	cout << "============================================LIST OF COURSES============================================\n\n";
+	while (studentcourse) {
+		cout << setw(5) << left << " " << setw(5) << left << studentcourse->stu_course.Class << endl;
+		studentcourse = studentcourse->next;
+	}
+
+	cout << "INSERT CLASS ID:" << endl;
+	cin >> ClassID;
+
+	studentcourse = SC;
+
+	/*while (course) {
 		if (course->course.teacherID == loggedinStaff->staff.TeacherID) {
 			cout << course->course.No << "  " << course->course.ID << "  " << course->course.CName << endl;
 			count++;
@@ -520,16 +543,34 @@ void ViewScoreBoard_Class(std::string classname, STU_COURSE_NODE* SC, CR_NODE* C
 		check = 0;
 		system("pause");
 		return;
-	}
+	}*/
 
-	studentcourse = SC;
 	cout << "\n\n";
 
-	cout << "Name                      Student ID   \tCourse Name   \t\tMidTerm   Final   Other   Total" << endl;
+	cout << "------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+	cout
+		<< "| " << setw(35) << left << "Student Name"
+		<< "| " << setw(20) << left << "Student ID"
+		<< "| " << setw(28) << left << "Course Name"
+		<< "| " << setw(28) << left << "Course ID"
+		<< "| " << setw(10) << left << "MidTerm"
+		<< "| " << setw(10) << left << "Final"
+		<< "| " << setw(10) << left << "Other"
+		<< "| " << setw(10) << left << "Total" << "|" << endl;
+	cout << "------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+
 	while (studentcourse) {
-		if (studentcourse->stu_course.CouID == courseID && classname == studentcourse->stu_course.Class) {
-			cout << studentcourse->stu_course.StudentName << "           " << studentcourse->stu_course.StuID << "   \t" << studentcourse->stu_course.Cname << "       " << studentcourse->stu_course.midterm << "        "
-				<< studentcourse->stu_course.final << "       " << studentcourse->stu_course.other << "       " << studentcourse->stu_course.total << endl;
+		if (studentcourse->stu_course.Class == ClassID) {
+			cout << "| " << setw(35) << left << studentcourse->stu_course.StudentName
+				<< "| " << setw(20) << left << studentcourse->stu_course.StuID
+				<< "| " << setw(28) << left << studentcourse->stu_course.Cname
+				<< "| " << setw(28) << left << studentcourse->stu_course.CouID
+				<< "| " << setw(10) << left << studentcourse->stu_course.midterm
+				<< "| " << setw(10) << left << studentcourse->stu_course.final
+				<< "| " << setw(10) << left << studentcourse->stu_course.other
+				<< "| " << setw(10) << left << studentcourse->stu_course.total << "|" << endl;
+			cout << "------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+
 		}
 		studentcourse = studentcourse->next;
 	}
