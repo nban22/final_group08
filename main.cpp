@@ -89,7 +89,7 @@ int main()
 					std::cout << "======================Create new======================";
 					std::cout << "\n\t1.Create a new school year."
 						<< "\n\t2.Create semester."
-						<< "\n\t3.List of courses."
+						//<< "\n\t3.List of courses."
 						<< "\n\t0.Come back.\n";
 					std::cout << "=========================END==========================\n\n";
 					std::cin >> choose;
@@ -108,9 +108,8 @@ int main()
 						std::system("pause");
 
 					}
-					else if (choose == 3) {
-
-					}
+					/*else if (choose == 3) {
+					}*/
 					else if (choose == 0) {
 						break;
 					}
@@ -125,12 +124,12 @@ int main()
 					std::system("cls");
 					std::cout << "======================Enter information======================";
 					std::cout << "\n\t1.Add new 1st year students to 1st year classes."//them sinh vien nam nhat vao lop
-						<< "\n\t2.Create a course registration session."//tao phien DKHP
-						<< "\n\t3.Add a course."//Them khoa hoc
-						<< "\n\t4.Export the file to import the list of students in each class."//Xuat file nhap DSSV tung lop
-						<< "\n\t5.Delete a course."//Xoa khoa hoc
-						<< "\n\t6.Update a course."//Cap nhat khoa hoc
-						<< "\n\t7.Update the marks in a course."//Cap nhat diem trong khoa hoc
+						//<< "\n\t2.Create a course registration session."//tao phien DKHP
+						<< "\n\t2.Add a new course."//Them khoa hoc
+						<< "\n\t3.Export the file to import the list of students in each class."//Xuat file nhap DSSV tung lop
+						<< "\n\t4.Delete a course."//Xoa khoa hoc
+						<< "\n\t5.Update a course."//Cap nhat khoa hoc
+						<< "\n\t6.Update the marks in a course."//Cap nhat diem trong khoa hoc
 						<< "\n\t0.Come back.\n";
 					std::cout << "=============================END=============================\n\n";
 					std::cin >> choose;
@@ -141,15 +140,16 @@ int main()
 						AddStudent(new_node);
 						std::system("pause");
 					}
-					else if (choose == 2) { //Create a course registration session
-						std::system("cls");
+					/* else if (choose == 2) { //Create a course registration session
+ 						std::system("cls");
 						int option = DisplayMenu();
-						getOption(option, course);
+						getOption(option, course); 
+					} */
+					else if (choose == 2) { //Add a course
+					    std::system("cls");
+						CreateNewCourse(course);
 					}
-					else if (choose == 3) { //Add a course
-
-					}
-					else if (choose == 4) { //Export the file to import the list of students in each class
+					else if (choose == 3) { //Export the file to import the list of students in each class
 						int check;
 						std::system("cls");
 						std::cout << "\n\t\t\t ********************************************" << endl;
@@ -162,13 +162,15 @@ int main()
 						}
 						std::system("pause");
 					}
-					else if (choose == 5) { //Delete a course
-
+					else if (choose == 4) { //Delete a course
+						std::system("cls");
+						DeleteCourse(course);
 					}
-					else if (choose == 6) { //Update a course
-
+					else if (choose == 5) { //Update a course
+						std::system("cls");
+						UpdateCourseInfo(course);
 					}
-					else if (choose == 7) { //Update the marks in a course
+					else if (choose == 6) { //Update the marks in a course
 
 					}
 					else if (choose == 0) { //COME BACK
@@ -274,7 +276,7 @@ int main()
 								<< setw(20) << left << cur_course->course.teacherName << setw(5) << left << "|"
 								<< setw(10) << left << cur_course->course.Credits << setw(5) << left << "|"
 								<< setw(10) << left << cur_course->course.Max_stdn << setw(5) << left << "|"
-								<< cur_course->course.dayOfWeek << setw(20) << left << cur_course->course.session << endl;
+								<< ConvertStringWD(cur_course->course.dayOfWeek) << "-" << ConvertStringSS(cur_course->course.session) << endl;
 
 							cur_course = cur_course->next;
 						}
