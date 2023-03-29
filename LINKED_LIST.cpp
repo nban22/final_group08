@@ -334,7 +334,7 @@ void getData_A_Student(STUDENT student, STU_NODE*& head) {
 // ===============Doc lai file sau khi da cap nhat=============
 bool Read_After_Update_Teachers(STFF_NODE*& head) {
 	ofstream outfile;
-	outfile.open("Test.csv");
+	outfile.open("teachers.csv");
 	if (!outfile.is_open()) {
 		return 0;
 	}

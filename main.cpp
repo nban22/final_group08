@@ -12,8 +12,8 @@ int main()
 	getDataTeachers_csv(input, staff);
 	STFF_NODE* loggedinStaff = new STFF_NODE;
 
-	//ACCOUNT TO TEST RUN: 
-	//USER:   24061530
+	//STAFF ACCOUNT TO TEST RUN: 
+	//USER:   33383147
 	//PASSWORD:    123456
 
 	ifstream input_S;
@@ -86,12 +86,12 @@ int main()
 			if (choose == 1) { //Create new
 				while (1) {
 					std::system("cls");
-					std::cout << "======================Look up======================";
+					std::cout << "======================Create new======================";
 					std::cout << "\n\t1.Create a new school year."
 						<< "\n\t2.Create semester."
 						<< "\n\t3.List of courses."
 						<< "\n\t0.Come back.\n";
-					std::cout << "========================END========================\n\n";
+					std::cout << "=========================END==========================\n\n";
 					std::cin >> choose;
 					std::cin.ignore();
 					if (choose == 1) {
@@ -108,7 +108,7 @@ int main()
 						std::system("pause");
 
 					}
-					else if (choose == 3) { 
+					else if (choose == 3) {
 
 					}
 					else if (choose == 0) {
@@ -123,7 +123,7 @@ int main()
 			else if (choose == 2) { //Enter information
 				while (1) {
 					std::system("cls");
-					std::cout << "======================Look up======================";
+					std::cout << "======================Enter information======================";
 					std::cout << "\n\t1.Add new 1st year students to 1st year classes."//them sinh vien nam nhat vao lop
 						<< "\n\t2.Create a course registration session."//tao phien DKHP
 						<< "\n\t3.Add a course."//Them khoa hoc
@@ -132,7 +132,7 @@ int main()
 						<< "\n\t6.Update a course."//Cap nhat khoa hoc
 						<< "\n\t7.Update the marks in a course."//Cap nhat diem trong khoa hoc
 						<< "\n\t0.Come back.\n";
-					std::cout << "========================END========================\n\n";
+					std::cout << "=============================END=============================\n\n";
 					std::cin >> choose;
 					std::cin.ignore();
 					if (choose == 1) { //Add new 1st year students to 1st year classes
@@ -256,7 +256,29 @@ int main()
 
 					}
 					else if (choose == 3) { //List of courses
+						system("cls");
+						CR_NODE* cur_course = course;
+						cout << "============================================LIST OF COURSES============================================\n\n";
+						std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
+							<< setw(10) << left << "Course ID" << setw(5) << left << "|"
+							<< setw(30) << left << "Course name" << setw(5) << left << "|"
+							<< setw(20) << left << "Teacher name" << setw(5) << left << "|"
+							<< setw(10) << left << "Credits" << setw(5) << left << "|"
+							<< setw(10) << left << "Registered" << setw(5) << left << "|"
+							<< setw(20) << left << "Calendar" << endl;
+						std::cout << setfill('-') << setw(125) << left << "-" << setfill(' ') << endl;
+						while (cur_course) {
+							cout << setw(5) << left << " " << setw(5) << left << cur_course->course.No << setw(5) << left << "|"
+								<< setw(10) << left << cur_course->course.ID << setw(5) << left << "|"
+								<< setw(30) << left << cur_course->course.CName << setw(5) << left << "|"
+								<< setw(20) << left << cur_course->course.teacherName << setw(5) << left << "|"
+								<< setw(10) << left << cur_course->course.Credits << setw(5) << left << "|"
+								<< setw(10) << left << cur_course->course.Max_stdn << setw(5) << left << "|"
+								<< cur_course->course.dayOfWeek << setw(20) << left << cur_course->course.session << endl;
 
+							cur_course = cur_course->next;
+						}
+						system("pause");
 					}
 					else if (choose == 4) { //List of students in a course
 
@@ -283,22 +305,22 @@ int main()
 						std::system("pause");
 					}
 					else if (choose == 7) { //Export csv file about a scoreboard of students in course to enter score
-						
-						
-							int check;
-							std::system("cls");
-							std::cout << "\n\t\t\t ********************************************" << endl;
-							std::cout << "\t\t\t\t      ";
-							std::cout << "Export the scoreboard of a course." << endl;
-							ExportScoreBoard(stu_course, course, loggedinStaff, check);
-							if (check != 0) {
-								cout << "export succsessfully" << endl;
-								system("pause");
-							}
-							else {
-								cout << "export failed" << endl;
-								system("pause");
-							
+
+
+						int check;
+						std::system("cls");
+						std::cout << "\n\t\t\t ********************************************" << endl;
+						std::cout << "\t\t\t\t      ";
+						std::cout << "Export the scoreboard of a course." << endl;
+						ExportScoreBoard(stu_course, course, loggedinStaff, check);
+						if (check != 0) {
+							cout << "export succsessfully" << endl;
+							system("pause");
+						}
+						else {
+							cout << "export failed" << endl;
+							system("pause");
+
 						}
 					}
 					else if (choose == 0) {
@@ -386,10 +408,10 @@ int main()
 				} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
 			}
 			else if (choose == 2) {
-				       std::system("cls");
-				       std::cout << "Update personal information." << endl;
-					   UpdateStudentInfo(student, loggedinStudent);
-				       std::system("pause");
+				std::system("cls");
+				std::cout << "Update personal information." << endl;
+				UpdateStudentInfo(student, loggedinStudent);
+				std::system("pause");
 
 			}
 			else if (choose == 3) {

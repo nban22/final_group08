@@ -95,8 +95,8 @@ void displayLISTOFCLASS(STU_NODE*& student, STU_NODE* listclass) {
 		cur_listclass = cur_listclass->next;
 	}
 }
-//============================view list of class============================ 
 
+//============================view list of class============================ 
 void displayListStudentsOfCourse(STU_NODE*& student, std::string classID) {
 	STU_NODE* cur_student = student;
 	int i = 1;
