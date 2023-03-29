@@ -2,7 +2,7 @@
 
 using namespace std;
 
-//COURSE
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@COURSE@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //-------Support functions------
 CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, string ID) {
 	CR_NODE* current = head;
@@ -17,8 +17,26 @@ CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, string ID) {
     }
 	return FoundNode;
 }
+
+string ConvertStringWD(WEEKDAY& wd) {
+	if (wd == MON) return "MON";
+	else if (wd == TUE) return "TUE";
+	else if (wd == WED) return "WED";
+	else if (wd == THU) return "THU";
+	else if (wd == FRI) return "FRI";
+	else return "SAT";
+}
+
+string ConvertStringSS(SESSION& ss) {
+	if (ss == S1) return "S1(07:30)";
+	else if (ss == S2) return "S2(09:30)";
+	else if (ss == S3) return "S3(13:30)";
+	else return "S4(15:30)";
+}
+
 //--------Main functions---------
-void ViewCourses(CR_NODE *head) { 
+
+/* void ViewCourses(CR_NODE *head) { 
     system("cls");
 
     cout << "* No|   ID   |    Course name    | Teacher | Credits | Max Student | Current Student | Session | Weekday |  Start Date  |  End Date  *\n";
@@ -31,7 +49,7 @@ void ViewCourses(CR_NODE *head) {
         cur = cur->next;
     }
     delete cur;
-}
+} */
 
 void CreateNewCourse(CR_NODE *&head) {
     CR_NODE* NewCourse = new CR_NODE;
@@ -212,7 +230,7 @@ void DeleteCourse(CR_NODE *&head) {
         }
 
         system("cls");
-        cout << "Delete Course Successfully";
+        cout << "Delete Course Successfully\n";
         Read_After_Update_Course(*&head);
         system("pause");
         return;
@@ -232,7 +250,7 @@ void DeleteCourse(CR_NODE *&head) {
     }
 }
 
-int DisplayMenu() {
+/*int DisplayMenu() {
     system("cls");
 
     cout << "======================COURSE======================";
@@ -281,5 +299,5 @@ void getOption(int &choice, CR_NODE *&head) {
             cout << "Invalid selection, please enter again.\n\n";
         } DisplayMenu();
     }
-}
+} */
  

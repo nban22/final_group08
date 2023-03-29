@@ -75,10 +75,17 @@ SESSION ConvertEnumSS(std::string& str) {
 	else return S4;
 }
 
+std::string ConvertStringonlySS(SESSION& ss) {
+	if (ss == S1) return "S1";
+	else if (ss == S2) return "S2";
+	else if (ss == S3) return "S3";
+	else return "S4";
+}
+
 void getDataCourse_csv(ifstream& input, CR_NODE *& head) {
 	input.open("coursestest.csv"); //put this in main.cpp
 	COURSE course;
-	int i = 0;
+	int i = 1;
 	getline(input, course.ID);
 	while (!input.eof())
 	{
@@ -379,8 +386,8 @@ bool Read_After_Update_Course(CR_NODE*& head) {
 	outfile << "ID,Cname,teacherName,Credits,Max_stdn,Cur_stdn,Weekday,Session,Start date,End date" << endl;
 	for (CR_NODE* c = head; c != nullptr; c = c->next) {
 		outfile << c->course.ID << "," << c->course.CName << "," << c->course.teacherName << ","
-			<< c->course.Credits << "," << c->course.Max_stdn << "," << c->course.Cur_stdn << "," << c->course.dayOfWeek << ","
-			<< c->course.session << "," 
+			<< c->course.Credits << "," << c->course.Max_stdn << "," << c->course.Cur_stdn << "," << ConvertStringWD(c->course.dayOfWeek) << ","
+			<< ConvertStringonlySS(c->course.session) << "," 
 			<< c->course.startDate.day / 10 << c->course.startDate.day % 10 << "/" << c->course.startDate.month / 10 << c->course.startDate.month % 10 << "/" << c->course.startDate.year << ","
 			<< c->course.endDate.day / 10 << c->course.endDate.day % 10 << "/" << c->course.endDate.month / 10 << c->course.endDate.month % 10 << "/" << c->course.endDate.year;
 		if (c->next != nullptr) {

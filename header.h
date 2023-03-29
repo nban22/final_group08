@@ -186,19 +186,22 @@ void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStude
 //SEMESTER'S OPTIONAL FUNCTIONS
 //COURSE
 bool Read_After_Update_Course(CR_NODE*& head);
-int DisplayMenu();
+//int DisplayMenu();
 void getOption(int& choice, CR_NODE*& head);
 CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID);
-void ViewCourses(CR_NODE *head);
+//void ViewCourses(CR_NODE *head);
 void CreateNewCourse(CR_NODE *&head);
 void UpdateCourseInfo(CR_NODE *&head);
 void DeleteCourse(CR_NODE *&head);
 
 //----Weekday----
 WEEKDAY ConvertEnumWD(std::string& str);
+std::string ConvertStringWD(WEEKDAY& wd);
 
 //----Session----
 SESSION ConvertEnumSS(std::string& str);
+std::string ConvertStringSS(SESSION& ss);
+std::string ConvertStringonlySS(SESSION& ss);
 
 //COURSE_STUDENT
 void getData_A_StuCourse(STU_COURSE studentcourse, STU_COURSE_NODE*& head);
