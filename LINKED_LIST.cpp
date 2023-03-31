@@ -5,9 +5,9 @@ using namespace std;
 //***********GET DATA AND BUILD LINKED LISTS**********
 
 //STAFF
-void getDataTeachers_csv(ifstream& input, STFF_NODE*& head)
+void getDataStaff_csv(ifstream& input, STFF_NODE*& head)
 {
-	input.open("teachers.csv");
+	input.open("staffs.csv");
 	STAFF teacher;
 
 	getline(input, teacher.TeacherID);
@@ -31,12 +31,11 @@ void getDataTeachers_csv(ifstream& input, STFF_NODE*& head)
 		getline(input, teacher.SocialID, ',');
 		getline(input, teacher.Faculty);
 
-		getData_A_Teacher(teacher, head);
+		getData_A_Staff(teacher, head);
 	}
 	input.close();
 };
-
-void getData_A_Teacher(STAFF staff, STFF_NODE*& head) {
+void getData_A_Staff(STAFF staff, STFF_NODE*& head) {
 	STFF_NODE* tmp = new STFF_NODE;
 	tmp->staff = staff;
 	tmp->next = nullptr;
@@ -66,7 +65,6 @@ WEEKDAY ConvertEnumWD(std::string& str) {
 	else if (str.compare("FRI") == 0) return FRI;
 	else return SAT;
 }
-
 //Session
 SESSION ConvertEnumSS(std::string& str) {
 	if (str.compare("S1") == 0) return S1;
@@ -74,7 +72,6 @@ SESSION ConvertEnumSS(std::string& str) {
 	else if (str.compare("S3") == 0) return S3;
 	else return S4;
 }
-
 std::string ConvertStringonlySS(SESSION& ss) {
 	if (ss == S1) return "S1";
 	else if (ss == S2) return "S2";
@@ -83,77 +80,69 @@ std::string ConvertStringonlySS(SESSION& ss) {
 }
 
 void getDataCourse_csv(ifstream& input, CR_NODE *& head) {
-	input.open("coursestest.csv"); //put this in main.cpp
-	COURSE course;
-	int i = 1;
-	getline(input, course.ID);
-	while (!input.eof())
-	{
-		string tmp;
-		getline(input, tmp, ',');
-		if (tmp == "") {
-			input.close();
-			return;
+	input.open("courses.csv"); //put this in main.cpp
+	if (input.is_open() == false)
+		return;
+	string tem;
+	getline(input, tem);
+	CR_NODE* cur = head;
+	while (input.eof() != true){
+		if (head == nullptr) {
+			head = new CR_NODE;
+			cur = head;
+			getData_A_Course(input, cur->course);
+			head->next = nullptr;
+			head->prev = nullptr;
 		}
-		//getline(input, tmp, ',');
-		course.No = i++;
-		course.ID = tmp;
-		getline(input, course.CName, ',');
-		getline(input, course.teacherName, ',');
-		//getline(input, course.teacherID, ',');
-		getline(input, tmp, ',');
-		course.Credits = stoi(tmp);
-		getline(input, tmp, ',');
-		course.Max_stdn = stoi(tmp);
-		getline(input, tmp, ',');
-		course.Cur_stdn = stoi(tmp);
-
-		//GET ENUM VARIABLE:
-		string weekday;
-		getline(input, weekday, ',');
-		WEEKDAY enumwd = ConvertEnumWD(weekday);
-		course.dayOfWeek = enumwd;
-		string session;
-		getline(input, session, ',');
-		SESSION enumss = ConvertEnumSS(session);
-		course.session = enumss;
-
-		getline(input, tmp, '/');
-		course.startDate.day = stoi(tmp);
-		getline(input, tmp, '/');
-		course.startDate.month = stoi(tmp);
-		getline(input, tmp, ',');
-		course.startDate.year = stoi(tmp);
-
-		getline(input, tmp, '/');
-		course.endDate.day = stoi(tmp);
-		getline(input, tmp, '/');
-		course.endDate.month = stoi(tmp);
-		getline(input, tmp);
-		course.endDate.year = stoi(tmp);
-
-		getData_A_Course(course, head);
+		else {
+			cur->next = new CR_NODE;
+			cur->next->prev = cur;
+			cur = cur->next;
+			cur->next = nullptr;
+			getData_A_Course(input, cur->course);			
+		}
 	}
 	input.close();
 	return;
 }
+void getData_A_Course(ifstream& input, COURSE& course) {
+	string tmp;
+	getline(input, tmp, ',');
+	course.No = stoi(tmp);
+	getline(input, course.ID, ',');
+	getline(input, course.CName, ',');
+	getline(input, course.LNameTeacher, ',');
+	getline(input, course.FNameTeacher, ',');
+	getline(input, course.teacherID, ',');
+	getline(input, tmp, ',');
+	course.Credits = stoi(tmp);
+	getline(input, tmp, ',');
+	course.Cur_stdn = stoi(tmp);
+	getline(input, tmp, ',');
+	course.Max_stdn = stoi(tmp);
 
-void getData_A_Course(COURSE course, CR_NODE *& head) {
-    CR_NODE* tmp = new CR_NODE;
-    tmp->course = course;
-    tmp->next = nullptr;
+	string weekday;
+	getline(input, weekday, ',');
+	WEEKDAY enumwd = ConvertEnumWD(weekday);
+	course.dayOfWeek = enumwd;
+	string session;
+	getline(input, session, ',');
+	SESSION enumss = ConvertEnumSS(session);
+	course.session = enumss;
 
-    if (!head) {
-        head = tmp;
-		head->prev = nullptr;
-    } else {
-        CR_NODE* cur = head;
-        while (cur->next) {
-            cur = cur->next;
-        }
-        cur->next = tmp;
-		tmp->prev = cur;
-    }
+	getline(input, tmp, '/');
+	course.startDate.day = stoi(tmp);
+	getline(input, tmp, '/');
+	course.startDate.month = stoi(tmp);
+	getline(input, tmp, ',');
+	course.startDate.year = stoi(tmp);
+
+	getline(input, tmp, '/');
+	course.endDate.day = stoi(tmp);
+	getline(input, tmp, '/');
+	course.endDate.month = stoi(tmp);
+	getline(input, tmp);
+	course.endDate.year = stoi(tmp);
 }
 
 void EnterCourseScore(STU_COURSE_NODE* &SC, CR_NODE* C, STFF_NODE* loggedinStaff, int &check) {
@@ -216,7 +205,6 @@ void EnterCourseScore(STU_COURSE_NODE* &SC, CR_NODE* C, STFF_NODE* loggedinStaff
 	check = 1;
 }
 
-
 void Get_Data_StudentCourse_csv(std::ifstream& input, STU_COURSE_NODE*& head) {
 	input.open("student_course.csv"); //put this in main.cpp
 	STU_COURSE studentcourse;
@@ -267,7 +255,6 @@ void Get_Data_StudentCourse_csv(std::ifstream& input, STU_COURSE_NODE*& head) {
 	input.close();
 	return;
 }
-
 void getData_A_StuCourse(STU_COURSE studentcourse, STU_COURSE_NODE*& head) {
 	STU_COURSE_NODE* tmp = new STU_COURSE_NODE;
 	tmp->stu_course = studentcourse;
@@ -341,7 +328,7 @@ void getData_A_Student(STUDENT student, STU_NODE*& head) {
 // ===============Doc lai file sau khi da cap nhat=============
 bool Read_After_Update_Teachers(STFF_NODE*& head) {
 	ofstream outfile;
-	outfile.open("teachers.csv");
+	outfile.open("staffs.csv");
 	if (!outfile.is_open()) {
 		return 0;
 	}
@@ -360,16 +347,24 @@ bool Read_After_Update_Teachers(STFF_NODE*& head) {
 
 bool Read_After_Update_Students(STU_NODE*& head) {
 	ofstream outfile;
-	outfile.open("Test1.csv");
+	outfile.open("students.csv");
 	if (!outfile.is_open()) {
 		return 0;
 	}
-	outfile << "No.,Student ID,Password,Last Name,First Name,Gender,Date Of Birth,Social ID,Classes,Class ID" << endl;
+	outfile << "No,Student ID,Password,Last Name,First Name,Gender,Date Of Birth,Social ID,Classes,Class ID" << endl;
 	for (STU_NODE* h = head; h != nullptr; h = h->next) {
-		outfile << h->student.No_Student << "," << h->student.StudentID << "," << h->student.Password << "," << h->student.LName << ","
-			<< h->student.FName << "," << h->student.Gender << ","
-			<< h->student.DoB.day / 10 << h->student.DoB.day % 10 << "/" << h->student.DoB.month / 10 << h->student.DoB.month % 10 << "/"
-			<< h->student.DoB.year << "," << h->student.SocialID << "," << h->student.Classes.name << "," << h->student.Classes.ClassID;
+		outfile << h->student.No_Student << "," 
+			<< h->student.StudentID << "," 
+			<< h->student.Password << "," 
+			<< h->student.LName << ","
+			<< h->student.FName << "," 
+			<< h->student.Gender << ","
+			<< h->student.DoB.day / 10 << h->student.DoB.day % 10 << "/" 
+			<< h->student.DoB.month / 10 << h->student.DoB.month % 10 << "/"
+			<< h->student.DoB.year << "," 
+			<< h->student.SocialID << "," 
+			<< h->student.Classes.name << "," 
+			<< h->student.Classes.ClassID;
 		if (h->next != nullptr)
 			outfile << "\n";
 	}
@@ -385,7 +380,7 @@ bool Read_After_Update_Course(CR_NODE*& head) {
 	}
 	outfile << "ID,Cname,teacherName,Credits,Max_stdn,Cur_stdn,Weekday,Session,Start date,End date" << endl;
 	for (CR_NODE* c = head; c != nullptr; c = c->next) {
-		outfile << c->course.ID << "," << c->course.CName << "," << c->course.teacherName << ","
+		outfile << c->course.ID << "," << c->course.CName << "," << c->course.LNameTeacher << "," << c->course.FNameTeacher << ","
 			<< c->course.Credits << "," << c->course.Max_stdn << "," << c->course.Cur_stdn << "," << ConvertStringWD(c->course.dayOfWeek) << ","
 			<< ConvertStringonlySS(c->course.session) << "," 
 			<< c->course.startDate.day / 10 << c->course.startDate.day % 10 << "/" << c->course.startDate.month / 10 << c->course.startDate.month % 10 << "/" << c->course.startDate.year << ","
@@ -395,10 +390,11 @@ bool Read_After_Update_Course(CR_NODE*& head) {
 		}
 	}
 	outfile.close();
+
 	return 1;
 }
 
-bool Read_After_Update_Student_Course(STU_COURSE_NODE*& head) {
+bool Read_After_Update_Student_Course(CR_NODE*& course ,STU_COURSE_NODE*& head) {
 	ofstream outfile;
 	outfile.open("UpdatedStudentCourse.csv");
 	if (!outfile.is_open()) {
@@ -416,8 +412,27 @@ bool Read_After_Update_Student_Course(STU_COURSE_NODE*& head) {
 			outfile << "\n";
 	}
 	outfile.close();
+	updateCur_stdnInCourse(course, head);
 	return 1;
 }
+void updateCur_stdnInCourse(CR_NODE*& course, STU_COURSE_NODE* head) {
+	CR_NODE* cur_course = course;
+	while (cur_course) {
+		cur_course->course.Cur_stdn = countTheNumberOfStudentsInEachCourse(cur_course->course.ID, head);
+		cur_course = cur_course->next;
+	}
+}
+int countTheNumberOfStudentsInEachCourse(std::string CourseID, STU_COURSE_NODE* head) {
+	STU_COURSE_NODE* cur = head;
+	int count = 0;
+	while (cur) {
+		if (cur->stu_course.CouID == CourseID)
+			count++;
+		cur = cur->next;
+	}
+	return count;
+}
+
 void CreateSchoolYear(int& sYEAR) {
 	std::cout << "Input the starting year of the school year: ";
 	std::cin >> sYEAR;
@@ -451,10 +466,11 @@ void ViewScoreBoard_Course(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinS
 	std::cout << setfill('-') << setw(125) << left << "-" << setfill(' ') << endl;
 	while (course) {
 		if (course->course.teacherID == loggedinStaff->staff.TeacherID) {
+			string fullname = course->course.LNameTeacher + " " + course->course.FNameTeacher;
 			cout << setw(5) << left << " " << setw(5) << left << course->course.No << setw(5) << left << "|"
 				<< setw(10) << left << course->course.ID << setw(5) << left << "|"
 				<< setw(30) << left << course->course.CName << setw(5) << left << "|"
-				<< setw(20) << left << course->course.teacherName << setw(5) << left << "|"
+				<< setw(20) << left << fullname << setw(5) << left << "|"
 				<< setw(10) << left << course->course.Credits << setw(5) << left << "|"
 				<< setw(10) << left << course->course.Max_stdn << setw(5) << left << "|"
 				<< course->course.dayOfWeek << setw(20) << left << course->course.session << endl;

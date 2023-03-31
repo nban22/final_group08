@@ -52,6 +52,7 @@ string ConvertStringSS(SESSION& ss) {
 } */
 
 void CreateNewCourse(CR_NODE *&head) {
+    std::system("cls");
     CR_NODE* NewCourse = new CR_NODE;
     CR_NODE* cur = head;
     //create new course
@@ -70,11 +71,15 @@ void CreateNewCourse(CR_NODE *&head) {
     cin.ignore();
     getline(cin, NewID);
     NewCourse->course.ID = NewID;
-    string NewTeacher;
-    cout << "Enter Teacher name: ";
+    string LName;
+    cout << "Enter Teacher's last name: ";
     cin.ignore();
-    getline(cin, NewTeacher);
-    NewCourse->course.teacherName = NewTeacher;
+    getline(cin, LName);
+    NewCourse->course.LNameTeacher = LName;
+    string FName;
+    cout << "Enter Teacher's first name: ";
+    getline(cin, FName);
+    NewCourse->course.FNameTeacher = FName;
     int NewCredits;
     cout << "Enter Credits: ";
     cin >> NewCredits;
@@ -116,6 +121,7 @@ void CreateNewCourse(CR_NODE *&head) {
 }
 
 void UpdateCourseInfo(CR_NODE *&head) {
+    std::system("cls");
     cout << "Enter Course ID: ";
     string UpID;
     cin >> UpID;
@@ -152,9 +158,11 @@ void UpdateCourseInfo(CR_NODE *&head) {
                 getline(cin, UpNode->course.CName);
             } break;
             case 3: {
-                cout << "Enter Course Teacher name: ";
+                cout << "Enter Course Teacher Last name: ";
                 cin.ignore();
-                getline(cin, UpNode->course.teacherName);
+                getline(cin, UpNode->course.LNameTeacher);
+                cout << "Enter Course Teacher First name: ";
+                getline(cin, UpNode->course.LNameTeacher);
             } break;
 /*             case 4: {
                 cout << "Enter Course Teacher ID: ";
@@ -214,6 +222,7 @@ void UpdateCourseInfo(CR_NODE *&head) {
 }
 
 void DeleteCourse(CR_NODE *&head) {
+    std::system("cls");
     cout << "Enter Course ID: ";
     string DelID;
     cin >> DelID;

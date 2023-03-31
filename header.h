@@ -7,12 +7,12 @@
 #include <fstream>
 #include <iomanip>
 
-//Using namespace std;
+//using namespace std;
 //Shouldn't use namespace in a header files!
 
 //**********************SEMESTER.h
 struct DATE {
-    int year, month, day;
+    int year{}, month{}, day{};
 };
 
 enum WEEKDAY {
@@ -35,7 +35,8 @@ struct COURSE {
     std::string ID;
     std::string CName;
     std::string Class;
-    std::string teacherName;
+    std::string LNameTeacher;
+    std::string FNameTeacher;
     std::string teacherID;
     int Credits;
     int Max_stdn;
@@ -44,9 +45,9 @@ struct COURSE {
     SESSION session;
     DATE startDate, endDate;
 
-    void ViewCourses();
+    /*void ViewCourses();
     void UpdateCourseInfo();
-    void DeleteCourse();
+    void DeleteCourse();*/
 };
 
 struct STU_COURSE {
@@ -86,16 +87,16 @@ struct STUDENT {
     DATE DoB; //Date of Birth
     CLASS Classes;
 
-    void ViewCourses();
-    void LoginStudent();
-    void LogoutStudent();
-    void ChangeStudentPass();
-    void UpdateStudentInfo();
-    void RegisterCourse();
-    void ViewSchedule();
-    void ViewScore();
-    void ViewStudentinCourse();
-    void ViewStudentinClass();
+    //void ViewCourses();
+    //void LoginStudent();
+    //void LogoutStudent();
+    //void ChangeStudentPass();
+    //void UpdateStudentInfo();
+    //void RegisterCourse();
+    //void ViewSchedule();
+    //void ViewScore();
+    //void ViewStudentinCourse();
+    //void ViewStudentinClass();
 
     //......add more later (if needed, above are all of the requirements)
 };
@@ -134,32 +135,32 @@ struct STAFF {
 //********************LINKED_LIST.h
 
 struct STU_NODE {
-    STUDENT student;
+    STUDENT student{};
     STU_NODE* next = nullptr;
     STU_NODE* prev = nullptr;
 };
 
 struct STFF_NODE {
-    STAFF staff;
+    STAFF staff{};
     STFF_NODE* next = nullptr;
     STFF_NODE* prev = nullptr;
 };
 
 struct CR_NODE {
-    COURSE course;
+    COURSE course{};
     CR_NODE* next = nullptr;
     CR_NODE* prev = nullptr;
 };
 
 struct STU_COURSE_NODE {
-    STU_COURSE stu_course;
-    STU_COURSE_NODE* next;
-    STU_COURSE_NODE* prev;
+    STU_COURSE stu_course{};
+    STU_COURSE_NODE* next = nullptr;
+    STU_COURSE_NODE* prev = nullptr;
 };
 
 //Read Teacher's Data and create D_Linked List
-void getData_A_Teacher(STAFF staff, STFF_NODE*& head);
-void getDataTeachers_csv(std::ifstream& input, STFF_NODE*& head);
+void getData_A_Staff(STAFF staff, STFF_NODE*& head);
+void getDataStaff_csv(std::ifstream& input, STFF_NODE*& head);
 void print_Staffs(STFF_NODE* head); //for testing
 
 //Read Student's Data and create D_Linked List
@@ -167,9 +168,9 @@ void getData_A_Student(STUDENT student, STU_NODE*& head);
 void getDataStudents_csv(std::ifstream& input, STU_NODE*& head);
 void print_Students(STU_NODE* head); //for testing
 
-//Read Course's Data and create D_Linked List
+//Read Course'getDataCourse_csvs Data and create D_Linked List
 void getDataCourse_csv(std::ifstream& input, CR_NODE *& head);
-void getData_A_Course(COURSE course, CR_NODE *& head);
+void getData_A_Course(std::ifstream& input, COURSE& course);
 
 //checkAcount
 int checkExistOfStudentAccount(STU_NODE*& head, std::string user, std::string password, STU_NODE*& logged);
@@ -206,7 +207,9 @@ std::string ConvertStringonlySS(SESSION& ss);
 //COURSE_STUDENT
 void getData_A_StuCourse(STU_COURSE studentcourse, STU_COURSE_NODE*& head);
 void Get_Data_StudentCourse_csv(std::ifstream& input, STU_COURSE_NODE*& head);
-bool Read_After_Update_Student_Course(STU_COURSE_NODE*& head);
+bool Read_After_Update_Student_Course(CR_NODE*& course ,STU_COURSE_NODE*& head);
+int countTheNumberOfStudentsInEachCourse(std::string CourseID, STU_COURSE_NODE* head);
+void updateCur_stdnInCourse(CR_NODE*& course, STU_COURSE_NODE* head);
 void EnterCourseScore( STU_COURSE_NODE* &SC, CR_NODE* C, STFF_NODE* loggedinStaff, int &check);
 void ViewScoreBoard_Course(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
 void ViewScoreBoard_Class(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
@@ -215,12 +218,22 @@ void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff,
 //SCHOOL_YEAR
 void CreateSchoolYear(int& sYEAR);
 
+//Add new 1st year students to 1st year classes
+void addNew1styearStudent(STU_NODE*& student);
+
 //=============view list of classes============
 STU_NODE*  checkExistClassIDinDLL(STU_NODE*& listclass, std::string classID);
 void deleteSTU_NODE(STU_NODE*& head);
 void displayLISTOFCLASS(STU_NODE*& student, STU_NODE* listclass);
+void viewListOfClasses(STU_NODE* student);
+
+
+//=============view list of courses============
+void viewListOfCourses(CR_NODE* course);
 
 //=============view list students of class============
+void viewListStudentsOfClass(STU_NODE* student);
+
 void displayListStudentsOfCourse(STU_NODE*& student, std::string classID);
 // Update teacher
 void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff);
@@ -228,6 +241,9 @@ void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff);
 void UpdateStudentInfo(STU_NODE* student, STU_NODE* loggedinStaff);
 // add student
 void AddStudent(STU_NODE*& head);
+
+//=================STAFF===================
+void printInformation_A_Staff(STFF_NODE* loggedinStaff);
 
 
 #endif
