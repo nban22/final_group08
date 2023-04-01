@@ -207,11 +207,14 @@ int main()
 						system("pause");
 					}
 					else if (choose == 4) { //List of students in a course
-						/*system("cls");
+						system("cls");
 						viewListOfCourses(course);
 						cout << "\n\nEnter Course ID which you want to view: ";
-						string ClassID;
-						getline(cin, ClassID);*/	
+						string CourseID;
+						getline(cin, CourseID);						
+						system("cls");
+						viewListStudentsOfCourse(stu_course, student, CourseID);
+						system("pause");
 					}
 					else if (choose == 5) { //View a scoreboard in a course
 						int check;

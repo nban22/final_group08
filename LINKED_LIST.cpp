@@ -292,9 +292,9 @@ void getDataStudents_csv(ifstream& input, STU_NODE*& head) {
 		getline(input, student.FName, ',');
 		getline(input, student.Gender, ',');
 		getline(input, tmp, '/');
-		student.DoB.day = stoi(tmp);
-		getline(input, tmp, '/');
 		student.DoB.month = stoi(tmp);
+		getline(input, tmp, '/');
+		student.DoB.day = stoi(tmp);
 		getline(input, tmp, ',');
 		student.DoB.year = stoi(tmp);
 		getline(input, student.SocialID, ',');
@@ -359,8 +359,8 @@ bool Read_After_Update_Students(STU_NODE*& head) {
 			<< h->student.LName << ","
 			<< h->student.FName << "," 
 			<< h->student.Gender << ","
-			<< h->student.DoB.day / 10 << h->student.DoB.day % 10 << "/" 
 			<< h->student.DoB.month / 10 << h->student.DoB.month % 10 << "/"
+			<< h->student.DoB.day / 10 << h->student.DoB.day % 10 << "/" 
 			<< h->student.DoB.year << "," 
 			<< h->student.SocialID << "," 
 			<< h->student.Classes.name << "," 
@@ -709,5 +709,16 @@ void UpdateStudentInfo(STU_NODE* student, STU_NODE* loggedinStudent) {
 	std::cin >> student->student.DoB.day >> student->student.DoB.month >> student->student.DoB.year;
 
 	std::cout << "Student information updated successfully.\n";
+}
+
+STU_NODE* getInformationByStudentID(std::string StuID, STU_NODE* student) {
+	STU_NODE* cur = student;
+	while (cur) {
+		if (cur->student.StudentID == StuID)
+			return cur;
+		cur = cur->next;
+	}
+	return nullptr;
+	
 }
 

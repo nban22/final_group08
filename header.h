@@ -51,25 +51,25 @@ struct COURSE {
 };
 
 struct STU_COURSE {
-    int No;
+    int No{};
     std::string StuID;
     std::string StudentName;
     std::string Gen;
     std::string Class;
     std::string CouID;
     std::string Cname;
-    int credits;
-    int Max_stdn;
+    int credits{};
+    int Max_stdn{};
     std::string Teachername;
     std::string TeacherID;
     std::string weekday;
     std::string session;
     DATE startdate;
     DATE enddate;
-    float other;
-    float midterm;
-    float final;
-    float total;
+    float other{};
+    float midterm{};
+    float final{};
+    float total{};
 };
 
 struct SEMESTER {
@@ -79,7 +79,7 @@ struct SEMESTER {
 
 //*********************USERS.h
 struct STUDENT {
-    int No_Student;
+    int No_Student{};
     std::string StudentID;
     std::string Password;
     std::string FName, LName, Gender;
@@ -102,7 +102,7 @@ struct STUDENT {
 };
 
 struct STAFF {
-    int No_Staff;
+    int No_Staff{};
     std::string TeacherID;
     std::string Password;
     std::string FName, LName, Gender;
@@ -231,8 +231,12 @@ void viewListOfClasses(STU_NODE* student);
 //=============view list of courses============
 void viewListOfCourses(CR_NODE* course);
 
+//=============view list students of course============
+void viewListStudentsOfCourse(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID);
+
 //=============view list students of class============
 void viewListStudentsOfClass(STU_NODE* student);
+STU_NODE* getInformationByStudentID(std::string StuID, STU_NODE* student);
 
 void displayListStudentsOfCourse(STU_NODE*& student, std::string classID);
 // Update teacher

@@ -148,6 +148,36 @@ void viewListStudentsOfClass(STU_NODE* student) {
 	std::system("pause");
 }
 
+//+++++++++++++++++++List of students in course+++++++++++++++++++++
+void viewListStudentsOfCourse(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID) {
+	STU_COURSE_NODE* cur = stu_course;
+	int i = 1;
+	cout << "============================================LIST STUDENTS OF " << CourseID << "============================================\n\n";
+	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
+		<< setw(15) << left << "Student ID" << setw(5) << left << "|"
+		<< setw(30) << left << "Student's name" << setw(5) << left << "|"
+		<< setw(10) << left << "Gender" << setw(5) << left << "|"
+		<< setw(15) << left << "Date of birth" << setw(5) << left << "|"
+		<< setw(20) << left << "Social ID" << std::endl;
+	std::cout << setfill('-') << setw(120) << left << "-" << setfill(' ') << "\n";
+	while (cur) {
+		if (cur->stu_course.CouID == CourseID) {
+			STU_NODE* tmp = getInformationByStudentID(cur->stu_course.StuID, student);
+			string DoB = to_string(tmp->student.DoB.day / 10) + to_string(tmp->student.DoB.day % 10) + "/"
+				+ to_string(tmp->student.DoB.month / 10) + to_string(tmp->student.DoB.month % 10) + "/"
+				+ to_string(tmp->student.DoB.year);
+			string fullname = tmp->student.LName + " " + tmp->student.FName;
+			std::cout << "\n" << setw(5) << left << " " << setw(5) << left << i++ << setw(5) << left << "|"
+				<< setw(15) << left << cur->stu_course.StuID << setw(5) << left << "|"
+				<< setw(30) << left << fullname << setw(5) << left << "|"
+				<< setw(10) << left << tmp->student.Gender << setw(5) << left << "|"
+				<< setw(15) << left << DoB << setw(5) << left << "|"
+				<< setw(20) << left << tmp->student.SocialID;
+		}
+		cur = cur->next;
+	}
+	std::cout << "\n";
+}
 //+++++++++++++++++List of courses+++++++++++++++++
 void viewListOfCourses(CR_NODE* course) {
 	CR_NODE* cur_course = course;
