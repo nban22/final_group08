@@ -251,18 +251,29 @@ int main()
 							}
 						} while (check == 0);
 						system("cls");
-						viewScoreBoard_Course( stu_course, student, CourseID);
+						viewScoreBoard_Course(stu_course, student, CourseID);
 						system("pause");
 					}
 					else if (choose == 6) { //View a scoreboard in class
-						int check;
-						std::string classname;
-						std::system("cls");
-						std::cout << "\n\t\t\t ********************************************" << endl;
-						std::cout << "\t\t\t\t      ";
-						std::cout << "View the scoreboard of a course." << endl;
-						ViewScoreBoard_Class(stu_course, course, loggedinStaff, check);
-						std::system("pause");
+						int check = 0;
+						string ClassID;
+						do {
+							std::system("cls");
+							viewListOfClasses(student);
+							cout << "\n\nEnter the class ID which you want to view the scoreboard: ";
+							getline(cin, ClassID);
+
+							if (checkExistClassIDinDLL(student, ClassID) != nullptr)
+								check = 1;
+
+							if (check == 0) {
+								cout << "Your class ID doesn't exist. Please enter again.\n";
+								system("pause");
+							}
+						} while (check == 0);
+						system("cls");
+						viewScoreBoard_Class(stu_course, student, ClassID);
+						system("pause");
 					}
 					else if (choose == 7) { //Export csv file about a scoreboard of students in course to enter score
 

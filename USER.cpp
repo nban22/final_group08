@@ -293,7 +293,7 @@ void displayListStudentsOfCourse(STU_NODE*& student, std::string classID) {
 void viewScoreBoard_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID) {
 	int i = 1;
 	STU_COURSE_NODE* cur = stu_course;
-	cout << "============================================A SCOREBOARD IN CLASS " << CourseID << "============================================\n\n";
+	cout << "============================================A SCOREBOARD IN COURSE " << CourseID << "============================================\n\n";
 	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
 		<< setw(10) << left << "Student ID" << setw(5) << left << "|"
 		<< setw(25) << left << "Last name" << setw(5) << left << "|"
@@ -316,6 +316,53 @@ void viewScoreBoard_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, std::
 				<< setw(15) << left << cur->stu_course.total << endl;
 		}
 		cur = cur->next;
+	}
+}
+
+void viewScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string ClassID) {
+	int i = 1;
+	STU_NODE* cur_student = student;
+	STU_COURSE_NODE* cur = stu_course;
+	cout << "============================================A SCOREBOARD IN CLASS " << ClassID << "============================================\n\n";
+	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
+		<< setw(10) << left << "Student ID" << setw(5) << left << "|"
+		<< setw(25) << left << "Last name" << setw(5) << left << "|"
+		<< setw(15) << left << "Firse name" << setw(5) << left << "|"
+		<< setw(25) << left << "Subject" << setw(5) << left << "|"
+		<< setw(15) << left << "Mark" << endl;
+	std::cout << setfill('-') << setw(125) << left << "-" << setfill(' ') << endl;
+	while (cur_student) {
+		if (cur_student->student.Classes.ClassID == ClassID) {
+			float GPA = 0;
+			int count = 0;
+			while (cur->stu_course.StuID == cur_student->student.StudentID) {
+				std::cout << setw(5) << left << " " << setw(5) << left << " " << setw(5) << left << "|"
+					<< setw(10) << left << " " << setw(5) << left << "|"
+					<< setw(25) << left << " " << setw(5) << left << "|"
+					<< setw(15) << left << " " << setw(5) << left << "|"
+					<< setw(25) << left << cur->stu_course.Cname << setw(5) << left << "|"
+					<< setw(15) << left << cur->stu_course.total << endl;
+				GPA += cur->stu_course.total;
+				count++;
+				cur = cur->next;
+			}
+			if (count == 0)
+				std::cout << setw(5) << left << " " << setw(5) << left << i++ << setw(5) << left << "|"
+				<< setw(10) << left << cur_student->student.StudentID << setw(5) << left << "|"
+				<< setw(25) << left << cur_student->student.LName << setw(5) << left << "|"
+				<< setw(15) << left << cur_student->student.FName << setw(5) << left << "|"
+				<< setw(25) << left << "GPA of this semester" << setw(5) << left << "|"
+				<< setw(15) << left << fixed << setprecision(2) << 0 << endl;
+			else
+				std::cout << setw(5) << left << " " << setw(5) << left << i++ << setw(5) << left << "|"
+				<< setw(10) << left << cur_student->student.StudentID << setw(5) << left << "|"
+				<< setw(25) << left << cur_student->student.LName << setw(5) << left << "|"
+				<< setw(15) << left << cur_student->student.FName << setw(5) << left << "|"
+				<< setw(25) << left << "GPA of this semester" << setw(5) << left << "|"
+				<< setw(15) << left << fixed << setprecision(2) << GPA / count << endl;
+			std::cout << setfill('-') << setw(125) << left << "-" << setfill(' ') << endl;
+		}
+		cur_student = cur_student->next;
 	}
 }
 
