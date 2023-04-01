@@ -449,77 +449,6 @@ void CreateSchoolYear(int& sYEAR) {
 	std::cout << "New school year created: " << sYEAR << "-" << sYEAR + 1 << std::endl;
 }
 
-void ViewScoreBoard_Course(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check) {
-	STU_COURSE_NODE *studentcourse = SC;
-	CR_NODE *course = C;
-	int count = 0;
-	std::string courseID = "0";
-
-	cout << "============================================LIST OF COURSES============================================\n\n";
-	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
-		<< setw(10) << left << "Course ID" << setw(5) << left << "|"
-		<< setw(30) << left << "Course name" << setw(5) << left << "|"
-		<< setw(20) << left << "Teacher name" << setw(5) << left << "|"
-		<< setw(10) << left << "Credits" << setw(5) << left << "|"
-		<< setw(10) << left << "Registered" << setw(5) << left << "|"
-		<< setw(20) << left << "Calendar" << endl;
-	std::cout << setfill('-') << setw(125) << left << "-" << setfill(' ') << endl;
-	while (course) {
-		if (course->course.teacherID == loggedinStaff->staff.TeacherID) {
-			string fullname = course->course.LNameTeacher + " " + course->course.FNameTeacher;
-			cout << setw(5) << left << " " << setw(5) << left << course->course.No << setw(5) << left << "|"
-				<< setw(10) << left << course->course.ID << setw(5) << left << "|"
-				<< setw(30) << left << course->course.CName << setw(5) << left << "|"
-				<< setw(20) << left << fullname << setw(5) << left << "|"
-				<< setw(10) << left << course->course.Credits << setw(5) << left << "|"
-				<< setw(10) << left << course->course.Max_stdn << setw(5) << left << "|"
-				<< course->course.dayOfWeek << setw(20) << left << course->course.session << endl;
-			count++;
-		}
-		course = course->next;
-	}
-	if (count == 0) {
-		cout << "you have not attend any course" << endl;
-		check = 0;
-		return;
-	}
-
-	course = C;
-
-	cout << "INSERT COURSE ID: ";
-	cin >> courseID;
-
-
-	studentcourse = SC;
-	cout << "\n\n";
-
-	cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-	cout << "| " << setw(12) << left << "No"
-		<< "| " << setw(35) << left << "Student Name"
-		<< "| " << setw(20) << left << "Student ID"
-		<< "| " << setw(25) << left << "MidTerm"
-		<< "| " << setw(5) << left << "Final"
-		<< "| " << setw(10) << left << "Other"
-		<< "| " << setw(15) << left << "Total";
-	cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-
-	while (studentcourse) {
-		if (studentcourse->stu_course.CouID == courseID) {
-			cout << "| " << setw(12) << left << studentcourse->stu_course.No
-				<< "| " << setw(35) << left << studentcourse->stu_course.StudentName
-				<< "| " << setw(20) << left << studentcourse->stu_course.StuID
-				<< "| " << setw(25) << left << studentcourse->stu_course.midterm
-				<< "| " << setw(7) << left << studentcourse->stu_course.final
-				<< "| " << setw(12) << left << studentcourse->stu_course.other
-				<< "| " << setw(15) << left << studentcourse->stu_course.total;
-			cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-
-		}
-		studentcourse = studentcourse->next;
-	}
-	check = 1;
-}
-
 void ViewScoreBoard_Class(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check) {
 	STU_COURSE_NODE* studentcourse = SC;
 	CR_NODE* course = C;
@@ -663,7 +592,6 @@ void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff,
 	output.close();
 	return;
 }
-
 
 void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff) {
 	cout << "Enter new information:" << endl;

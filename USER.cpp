@@ -112,132 +112,7 @@ void addNew1styearStudent(STU_NODE*& student) {
 	Read_After_Update_Students(student);
 }
 
-//+++++++++++++++++++List of students in class+++++++++++++++++++++
-void viewListStudentsOfClass(STU_NODE* student) {
-	STU_NODE* listclass = new STU_NODE;
-	STU_NODE* cur_listclass = listclass, * cur_student = student;
-	int i = 1;
-	while (cur_student) {
-		if (checkExistClassIDinDLL(listclass, cur_student->student.Classes.ClassID) == nullptr)
-		{
-			if (i != 1) {
-				cur_listclass->next = new STU_NODE;
-				cur_listclass = cur_listclass->next;
-			}
-			cur_listclass->student = cur_student->student;
-			cur_listclass->student.No_Student = i++;
-		}
-		cur_student = cur_student->next;
-	}
-	string classID;
-	while (1) {
-		std::system("cls");
-		displayLISTOFCLASS(student, listclass);
-		std::cout << "\n\n";
-		std::cout << "\tEnter class ID which you want to open: ";
-		std::cin >> classID;
-		if (checkExistClassIDinDLL(listclass, classID) == nullptr) {
-			std::cout << "\n\tYour selection doesn't exist.\n";
-			std::system("pause");
-			continue;
-		}
-		break;
-	}
-	std::system("cls");
-	displayListStudentsOfCourse(student, classID);
-	std::system("pause");
-}
-
-//+++++++++++++++++++List of students in course+++++++++++++++++++++
-void viewListStudentsOfCourse(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID) {
-	STU_COURSE_NODE* cur = stu_course;
-	int i = 1;
-	cout << "============================================LIST STUDENTS OF " << CourseID << "============================================\n\n";
-	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
-		<< setw(15) << left << "Student ID" << setw(5) << left << "|"
-		<< setw(30) << left << "Student's name" << setw(5) << left << "|"
-		<< setw(10) << left << "Gender" << setw(5) << left << "|"
-		<< setw(15) << left << "Date of birth" << setw(5) << left << "|"
-		<< setw(20) << left << "Social ID" << std::endl;
-	std::cout << setfill('-') << setw(120) << left << "-" << setfill(' ') << "\n";
-	while (cur) {
-		if (cur->stu_course.CouID == CourseID) {
-			STU_NODE* tmp = getInformationByStudentID(cur->stu_course.StuID, student);
-			string DoB = to_string(tmp->student.DoB.day / 10) + to_string(tmp->student.DoB.day % 10) + "/"
-				+ to_string(tmp->student.DoB.month / 10) + to_string(tmp->student.DoB.month % 10) + "/"
-				+ to_string(tmp->student.DoB.year);
-			string fullname = tmp->student.LName + " " + tmp->student.FName;
-			std::cout << "\n" << setw(5) << left << " " << setw(5) << left << i++ << setw(5) << left << "|"
-				<< setw(15) << left << cur->stu_course.StuID << setw(5) << left << "|"
-				<< setw(30) << left << fullname << setw(5) << left << "|"
-				<< setw(10) << left << tmp->student.Gender << setw(5) << left << "|"
-				<< setw(15) << left << DoB << setw(5) << left << "|"
-				<< setw(20) << left << tmp->student.SocialID;
-		}
-		cur = cur->next;
-	}
-	std::cout << "\n";
-}
-//+++++++++++++++++List of courses+++++++++++++++++
-void viewListOfCourses(CR_NODE* course) {
-	CR_NODE* cur_course = course;
-	cout << "============================================LIST OF COURSES============================================\n\n";
-	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
-		<< setw(10) << left << "Course ID" << setw(5) << left << "|"
-		<< setw(30) << left << "Course name" << setw(5) << left << "|"
-		<< setw(25) << left << "Teacher name" << setw(5) << left << "|"
-		<< setw(10) << left << "Credits" << setw(5) << left << "|"
-		<< setw(10) << left << "Registered" << setw(5) << left << "|"
-		<< setw(20) << left << "Calendar" << endl;
-	std::cout << setfill('-') << setw(140) << left << "-" << setfill(' ') << endl;
-	while (cur_course) {
-		string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
-		string registered = to_string(cur_course->course.Cur_stdn) + "/" + to_string(cur_course->course.Max_stdn);
-		cout << setw(5) << left << " " << setw(5) << left << cur_course->course.No << setw(5) << left << "|"
-			<< setw(10) << left << cur_course->course.ID << setw(5) << left << "|"
-			<< setw(30) << left << cur_course->course.CName << setw(5) << left << "|"
-			<< setw(25) << left << fullname << setw(5) << left << "|"
-			<< setw(10) << left << cur_course->course.Credits << setw(5) << left << "|"
-			<< setw(10) << left << registered << setw(5) << left << "|"
-			<< ConvertStringWD(cur_course->course.dayOfWeek) << "-" << ConvertStringSS(cur_course->course.session) << endl;
-
-		cur_course = cur_course->next;
-	}
-}
-
-void changePassWordOfStaffAccount(STFF_NODE*& staff, STFF_NODE*& loggedinStaff) {
-	string oldPass;
-	string newPass;
-	string newPassAgain;
-	do {
-		system("cls");
-		cout << "Enter your old password: ";
-		getline(cin, oldPass);
-		if (loggedinStaff->staff.Password != oldPass) {
-			cout << "Your old password has been entered incorrectly. Please, enter again.\n\n";
-			system("pause");
-			continue;
-		}
-		else {
-			cout << "Enter your new password: ";
-			getline(cin, newPass);
-			cout << "Enter your new password again: ";
-			getline(cin, newPassAgain);
-			if (newPass != newPassAgain) {
-				cout << "Confirmation password is not correct. Please, enter again.\n\n";
-				system("pause");
-				continue;
-			}
-			loggedinStaff->staff.Password = newPass;
-			Read_After_Update_Teachers(staff);
-			cout << "Change password successfully.\n\n";
-			system("pause");
-			break;
-		}
-	} while (loggedinStaff->staff.Password != oldPass || newPass != newPassAgain);
-}
-
-//============================view list of class============================
+//============================ view list of class============================ 
 STU_NODE* checkExistClassIDinDLL(STU_NODE*& listclass, std::string classID) {
 	STU_NODE* cur = listclass;
 	while (cur) {
@@ -291,7 +166,101 @@ void viewListOfClasses(STU_NODE* student) {
 	deleteSTU_NODE(listclass);
 }
 
-//============================view list of class============================ 
+//============================ List of students in class============================ 
+void viewListStudentsOfClass(STU_NODE* student) {
+	STU_NODE* listclass = new STU_NODE;
+	STU_NODE* cur_listclass = listclass, * cur_student = student;
+	int i = 1;
+	while (cur_student) {
+		if (checkExistClassIDinDLL(listclass, cur_student->student.Classes.ClassID) == nullptr)
+		{
+			if (i != 1) {
+				cur_listclass->next = new STU_NODE;
+				cur_listclass = cur_listclass->next;
+			}
+			cur_listclass->student = cur_student->student;
+			cur_listclass->student.No_Student = i++;
+		}
+		cur_student = cur_student->next;
+	}
+	string classID;
+	while (1) {
+		std::system("cls");
+		displayLISTOFCLASS(student, listclass);
+		std::cout << "\n\n";
+		std::cout << "\tEnter class ID which you want to open: ";
+		std::cin >> classID;
+		if (checkExistClassIDinDLL(listclass, classID) == nullptr) {
+			std::cout << "\n\tYour selection doesn't exist.\n";
+			std::system("pause");
+			continue;
+		}
+		break;
+	}
+	std::system("cls");
+	displayListStudentsOfCourse(student, classID);
+	std::system("pause");
+}
+
+//============================ List of courses============================ 
+void viewListOfCourses(CR_NODE* course) {
+	CR_NODE* cur_course = course;
+	cout << "============================================LIST OF COURSES============================================\n\n";
+	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
+		<< setw(10) << left << "Course ID" << setw(5) << left << "|"
+		<< setw(30) << left << "Course name" << setw(5) << left << "|"
+		<< setw(25) << left << "Teacher name" << setw(5) << left << "|"
+		<< setw(10) << left << "Credits" << setw(5) << left << "|"
+		<< setw(10) << left << "Registered" << setw(5) << left << "|"
+		<< setw(20) << left << "Calendar" << endl;
+	std::cout << setfill('-') << setw(140) << left << "-" << setfill(' ') << endl;
+	while (cur_course) {
+		string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
+		string registered = to_string(cur_course->course.Cur_stdn) + "/" + to_string(cur_course->course.Max_stdn);
+		cout << setw(5) << left << " " << setw(5) << left << cur_course->course.No << setw(5) << left << "|"
+			<< setw(10) << left << cur_course->course.ID << setw(5) << left << "|"
+			<< setw(30) << left << cur_course->course.CName << setw(5) << left << "|"
+			<< setw(25) << left << fullname << setw(5) << left << "|"
+			<< setw(10) << left << cur_course->course.Credits << setw(5) << left << "|"
+			<< setw(10) << left << registered << setw(5) << left << "|"
+			<< ConvertStringWD(cur_course->course.dayOfWeek) << "-" << ConvertStringSS(cur_course->course.session) << endl;
+
+		cur_course = cur_course->next;
+	}
+}
+
+//============================ List of students in course============================4 
+void viewListStudentsOfCourse(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID) {
+	STU_COURSE_NODE* cur = stu_course;
+	int i = 1;
+	cout << "============================================LIST STUDENTS OF " << CourseID << "============================================\n\n";
+	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
+		<< setw(15) << left << "Student ID" << setw(5) << left << "|"
+		<< setw(30) << left << "Student's name" << setw(5) << left << "|"
+		<< setw(10) << left << "Gender" << setw(5) << left << "|"
+		<< setw(15) << left << "Date of birth" << setw(5) << left << "|"
+		<< setw(20) << left << "Social ID" << std::endl;
+	std::cout << setfill('-') << setw(120) << left << "-" << setfill(' ') << "\n";
+	while (cur) {
+		if (cur->stu_course.CouID == CourseID) {
+			STU_NODE* tmp = getInformationByStudentID(cur->stu_course.StuID, student);
+			string DoB = to_string(tmp->student.DoB.day / 10) + to_string(tmp->student.DoB.day % 10) + "/"
+				+ to_string(tmp->student.DoB.month / 10) + to_string(tmp->student.DoB.month % 10) + "/"
+				+ to_string(tmp->student.DoB.year);
+			string fullname = tmp->student.LName + " " + tmp->student.FName;
+			std::cout << "\n" << setw(5) << left << " " << setw(5) << left << i++ << setw(5) << left << "|"
+				<< setw(15) << left << cur->stu_course.StuID << setw(5) << left << "|"
+				<< setw(30) << left << fullname << setw(5) << left << "|"
+				<< setw(10) << left << tmp->student.Gender << setw(5) << left << "|"
+				<< setw(15) << left << DoB << setw(5) << left << "|"
+				<< setw(20) << left << tmp->student.SocialID;
+		}
+		cur = cur->next;
+	}
+	std::cout << "\n";
+}
+
+//============================view list of students in a course============================ 
 void displayListStudentsOfCourse(STU_NODE*& student, std::string classID) {
 	STU_NODE* cur_student = student;
 	int i = 1;
@@ -319,6 +288,70 @@ void displayListStudentsOfCourse(STU_NODE*& student, std::string classID) {
 		cur_student = cur_student->next;
 	}
 }
+
+//============================view a scoreboard in a course============================ 
+void viewScoreBoard_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID) {
+	int i = 1;
+	STU_COURSE_NODE* cur = stu_course;
+	cout << "============================================A SCOREBOARD IN CLASS " << CourseID << "============================================\n\n";
+	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
+		<< setw(10) << left << "Student ID" << setw(5) << left << "|"
+		<< setw(25) << left << "Last name" << setw(5) << left << "|"
+		<< setw(15) << left << "Firse name" << setw(5) << left << "|"
+		<< setw(15) << left << "Other Mark" << setw(5) << left << "|"
+		<< setw(15) << left << "Midterm Mark" << setw(5) << left << "|"
+		<< setw(15) << left << "Final Mark" << setw(5) << left << "|"
+		<< setw(15) << left << "Total Mark" << endl;
+	std::cout << setfill('-') << setw(153) << left << "-" << setfill(' ') << endl;
+	while (cur) {
+		if (cur->stu_course.CouID == CourseID) {
+			STU_NODE* tmp = getInformationByStudentID(cur->stu_course.StuID, student);
+			std::cout << setw(5) << left << " " << setw(5) << left << i++ << setw(5) << left << "|"
+				<< setw(10) << left << cur->stu_course.StuID << setw(5) << left << "|"
+				<< setw(25) << left << tmp->student.LName << setw(5) << left << "|"
+				<< setw(15) << left << tmp->student.FName << setw(5) << left << "|"
+				<< setw(15) << left << cur->stu_course.other << setw(5) << left << "|"
+				<< setw(15) << left << cur->stu_course.midterm << setw(5) << left << "|"
+				<< setw(15) << left << cur->stu_course.final << setw(5) << left << "|"
+				<< setw(15) << left << cur->stu_course.total << endl;
+		}
+		cur = cur->next;
+	}
+}
+
+void changePassWordOfStaffAccount(STFF_NODE*& staff, STFF_NODE*& loggedinStaff) {
+	string oldPass;
+	string newPass;
+	string newPassAgain;
+	do {
+		system("cls");
+		cout << "Enter your old password: ";
+		getline(cin, oldPass);
+		if (loggedinStaff->staff.Password != oldPass) {
+			cout << "Your old password has been entered incorrectly. Please, enter again.\n\n";
+			system("pause");
+			continue;
+		}
+		else {
+			cout << "Enter your new password: ";
+			getline(cin, newPass);
+			cout << "Enter your new password again: ";
+			getline(cin, newPassAgain);
+			if (newPass != newPassAgain) {
+				cout << "Confirmation password is not correct. Please, enter again.\n\n";
+				system("pause");
+				continue;
+			}
+			loggedinStaff->staff.Password = newPass;
+			Read_After_Update_Teachers(staff);
+			cout << "Change password successfully.\n\n";
+			system("pause");
+			break;
+		}
+	} while (loggedinStaff->staff.Password != oldPass || newPass != newPassAgain);
+}
+
+
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@STUDENT@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 int checkExistOfStudentAccount(STU_NODE*& head, std::string user, std::string password, STU_NODE*& logged) {

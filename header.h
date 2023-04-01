@@ -236,6 +236,10 @@ void viewListStudentsOfCourse(STU_COURSE_NODE* stu_course, STU_NODE* student, st
 
 //=============view list students of class============
 void viewListStudentsOfClass(STU_NODE* student);
+
+//=============view scoreboard in a course============
+void viewScoreBoard_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID);
+
 STU_NODE* getInformationByStudentID(std::string StuID, STU_NODE* student);
 
 void displayListStudentsOfCourse(STU_NODE*& student, std::string classID);

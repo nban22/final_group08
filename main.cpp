@@ -207,23 +207,52 @@ int main()
 						system("pause");
 					}
 					else if (choose == 4) { //List of students in a course
-						system("cls");
-						viewListOfCourses(course);
-						cout << "\n\nEnter Course ID which you want to view: ";
+						int check = 0;
 						string CourseID;
-						getline(cin, CourseID);						
+						do {
+							system("cls");
+							viewListOfCourses(course);
+							cout << "\n\nEnter Course ID which you want to view: ";
+							getline(cin, CourseID);
+
+							CR_NODE* cur = course;
+							while (cur) {
+								if (cur->course.ID == CourseID)
+									check = 1;
+								cur = cur->next;
+							}
+							if (check == 0) {
+								cout << "Your Course ID doesn't exist. Please enter again.\n";
+								system("pause");
+							}
+						} while (check == 0);
 						system("cls");
 						viewListStudentsOfCourse(stu_course, student, CourseID);
 						system("pause");
 					}
 					else if (choose == 5) { //View a scoreboard in a course
-						int check;
-						std::system("cls");
-						std::cout << "\n\t\t\t ********************************************" << endl;
-						std::cout << "\t\t\t\t      ";
-						std::cout << "View the scoreboard of a course." << endl;
-						ViewScoreBoard_Course(stu_course, course, loggedinStaff, check);
-						std::system("pause");
+						int check = 0;
+						string CourseID;
+						do {
+							system("cls");
+							viewListOfCourses(course);
+							cout << "\n\nEnter the course ID which you want to view the scoreboard: ";
+							getline(cin, CourseID);
+
+							CR_NODE* cur = course;
+							while (cur) {
+								if (cur->course.ID == CourseID)
+									check = 1;
+								cur = cur->next;
+							}
+							if (check == 0) {
+								cout << "Your Course ID doesn't exist. Please enter again.\n";
+								system("pause");
+							}
+						} while (check == 0);
+						system("cls");
+						viewScoreBoard_Course( stu_course, student, CourseID);
+						system("pause");
 					}
 					else if (choose == 6) { //View a scoreboard in class
 						int check;
