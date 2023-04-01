@@ -213,7 +213,7 @@ void updateCur_stdnInCourse(CR_NODE*& course, STU_COURSE_NODE* head);
 void EnterCourseScore( STU_COURSE_NODE* &SC, CR_NODE* C, STFF_NODE* loggedinStaff, int &check);
 void ViewScoreBoard_Course(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
 void ViewScoreBoard_Class(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
-void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
+void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STU_NODE* S, int choice);
 
 //SCHOOL_YEAR
 void CreateSchoolYear(int& sYEAR);

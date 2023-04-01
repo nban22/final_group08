@@ -449,67 +449,99 @@ void CreateSchoolYear(int& sYEAR) {
 	std::cout << "New school year created: " << sYEAR << "-" << sYEAR + 1 << std::endl;
 }
 
-void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check) {
-	STU_COURSE_NODE* studentcourse = SC;
+void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STU_NODE* S, int choice) {
 	CR_NODE* course = C;
-	int choice;
+	STU_COURSE_NODE* studentcourse = SC;
 	int count = 0;
+	int check = 0;
 	std::string courseID = "0";
-	ofstream output;
 
-	cout << "choose a course" << endl;
-	while (course) {
-		if (course->course.teacherID == loggedinStaff->staff.TeacherID) {
-			cout << course->course.No << "  " << course->course.ID << "  " << course->course.CName << endl;
-			count++;
-		}
-		course = course->next;
-	}
-	if (count == 0) {
-		cout << "you have not attend any course" << endl;
-		check = 0;
-		return;
-	}
+	if (choice == 1) {
+		while (course) {
+			ofstream output;
+			studentcourse = SC;
+			int i = 1;
 
-	course = C;
+			output.open("Scoreboard_K22_2_" + course->course.ID + ".csv");
 
-	cout << "your choice: ";
-	cin >> choice;
-	while (course) {
-		if (course->course.No == choice) {
-			courseID = course->course.ID;
-			break;
-		}
-		else
+			if (!output.is_open()) {
+				cout << "cannot open file " << endl;
+				return;
+			}
+
+			output << "No, ID, Last Name, First Name, Other Mark, Midterm Mark, Final Mark, Total Mark\n";
+
+			while (studentcourse) {
+				if (studentcourse->stu_course.CouID == course->course.ID) {
+					STU_NODE* tmp = getInformationByStudentID(studentcourse->stu_course.StuID, S);
+					output << i++ << ",";
+					output << studentcourse->stu_course.StuID << ","
+						<< tmp->student.LName << ","
+						<< tmp->student.FName << ","
+						<< studentcourse->stu_course.other << ","
+						<< studentcourse->stu_course.midterm << ","
+						<< studentcourse->stu_course.final << ","
+						<< studentcourse->stu_course.total << "\n";
+				}
+				studentcourse = studentcourse->next;
+			}
+			output.close();
 			course = course->next;
-	}
-
-	if (courseID == "0") {
-		cout << "Invalid selection, please enter again.\n\n";
-		check = 0;
-		system("pause");
-		return;
-	}
-
-	studentcourse = SC;
-
-	output.open("scoreboard.csv");
-
-	output << "No.,Student ID,Student Name,Gender,Class Name,Course ID,Course Name,Credits,Max_stdn,Teacher Name, Teacher ID, Week day, Session, Day start, Month start, Day end, Month end, Midterm Mark, Final Mark, Other Mark, Total Mark" << endl;
-	for (studentcourse; studentcourse != nullptr; studentcourse = studentcourse->next) {
-		if (studentcourse->stu_course.CouID == courseID) {
-			output << studentcourse->stu_course.No << "," << studentcourse->stu_course.StuID << "," << studentcourse->stu_course.StudentName << "," << studentcourse->stu_course.Gen << ","
-				<< studentcourse->stu_course.Class << ","
-				<< studentcourse->stu_course.CouID << "," << studentcourse->stu_course.Cname << "," << studentcourse->stu_course.credits << "," << studentcourse->stu_course.Max_stdn << ","
-				<< studentcourse->stu_course.Teachername << "," << studentcourse->stu_course.TeacherID << "," << studentcourse->stu_course.weekday << "," << studentcourse->stu_course.session << "," << studentcourse->stu_course.startdate.day
-				<< "," << studentcourse->stu_course.startdate.month << "," << studentcourse->stu_course.enddate.day << "," << studentcourse->stu_course.enddate.month
-				<< "," << studentcourse->stu_course.midterm << "," << studentcourse->stu_course.final << "," << studentcourse->stu_course.other << "," << studentcourse->stu_course.total;
-			if (studentcourse->next != nullptr)
-				output << "\n";
 		}
 	}
-	check = 1;
-	output.close();
+	else {
+		ofstream output;
+		int i = 1;
+
+		do {
+			course = C;
+			system("cls");
+			viewListOfCourses(course);
+			cout << "\n\nEnter ID of the course you want to export: ";
+			cin.ignore();
+			getline(cin, courseID);
+
+			while (course) {
+				if (course->course.ID == courseID) {
+					check = 1;
+					break;
+				}
+				course = course->next;
+			}
+
+			if (check == 0) {
+				cout << "Your Course ID doesn't exist. Please enter again.\n";
+				system("pause");
+			}
+		} while (check == 0);
+
+		output.open("Scoreboard_K22_2_" + course->course.ID + ".csv");
+		if (!output.is_open()) {
+			cout << "cannot open file " << endl;
+			return;
+		}
+
+		output << "No, ID, Last Name, First Name, Other Mark, Midterm Mark, Final Mark, Total Mark\n";
+
+		while (studentcourse) {
+			if (studentcourse->stu_course.CouID == courseID) {
+				STU_NODE* tmp = getInformationByStudentID(studentcourse->stu_course.StuID, S);
+				output << i++ << ",";
+				output << studentcourse->stu_course.StuID << ","
+					<< tmp->student.LName << ","
+					<< tmp->student.FName << ","
+					<< studentcourse->stu_course.other << ","
+					<< studentcourse->stu_course.midterm << ","
+					<< studentcourse->stu_course.final << ","
+					<< studentcourse->stu_course.total << "\n";
+			}
+			studentcourse = studentcourse->next;
+		}
+		output.close();
+	}
+	system("cls");
+	cout << "\nExport successfully" << endl;
+	system("pause");
 	return;
 }
 

@@ -277,22 +277,22 @@ int main()
 					}
 					else if (choose == 7) { //Export csv file about a scoreboard of students in course to enter score
 
+						int choice;
 
-						int check;
 						std::system("cls");
 						std::cout << "\n\t\t\t ********************************************" << endl;
 						std::cout << "\t\t\t\t      ";
 						std::cout << "Export the scoreboard of a course." << endl;
-						ExportScoreBoard(stu_course, course, loggedinStaff, check);
-						if (check != 0) {
-							cout << "export succsessfully" << endl;
-							system("pause");
-						}
-						else {
-							cout << "export failed" << endl;
-							system("pause");
 
-						}
+						viewListOfCourses(course);
+
+						cout << "\n\nPress 1 if you want to export all the courses ";
+						cout << "\nPress 2 if you want to export one course ";
+						cout << "\nYour choice: ";
+						cin >> choice;
+
+						ExportScoreBoard(stu_course, course, student, choice);
+
 					}
 					else if (choose == 0) {
 						break;
