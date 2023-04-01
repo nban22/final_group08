@@ -36,31 +36,22 @@ string ConvertStringSS(SESSION& ss) {
 
 //--------Main functions---------
 
-/* void ViewCourses(CR_NODE *head) { 
-    system("cls");
-
-    cout << "* No|   ID   |    Course name    | Teacher | Credits | Max Student | Current Student | Session | Weekday |  Start Date  |  End Date  *\n";
-    CR_NODE* cur = head;
-    while (cur) {
-        cout << "*" << setw(3) << cur->course.No << "|" << setw(7) << cur->course.ID << "|" << setw(15) << cur->course.CName << "|" << setw(9) << cur->course.teacherName << "|" << setw(6) << cur->course.Credits << "|"
-        << setw(8) << cur->course.Max_stdn << "|" << setw(8) << cur->course.Cur_stdn << "|" << setw(6) << cur->course.session << "|" << setw(6) << cur->course.dayOfWeek << "|"
-        << setw(10) << cur->course.startDate.day / 10 << cur->course.startDate.day % 10 << "/" << cur->course.startDate.month / 10 << cur->course.startDate.month % 10 << "/" << cur->course.startDate.year << "|"
-        << setw(10) << cur->course.endDate.day / 10 << cur->course.endDate.day % 10 << "/" << cur->course.endDate.month / 10 << cur->course.endDate.month % 10 << "/" << cur->course.endDate.year << "*\n";
-        cur = cur->next;
-    }
-    delete cur;
-} */
-
 void CreateNewCourse(CR_NODE *&head) {
     std::system("cls");
     CR_NODE* NewCourse = new CR_NODE;
     CR_NODE* cur = head;
+    while (cur->next) {
+        cur = cur->next;
+    }
     //create new course
-    if (!cur->prev) {
+
+    if (!cur) {
         NewCourse->course.No = 1;
     }
-    else { 
-        NewCourse->course.No = cur->prev->course.No++;
+    else {
+        int NewNo = cur->course.No;
+        NewNo++;
+        NewCourse->course.No = NewNo;
     }
     string NewCName;
     cout << "Enter Course Name: ";
@@ -68,12 +59,10 @@ void CreateNewCourse(CR_NODE *&head) {
     NewCourse->course.CName = NewCName;
     string NewID;
     cout << "Enter Course ID: ";
-    cin.ignore();
     getline(cin, NewID);
     NewCourse->course.ID = NewID;
     string LName;
     cout << "Enter Teacher's last name: ";
-    cin.ignore();
     getline(cin, LName);
     NewCourse->course.LNameTeacher = LName;
     string FName;
@@ -91,25 +80,18 @@ void CreateNewCourse(CR_NODE *&head) {
     NewCourse->course.Cur_stdn = 0; //default
     string NewSession;
     cout << "Enter Session(S1->S4): ";
-    cin.ignore();
     cin >> NewSession;
     NewCourse->course.session = ConvertEnumSS(NewSession);
     string NewWeekday;
     cout << "Enter Weekday(MON->SAT): ";
-    cin.ignore();
     cin >> NewWeekday;
     NewCourse->course.dayOfWeek = ConvertEnumWD(NewWeekday);
     cout << "Enter Start date (Please seperate with spaces)";
-    cin.ignore();
     cin >> NewCourse->course.startDate.day >> NewCourse->course.startDate.month >> NewCourse->course.startDate.year;
     cout << "Enter End date (Please seperate with spaces)";
-    cin.ignore();
     cin >> NewCourse->course.endDate.day >> NewCourse->course.endDate.month >> NewCourse->course.endDate.year;
 
     //Add course at the end
-    while (cur->next) {
-        cur = cur->next;
-    }
     cur->next = NewCourse;
     NewCourse->prev = cur;
     

@@ -310,7 +310,8 @@ int main()
 				break;
 			}
 			else if (choose == -1) { // ++++++++++++++++++++++++++++EXIT++++++++++++++++++++++++++++
-				std::system("pause");
+				system("cls");
+				std::cout << "****************************THANK YOU FOR USING!********************************";
 				return 0;
 			}
 			else {

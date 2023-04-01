@@ -54,8 +54,17 @@ void addNew1styearStudent(STU_NODE*& student) {
 			cur_student = cur_student->next;
 		}
 		if (check == 0) {
-			cout << "Your class ID which you entered it does not exist. Please enter again.\n";
-			std::system("pause");
+			cout << "Your class ID which you entered it does not exist.\n";
+			cout << "\nSearch for Course again? (y/n)";
+			char ans;
+			cin >> ans;
+			cin.ignore();
+			if (ans == 'y' || ans == 'Y') {
+				addNew1styearStudent(student);
+			}
+			else {
+				return;
+			}
 		}
 	} while (check == 0);
 	cout << "Enter student's last name: ";

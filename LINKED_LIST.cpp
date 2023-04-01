@@ -58,18 +58,18 @@ void getData_A_Staff(STAFF staff, STFF_NODE*& head) {
 //COURSE
 //Weekday
 WEEKDAY ConvertEnumWD(std::string& str) {
-	if (str.compare("MON") == 0) return MON;
-	else if (str.compare("TUE") == 0) return TUE;
-	else if (str.compare("WED") == 0) return WED;
-	else if (str.compare("THU") == 0) return THU;
-	else if (str.compare("FRI") == 0) return FRI;
+	if (str.compare("MON") == 0 || str.compare("mon") == 0) return MON;
+	else if (str.compare("TUE") == 0 || str.compare("tue") == 0) return TUE;
+	else if (str.compare("WED") == 0 || str.compare("wed") == 0) return WED;
+	else if (str.compare("THU") == 0 || str.compare("thu") == 0) return THU;
+	else if (str.compare("FRI") == 0 || str.compare("fri") == 0) return FRI;
 	else return SAT;
 }
 //Session
 SESSION ConvertEnumSS(std::string& str) {
-	if (str.compare("S1") == 0) return S1;
-	else if (str.compare("S2") == 0) return S2;
-	else if (str.compare("S3") == 0) return S3;
+	if (str.compare("S1") == 0 || str.compare("s1") == 0) return S1;
+	else if (str.compare("S2") == 0 || str.compare("s2") == 0) return S2;
+	else if (str.compare("S3") == 0 || str.compare("s3") == 0) return S3;
 	else return S4;
 }
 std::string ConvertStringonlySS(SESSION& ss) {
@@ -378,9 +378,9 @@ bool Read_After_Update_Course(CR_NODE*& head) {
 	if (!outfile.is_open()) {
 		return 0;
 	}
-	outfile << "ID,Cname,teacherName,Credits,Max_stdn,Cur_stdn,Weekday,Session,Start date,End date" << endl;
+	outfile << "ID,Cname,Teacher Name,Credits,Max_stdn,Cur_stdn,Weekday,Session,Start date,End date" << endl;
 	for (CR_NODE* c = head; c != nullptr; c = c->next) {
-		outfile << c->course.ID << "," << c->course.CName << "," << c->course.LNameTeacher << "," << c->course.FNameTeacher << ","
+		outfile << c->course.ID << "," << c->course.CName << "," << c->course.LNameTeacher << " " << c->course.FNameTeacher << ","
 			<< c->course.Credits << "," << c->course.Max_stdn << "," << c->course.Cur_stdn << "," << ConvertStringWD(c->course.dayOfWeek) << ","
 			<< ConvertStringonlySS(c->course.session) << "," 
 			<< c->course.startDate.day / 10 << c->course.startDate.day % 10 << "/" << c->course.startDate.month / 10 << c->course.startDate.month % 10 << "/" << c->course.startDate.year << ","
@@ -400,7 +400,7 @@ bool Read_After_Update_Student_Course(CR_NODE*& course ,STU_COURSE_NODE*& head) 
 	if (!outfile.is_open()) {
 		return 0;
 	}
-	outfile << "No.,Student ID,Student Name,Gender,Class Name,Course ID,Course Name,Credits,Max_stdn,Teacher Name, Teacher ID, Week day, Session, Day start, Month start, Day end, Month end, Midterm Mark, Final Mark, Other Mark, Total Mark" << endl;
+	outfile << "No.,Student ID,Student Name,Gender,Class Name,Course ID,Course Name,Credits,Max_stdn,Teacher Name,Teacher ID,Week day,Session,Day start,Month start,Day end,Month end,Midterm Mark,Final Mark,Other Mark,Total Mark" << endl;
 	for (STU_COURSE_NODE* h = head; h != nullptr; h = h->next) {
 		outfile << h->stu_course.No << "," << h->stu_course.StuID << "," << h->stu_course.StudentName << "," << h->stu_course.Gen << ","
 			<< h->stu_course.Class << "," << h->stu_course.Class << ","
