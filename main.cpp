@@ -288,6 +288,7 @@ int main()
 
 						cout << "\n\nPress 1 if you want to export all the courses ";
 						cout << "\nPress 2 if you want to export one course ";
+						cout << "\nPress 0 to go back ";
 						cout << "\nYour choice: ";
 						cin >> choice;
 

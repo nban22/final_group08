@@ -456,50 +456,48 @@ void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STU_NODE* S, int choice) 
 	int check = 0;
 	std::string courseID = "0";
 
-	if (choice == 1) {
-		while (course) {
+		if (choice == 1) {
+			while (course) {
+				ofstream output;
+				studentcourse = SC;
+				int i = 1;
+
+				output.open("Scoreboard_K22_2_" + course->course.ID + ".csv");
+
+				if (!output.is_open()) {
+					cout << "cannot open file " << endl;
+					return;
+				}
+
+				output << "No,ID,Last Name,First Name,Other Mark,Midterm Mark,Final Mark,Total Mark";
+
+				while (studentcourse) {
+					if (studentcourse->stu_course.CouID == course->course.ID) {
+						STU_NODE* tmp = getInformationByStudentID(studentcourse->stu_course.StuID, S);
+						output << "\n" << i++ << ",";
+						output << studentcourse->stu_course.StuID << ","
+							<< tmp->student.LName << ","
+							<< tmp->student.FName << ","
+							<< studentcourse->stu_course.other << ","
+							<< studentcourse->stu_course.midterm << ","
+							<< studentcourse->stu_course.final << ","
+							<< studentcourse->stu_course.total;
+					}
+					studentcourse = studentcourse->next;
+				}
+				output.close();
+				course = course->next;
+			}
+		}
+		else if (choice == 2) {
 			ofstream output;
-			studentcourse = SC;
 			int i = 1;
 
-			output.open("Scoreboard_K22_2_" + course->course.ID + ".csv");
-
-			if (!output.is_open()) {
-				cout << "cannot open file " << endl;
-				return;
-			}
-
-			output << "No, ID, Last Name, First Name, Other Mark, Midterm Mark, Final Mark, Total Mark\n";
-
-			while (studentcourse) {
-				if (studentcourse->stu_course.CouID == course->course.ID) {
-					STU_NODE* tmp = getInformationByStudentID(studentcourse->stu_course.StuID, S);
-					output << i++ << ",";
-					output << studentcourse->stu_course.StuID << ","
-						<< tmp->student.LName << ","
-						<< tmp->student.FName << ","
-						<< studentcourse->stu_course.other << ","
-						<< studentcourse->stu_course.midterm << ","
-						<< studentcourse->stu_course.final << ","
-						<< studentcourse->stu_course.total << "\n";
-				}
-				studentcourse = studentcourse->next;
-			}
-			output.close();
-			course = course->next;
-		}
-	}
-	else {
-		ofstream output;
-		int i = 1;
-
-		do {
 			course = C;
 			system("cls");
 			viewListOfCourses(course);
 			cout << "\n\nEnter ID of the course you want to export: ";
-			cin.ignore();
-			getline(cin, courseID);
+			cin >> courseID;
 
 			while (course) {
 				if (course->course.ID == courseID) {
@@ -510,37 +508,61 @@ void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STU_NODE* S, int choice) 
 			}
 
 			if (check == 0) {
-				cout << "Your Course ID doesn't exist. Please enter again.\n";
-				system("pause");
+				cout << "Your course ID which you entered does not exist.\n";
+				cout << "\nSearch for Course again? (y/n)";
+				char ans;
+				cin >> ans;
+				cin.ignore();
+				if (ans == 'y' || ans == 'Y') {
+					ExportScoreBoard( SC, C, S, choice);
+				}
+				else {
+					return;
+				}
 			}
-		} while (check == 0);
+			else {
+				output.open("Scoreboard_K22_2_" + course->course.ID + ".csv");
+				if (!output.is_open()) {
+					cout << "cannot open file " << endl;
+					return;
+				}
 
-		output.open("Scoreboard_K22_2_" + course->course.ID + ".csv");
-		if (!output.is_open()) {
-			cout << "cannot open file " << endl;
+				output << "No,ID,Last Name,First Name,Other Mark,Midterm Mark,Final Mark,Total Mark";
+
+				while (studentcourse) {
+					if (studentcourse->stu_course.CouID == courseID) {
+						STU_NODE* tmp = getInformationByStudentID(studentcourse->stu_course.StuID, S);
+						output << "\n" << i++ << ",";
+						output << studentcourse->stu_course.StuID << ","
+							<< tmp->student.LName << ","
+							<< tmp->student.FName << ","
+							<< studentcourse->stu_course.other << ","
+							<< studentcourse->stu_course.midterm << ","
+							<< studentcourse->stu_course.final << ","
+							<< studentcourse->stu_course.total;
+					}
+					studentcourse = studentcourse->next;
+				}
+				output.close();
+			}
+		}
+		else if (choice == 0)
 			return;
+		else {
+			cout << "your choice is invalid, pleasre choose again" << endl;
+			system("pause");
+
+			cout << "\n\nPress 1 if you want to export all the courses ";
+			cout << "\nPress 2 if you want to export one course ";
+			cout << "\nPress 0 to go back ";
+			cout << "\nYour choice: ";
+			cin >> choice;
+
+			ExportScoreBoard(SC, C, S, choice);
 		}
 
-		output << "No, ID, Last Name, First Name, Other Mark, Midterm Mark, Final Mark, Total Mark\n";
-
-		while (studentcourse) {
-			if (studentcourse->stu_course.CouID == courseID) {
-				STU_NODE* tmp = getInformationByStudentID(studentcourse->stu_course.StuID, S);
-				output << i++ << ",";
-				output << studentcourse->stu_course.StuID << ","
-					<< tmp->student.LName << ","
-					<< tmp->student.FName << ","
-					<< studentcourse->stu_course.other << ","
-					<< studentcourse->stu_course.midterm << ","
-					<< studentcourse->stu_course.final << ","
-					<< studentcourse->stu_course.total << "\n";
-			}
-			studentcourse = studentcourse->next;
-		}
-		output.close();
-	}
 	system("cls");
-	cout << "\nExport successfully" << endl;
+	cout << "\nExport finished" << endl;
 	system("pause");
 	return;
 }
