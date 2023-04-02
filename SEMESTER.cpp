@@ -40,6 +40,7 @@ void CreateNewCourse(CR_NODE *&head) {
     std::system("cls");
     CR_NODE* NewCourse = new CR_NODE;
     CR_NODE* cur = head;
+    viewListOfCourses(cur);
     while (cur->next) {
         cur = cur->next;
     }
@@ -54,7 +55,7 @@ void CreateNewCourse(CR_NODE *&head) {
         NewCourse->course.No = NewNo;
     }
     string NewCName;
-    cout << "Enter Course Name: ";
+    cout << "Enter New Course Name: ";
     getline(cin, NewCName);
     NewCourse->course.CName = NewCName;
     string NewID;
@@ -104,6 +105,8 @@ void CreateNewCourse(CR_NODE *&head) {
 
 void UpdateCourseInfo(CR_NODE *&head) {
     std::system("cls");
+    CR_NODE* cur = head;
+    viewListOfCourses(cur);
     cout << "Enter Course ID: ";
     string UpID;
     cin >> UpID;
@@ -205,7 +208,9 @@ void UpdateCourseInfo(CR_NODE *&head) {
 
 void DeleteCourse(CR_NODE *&head) {
     std::system("cls");
-    cout << "Enter Course ID: ";
+    CR_NODE* cur = head;
+    viewListOfCourses(cur);
+    cout << "Enter Course ID You Want To Delete: ";
     string DelID;
     cin >> DelID;
     CR_NODE *DelNode = checkExistOfCourseRecord(head, DelID);

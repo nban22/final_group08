@@ -45,6 +45,7 @@ void addNew1styearStudent(STU_NODE*& student) {
 	do {
 		check = 0;
 		std::system("cls");
+		viewListOfClasses(cur_student);
 		cout << "Enter student's class id: ";
 		getline(cin, new_student->student.Classes.ClassID);
 		cur_student = student;
