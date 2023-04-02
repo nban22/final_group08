@@ -276,24 +276,7 @@ int main()
 						system("pause");
 					}
 					else if (choose == 7) { //Export csv file about a scoreboard of students in course to enter score
-
-						int choice;
-
-						std::system("cls");
-						std::cout << "\n\t\t\t ********************************************" << endl;
-						std::cout << "\t\t\t\t      ";
-						std::cout << "Export the scoreboard of a course." << endl;
-
-						viewListOfCourses(course);
-
-						cout << "\n\nPress 1 if you want to export all the courses ";
-						cout << "\nPress 2 if you want to export one course ";
-						cout << "\nPress 0 to go back ";
-						cout << "\nYour choice: ";
-						cin >> choice;
-
-						ExportScoreBoard(stu_course, course, student, choice);
-
+						ExportScoreBoard(stu_course, course, student);
 					}
 					else if (choose == 0) {
 						break;
@@ -328,21 +311,15 @@ int main()
 			std::cout << "\n1. Change password.\n"
 				<< "2. Update your personal information.\n"
 				<< "3. Register for the course.\n"
-				<< "4. View your schedule.\n"
-				<< "5. View your scoraboard.\n"
-				<< "6. View list of student in a course.\n"
-				<< "7. View of classes.\n"
-				<< "8. View list of student in a class.\n"
+				<< "4. The result of register for the course.\n"
+				<< "5. Delete the course which registered.\n"
+				<< "6. View your schedule.\n"
+				<< "7. View your scoraboard.\n"
 				<< "0. Log out.\n"
 				<< "-1. Exit.\n";
-			std::cout << "========================END========================\n";
+			std::cout << "========================END========================\n\n";
 
-			std::cout << "Student.\n";
-			std::cout << "Numerical order: " << loggedinStudent->student.No_Student << endl;
-			std::cout << "Full name: " << loggedinStudent->student.LName << " " << loggedinStudent->student.FName << "\tStudent ID: " << loggedinStudent->student.StudentID << endl;
-			std::cout << "Gender: " << loggedinStudent->student.Gender << "\tDate of birth: "
-				<< loggedinStudent->student.DoB.day / 10 << loggedinStudent->student.DoB.day % 10 << "/" << loggedinStudent->student.DoB.month / 10 << loggedinStudent->student.DoB.month % 10 << "/" << loggedinStudent->student.DoB.year << endl;
-			std::cout << "Class name: " << loggedinStudent->student.Classes.name << "\tClass ID: " << loggedinStudent->student.Classes.ClassID << "\n\n";
+			printInformation_A_Student(loggedinStudent);
 
 			std::cout << "Enter select the option you want to choose: ";
 			int choose;
@@ -350,42 +327,10 @@ int main()
 			std::cin.ignore();
 
 			if (choose == 1) {
-				string oldPass;
-				string newPass;
-				string newPassAgain;
-				do {
-					std::system("cls");
-					std::cout << "Enter your old password: ";
-					getline(std::cin, oldPass);
-					if (loggedinStudent->student.Password != oldPass) {
-						std::cout << "Your old password has been entered incorrectly. Please, enter again.\n";
-						std::system("pause");
-						continue;
-					}
-					else {
-						std::cout << "Enter your new password: ";
-						getline(std::cin, newPass);
-						std::cout << "Enter your new password again: ";
-						getline(std::cin, newPassAgain);
-						if (newPass != newPassAgain) {
-							std::cout << "Confirmation password is not correct. Please, enter again.\n";
-							std::system("pause");
-							continue;
-						}
-						loggedinStudent->student.Password = newPass;
-						Read_After_Update_Students(student);
-						std::cout << "Change password successfully.\n";
-						std::system("pause");
-						break;
-					}
-				} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
+				changePasswordOfStudentAccount(student, loggedinStudent);
 			}
 			else if (choose == 2) {
-				std::system("cls");
-				std::cout << "Update personal information." << endl;
-				UpdateStudentInfo(student, loggedinStudent);
-				std::system("pause");
-
+				UpdateStudentInfo(student, loggedinStudent);				
 			}
 			else if (choose == 3) {
 
@@ -400,9 +345,6 @@ int main()
 
 			}
 			else if (choose == 7) {
-
-			}
-			else if (choose == 8) {
 
 			}
 			else if (choose == 0) {

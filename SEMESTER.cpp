@@ -86,9 +86,9 @@ void CreateNewCourse(CR_NODE *&head) {
     cout << "Enter Weekday(MON->SAT): ";
     cin >> NewWeekday;
     NewCourse->course.dayOfWeek = ConvertEnumWD(NewWeekday);
-    cout << "Enter Start date (Please seperate with spaces)";
+    cout << "Enter Start date (Please seperate with spaces) (dd mm yyy)";
     cin >> NewCourse->course.startDate.day >> NewCourse->course.startDate.month >> NewCourse->course.startDate.year;
-    cout << "Enter End date (Please seperate with spaces)";
+    cout << "Enter End date (Please seperate with spaces) (dd mm yyy)";
     cin >> NewCourse->course.endDate.day >> NewCourse->course.endDate.month >> NewCourse->course.endDate.year;
 
     //Add course at the end

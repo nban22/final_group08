@@ -74,7 +74,7 @@ struct STU_COURSE {
 
 struct SEMESTER {
     DATE startDate, endDate;
-    COURSE *courses;
+    COURSE* courses;
 };
 
 //*********************USERS.h
@@ -169,7 +169,7 @@ void getDataStudents_csv(std::ifstream& input, STU_NODE*& head);
 void print_Students(STU_NODE* head); //for testing
 
 //Read Course'getDataCourse_csvs Data and create D_Linked List
-void getDataCourse_csv(std::ifstream& input, CR_NODE *& head);
+void getDataCourse_csv(std::ifstream& input, CR_NODE*& head);
 void getData_A_Course(std::ifstream& input, COURSE& course);
 
 //checkAcount
@@ -191,9 +191,9 @@ bool Read_After_Update_Course(CR_NODE*& head);
 void getOption(int& choice, CR_NODE*& head);
 CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID);
 //void ViewCourses(CR_NODE *head);
-void CreateNewCourse(CR_NODE *&head);
-void UpdateCourseInfo(CR_NODE *&head);
-void DeleteCourse(CR_NODE *&head);
+void CreateNewCourse(CR_NODE*& head);
+void UpdateCourseInfo(CR_NODE*& head);
+void DeleteCourse(CR_NODE*& head);
 
 //----Weekday----
 WEEKDAY ConvertEnumWD(std::string& str);
@@ -207,13 +207,13 @@ std::string ConvertStringonlySS(SESSION& ss);
 //COURSE_STUDENT
 void getData_A_StuCourse(STU_COURSE studentcourse, STU_COURSE_NODE*& head);
 void Get_Data_StudentCourse_csv(std::ifstream& input, STU_COURSE_NODE*& head);
-bool Read_After_Update_Student_Course(CR_NODE*& course ,STU_COURSE_NODE*& head);
+bool Read_After_Update_Student_Course(CR_NODE*& course, STU_COURSE_NODE*& head);
 int countTheNumberOfStudentsInEachCourse(std::string CourseID, STU_COURSE_NODE* head);
 void updateCur_stdnInCourse(CR_NODE*& course, STU_COURSE_NODE* head);
-void EnterCourseScore( STU_COURSE_NODE* &SC, CR_NODE* C, STFF_NODE* loggedinStaff, int &check);
+void EnterCourseScore(STU_COURSE_NODE*& SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
 void ViewScoreBoard_Course(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
 void ViewScoreBoard_Class(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
-void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STU_NODE* S, int choice);
+void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STU_NODE* S);
 
 //SCHOOL_YEAR
 void CreateSchoolYear(int& sYEAR);
@@ -222,7 +222,7 @@ void CreateSchoolYear(int& sYEAR);
 void addNew1styearStudent(STU_NODE*& student);
 
 //=============view list of classes============
-STU_NODE*  checkExistClassIDinDLL(STU_NODE*& listclass, std::string classID);
+STU_NODE* checkExistClassIDinDLL(STU_NODE*& listclass, std::string classID);
 void deleteSTU_NODE(STU_NODE*& head);
 void displayLISTOFCLASS(STU_NODE*& student, STU_NODE* listclass);
 void viewListOfClasses(STU_NODE* student);
@@ -248,13 +248,15 @@ STU_NODE* getInformationByStudentID(std::string StuID, STU_NODE* student);
 void displayListStudentsOfCourse(STU_NODE*& student, std::string classID);
 // Update teacher
 void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff);
-// Update student
-void UpdateStudentInfo(STU_NODE* student, STU_NODE* loggedinStaff);
 // add student
 void AddStudent(STU_NODE*& head);
 
-//=================STAFF===================
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@STAFF@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 void printInformation_A_Staff(STFF_NODE* loggedinStaff);
 
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@STUDENT@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+void printInformation_A_Student(STU_NODE* loggedinStudent);
 
+// Update student
+void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStaff);
 #endif

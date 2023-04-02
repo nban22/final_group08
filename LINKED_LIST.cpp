@@ -374,20 +374,19 @@ bool Read_After_Update_Students(STU_NODE*& head) {
 
 bool Read_After_Update_Course(CR_NODE*& head) {
 	ofstream outfile;
+	int i = 1;
 	outfile.open("coursestest.csv");
 	if (!outfile.is_open()) {
 		return 0;
 	}
-	outfile << "ID,Cname,Teacher Name,Credits,Max_stdn,Cur_stdn,Weekday,Session,Start date,End date" << endl;
+	outfile << "ID,Cname,Teacher Name,Credits,Max_stdn,Cur_stdn,Weekday,Session,Start date,End date";
 	for (CR_NODE* c = head; c != nullptr; c = c->next) {
+		outfile << "\n" << i++;
 		outfile << c->course.ID << "," << c->course.CName << "," << c->course.LNameTeacher << " " << c->course.FNameTeacher << ","
 			<< c->course.Credits << "," << c->course.Max_stdn << "," << c->course.Cur_stdn << "," << ConvertStringWD(c->course.dayOfWeek) << ","
 			<< ConvertStringonlySS(c->course.session) << "," 
 			<< c->course.startDate.day / 10 << c->course.startDate.day % 10 << "/" << c->course.startDate.month / 10 << c->course.startDate.month % 10 << "/" << c->course.startDate.year << ","
 			<< c->course.endDate.day / 10 << c->course.endDate.day % 10 << "/" << c->course.endDate.month / 10 << c->course.endDate.month % 10 << "/" << c->course.endDate.year;
-		if (c->next != nullptr) {
-			outfile << "\n";
-		}
 	}
 	outfile.close();
 
@@ -449,123 +448,7 @@ void CreateSchoolYear(int& sYEAR) {
 	std::cout << "New school year created: " << sYEAR << "-" << sYEAR + 1 << std::endl;
 }
 
-void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STU_NODE* S, int choice) {
-	CR_NODE* course = C;
-	STU_COURSE_NODE* studentcourse = SC;
-	int count = 0;
-	int check = 0;
-	std::string courseID = "0";
 
-		if (choice == 1) {
-			while (course) {
-				ofstream output;
-				studentcourse = SC;
-				int i = 1;
-
-				output.open("Scoreboard_K22_2_" + course->course.ID + ".csv");
-
-				if (!output.is_open()) {
-					cout << "cannot open file " << endl;
-					return;
-				}
-
-				output << "No,ID,Last Name,First Name,Other Mark,Midterm Mark,Final Mark,Total Mark";
-
-				while (studentcourse) {
-					if (studentcourse->stu_course.CouID == course->course.ID) {
-						STU_NODE* tmp = getInformationByStudentID(studentcourse->stu_course.StuID, S);
-						output << "\n" << i++ << ",";
-						output << studentcourse->stu_course.StuID << ","
-							<< tmp->student.LName << ","
-							<< tmp->student.FName << ","
-							<< studentcourse->stu_course.other << ","
-							<< studentcourse->stu_course.midterm << ","
-							<< studentcourse->stu_course.final << ","
-							<< studentcourse->stu_course.total;
-					}
-					studentcourse = studentcourse->next;
-				}
-				output.close();
-				course = course->next;
-			}
-		}
-		else if (choice == 2) {
-			ofstream output;
-			int i = 1;
-
-			course = C;
-			system("cls");
-			viewListOfCourses(course);
-			cout << "\n\nEnter ID of the course you want to export: ";
-			cin >> courseID;
-
-			while (course) {
-				if (course->course.ID == courseID) {
-					check = 1;
-					break;
-				}
-				course = course->next;
-			}
-
-			if (check == 0) {
-				cout << "Your course ID which you entered does not exist.\n";
-				cout << "\nSearch for Course again? (y/n)";
-				char ans;
-				cin >> ans;
-				cin.ignore();
-				if (ans == 'y' || ans == 'Y') {
-					ExportScoreBoard( SC, C, S, choice);
-				}
-				else {
-					return;
-				}
-			}
-			else {
-				output.open("Scoreboard_K22_2_" + course->course.ID + ".csv");
-				if (!output.is_open()) {
-					cout << "cannot open file " << endl;
-					return;
-				}
-
-				output << "No,ID,Last Name,First Name,Other Mark,Midterm Mark,Final Mark,Total Mark";
-
-				while (studentcourse) {
-					if (studentcourse->stu_course.CouID == courseID) {
-						STU_NODE* tmp = getInformationByStudentID(studentcourse->stu_course.StuID, S);
-						output << "\n" << i++ << ",";
-						output << studentcourse->stu_course.StuID << ","
-							<< tmp->student.LName << ","
-							<< tmp->student.FName << ","
-							<< studentcourse->stu_course.other << ","
-							<< studentcourse->stu_course.midterm << ","
-							<< studentcourse->stu_course.final << ","
-							<< studentcourse->stu_course.total;
-					}
-					studentcourse = studentcourse->next;
-				}
-				output.close();
-			}
-		}
-		else if (choice == 0)
-			return;
-		else {
-			cout << "your choice is invalid, pleasre choose again" << endl;
-			system("pause");
-
-			cout << "\n\nPress 1 if you want to export all the courses ";
-			cout << "\nPress 2 if you want to export one course ";
-			cout << "\nPress 0 to go back ";
-			cout << "\nYour choice: ";
-			cin >> choice;
-
-			ExportScoreBoard(SC, C, S, choice);
-		}
-
-	system("cls");
-	cout << "\nExport finished" << endl;
-	system("pause");
-	return;
-}
 
 void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff) {
 	cout << "Enter new information:" << endl;
@@ -586,32 +469,7 @@ void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff) {
 	cout << "Faculty: ";
 	cin >> loggedinStaff->staff.Faculty;
 }
-//Update student
-void UpdateStudentInfo(STU_NODE* student, STU_NODE* loggedinStudent) {
-	if (!student || !loggedinStudent) {
-		std::cout << "Invalid input.\n";
-		return;
-	}
 
-	// check if the logged in staff is authorized to update student info
-	if (loggedinStudent->student.Classes.ClassID != student->student.Classes.ClassID) {
-		std::cout << "You are not authorized to update this student's information.\n";
-		return;
-	}
-
-	std::cout << "Enter new first name: ";
-	std::getline(std::cin, student->student.FName);
-	std::cout << "Enter new last name: ";
-	std::getline(std::cin, student->student.LName);
-	std::cout << "Enter new social ID: ";
-	std::getline(std::cin, student->student.SocialID);
-	std::cout << "Enter new gender: ";
-	std::getline(std::cin, student->student.Gender);
-	std::cout << "Enter new date of birth (format: DD/MM/YYYY): ";
-	std::cin >> student->student.DoB.day >> student->student.DoB.month >> student->student.DoB.year;
-
-	std::cout << "Student information updated successfully.\n";
-}
 
 STU_NODE* getInformationByStudentID(std::string StuID, STU_NODE* student) {
 	STU_NODE* cur = student;

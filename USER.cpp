@@ -375,6 +375,121 @@ void viewScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std::s
 	}
 }
 
+void ExportScoreBoard(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* student) {
+Here:
+	system("cls");
+	viewListOfCourses(course);
+
+	cout << "\n\n\t1. Export all the courses. ";
+	cout << "\n\t2. Export only a course. ";
+	cout << "\n\t0. Come back. ";
+	cout << "\nEnter select the option you want to choose: ";
+	int choice;
+	cin >> choice;
+	CR_NODE* cur_course = course;
+	STU_COURSE_NODE* cur_stu_course = stu_course;
+	int count = 0;
+	int check = 0;
+	std::string courseID = "0";
+
+	if (choice == 1) {
+		while (cur_course) {
+			ofstream output;
+			cur_stu_course = stu_course;
+			int i = 1;
+
+			output.open("Scoreboard_K22_2_" + cur_course->course.ID + ".csv");
+
+			if (!output.is_open()) {
+				cout << "cannot open file " << endl;
+				return;
+			}
+
+			output << "No,ID,Last Name,First Name,Other Mark,Midterm Mark,Final Mark,Total Mark";
+
+			while (cur_stu_course) {
+				if (cur_stu_course->stu_course.CouID == cur_course->course.ID) {
+					STU_NODE* tmp = getInformationByStudentID(cur_stu_course->stu_course.StuID, student);
+					output << "\n" << i++ << ",";
+					output << cur_stu_course->stu_course.StuID << ","
+						<< tmp->student.LName << ","
+						<< tmp->student.FName << ","
+						<< cur_stu_course->stu_course.other << ","
+						<< cur_stu_course->stu_course.midterm << ","
+						<< cur_stu_course->stu_course.final << ","
+						<< cur_stu_course->stu_course.total;
+				}
+				cur_stu_course = cur_stu_course->next;
+			}
+			output.close();
+			cur_course = cur_course->next;
+		}
+	}
+	else if (choice == 2) {
+		ofstream output;
+		int i = 1;
+		cur_course = course;
+		system("cls");
+		viewListOfCourses(cur_course);
+		cout << "\n\nEnter ID of the course you want to export: ";
+		cin >> courseID;
+		while (cur_course) {
+			if (cur_course->course.ID == courseID) {
+				check = 1;
+				break;
+			}
+			cur_course = cur_course->next;
+		}
+		if (check == 0) {
+			cout << "Your course ID which you entered does not exist.\n";
+			cout << "\nSearch for Course again? (y/n)";
+			char ans;
+			cin >> ans;
+			cin.ignore();
+			if (ans == 'y' || ans == 'Y') {
+				ExportScoreBoard(stu_course, course, student);
+			}
+			else {
+				return;
+			}
+		}
+		else {
+			output.open("Scoreboard_K22_2_" + cur_course->course.ID + ".csv");
+			if (!output.is_open()) {
+				cout << "cannot open file " << endl;
+				return;
+			}
+			output << "No,ID,Last Name,First Name,Other Mark,Midterm Mark,Final Mark,Total Mark";
+
+			while (cur_stu_course) {
+				if (cur_stu_course->stu_course.CouID == courseID) {
+					STU_NODE* tmp = getInformationByStudentID(cur_stu_course->stu_course.StuID, student);
+					output << "\n" << i++ << ",";
+					output << cur_stu_course->stu_course.StuID << ","
+						<< tmp->student.LName << ","
+						<< tmp->student.FName << ","
+						<< cur_stu_course->stu_course.other << ","
+						<< cur_stu_course->stu_course.midterm << ","
+						<< cur_stu_course->stu_course.final << ","
+						<< cur_stu_course->stu_course.total;
+				}
+				cur_stu_course = cur_stu_course->next;
+			}
+			output.close();
+		}
+	}
+	else if (choice == 0)
+		return;
+	else {
+		cout << "your choice is invalid, pleasre choose again" << endl;
+		system("pause");
+		goto Here;
+	}
+	system("cls");
+	cout << "Export finished" << endl;
+	system("pause");
+}
+
 void changePassWordOfStaffAccount(STFF_NODE*& staff, STFF_NODE*& loggedinStaff) {
 	string oldPass;
 	string newPass;
@@ -426,13 +541,21 @@ int checkExistOfStudentAccount(STU_NODE*& head, std::string user, std::string pa
 	return 0;
 }
 
-void print_Students(STU_NODE* head) {
-	STU_NODE* cur = head;
-	while (cur) {
-		cout << cur->student.No_Student << " " << cur->student.StudentID << " " << cur->student.LName << " " << cur->student.FName << " " << cur->student.Gender << " " << cur->student.SocialID << " " << cur->student.Classes.ClassID << " " << cur->student.Classes.name << "\n";
-		cur = cur->next;
-	}
-} //for testing
+void printInformation_A_Student(STU_NODE* loggedinStudent) {
+	string fullname = loggedinStudent->student.LName + " " + loggedinStudent->student.FName;
+	string DoB = to_string(loggedinStudent->student.DoB.day / 10) + to_string(loggedinStudent->student.DoB.day % 10) + "/"
+		+ to_string(loggedinStudent->student.DoB.month / 10) + to_string(loggedinStudent->student.DoB.month % 10) + "/"
+		+ to_string(loggedinStudent->student.DoB.year);
+
+	std::cout << setw(45) << right << "Student's information"
+		<< "\n\t" << setfill('*') << setw(55) << "*" << setfill(' ')
+		<< "\n\t" << setw(15) << left << "Full name : " << setw(40) << right << fullname
+		<< "\n\t" << setw(15) << left << "Teacher ID: " << setw(40) << right << loggedinStudent->student.StudentID
+		<< "\n\t" << setw(15) << left << "Gender: " << setw(40) << right << loggedinStudent->student.Gender
+		<< "\n\t" << setw(15) << left << "Date of birth: " << setw(40) << right << DoB
+		<< "\n\t" << setw(15) << left << "Class ID: " << setw(40) << right << loggedinStudent->student.Classes.ClassID
+		<< "\n\t" << setw(15) << left << "Class name: " << setw(40) << right << loggedinStudent->student.Classes.name << "\n\n";
+}
 
 void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 	string oldPass;
@@ -464,4 +587,45 @@ void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStude
 			break;
 		}
 	} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
+}
+
+//Update student
+void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
+	system("cls");
+	cout << "\tUpdate your personal information."
+		<< "\n\t1. Update your gender."
+		<< "\n\t2. Update your date of birth."
+		<< "\n\t3. Update your social ID."
+		<< "\n\t0. Come back.";
+	cout << "\n\nEnter select the option you want to choose: ";
+	int choose;
+	std::cin >> choose;
+	std::cin.ignore();
+
+	if (choose == 1) {
+		cout << "\nEnter gender which you want to update: ";
+		getline(cin, loggedinStudent->student.Gender);
+		Read_After_Update_Students(student);
+		UpdateStudentInfo(student, loggedinStudent);
+	}
+	else if (choose == 2) {
+		cout << "\nEnter date of birth which you want to update (dd mm yyyy): ";
+		cin >> loggedinStudent->student.DoB.day >> loggedinStudent->student.DoB.month >> loggedinStudent->student.DoB.year;
+		Read_After_Update_Students(student);
+		UpdateStudentInfo(student, loggedinStudent);
+	}
+	else if (choose == 3) {
+		cout << "\nEnter social ID which you want to update: ";
+		getline(cin, loggedinStudent->student.SocialID);
+		Read_After_Update_Students(student);
+		UpdateStudentInfo(student, loggedinStudent);
+	}
+	else if (choose == 0) {
+		return;
+	}
+	else {
+		std::cout << "Invalid selection, please enter again.\n\n";
+		std::system("pause");
+		UpdateStudentInfo(student, loggedinStudent);
+	}
 }
