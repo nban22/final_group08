@@ -343,7 +343,7 @@ int main()
 
 			}
 			else if (choose == 5) {
-
+				DeleteRegisteredCourse(stu_course, loggedinStudent, course);
 			}
 			else if (choose == 6) {
 				ViewSchedule(stu_course, loggedinStudent, course);

@@ -607,7 +607,7 @@ void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStude
 	} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
 }
 
-void ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE *course) {
+void ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course) {
 	STU_COURSE_NODE* cur_stu_course = stu_course;
 	CR_NODE* cur_course = course;
 	int count = 0;
@@ -648,6 +648,52 @@ void ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 	system("pause");
 	return;
 }
+
+void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course) {
+	system("cls");
+	char check;
+	string courseID;
+	STU_COURSE_NODE* cur_stu_node = stu_course;
+	CR_NODE* cur_course = course;
+	ViewSchedule(stu_course, loggedinStudent, course);
+	cout << "\n\n";
+	cout << "Enter the ID of the course you want to delete: ";
+	cin >> courseID;
+
+	while (cur_stu_node) {
+		if (cur_stu_node->stu_course.CouID == courseID && cur_stu_node->stu_course.StuID == loggedinStudent->student.StudentID) {
+			cout << "Are you sure you want to delete this course? (y/n): ";
+			cin >> check;
+			if (check == 'y') {
+				STU_COURSE_NODE* tmp = new STU_COURSE_NODE;
+				tmp = cur_stu_node;
+				if (tmp == stu_course) {
+					stu_course = stu_course->next;
+					stu_course->prev = nullptr;
+					delete tmp;
+				}
+				else {
+					tmp->prev->next = tmp->next;
+					tmp->next->prev = tmp->prev;
+					cur_stu_node = cur_stu_node->prev;
+					delete tmp;
+				}
+				system("cls");
+				cout << "Delete successfully" << endl;
+				system("pause");
+				return;
+			}
+			else
+				return;
+		}
+		else
+			cur_stu_node = cur_stu_node->next;
+	}
+	cout << "The course ID you entered is incorrect" << endl;
+	system("pause");
+	return;
+}
+
 
 //Update student
 void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
