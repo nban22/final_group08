@@ -375,6 +375,23 @@ void viewScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std::s
 		cur_student = cur_student->next;
 	}
 }
+void View_Y_Scoraboard(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
+	STU_COURSE_NODE* current = stu_course;
+	while (current != nullptr) {
+		if (current->stu_course.StuID == loggedinStudent->student.StudentID) {
+			std::cout << "CourseID: " << current->stu_course.CouID << std::endl;
+			std::cout << "CourseName: " << current->stu_course.Cname << std::endl;
+			std::cout << "Mid-term Score: " << current->stu_course.midterm << std::endl;
+			std::cout << "Final Score: " << current->stu_course.final << std::endl;
+			std::cout << "Total Score: " << current->stu_course.total << std::endl;
+		}
+		current = current->next;
+	}
+}
+
+
+
+
 
 void ExportScoreBoard(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* student) {
 Here:
@@ -672,3 +689,4 @@ void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 		UpdateStudentInfo(student, loggedinStudent);
 	}
 }
+
