@@ -16,6 +16,10 @@ int main()
 	//USER:   33383147
 	//PASSWORD:    123456
 
+	//STUDENT ACCOUNT TO TEST RUN: 
+	//USER:   22240001
+	//PASSWORD:    678910
+
 	ifstream input_S;
 	STU_NODE* student = nullptr;
 	getDataStudents_csv(input_S, student);
@@ -342,7 +346,7 @@ int main()
 
 			}
 			else if (choose == 6) {
-
+				ViewSchedule(stu_course, loggedinStudent, course);
 			}
 			else if (choose == 7) {
 

@@ -590,6 +590,48 @@ void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStude
 	} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
 }
 
+void ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE *course) {
+	STU_COURSE_NODE* cur_stu_course = stu_course;
+	CR_NODE* cur_course = course;
+	int count = 0;
+
+	system("cls");
+
+	cout << "============================================YOUR COURSES============================================\n\n";
+	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
+		<< setw(10) << left << "Course ID" << setw(5) << left << "|"
+		<< setw(30) << left << "Course name" << setw(5) << left << "|"
+		<< setw(25) << left << "Teacher name" << setw(5) << left << "|"
+		<< setw(10) << left << "Credits" << setw(5) << left << "|"
+		<< setw(10) << left << "Registered" << setw(5) << left << "|"
+		<< setw(20) << left << "Calendar" << endl;
+	std::cout << setfill('-') << setw(140) << left << "-" << setfill(' ') << endl;
+
+	while (cur_stu_course) {
+		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID) {
+
+			string registered = to_string(cur_course->course.Cur_stdn) + "/" + to_string(cur_course->course.Max_stdn);
+			string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
+
+			cout << setw(5) << left << " " << setw(5) << left << cur_course->course.No << setw(5) << left << "|"
+				<< setw(10) << left << cur_course->course.ID << setw(5) << left << "|"
+				<< setw(30) << left << cur_course->course.CName << setw(5) << left << "|"
+				<< setw(25) << left << fullname << setw(5) << left << "|"
+				<< setw(10) << left << cur_course->course.Credits << setw(5) << left << "|"
+				<< setw(10) << left << registered << setw(5) << left << "|"
+				<< ConvertStringWD(cur_course->course.dayOfWeek) << "-" << ConvertStringSS(cur_course->course.session) << endl;
+		}
+		cur_course = cur_course->next;
+		cur_stu_course = cur_stu_course->next;
+		count++;
+	}
+	if (count == 0) {
+		cout << "You haven't registered any course " << endl;
+	}
+	system("pause");
+	return;
+}
+
 //Update student
 void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 	system("cls");
