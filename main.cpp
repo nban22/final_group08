@@ -1,4 +1,4 @@
-#include "header.h"
+﻿#include "header.h"
 #include <iostream>
 #include <stdio.h>
 using namespace std;
@@ -337,7 +337,72 @@ int main()
 				UpdateStudentInfo(student, loggedinStudent);				
 			}
 			else if (choose == 3) {
+			AGAIN:
+				system("cls");
+				updateCur_stdnInCourse(course, stu_course);
+				viewListOfCourses(course);
 
+				int check = 0;
+				string CourseID;
+				CR_NODE* cur_course = course;
+				do {
+					system("cls");
+					viewListOfCourses(course);
+					cout << "\n\nEnter Course ID which you want to view: ";
+					getline(cin, CourseID);
+
+					CR_NODE* cur = course;
+					while (cur) {
+						if (cur->course.ID == CourseID) {
+							cur_course = cur;
+							check = 1;
+						}
+						cur = cur->next;
+					}
+					if (check == 0) {
+						cout << "Your Course ID doesn't exist. Please enter again.\n";
+						cout << "\nSearch for Course again? (y/n)";
+						char ans;
+						cin >> ans;
+						cin.ignore();
+						if (ans == 'y' || ans == 'Y') {
+							goto AGAIN;
+						}
+						else {
+							check = 2;
+						}
+					}
+				} while (check == 0);
+
+				bool check1 = false;
+				bool check2 = false;
+				bool check3 = false;
+				bool check4 = false;
+				//điều kiện để chấp nhận đăng ký khóa học
+				//1. lớp còn trống slot
+				//2. không đăng ký quá 5 môn học
+				//3. không bị trùng lịch học
+				//4. môn đó chưa được đăng ký
+
+				//1
+				if (cur_course->course.Cur_stdn < cur_course->course.Max_stdn) {
+					check1 = true;
+				}
+				//2
+				STU_COURSE_NODE* cur_stu_course = stu_course;
+				int count = 0;
+				while (cur_stu_course) {
+					if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID)
+						count++;
+				}
+				if (count < 5)
+					check2 = true;
+				//3
+
+
+
+
+				system("pause");
 			}
 			else if (choose == 4) {
 
