@@ -46,10 +46,6 @@ struct COURSE {
 	WEEKDAY dayOfWeek; //ONLY 1 SESSION/WEEK/COURSE
 	SESSION session;
 	DATE startDate, endDate;
-
-	/*void ViewCourses();
-	void UpdateCourseInfo();
-	void DeleteCourse();*/
 };
 
 struct STU_COURSE {
@@ -178,7 +174,6 @@ void Get_Data_StudentCourse_csv(std::ifstream& input, STU_COURSE_NODE*& head);
 int checkExistOfStudentAccount(STU_NODE*& head, std::string user, std::string password, STU_NODE*& logged);
 int checkExistOfStaffAccount(STFF_NODE*& head, std::string user, std::string password, STFF_NODE*& logged);
 
-
 //%%%%%%%%%%%%%%    HAM CAP NHAT DU LIEU TU DLL VAO FILE CSV     %%%%%%%%%%%%%
 bool Read_After_Update_Staffs(STFF_NODE* head);
 bool Read_After_Update_Teachers(STFF_NODE* teacher);
@@ -194,7 +189,6 @@ void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStude
 //COURSE
 
 CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID);
-//void ViewCourses(CR_NODE *head);
 void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 void UpdateCourseInfo(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 void DeleteCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
@@ -217,6 +211,8 @@ void EnterCourseScore(STU_COURSE_NODE*& SC, CR_NODE* C, STFF_NODE* loggedinStaff
 void ViewScoreBoard_Course(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
 void ViewScoreBoard_Class(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
 void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STU_NODE* S);
+void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head); //roke
+STU_COURSE* checkExistOfStudentCourseRecord(STU_COURSE_NODE *&head, std::string ID); //roke
 
 //SCHOOL_YEAR
 void CreateSchoolYear(int& sYEAR);

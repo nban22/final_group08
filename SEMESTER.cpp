@@ -150,10 +150,6 @@ AGAIN:
 			cout << "Enter Course Teacher First name: ";
 			getline(cin, UpNode->course.LNameTeacher);
 		} break;
-			/*             case 4: {
-							cout << "Enter Course Teacher ID: ";
-							cin >> UpNode->course.teacherID;
-						} break; */
 		case 4: {
 			cout << "Enter Course Credits: ";
 			cin >> UpNode->course.Credits;
@@ -248,53 +244,96 @@ AGAIN:
 	}
 }
 
-/*int DisplayMenu() {
-	system("cls");
-
-	cout << "======================COURSE======================";
-	cout << "\n\t1. View list of course.\n"
-		<< "\t2. Create a new course.\n"
-		<< "\t3. Update course's information.\n"
-		<< "\t4. Delete a course.\n"
-		<< "\t0. Back forward.\n";
-	cout << "========================END========================\n\n";
-
-	cout << "Enter select the option you want to choice: ";
-	int choice;
-	cin >> choice;
-	cin.ignore();
-	return choice;
+//@@@@@@@@@@@@@@@@@@@@@@@@@COURSE_STUDENT@@@@@@@@@@@@@@@@@@@@@@
+STU_COURSE* checkExistOfStudentCourseRecord(STU_COURSE_NODE *&head, std::string ID) {
+	STU_COURSE_NODE* cur = head;
+    while (cur) {
+        if (cur->stu_course.StuID == ID) {
+            return &cur->stu_course;
+        }
+        cur = cur->next;
+    }
+    return nullptr;
 }
 
-void getOption(int &choice, CR_NODE *&head) {
-	switch (choice) {
-		case 1: {
-			ViewCourses(head);
+void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head) {
+	std::system("cls");
+	CR_NODE* cur = head;
+	viewListOfCourses(cur);
+	cout << "Enter Course ID: ";
+    string UpCID;
+    cin >> UpCID;
+	CR_NODE* UpCNode = checkExistOfCourseRecord(head, UpCID);
+	if (UpCNode) {
+		AGAIN:
+		system("cls");
+		viewListStudentsOfCourse(stu_course, student, UpCID);
+		cout << "Enter Student ID: ";
+		string UpID;
+		cin >> UpID;
+		STU_COURSE* UpNode = checkExistOfStudentCourseRecord(stu_course, UpID);
+		if (UpNode) {
+			system("cls");
+
+			cout << "======================COURSE======================";
+			cout << "\n\t1. Midterm Grade.\n"
+				<< "\t2. Final Grade.\n"
+				<< "\t3. Other Grades.\n";
+			cout << "========================END========================\n\n";
+			cout << "What would you like to update?: ";
+
+			//system("pause");
+
+			int choice;
+			cin >> choice;
+			switch (choice) {
+			case 1: {
+				cout << "Enter Midterm: ";
+				cin >> UpNode->midterm;
+			} break;
+			case 2: {
+				cout << "Enter Midterm: ";
+				cin >> UpNode->final;
+			} break;
+			case 3: {
+				cout << "Enter Midterm: ";
+				cin >> UpNode->other;
+			} break;
+			default: {
+				cout << "Invalid selection, please enter again.\n\n";
+			} break;
+			}
+
+			system("cls");
+			cout << "Update Grade(s) Successfully\n";
+			//STU_NODE* student, CR_NODE* course, STFF_NODE* teacher, STU_COURSE_NODE* stu_course
+			Read_After_Update_Student_Course(student, head, teacher, stu_course);
 			system("pause");
-		} DisplayMenu();
-		break;
-
-		case 2: {
-			CreateNewCourse(head);
-		} DisplayMenu();
-		break;
-
-		case 3: {
-			UpdateCourseInfo(head);
-		}  DisplayMenu();
-		break;
-
-		case 4: {
-			DeleteCourse(head);
-		}  DisplayMenu();
-		break;
-
-		case 0: {
 			return;
-		} break;
-
-		default: {
-			cout << "Invalid selection, please enter again.\n\n";
-		} DisplayMenu();
+		}
+		else {
+			cout << "No Student Founded! They might be in another course";
+			cout << "\nSearch for Student again? (y/n)";
+			char ans;
+			cin >> ans;
+			if (ans == 'y' || ans == 'Y') {
+				goto AGAIN;
+			}
+			else {
+				return;
+			}
+		}
 	}
-} */
+	else {
+		cout << "No Course Found!";
+		cout << "\nSearch for Course again? (y/n)";
+		char ans;
+		cin >> ans;
+		if (ans == 'y' || ans == 'Y') {
+			UpdateMarksInfo(student, stu_course, teacher, head);
+		}
+		else {
+			return;
+		}
+	}
+}

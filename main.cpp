@@ -137,11 +137,11 @@ int main()
 					std::cout << "======================Enter information======================";
 					std::cout << "\n\t1.Add new 1st year students to 1st year classes."//them sinh vien nam nhat vao lop
 						<< "\n\t2.Create a course registration session."//tao phien DKHP
-						<< "\n\t2.Add a new course."//Them khoa hoc
-						<< "\n\t3.Export the file to import the list of students in each class."//Xuat file nhap DSSV tung lop
-						<< "\n\t4.Delete a course."//Xoa khoa hoc
-						<< "\n\t5.Update a course."//Cap nhat khoa hoc
-						<< "\n\t6.Update the marks in a course."//Cap nhat diem trong khoa hoc
+						<< "\n\t3.Add a new course."//Them khoa hoc
+						<< "\n\t4.Export the file to import the list of students in each class."//Xuat file nhap DSSV tung lop
+						<< "\n\t5.Delete a course."//Xoa khoa hoc
+						<< "\n\t6.Update a course."//Cap nhat khoa hoc
+						<< "\n\t7.Update the marks in a course."//Cap nhat diem trong khoa hoc
 						<< "\n\t0.Come back.\n";
 					std::cout << "=============================END=============================\n\n";
 					std::cout << "\nEnter select the option you want to choose: ";
@@ -150,10 +150,13 @@ int main()
 					if (choose == 1) { //Add new 1st year students to 1st year classes
 						addNew1styearStudent(student);
 					}
-					else if (choose == 2) { //Add a course
+					else if (choose == 2) { //Registration
+						break;
+					}
+					else if (choose == 3) { //Add a course
 						CreateNewCourse(stu_course, teacher, course);
 					}
-					else if (choose == 3) { //Export the file to import the list of students in each class
+					else if (choose == 4) { //Export the file to import the list of students in each class
 						int check;
 						std::system("cls");
 						std::cout << "\n\t\t\t ********************************************" << endl;
@@ -166,14 +169,14 @@ int main()
 						}
 						std::system("pause");
 					}
-					else if (choose == 4) { //Delete a course
+					else if (choose == 5) { //Delete a course
 						DeleteCourse(stu_course, teacher, course);
 					}
-					else if (choose == 5) { //Update a course
+					else if (choose == 6) { //Update a course
 						UpdateCourseInfo(stu_course, teacher, course);
 					}
-					else if (choose == 6) { //Update the marks in a course
-
+					else if (choose == 7) { //Update the marks in a course
+						UpdateMarksInfo(student, stu_course, teacher, course);
 					}
 					else if (choose == 0) { //COME BACK
 						break;
@@ -322,7 +325,7 @@ int main()
 				<< "4. The result of register for the course.\n"
 				<< "5. Delete the course which registered.\n"
 				<< "6. View your schedule.\n"
-				<< "7. View your scoraboard.\n"
+				<< "7. View your scoreboard.\n"
 				<< "0. Log out.\n"
 				<< "-1. Exit.\n";
 			std::cout << "========================END========================\n\n";
@@ -419,7 +422,7 @@ int main()
 				ViewSchedule(stu_course, loggedinStudent, course);
 			}
 			else if (choose == 7) {
-					View_Y_Scoraboard(stu_course, loggedinStudent); 
+				View_Y_Scoraboard(stu_course, loggedinStudent); 
 
 			}
 			else if (choose == 0) {

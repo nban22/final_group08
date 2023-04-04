@@ -635,7 +635,7 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 		if (cur_stu_node->stu_course.CouID == courseID && cur_stu_node->stu_course.StuID == loggedinStudent->student.StudentID) {
 			cout << "Are you sure you want to delete this course? (y/n): ";
 			cin >> check;
-			if (check == 'y') {
+			if (check == 'y' || check == 'Y') {
 				STU_COURSE_NODE* tmp = new STU_COURSE_NODE;
 				tmp = cur_stu_node;
 				if (tmp == stu_course) {
