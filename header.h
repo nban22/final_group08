@@ -264,4 +264,11 @@ void printInformation_A_Student(STU_NODE* loggedinStudent);
 
 // Update student
 void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStaff);
+
+void ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course);
+
+void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course);
+//
+void View_Y_Scoraboard(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent);
+
 #endif

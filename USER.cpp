@@ -360,6 +360,23 @@ void viewScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std::s
 		cur_student = cur_student->next;
 	}
 }
+void View_Y_Scoraboard(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
+	STU_COURSE_NODE* current = stu_course;
+	while (current != nullptr) {
+		if (current->stu_course.StuID == loggedinStudent->student.StudentID) {
+			std::cout << "CourseID: " << current->stu_course.CouID << std::endl;
+			std::cout << "CourseName: " << current->stu_course.Cname << std::endl;
+			std::cout << "Mid-term Score: " << current->stu_course.midterm << std::endl;
+			std::cout << "Final Score: " << current->stu_course.final << std::endl;
+			std::cout << "Total Score: " << current->stu_course.total << std::endl;
+		}
+		current = current->next;
+	}
+}
+
+
+
+
 
 void ExportScoreBoard(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* student) {
 Here:
@@ -561,6 +578,94 @@ void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStude
 	} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
 }
 
+void ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course) {
+	STU_COURSE_NODE* cur_stu_course = stu_course;
+	CR_NODE* cur_course = course;
+	int count = 0;
+
+	system("cls");
+
+	cout << "============================================YOUR COURSES============================================\n\n";
+	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
+		<< setw(10) << left << "Course ID" << setw(5) << left << "|"
+		<< setw(30) << left << "Course name" << setw(5) << left << "|"
+		<< setw(25) << left << "Teacher name" << setw(5) << left << "|"
+		<< setw(10) << left << "Credits" << setw(5) << left << "|"
+		<< setw(10) << left << "Registered" << setw(5) << left << "|"
+		<< setw(20) << left << "Calendar" << endl;
+	std::cout << setfill('-') << setw(140) << left << "-" << setfill(' ') << endl;
+
+	while (cur_stu_course) {
+		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID) {
+
+			string registered = to_string(cur_course->course.Cur_stdn) + "/" + to_string(cur_course->course.Max_stdn);
+			string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
+
+			cout << setw(5) << left << " " << setw(5) << left << cur_course->course.No << setw(5) << left << "|"
+				<< setw(10) << left << cur_course->course.ID << setw(5) << left << "|"
+				<< setw(30) << left << cur_course->course.CName << setw(5) << left << "|"
+				<< setw(25) << left << fullname << setw(5) << left << "|"
+				<< setw(10) << left << cur_course->course.Credits << setw(5) << left << "|"
+				<< setw(10) << left << registered << setw(5) << left << "|"
+				<< ConvertStringWD(cur_course->course.dayOfWeek) << "-" << ConvertStringSS(cur_course->course.session) << endl;
+		}
+		cur_course = cur_course->next;
+		cur_stu_course = cur_stu_course->next;
+		count++;
+	}
+	if (count == 0) {
+		cout << "You haven't registered any course " << endl;
+	}
+	system("pause");
+	return;
+}
+
+void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course) {
+	system("cls");
+	char check;
+	string courseID;
+	STU_COURSE_NODE* cur_stu_node = stu_course;
+	CR_NODE* cur_course = course;
+	ViewSchedule(stu_course, loggedinStudent, course);
+	cout << "\n\n";
+	cout << "Enter the ID of the course you want to delete: ";
+	cin >> courseID;
+
+	while (cur_stu_node) {
+		if (cur_stu_node->stu_course.CouID == courseID && cur_stu_node->stu_course.StuID == loggedinStudent->student.StudentID) {
+			cout << "Are you sure you want to delete this course? (y/n): ";
+			cin >> check;
+			if (check == 'y') {
+				STU_COURSE_NODE* tmp = new STU_COURSE_NODE;
+				tmp = cur_stu_node;
+				if (tmp == stu_course) {
+					stu_course = stu_course->next;
+					stu_course->prev = nullptr;
+					delete tmp;
+				}
+				else {
+					tmp->prev->next = tmp->next;
+					tmp->next->prev = tmp->prev;
+					cur_stu_node = cur_stu_node->prev;
+					delete tmp;
+				}
+				system("cls");
+				cout << "Delete successfully" << endl;
+				system("pause");
+				return;
+			}
+			else
+				return;
+		}
+		else
+			cur_stu_node = cur_stu_node->next;
+	}
+	cout << "The course ID you entered is incorrect" << endl;
+	system("pause");
+	return;
+}
+
+
 //Update student
 void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 	system("cls");
@@ -601,3 +706,4 @@ void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 		UpdateStudentInfo(student, loggedinStudent);
 	}
 }
+
