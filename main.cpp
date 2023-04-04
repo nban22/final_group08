@@ -1,6 +1,4 @@
-#include "header.h"
-#include <iostream>
-#include <stdio.h>
+﻿#include "header.h"
 using namespace std;
 
 int main()
@@ -11,6 +9,10 @@ int main()
 	STFF_NODE* staff = nullptr;
 	getDataStaff_csv(input, staff);
 	STFF_NODE* loggedinStaff = new STFF_NODE;
+
+	ifstream input_T;
+	STFF_NODE* teacher = nullptr;
+	getDataTeacher_csv(input_T, teacher);
 
 	//STAFF ACCOUNT TO TEST RUN: 
 	//USER:   33383147
@@ -31,6 +33,13 @@ int main()
 
 	updateCur_stdnInCourse(course, stu_course);
 
+	/*Read_After_Update_Teachers(teacher);
+	Read_After_Update_Staffs(staff);
+	Read_After_Update_Students(student);
+	Read_After_Update_Course(stu_course, teacher, course);
+	Read_After_Update_Student_Course(student, course, teacher, stu_course);
+	return 0;*/
+		
 	while (69) {
 		int check_T, check_S;
 		do {
@@ -123,7 +132,7 @@ int main()
 					std::system("cls");
 					std::cout << "======================Enter information======================";
 					std::cout << "\n\t1.Add new 1st year students to 1st year classes."//them sinh vien nam nhat vao lop
-						//<< "\n\t2.Create a course registration session."//tao phien DKHP
+						<< "\n\t2.Create a course registration session."//tao phien DKHP
 						<< "\n\t2.Add a new course."//Them khoa hoc
 						<< "\n\t3.Export the file to import the list of students in each class."//Xuat file nhap DSSV tung lop
 						<< "\n\t4.Delete a course."//Xoa khoa hoc
@@ -137,13 +146,8 @@ int main()
 					if (choose == 1) { //Add new 1st year students to 1st year classes
 						addNew1styearStudent(student);
 					}
-					/* else if (choose == 2) { //Create a course registration session
-						std::system("cls");
-						int option = DisplayMenu();
-						getOption(option, course);
-					} */
 					else if (choose == 2) { //Add a course
-						CreateNewCourse(course);
+						CreateNewCourse(stu_course, teacher, course);
 					}
 					else if (choose == 3) { //Export the file to import the list of students in each class
 						int check;
@@ -153,16 +157,16 @@ int main()
 						std::cout << "Enter the scoreboard of a course." << endl;
 						EnterCourseScore(stu_course, course, loggedinStaff, check);
 						if (check != 0) {
-							Read_After_Update_Student_Course(course, stu_course);
+							Read_After_Update_Student_Course(student, course, teacher, stu_course);
 							count = 7;
 						}
 						std::system("pause");
 					}
 					else if (choose == 4) { //Delete a course
-						DeleteCourse(course);
+						DeleteCourse(stu_course, teacher, course);
 					}
 					else if (choose == 5) { //Update a course
-						UpdateCourseInfo(course);
+						UpdateCourseInfo(stu_course, teacher, course);
 					}
 					else if (choose == 6) { //Update the marks in a course
 
@@ -330,11 +334,77 @@ int main()
 				changePasswordOfStudentAccount(student, loggedinStudent);
 			}
 			else if (choose == 2) {
-				UpdateStudentInfo(student, loggedinStudent);				
+				UpdateStudentInfo(student, loggedinStudent);
 			}
 			else if (choose == 3) {
+			AGAIN:
+				system("cls");
+				updateCur_stdnInCourse(course, stu_course);
+				viewListOfCourses(course);
 
+				int check = 0;
+				string CourseID;
+				CR_NODE* cur_course = course;
+				do {
+					system("cls");
+					viewListOfCourses(course);
+					cout << "\n\nEnter Course ID which you want to view: ";
+					getline(cin, CourseID);
+
+					CR_NODE* cur = course;
+					while (cur) {
+						if (cur->course.ID == CourseID) {
+							cur_course = cur;
+							check = 1;
+						}
+						cur = cur->next;
+					}
+					if (check == 0) {
+						cout << "Your Course ID doesn't exist. Please enter again.\n";
+						cout << "\nSearch for Course again? (y/n)";
+						char ans;
+						cin >> ans;
+						cin.ignore();
+						if (ans == 'y' || ans == 'Y') {
+							goto AGAIN;
+						}
+						else {
+							check = 2;
+						}
+					}
+				} while (check == 0);
+
+				bool check1 = false;
+				bool check2 = false;
+				bool check3 = false;
+				bool check4 = false;
+				//điều kiện để chấp nhận đăng ký khóa học
+				//1. lớp còn trống slot
+				//2. không đăng ký quá 5 môn học
+				//3. không bị trùng lịch học
+				//4. môn đó chưa được đăng ký
+
+				//1
+				if (cur_course->course.Cur_stdn < cur_course->course.Max_stdn) {
+					check1 = true;
+				}
+				//2
+				STU_COURSE_NODE* cur_stu_course = stu_course;
+				int count = 0;
+				while (cur_stu_course) {
+					if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID)
+						count++;
+				}
+				if (count < 5)
+					check2 = true;
+				//3
+
+
+
+
+				system("pause");
 			}
+
 			else if (choose == 4) {
 
 			}

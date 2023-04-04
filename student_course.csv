@@ -1,21 +1,12 @@
-﻿No,Student ID,Student Name,Gender,Class Name,Course ID,Course Name,Credits,Max_stdn,Teacher Name,Teacher ID,Week day,session,day start,month start,day end,month end,Midterm Mark,Final Mark,Other Mark,Total Mark
-1,22240001,Huynh Dinh Gia An,Nam,22HOH1,CNTT001,Cong Nghe Thong Tin,3,100,Minh,33383147,MON,S1,30,5,24,8,0,0,0,0
-2,22240002,Quan Vu Hoang Anh,Nu,22HOH1,CNTT001,Cong Nghe Thong Tin,3,100,Minh,33383147,MON,S1,30,5,24,8,0,0,0,0
-3,22133001,Do Nguyen Huong Giang,Nu,22KHMT1,CNTT001,Cong Nghe Thong Tin,3,100,Minh,33383147,MON,S1,30,5,24,8,0,0,0,0
-4,22133002,Pham Nguyen Anh Thu,Nam,22KHMT1,TTH003,Toan Cao Cap,3,100,Thom,49375740,THU,S3,17,1,27,5,0,0,0,0
-5,22154001,Nguyen Huu An,Nam,22CTT01,HH002,Hoa Dai Cuong 1,3,120,Loi,65419458,SAT,S1,16,3,24,8,0,0,0,0
-6,22154002,Tran Thi Kim Anh,Nu,22CTT01,HH005,Hoa Dai Cuong 2,4,60,Tuan,57832530,TUE,S4,13,6,24,8,0,0,0,0
-7,22165001,Mai Ba An,Nu,22VLH1,SH002,Sinh Dai Cuong 1,3,50,Quyen,76426142,THU,S2,13,6,24,8,0,0,0,0
-8,22165002,Nguyen Thien An,Nam,22VLH1,SH001,Gioi Thieu Nganh Sinh Hoc,2,75,Hoa,74986880,FRI,S2,3,1,27,5,0,0,0,0
-9,22110001,Pham Quoc Anh,Nam,22TH01,VLH002,Vat Ly Dai Cuong 1,3,75,Vy,14808476,TUE,S2,30,5,24,8,0,0,0,0
-10,22110002,Le Hoang Bao,Nu,22TH01,VLH005,Vat Ly Dai Cuong 2,4,80,Trang,75770745,FRI,S4,30,5,24,8,0,0,0,0
-11,22110013,Tran Huynh Minh Hien,Nu,22TH02,MTH004,Con Nguoi Va Moi Truong,4,90,Bao,70279162,WED,S1,13,6,24,8,0,0,0,0
-12,22110014,Khuong Cong Hoang,Nam,22TH02,DC002,The Duc 1,2,80,Huong,33517241,SAT,S1,30,5,24,8,0,0,0,0
-13,22110023,Dinh Thuy Ngan Kieu,Nam,22TH03,DC003,The Duc 2,2,80,Bao,86379084,MON,S2,1,9,22,12,0,0,0,0
-14,22110024,Duong Thi Kim Lien,Nu,22TH03,DC004,Triet Hoc Mac Lenin,3,90,Huy,17761815,THU,S2,1,9,22,12,0,0,0,0
-15,22124001,Nguyen Thi Thu Hang,Nu,22CNSH1,DC008,Phap Luat Dai Cuong,3,120,Bao,86379084,MON,S4,17,1,27,5,0,0,0,0
-16,22124002,Tang Minh Hau,Nam,22CNSH1,TTH005,Dai So Tuyen Tinh,3,50,Tuan,56349112,MON,S3,30,5,24,8,0,0,0,0
-17,22145001,Tran Nguyen Thien Bao,Nu,22KTDT1,HH004,Hoa Dai Cuong 2,4,50,Vinh,73217028,WED,S1,17,1,27,5,0,0,0,0
-18,22124002,Duong Bao Thien Dai,Nu,22DCH01,VLH001,Gioi Thieu Nganh Vat Ly,2,50,Thinh,82010843,MON,S1,30,5,24,8,0,0,0,0
-19,22124001,Nguyen DucAn Anthony,Nam,22DCH01,DC001,Ky Nang Lam Viec Nhom,2,110,Minh,33383147,MON,S3,13,6,24,8,0,0,0,0
-20,22154021,Ho Thi Phuong Nga,Nam,22CTT02,DC006,Lich Su Dang,3,100,Minh,33383147,TUE,S3,30,5,24,8,0,0,0,0
+﻿No,Student ID,Student Name,Gender,Class ID,Course ID,Course Name,Credits,Max_stdn,Teacher Name,Teacher ID,Week day,session,day start,month start,day end,month end,Midterm Mark,Final Mark,Other Mark,Total Mark
+1,22240001,Huynh Dinh Gia An,Nam,22HOH1,CNTT001,Cong Nghe Thong Tin,3,100,Bui Thuc Minh,33383147,MON,S1,30,5,24,8,0,0,0,0
+2,22240002,Quan Vu Hoang Anh,Bede,22HOH1,CNTT001,Cong Nghe Thong Tin,3,100,Bui Thuc Minh,33383147,MON,S1,30,5,24,8,0,0,0,0
+3,22133001,Do Nguyen Huong Giang,Nu,22KHMT1,CNTT001,Cong Nghe Thong Tin,3,100,Bui Thuc Minh,33383147,MON,S1,30,5,24,8,0,0,0,0
+4,22133002,Pham Nguyen Anh Thu,Nam,22KHMT1,TTH003,Toan Cao Cap,3,100,Hoang Thi Thom,49375740,THU,S3,17,1,27,5,0,0,0,0
+5,22110014,Khuong Cong Hoang,Nam,22TH02,DC002,The Duc 1,2,80,Le Thi Huong,33517241,SAT,S1,30,5,24,8,0,0,0,0
+6,22110023,Dinh Thuy Ngan Kieu,Nam,22TH03,DC003,The Duc 2,2,80,Nguyen Hoai Bao,86379084,MON,S2,1,9,22,12,0,0,0,0
+7,22110024,Duong Thi Kim Lien,Nu,22TH03,DC004,Triet Hoc Mac Lenin,3,90,Nguyen Xuan Huy,17761815,THU,S2,1,9,22,12,0,0,0,0
+8,22124001,Nguyen Thi Thu Hang,Nu,22CNSH1,DC008,Phap Luat Dai Cuong,3,120,Nguyen Hoai Bao,86379084,MON,S4,17,1,27,5,0,0,0,0
+9,22124002,Tang Minh Hau,Nam,22CNSH1,TTH005,Dai So Tuyen Tinh,3,50,Nguyen Thanh Tuan,56349112,MON,S3,30,5,24,8,0,0,0,0
+10,22124001,Nguyen Thi Thu Hang,Nu,22CNSH1,DC001,Ky Nang Lam Viec Nhom,2,110,Bui Thuc Minh,33383147,MON,S3,13,6,24,8,0,0,0,0
+11,22154021,Ho Thi Phuong Nga,Nam,22CTT02,DC006,Lich Su Dang,3,100,Bui Thuc Minh,33383147,TUE,S3,30,5,24,8,0,0,0,0

@@ -5,23 +5,8 @@ using namespace std;
 //*****************LOGIN/LOGOUT*****************
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@STAFF@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-int checkExistOfStaffAccount(STFF_NODE*& head, std::string user, std::string password, STFF_NODE*& logged) {
 
-	STFF_NODE* current = head;
-
-	while (current) {
-		if (user == current->staff.TeacherID && password == current->staff.Password) {
-			logged = current;
-			return 1;
-		}
-		else if (user == current->staff.TeacherID && password != current->staff.Password)
-			return -1;
-		else
-			current = current->next;
-	}
-	return 0;
-}
-
+//menu teacher
 void printInformation_A_Staff(STFF_NODE* loggedinStaff) {
 	string fullname = loggedinStaff->staff.LName + " " + loggedinStaff->staff.FName;
 	string DoB = to_string(loggedinStaff->staff.DoB.day / 10) + to_string(loggedinStaff->staff.DoB.day % 10) + "/"
@@ -37,7 +22,7 @@ void printInformation_A_Staff(STFF_NODE* loggedinStaff) {
 		<< "\n\t" << setw(15) << left << "Faculty: " << setw(40) << right << loggedinStaff->staff.Faculty << "\n\n";
 }
 
-//++++++++++++++++++Add new 1st year students to 1st year classes++++++++++++++++++
+//2 - nter information - 1.Add new 1st year students to 1st year classes.
 void addNew1styearStudent(STU_NODE*& student) {
 	STU_NODE* new_student = new STU_NODE;
 	bool check;
@@ -515,7 +500,7 @@ void changePassWordOfStaffAccount(STFF_NODE*& staff, STFF_NODE*& loggedinStaff) 
 				continue;
 			}
 			loggedinStaff->staff.Password = newPass;
-			Read_After_Update_Teachers(staff);
+			Read_After_Update_Staffs(staff);
 			cout << "Change password successfully.\n\n";
 			system("pause");
 			break;
@@ -526,21 +511,7 @@ void changePassWordOfStaffAccount(STFF_NODE*& staff, STFF_NODE*& loggedinStaff) 
 
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@STUDENT@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-int checkExistOfStudentAccount(STU_NODE*& head, std::string user, std::string password, STU_NODE*& logged) {
-	STU_NODE* current = head;
 
-	while (current) {
-		if (user == current->student.StudentID && password == current->student.Password) {
-			logged = current;
-			return 1;
-		}
-		else if (user == current->student.StudentID && password != current->student.Password)
-			return -1;
-		else
-			current = current->next;
-	}
-	return 0;
-}
 
 void printInformation_A_Student(STU_NODE* loggedinStudent) {
 	string fullname = loggedinStudent->student.LName + " " + loggedinStudent->student.FName;
