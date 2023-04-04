@@ -608,10 +608,10 @@ void ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 				<< setw(10) << left << cur_course->course.Credits << setw(5) << left << "|"
 				<< setw(10) << left << registered << setw(5) << left << "|"
 				<< ConvertStringWD(cur_course->course.dayOfWeek) << "-" << ConvertStringSS(cur_course->course.session) << endl;
+			count++;
 		}
 		cur_course = cur_course->next;
 		cur_stu_course = cur_stu_course->next;
-		count++;
 	}
 	if (count == 0) {
 		cout << "You haven't registered any course " << endl;

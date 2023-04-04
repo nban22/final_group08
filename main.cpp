@@ -401,10 +401,31 @@ int main()
 				while (cur_stu_course) {
 					if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID)
 						count++;
+					cur_stu_course = cur_stu_course->next;
 				}
 				if (count < 5)
 					check2 = true;
 				//3
+				cur_stu_course = stu_course;
+				cur_course = course;
+
+				while (cur_course) {
+					if (cur_course->course.ID == CourseID)
+						break;
+					cur_course = cur_course->next;
+				}
+
+				while (cur_stu_course) {
+					if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID) {
+						if (cur_stu_course->stu_course.session == ConvertStringSS(cur_course->course.session) && cur_stu_course->stu_course.weekday == ConvertStringWD(cur_course->course.dayOfWeek)) {
+							cout << "Conflict between your calendar and the course's calendar" << endl;
+							break;
+						}
+					}
+					cur_stu_course = cur_stu_course->next;
+				}
+				check3 = true;
+				//4
 
 
 
