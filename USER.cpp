@@ -228,6 +228,7 @@ void viewListOfCourses(CR_NODE* course) {
 
 void ViewListOfTeachers(STFF_NODE* teacher) {
 	STFF_NODE* cur = teacher;
+	system("cls");
 	
 	cout << "============================================LIST OF TEACHERS ============================================\n\n";
 	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
@@ -711,6 +712,7 @@ void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 
 	if (choose == 1) {
 		cout << "\nEnter gender which you want to update: ";
+		cin.ignore();
 		getline(cin, loggedinStudent->student.Gender);
 		Read_After_Update_Students(student);
 		UpdateStudentInfo(student, loggedinStudent);
@@ -723,6 +725,7 @@ void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 	}
 	else if (choose == 3) {
 		cout << "\nEnter social ID which you want to update: ";
+		cin.ignore();
 		getline(cin, loggedinStudent->student.SocialID);
 		Read_After_Update_Students(student);
 		UpdateStudentInfo(student, loggedinStudent);
@@ -735,5 +738,73 @@ void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 		std::system("pause");
 		UpdateStudentInfo(student, loggedinStudent);
 	}
+}
+
+void UpdateTeacherInfor(std::string teacherID, STFF_NODE*& teacher) {
+	STFF_NODE* cur = teacher;
+	int check = 0;
+	system("cls");
+
+	while (cur) {
+		if (cur->staff.TeacherID == teacherID) {
+			check = 1;
+			break;
+		}
+		cur = cur->next;
+	}
+	
+	if (check == 0) {
+		cout << "Your ID is invalid, please type again" << endl;
+		return;
+	}
+
+	printInformation_A_Staff(cur);
+	cout << "\n\nWhat do you want to update? " << endl;
+
+	int choice;
+	cout << "\n\t1. Update gender."
+		<< "\n\t2. Update date of birth."
+		<< "\n\t3. Update social ID."
+		<< "\n\t4. Update Faculty."
+		<< "\n\t0. Come back.";
+	cout << "\n\nEnter select the option you want to choose: ";
+	cin >> choice;
+
+	if (choice == 1) {
+		cout << "\nEnter gender which you want to update: ";
+		cin.ignore();
+		getline(cin, cur->staff.Gender);
+		Read_After_Update_Teachers(teacher);
+		UpdateTeacherInfor(teacherID, teacher);
+	}
+	else if (choice == 2) {
+		cout << "\nEnter date of birth which you want to update (dd mm yyyy): ";
+		cin >> cur->staff.DoB.day >> cur->staff.DoB.month >> cur->staff.DoB.year;
+		Read_After_Update_Teachers(teacher);
+		UpdateTeacherInfor(teacherID, teacher);
+	}
+	else if (choice == 3) {
+		cout << "\nEnter social ID which you want to update: ";
+		cin.ignore();
+		getline(cin,cur->staff.SocialID);
+		Read_After_Update_Teachers(teacher);
+		UpdateTeacherInfor(teacherID, teacher);
+	}
+	else if (choice == 4) {
+		cout << "\nEnter your new faculty: ";
+		cin.ignore();
+		getline(cin, cur->staff.Faculty);
+		Read_After_Update_Teachers(teacher);
+		UpdateTeacherInfor(teacherID, teacher);
+	}
+	else if (choice == 0) {
+		return;
+	}
+	else {
+		std::cout << "Invalid selection, please enter again.\n\n";
+		std::system("pause");
+		UpdateTeacherInfor(teacherID, teacher);
+	}
+
 }
 
