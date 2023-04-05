@@ -267,4 +267,6 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 //
 void View_Y_Scoraboard(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent);
 
+void ViewListOfTeachers(STFF_NODE* teacher);
+
 #endif

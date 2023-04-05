@@ -224,6 +224,36 @@ void viewListOfCourses(CR_NODE* course) {
 	}
 }
 
+//============================view list of teachers============================
+
+void ViewListOfTeachers(STFF_NODE* teacher) {
+	STFF_NODE* cur = teacher;
+	
+	cout << "============================================LIST OF TEACHERS ============================================\n\n";
+	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
+		<< setw(15) << left << "Teachers ID" << setw(5) << left << "|"
+		<< setw(20) << left << "Teacher's last name" << setw(5) << left << "|"
+		<< setw(20) << left << "Teacher's first name" << setw(5) << left << "|"
+		<< setw(10) << left << "Gender" << setw(5) << left << "|"
+		<< setw(20) << left << "Day of Birth" << setw(5) << left << "|"
+		<< setw(20) << left << "Social ID" << setw(5) << left << "|"
+		<< setw(40) << left << "Faculty" << setw(5) << left << "|" << endl;
+	std::cout << setfill('-') << setw(190) << left << "-" << setfill(' ') << "\n";
+
+	while (cur) {
+		string birthday = to_string(cur->staff.DoB.day) + "/" + to_string(cur->staff.DoB.month) + "/" + to_string(cur->staff.DoB.year);
+		cout << setw(5) << left << " " << setw(5) << left << cur->staff.No_Staff << setw(5) << left << "|"
+			<< setw(15) << left << cur->staff.TeacherID << setw(5) << left << "|"
+			<< setw(20) << left << cur->staff.LName << setw(5) << left << "|"
+			<< setw(20) << left << cur->staff.FName << setw(5) << left << "|"
+			<< setw(10) << left << cur->staff.Gender << setw(5) << left << "|"
+			<< setw(20) << left << birthday << setw(5) <<  "|"
+			<< setw(20) << left << cur->staff.SocialID << setw(5) << left << "|"
+			<< setw(40) << left << cur->staff.Faculty << setw(5) << left << "|" << endl;
+		cur = cur->next;
+	}
+}
+
 //============================ List of students in course============================4 
 void viewListStudentsOfCourse(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID) {
 	STU_COURSE_NODE* cur = stu_course;

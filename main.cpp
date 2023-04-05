@@ -115,6 +115,7 @@ int main()
 					else if (choose == 2) {
 						std::system("cls");
 						std::cout << "Update personal information." << endl;
+						ViewListOfTeachers(teacher);
 						UpdateStaffInfo(staff, loggedinStaff);
 						std::system("pause");
 
