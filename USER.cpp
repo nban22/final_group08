@@ -805,6 +805,84 @@ void UpdateTeacherInfor(std::string teacherID, STFF_NODE*& teacher) {
 		std::system("pause");
 		UpdateTeacherInfor(teacherID, teacher);
 	}
+}
 
+void UpdateYourInfor(STFF_NODE* loggedinStaff, STFF_NODE*& teacher) {
+	STFF_NODE* cur = teacher;
+	char check;
+
+	system("cls");
+	printInformation_A_Staff(loggedinStaff);
+
+
+	while (cur) {
+		if (cur->staff.TeacherID == loggedinStaff->staff.TeacherID)
+			break;
+		else
+			cur = cur->next;
+	}
+
+	cout << "\n\nWhat do you want to update? " << endl;
+
+	int choice;
+	cout << "\n\t1. Update gender."
+		<< "\n\t2. Update date of birth."
+		<< "\n\t3. Update social ID."
+		<< "\n\t4. Update Faculty."
+		<< "\n\t0. Come back.";
+	cout << "\n\nEnter select the option you want to choose: ";
+	cin >> choice;
+
+	if (choice == 1) {
+		cout << "\nEnter gender which you want to update: ";
+		cin.ignore();
+		getline(cin, cur->staff.Gender);
+		cout << "Are you sure you want to change? (y/n): ";
+		cin >> check;
+		if (check == 'y' || check == 'Y') {
+			Read_After_Update_Teachers(teacher);
+		}
+		UpdateYourInfor(loggedinStaff, teacher);
+	}
+	else if (choice == 2) {
+		cout << "\nEnter date of birth which you want to update (dd mm yyyy): ";
+		cin >> cur->staff.DoB.day >> cur->staff.DoB.month >> cur->staff.DoB.year;
+		cout << "Are you sure you want to change? (y/n): ";
+		cin >> check;
+		if (check == 'y' || check == 'Y') {
+			Read_After_Update_Teachers(teacher);
+		}
+		UpdateYourInfor(loggedinStaff, teacher);
+	}
+	else if (choice == 3) {
+		cout << "\nEnter social ID which you want to update: ";
+		cin.ignore();
+		getline(cin, cur->staff.SocialID);
+		cout << "Are you sure you want to change? (y/n): ";
+		cin >> check;
+		if (check == 'y' || check == 'Y') {
+			Read_After_Update_Teachers(teacher);
+		}
+		UpdateYourInfor(loggedinStaff, teacher);
+	}
+	else if (choice == 4) {
+		cout << "\nEnter your new faculty: ";
+		cin.ignore();
+		getline(cin, cur->staff.Faculty);
+		cout << "Are you sure you want to change? (y/n): ";
+		cin >> check;
+		if (check == 'y' || check == 'Y') {
+			Read_After_Update_Teachers(teacher);
+		}
+		UpdateYourInfor(loggedinStaff, teacher);
+	}
+	else if (choice == 0) {
+		return;
+	}
+	else {
+		std::cout << "Invalid selection, please enter again.\n\n";
+		std::system("pause");
+		UpdateYourInfor(loggedinStaff, teacher);
+	}
 }
 

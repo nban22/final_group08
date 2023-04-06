@@ -101,6 +101,7 @@ int main()
 						<< "\n\t2.Create semester."
 						<< "\n\t3.Create a new class."
 						<< "\n\t4.Change information of a teacher."
+						<< "\n\t5.Change your information."
 						<< "\n\t0.Come back.\n";
 					std::cout << "=========================END==========================\n\n";
 					std::cout << "\nEnter select the option you want to choose: ";
@@ -123,12 +124,19 @@ int main()
 					else if (choose == 4) {
 						string teacherID;
 						std::system("cls");
-						std::cout << "Update personal information." << endl;
+						std::cout << "======================Update personal information======================" << endl;
 						ViewListOfTeachers(teacher);
-						cout << "\n\nEnter the ID of the teacher you want to update:";
+						cout << "\n\nEnter the ID of the teacher you want to update: ";
 						cin >> teacherID;
 						UpdateTeacherInfor(teacherID, teacher);
 						std::system("pause");
+					}
+					else if (choose == 5) {
+						std::system("cls");
+						std::cout << "======================Update your information======================" << endl;
+
+						UpdateYourInfor(loggedinStaff, teacher);
+
 					}
 					else if (choose == 0) {
 						break;

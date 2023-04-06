@@ -271,4 +271,6 @@ void ViewListOfTeachers(STFF_NODE* teacher);
 
 void UpdateTeacherInfor(std::string teacherID, STFF_NODE*& teacher);
 
+void UpdateYourInfor(STFF_NODE* loggedinStaff, STFF_NODE*& teacher);
+
 #endif
