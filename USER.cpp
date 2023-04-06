@@ -774,27 +774,43 @@ void UpdateTeacherInfor(std::string teacherID, STFF_NODE*& teacher) {
 		cout << "\nEnter gender which you want to update: ";
 		cin.ignore();
 		getline(cin, cur->staff.Gender);
-		Read_After_Update_Teachers(teacher);
+		cout << "Are you sure you want to change? (y/n): ";
+		cin >> check;
+		if (check == 'y' || check == 'Y') {
+			Read_After_Update_Teachers(teacher);
+		}
 		UpdateTeacherInfor(teacherID, teacher);
 	}
 	else if (choice == 2) {
 		cout << "\nEnter date of birth which you want to update (dd mm yyyy): ";
 		cin >> cur->staff.DoB.day >> cur->staff.DoB.month >> cur->staff.DoB.year;
-		Read_After_Update_Teachers(teacher);
+		cout << "Are you sure you want to change? (y/n): ";
+		cin >> check;
+		if (check == 'y' || check == 'Y') {
+			Read_After_Update_Teachers(teacher);
+		}
 		UpdateTeacherInfor(teacherID, teacher);
 	}
 	else if (choice == 3) {
 		cout << "\nEnter social ID which you want to update: ";
 		cin.ignore();
 		getline(cin,cur->staff.SocialID);
-		Read_After_Update_Teachers(teacher);
+		cout << "Are you sure you want to change? (y/n): ";
+		cin >> check;
+		if (check == 'y' || check == 'Y') {
+			Read_After_Update_Teachers(teacher);
+		}
 		UpdateTeacherInfor(teacherID, teacher);
 	}
 	else if (choice == 4) {
 		cout << "\nEnter your new faculty: ";
 		cin.ignore();
 		getline(cin, cur->staff.Faculty);
-		Read_After_Update_Teachers(teacher);
+		cout << "Are you sure you want to change? (y/n): ";
+		cin >> check;
+		if (check == 'y' || check == 'Y') {
+			Read_After_Update_Teachers(teacher);
+		}
 		UpdateTeacherInfor(teacherID, teacher);
 	}
 	else if (choice == 0) {
