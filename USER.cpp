@@ -902,3 +902,64 @@ void UpdateYourInfor(STFF_NODE* loggedinStaff, STFF_NODE*& teacher) {
 	}
 }
 
+void Create_newStaff(STFF_NODE* staff) {
+	std::system("cls");
+	STFF_NODE* NewStaff = new STFF_NODE;
+	STFF_NODE* cur = staff;
+	while (cur->next) {
+		cur = cur->next;
+	}
+	//create new staff account
+
+	if (!cur) {
+		NewStaff->staff.No_Staff = 1;
+	}
+	else {
+		int NewNo = cur->staff.No_Staff;
+		NewNo++;
+		NewStaff->staff.No_Staff = NewNo;
+	}
+	string NewLName;
+	cout << "Enter The Staff's Last Name: ";
+	getline(cin, NewLName);
+	NewStaff->staff.LName = NewLName;
+	string NewFName;
+	cout << "Enter The Staff's First Name: ";
+	getline(cin, NewFName);
+	NewStaff->staff.FName = NewFName;
+	string NewGender;
+	cout << "Enter The Staff's Gender: ";
+	getline(cin, NewGender);
+	NewStaff->staff.Gender = NewGender;
+
+	string NewSocialID;
+	cout << "Enter Staff's Social ID: ";
+	getline(cin, NewSocialID);
+	NewStaff->staff.SocialID = NewSocialID;
+	string NewID;
+	cout << "Enter Staff's ID (This will be the login username): ";
+	getline(cin, NewID);
+	NewStaff->staff.TeacherID = NewID;
+	string NewPass;
+	cout << "Enter Staff's Password: ";
+	getline(cin, NewPass);
+	NewStaff->staff.Password = NewPass;
+
+	string NewFaculty;
+	cout << "Enter Staff's Faculty: ";
+	getline(cin, NewFaculty);
+	NewStaff->staff.Faculty = NewFaculty;
+
+	cout << "Enter Staff's Date of Birth (Please seperate with spaces) (dd/mm/yyyy)";
+	cin >> NewStaff->staff.DoB.day >> NewStaff->staff.DoB.month >> NewStaff->staff.DoB.year;
+
+	//Add course at the end
+	cur->next = NewStaff;
+	NewStaff->prev = cur;
+
+	system("cls");
+	cout << "Added Staff Successfully\n";
+	Read_After_Update_Staffs(staff);
+	system("pause");
+	return;
+}

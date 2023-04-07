@@ -102,6 +102,7 @@ int main()
 						<< "\n\t3.Create a new class."
 						<< "\n\t4.Change information of a teacher."
 						<< "\n\t5.Change your information."
+						<< "\n\t6.Create a new staff's account."
 						<< "\n\t0.Come back.\n";
 					std::cout << "=========================END==========================\n\n";
 					std::cout << "\nEnter select the option you want to choose: ";
@@ -137,6 +138,12 @@ int main()
 
 						UpdateYourInfor(loggedinStaff, teacher);
 
+					}
+					else if (choose == 6) {
+						std::system("cls");
+						std::cout << "======================Create a new staff's account======================" << endl;
+						Create_newStaff(staff);
+						std::system("pause");
 					}
 					else if (choose == 0) {
 						break;
