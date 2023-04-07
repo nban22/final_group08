@@ -670,4 +670,14 @@ STFF_NODE* getInformationByTeacherID(std::string TeacherID, STFF_NODE* teacher) 
 	}
 	return nullptr;
 }
+void createClass(std::string className) {
+	std::ofstream outfile(className + ".csv");
+	if (outfile.is_open()) {
+		std::cout << "Created class " << className << " successfully!" << std::endl;
+	}
+	else {
+		std::cout << "Failed to create class " << className << "!" << std::endl;
+	}
+	outfile.close();
+}
 

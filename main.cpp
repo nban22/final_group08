@@ -120,6 +120,13 @@ int main()
 
 					}
 					else if (choose == 3) {
+						std::system("cls");
+						std::string className;
+						createClass(className);
+
+						std::cout << "Enter class";
+
+						std::system("pause");
 
 					}
 					else if (choose == 4) {
