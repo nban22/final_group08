@@ -122,7 +122,10 @@ int main()
 					else if (choose == 3) {
 						std::system("cls");
 						std::string className;
+
 						createClass(className);
+
+					    importStudents(className);
 
 						std::cout << "Enter class";
 

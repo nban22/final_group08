@@ -680,4 +680,44 @@ void createClass(std::string className) {
 	}
 	outfile.close();
 }
-
+// Cach 2
+void importStudents(std::string className) {
+	std::ifstream infile(className + ".csv");
+	if (infile.is_open()) {
+		std::cout << "Importing students from " << className << ".csv..." << std::endl;
+		std::string line;
+		while (std::getline(infile, line)) {
+			std::stringstream ss(line);
+			std::string studentID, password, fName, lName, gender, socialID, classID, className;
+			int noStudent;
+			std::getline(ss, studentID, ',');
+			std::getline(ss, password, ',');
+			std::getline(ss, fName, ',');
+			std::getline(ss, lName, ',');
+			std::getline(ss, gender, ',');
+			std::getline(ss, socialID, ',');
+			std::getline(ss, classID, ',');
+			std::getline(ss, className, ',');
+			std::getline(ss, line);
+			std::stringstream ss2(line);
+			ss2 >> noStudent;
+			STU_NODE* node = new STU_NODE();
+			node->student.StudentID = studentID;
+			node->student.Password = password;
+			node->student.FName = fName;
+			node->student.LName = lName;
+			node->student.Gender = gender;
+			node->student.SocialID = socialID;
+			node->student.Classes.ClassID = classID;
+			node->student.Classes.name = className;
+			node->student.No_Student = noStudent;
+			// Add node to list
+			// ...
+		}
+		std::cout << "Imported students successfully!" << std::endl;
+	}
+	else {
+		std::cout << "Failed to import students from " << className << ".csv!" << std::endl;
+	}
+	infile.close();
+}

@@ -8,6 +8,7 @@
 #include <cstring>
 #include <fstream>
 #include <iomanip>
+#include <Sstream>
 
 //using namespace std;
 //Shouldn't use namespace in a header files!
@@ -276,6 +277,8 @@ void UpdateTeacherInfor(std::string teacherID, STFF_NODE*& teacher);
 void UpdateYourInfor(STFF_NODE* loggedinStaff, STFF_NODE*& teacher);
 
 void createClass(std::string className);
+void importStudents(std::string className);
+
 
 
 #endif
