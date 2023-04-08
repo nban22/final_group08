@@ -8,6 +8,7 @@
 #include <fstream>
 #include <iomanip>
 #include "windows.h"
+#include <Sstream>
 
 //using namespace std;
 //Shouldn't use namespace in a header files!
@@ -239,13 +240,15 @@ void viewListStudentsOfClass(STU_NODE* student);
 //=============view scoreboard in a course============
 void viewScoreBoard_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID);
 
-//=============view scoreboard in a class============
+//=============view scoreboard in a class============\n m 
 void viewScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string ClassID);
 
 
 void displayListStudentsOfCourse(STU_NODE*& student, std::string classID);
-// Update teacher
+// Modify teacher
 void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff);
+void Create_newStaff(STFF_NODE* staff);
+
 // add student
 void AddStudent(STU_NODE*& head);
 
@@ -272,6 +275,11 @@ void ViewListOfTeachers(STFF_NODE* teacher);
 void UpdateTeacherInfor(std::string teacherID, STFF_NODE*& teacher);
 
 void UpdateYourInfor(STFF_NODE* loggedinStaff, STFF_NODE*& teacher);
+
+void createClass(std::string className);
+void importStudents(std::string className);
+
+
 
 
 #define KEY_NONE	-1
