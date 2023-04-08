@@ -413,6 +413,7 @@ int main()
 						if (cur->course.ID == CourseID) {
 							cur_course = cur;
 							check = 1;
+							break;
 						}
 						cur = cur->next;
 					}
@@ -445,6 +446,9 @@ int main()
 				if (cur_course->course.Cur_stdn < cur_course->course.Max_stdn) {
 					check1 = true;
 				}
+				else {
+					cout << "No more slot for this course " << endl;
+				}
 				//2
 				STU_COURSE_NODE* cur_stu_course = stu_course;
 				int count = 0;
@@ -455,6 +459,9 @@ int main()
 				}
 				if (count < 5)
 					check2 = true;
+				else {
+					cout << "You have registered 5 courses, cannot register more " << endl;
+				}
 				//3
 				cur_stu_course = stu_course;
 				cur_course = course;
@@ -474,12 +481,71 @@ int main()
 					}
 					cur_stu_course = cur_stu_course->next;
 				}
-				check3 = true;
+				if (cur_stu_course == nullptr)
+					check3 = true;
 				//4
+				cur_stu_course = stu_course;
 
+				while (cur_stu_course) {
+					if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_stu_course->stu_course.CouID == CourseID) {
+						cout << "Your have already registed to this course " << endl;
+						break;
+					}
+					else
+						cur_stu_course = cur_stu_course->next;
+				}
+				if (cur_stu_course == nullptr)
+					check4 = true;
 
+				// update
 
+				if (check1 == check2 == check3 == check4 == true) {
+					char lastcheck;
+					cout << "\nAre you sure you want to register to this course? (y/n): ";
+					cin >> lastcheck;
+					if (lastcheck == 'y' || lastcheck == 'Y') {
+						cur_stu_course = stu_course;
+						while (cur_stu_course->next)
+							cur_stu_course = cur_stu_course->next;
 
+						CR_NODE* cr_tmp = course;
+
+						while (cr_tmp) {
+							if (cr_tmp->course.ID == CourseID)
+								break;
+							else
+								cr_tmp = cr_tmp->next;
+						}
+
+						STU_COURSE_NODE* stu_cr_tmp = new STU_COURSE_NODE;
+						stu_cr_tmp->prev = cur_stu_course;
+						stu_cr_tmp->next = nullptr;
+						cur_stu_course->next = stu_cr_tmp;
+						stu_cr_tmp->stu_course.Class = cr_tmp->course.Class;
+						stu_cr_tmp->stu_course.Cname = cr_tmp->course.CName;
+						stu_cr_tmp->stu_course.CouID = cr_tmp->course.ID;
+						stu_cr_tmp->stu_course.credits = cr_tmp->course.Credits;
+						stu_cr_tmp->stu_course.enddate.day = cr_tmp->course.endDate.day;
+						stu_cr_tmp->stu_course.enddate.month = cr_tmp->course.endDate.month;
+						stu_cr_tmp->stu_course.enddate.year = cr_tmp->course.endDate.year; 
+						stu_cr_tmp->stu_course.Gen = loggedinStudent->student.Gender;
+						stu_cr_tmp->stu_course.Max_stdn = cr_tmp->course.Max_stdn;
+						stu_cr_tmp->stu_course.No = stu_cr_tmp->prev->stu_course.No + 1;
+						stu_cr_tmp->stu_course.session = cr_tmp->course.session;
+						stu_cr_tmp->stu_course.startdate.day = cr_tmp->course.startDate.day;
+						stu_cr_tmp->stu_course.startdate.month = cr_tmp->course.startDate.month;
+						stu_cr_tmp->stu_course.startdate.year = cr_tmp->course.startDate.year;
+						stu_cr_tmp->stu_course.StudentName = loggedinStudent->student.LName + " " + loggedinStudent->student.FName;
+						stu_cr_tmp->stu_course.StuID = loggedinStudent->student.StudentID;
+						stu_cr_tmp->stu_course.TeacherID = cr_tmp->course.teacherID;
+						stu_cr_tmp->stu_course.Teachername = cr_tmp->course.LNameTeacher + " " + cr_tmp->course.FNameTeacher;
+						stu_cr_tmp->stu_course.weekday = cr_tmp->course.dayOfWeek;
+						stu_cr_tmp->stu_course.final = stu_cr_tmp->stu_course.midterm = stu_cr_tmp->stu_course.other = stu_cr_tmp->stu_course.total = 0;
+						Read_After_Update_Student_Course(student, course, teacher, stu_course);
+						delete cr_tmp;
+						cout << "\nRegister successfully " << endl;
+					}
+				}
 				system("pause");
 			}
 
@@ -494,7 +560,7 @@ int main()
 			}
 			else if (choose == 7) {
 				View_Y_Scoraboard(stu_course, loggedinStudent);
-
+				system("pause");
 			}
 			else if (choose == 0) {
 				break;
