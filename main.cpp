@@ -1,4 +1,6 @@
-﻿#include "header.h"
+﻿#pragma once
+#include "header.h"
+#include <conio.h>
 using namespace std;
 
 #define BLACK 0
@@ -65,50 +67,73 @@ int main()
 		int check_T, check_S;
 		do {
 			std::system("cls");
+
 			string user, pass;
-			std::cout << "ID of Your User: ";
-			getline(std::cin, user);
-			std::cout << "Password: ";
-			getline(std::cin, pass);
+			int tmp_width = 40;
+			int box_width = 30;
+
+			SetColor(LIGHT_YELLOW);
+			my_print(tmp_width, 1, LIGHT_YELLOW, "UNIVERSITY OF NATURAL SCIENCE");
+			my_print(tmp_width + 7, 2, LIGHT_YELLOW, "HO CHI MINH CITY");
+			my_print(tmp_width + 4, 5, LIGHT_YELLOW, "HCMUS Portal - Log in");
+
+			my_print(tmp_width - 2, 7, LIGHT_YELLOW, "User name: ");
+			box(tmp_width - 2, 8, box_width, 2, BRIGHT_WHITE);
+
+			my_print(tmp_width - 2, 11, LIGHT_YELLOW, "Password: ");
+			box(tmp_width - 2, 12, box_width, 2, BRIGHT_WHITE);
+
+			gotoXY(tmp_width - 1, 9);
+			user = my_getline(box_width - 1);
+			//user = "33383147";
+
+			gotoXY(tmp_width - 1, 13);
+			pass = my_getline(box_width - 1);
+			//pass = "123456";
 
 			check_T = checkExistOfStaffAccount(staff, user, pass, loggedinStaff);
 			check_S = checkExistOfStudentAccount(student, user, pass, loggedinStudent);
 
 			if (check_T == 1 || check_S == 1) {
-				std::cout << "Logged in successfully.\n\n";
-				std::system("pause");
 				continue;
 			}
 			if (check_T == -1 || check_S == -1) {
-				std::cout << "Your password isn't correct. Please, enter again.\n\n";
-				std::system("pause");
+				my_print(tmp_width - 6, 16, RED, "Your password isn't correct. Please, enter again.");
+				ShowCur(0);
+				char c;
+				c = _getch();
+				ShowCur(1);
 				continue;
 			}
 			if (check_T == 0 || check_S == 0) {
-				std::cout << "Your account doesn't exist. Please, enter again.\n\n";
-				std::system("pause");
-			}
+				my_print(tmp_width - 6, 16, RED, "Your account doesn't exist. Please, enter again.");
+				ShowCur(0);
+				char c;
+				c = _getch();
+				ShowCur(1);
+			} 
 		} while (!(check_T == 1 || check_S == 1));
 
 		//THE FUNCTIONS OF STAFF
 		while (check_T == 1) {
 			std::system("cls");
-
-			std::cout << "======================TEACHER======================";
-			std::cout << "\n\t1.Create new."//Tao moi
-				<< "\n\t2.Enter information."//Nhap thong tin
-				<< "\n\t3.Look up."//Tra cuu
-				<< "\n\t4.Change password."//Doi mat khau
-				<< "\n\t0.Log out."//Dang xuat
-				<< "\n\t-1.Exit.\n";
-			std::cout << "========================END========================\n\n";
-
-			printInformation_A_Staff(loggedinStaff);
-
-			std::cout << "Enter select the option you want to choose: ";
+			
+			string option[] = { "1.Create new.",
+				"2.Enter information.",
+				"3.Look up.",
+				"4.Change password.",
+				"0.Log out.",
+				"-1.Exit." };
+			int x_boxStaff = 40;
+			int y_boxStaff = 5;
+			int width_boxStaff = 30;
+			int height_boxStaff = 2;
+			int amount = sizeof(option) / sizeof(option[0]);
 			int choose;
-			std::cin >> choose;
-			std::cin.ignore();
+
+			choose = menu_staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+
+			//printInformation_A_Staff(loggedinStaff);
 
 			if (choose == 1) { //Create new
 				while (1) {
@@ -142,7 +167,7 @@ int main()
 
 						createClass(className);
 
-					    importStudents(className);
+						importStudents(className);
 
 						std::cout << "Enter class";
 
@@ -181,7 +206,7 @@ int main()
 					}
 				}
 			}
-			else if (choose == 2 ) { //Enter information
+			else if (choose == 2) { //Enter information
 				while (1) {
 					std::system("cls");
 					std::cout << "======================Enter information======================";
@@ -351,10 +376,10 @@ int main()
 			else if (choose == 4) { // +++++++++++++++++++++++++CHANGE PASSWORD+++++++++++++++++++++
 				changePassWordOfStaffAccount(staff, loggedinStaff);
 			}
-			else if (choose == 0) { // ++++++++++++++++++++++++++LOG OUT++++++++++++++++++++++++++
+			else if (choose == 0 + 5) { // ++++++++++++++++++++++++++LOG OUT++++++++++++++++++++++++++
 				break;
 			}
-			else if (choose == -1) { // ++++++++++++++++++++++++++++EXIT++++++++++++++++++++++++++++
+			else if (choose == -1 + 7) { // ++++++++++++++++++++++++++++EXIT++++++++++++++++++++++++++++
 				system("cls");
 				std::cout << "****************************THANK YOU FOR USING!********************************";
 				return 0;
