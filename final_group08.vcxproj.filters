@@ -5,6 +5,7 @@
     <ClCompile Include="SEMESTER.cpp" />
     <ClCompile Include="USER.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mylib.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.h" />

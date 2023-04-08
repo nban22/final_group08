@@ -1,19 +1,19 @@
+﻿#pragma once
 #ifndef _HEADER_H_
 #define _HEADER_H_
-#pragma once
 
 #include <iostream>
-#include <stdio.h>
 #include <string>
 #include <cstring>
 #include <fstream>
 #include <iomanip>
+#include "windows.h"
 
 //using namespace std;
 //Shouldn't use namespace in a header files!
 
 //**********************SEMESTER.h
-struct DATE {
+struct Date {
 	int year{}, month{}, day{};
 };
 
@@ -45,7 +45,7 @@ struct COURSE {
 	int Cur_stdn{};
 	WEEKDAY dayOfWeek; //ONLY 1 SESSION/WEEK/COURSE
 	SESSION session;
-	DATE startDate, endDate;
+	Date startDate, endDate;
 };
 
 struct STU_COURSE {
@@ -62,8 +62,8 @@ struct STU_COURSE {
 	std::string TeacherID;
 	std::string weekday;
 	std::string session;
-	DATE startdate;
-	DATE enddate;
+	Date startdate;
+	Date enddate;
 	float other{};
 	float midterm{};
 	float final{};
@@ -71,7 +71,7 @@ struct STU_COURSE {
 };
 
 struct SEMESTER {
-	DATE startDate, endDate;
+	Date startDate, endDate;
 	COURSE* courses;
 };
 
@@ -82,7 +82,7 @@ struct STUDENT {
 	std::string Password;
 	std::string FName, LName, Gender;
 	std::string SocialID;
-	DATE DoB; //Date of Birth
+	Date DoB; //Date of Birth
 	CLASS Classes;
 
 	//void ViewCourses();
@@ -104,7 +104,7 @@ struct STAFF {
 	std::string TeacherID;
 	std::string Password;
 	std::string FName, LName, Gender;
-	DATE DoB; //Date of Birth
+	Date DoB; //Date of Birth
 	std::string SocialID;
 	std::string Faculty;
 
@@ -272,5 +272,19 @@ void ViewListOfTeachers(STFF_NODE* teacher);
 void UpdateTeacherInfor(std::string teacherID, STFF_NODE*& teacher);
 
 void UpdateYourInfor(STFF_NODE* loggedinStaff, STFF_NODE*& teacher);
+
+
+#define KEY_NONE	-1
+int whereX();
+//========= lấy tọa độ y của con trỏ hiện tại =======
+int whereY();
+//============== dịch con trỏ hiện tại đến điểm có tọa độ (x,y) ==========
+void gotoXY(int x, int y);
+//============= đặt màu cho chữ =========
+void SetColor(WORD color);
+//============== làm ẩn trỏ chuột ===========
+void ShowCur(bool CursorVisibility);
+//======= trả về mã phím người dùng bấm =========
+int inputKey();
 
 #endif

@@ -1,6 +1,23 @@
 ﻿#include "header.h"
 using namespace std;
 
+#define BLACK 0
+#define BLUE 1
+#define GREEN 2
+#define AQUA 3
+#define RED 4
+#define PURPLE 5
+#define YELLOW 6
+#define WHITE 7
+#define GRAY 8
+#define LIGHT_BLUE 9
+#define LIGHT_GREEN 10
+#define LIGHT_AQUA 11
+#define LIGHT_RED 12
+#define LIGHT_PURPLE 13
+#define LIGHT_YELLOW 14
+#define BRIGHT_WHITE 15
+
 int main()
 {
 	int count = 0;
@@ -43,7 +60,7 @@ int main()
 	Read_After_Update_Course(stu_course, teacher, course);
 	Read_After_Update_Student_Course(student, course, teacher, stu_course);
 	return 0;*/
-		
+
 	while (69) {
 		int check_T, check_S;
 		do {
@@ -115,7 +132,7 @@ int main()
 						std::system("pause");
 					}
 					else if (choose == 2) {
-						
+
 
 					}
 					else if (choose == 3) {
@@ -147,7 +164,7 @@ int main()
 					}
 				}
 			}
-			else if (choose == 2) { //Enter information
+			else if (choose == 2 ) { //Enter information
 				while (1) {
 					std::system("cls");
 					std::cout << "======================Enter information======================";
@@ -375,7 +392,7 @@ int main()
 					getline(cin, CourseID);
 
 					CR_NODE* cur = course;
-					while (cur) {
+					while (cur != nullptr) {
 						if (cur->course.ID == CourseID) {
 							cur_course = cur;
 							check = 1;
@@ -459,7 +476,7 @@ int main()
 				ViewSchedule(stu_course, loggedinStudent, course);
 			}
 			else if (choose == 7) {
-				View_Y_Scoraboard(stu_course, loggedinStudent); 
+				View_Y_Scoraboard(stu_course, loggedinStudent);
 
 			}
 			else if (choose == 0) {
