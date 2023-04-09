@@ -421,7 +421,6 @@ int main()
 			AGAIN:
 				system("cls");
 				updateCur_stdnInCourse(course, stu_course);
-				viewListOfCourses(course);
 
 				int check = 0;
 				string CourseID;
@@ -532,7 +531,8 @@ int main()
 						while (cur_stu_course->next)
 							cur_stu_course = cur_stu_course->next;
 
-						CR_NODE* cr_tmp = course;
+						CR_NODE* cr_tmp = new CR_NODE;
+						cr_tmp = course;
 
 						while (cr_tmp) {
 							if (cr_tmp->course.ID == CourseID)
@@ -543,19 +543,18 @@ int main()
 
 						STU_COURSE_NODE* stu_cr_tmp = new STU_COURSE_NODE;
 						stu_cr_tmp->prev = cur_stu_course;
-						stu_cr_tmp->next = nullptr;
-						cur_stu_course->next = stu_cr_tmp;
-						stu_cr_tmp->stu_course.Class = cr_tmp->course.Class;
+
+						stu_cr_tmp->stu_course.Class = loggedinStudent->student.Classes.ClassID;
 						stu_cr_tmp->stu_course.Cname = cr_tmp->course.CName;
-						stu_cr_tmp->stu_course.CouID = cr_tmp->course.ID; //Missing ending 0
+						stu_cr_tmp->stu_course.CouID = cr_tmp->course.ID;
 						stu_cr_tmp->stu_course.credits = cr_tmp->course.Credits;
 						stu_cr_tmp->stu_course.enddate.day = cr_tmp->course.endDate.day;
 						stu_cr_tmp->stu_course.enddate.month = cr_tmp->course.endDate.month;
-						stu_cr_tmp->stu_course.enddate.year = cr_tmp->course.endDate.year; 
+						stu_cr_tmp->stu_course.enddate.year = cr_tmp->course.endDate.year;
 						stu_cr_tmp->stu_course.Gen = loggedinStudent->student.Gender;
 						stu_cr_tmp->stu_course.Max_stdn = cr_tmp->course.Max_stdn;
-						stu_cr_tmp->stu_course.No = stu_cr_tmp->prev->stu_course.No + 1; //Wrong output
-						stu_cr_tmp->stu_course.session = cr_tmp->course.session;
+						stu_cr_tmp->stu_course.No = stu_cr_tmp->prev->stu_course.No + 1;
+						stu_cr_tmp->stu_course.session = ConvertStringSS(cr_tmp->course.session);
 						stu_cr_tmp->stu_course.startdate.day = cr_tmp->course.startDate.day;
 						stu_cr_tmp->stu_course.startdate.month = cr_tmp->course.startDate.month;
 						stu_cr_tmp->stu_course.startdate.year = cr_tmp->course.startDate.year;
@@ -563,20 +562,26 @@ int main()
 						stu_cr_tmp->stu_course.StuID = loggedinStudent->student.StudentID;
 						stu_cr_tmp->stu_course.TeacherID = cr_tmp->course.teacherID;
 						stu_cr_tmp->stu_course.Teachername = cr_tmp->course.LNameTeacher + " " + cr_tmp->course.FNameTeacher;
-						stu_cr_tmp->stu_course.weekday = cr_tmp->course.dayOfWeek;
+						stu_cr_tmp->stu_course.weekday = ConvertStringWD(cr_tmp->course.dayOfWeek);
 						stu_cr_tmp->stu_course.final = stu_cr_tmp->stu_course.midterm = stu_cr_tmp->stu_course.other = stu_cr_tmp->stu_course.total = 0;
+						cr_tmp->course.Cur_stdn += 1;
+
+						cur_stu_course->next = stu_cr_tmp;
+						stu_cr_tmp->next = nullptr;
+
 						Read_After_Update_Student_Course(student, course, teacher, stu_course);
-						delete cr_tmp;
+
 						cout << "\nRegister successfully " << endl;
 					}
 				}
 				system("pause");
 			}
+
 			else if (choose == 4) {
-				ResultRegistration(stu_course, loggedinStudent, course);
+
 			}
 			else if (choose == 5) {
-				DeleteRegisteredCourse(stu_course, loggedinStudent, course);
+				DeleteRegisteredCourse(stu_course, loggedinStudent, course, student, teacher);
 			}
 			else if (choose == 6) {
 				ViewSchedule(stu_course, loggedinStudent, course);

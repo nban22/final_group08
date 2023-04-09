@@ -609,7 +609,7 @@ void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStude
 	} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
 }
 
-bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course) {
+void ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course) {
 	STU_COURSE_NODE* cur_stu_course = stu_course;
 	CR_NODE* cur_course = course;
 	int count = 0;
@@ -627,7 +627,7 @@ bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 	std::cout << setfill('-') << setw(140) << left << "-" << setfill(' ') << endl;
 
 	while (cur_stu_course) {
-		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID) {
+		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_stu_course->stu_course.CouID == cur_course->course.ID) {
 
 			string registered = to_string(cur_course->course.Cur_stdn) + "/" + to_string(cur_course->course.Max_stdn);
 			string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
@@ -640,29 +640,33 @@ bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 				<< setw(10) << left << registered << setw(5) << left << "|"
 				<< ConvertStringWD(cur_course->course.dayOfWeek) << "-" << ConvertStringSS(cur_course->course.session) << endl;
 			count++;
+			cur_course = cur_course->next;
+			cur_stu_course = cur_stu_course->next;
 		}
-		cur_course = cur_course->next;
-		cur_stu_course = cur_stu_course->next;
+		else if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_stu_course->stu_course.CouID != cur_course->course.ID) {
+			if (cur_course->next)
+				cur_course = cur_course->next;
+		}
+		else {
+			cur_course = cur_course->next;
+			cur_stu_course = cur_stu_course->next;
+		}
 	}
+
 	if (count == 0) {
 		cout << "You haven't registered any course " << endl;
-		return 0;
 	}
 	system("pause");
-	return 1;
+	return;
 }
 
-void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course) {
+void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher) {
 	system("cls");
 	char check;
 	string courseID;
 	STU_COURSE_NODE* cur_stu_node = stu_course;
 	CR_NODE* cur_course = course;
-	if (!ViewSchedule(stu_course, loggedinStudent, course)) {
-		system("pause");
-		return;
-	}
-
+	ViewSchedule(stu_course, loggedinStudent, course);
 	cout << "\n\n";
 	cout << "Enter the ID of the course you want to delete: ";
 	cin >> courseID;
@@ -681,10 +685,12 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 				}
 				else {
 					tmp->prev->next = tmp->next;
-					tmp->next->prev = tmp->prev;
+					if (tmp->next)
+						tmp->next->prev = tmp->prev;
 					cur_stu_node = cur_stu_node->prev;
 					delete tmp;
 				}
+				Read_After_Update_Student_Course(student, course, teacher, stu_course);
 				system("cls");
 				cout << "Delete successfully" << endl;
 				system("pause");
