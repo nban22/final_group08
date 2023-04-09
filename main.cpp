@@ -195,7 +195,6 @@ int main()
 						std::system("cls");
 						std::cout << "======================Create a new staff's account======================" << endl;
 						Create_newStaff(staff);
-						std::system("pause");
 					}
 					else if (choose == 0) {
 						break;
@@ -548,14 +547,14 @@ int main()
 						cur_stu_course->next = stu_cr_tmp;
 						stu_cr_tmp->stu_course.Class = cr_tmp->course.Class;
 						stu_cr_tmp->stu_course.Cname = cr_tmp->course.CName;
-						stu_cr_tmp->stu_course.CouID = cr_tmp->course.ID;
+						stu_cr_tmp->stu_course.CouID = cr_tmp->course.ID; //Missing ending 0
 						stu_cr_tmp->stu_course.credits = cr_tmp->course.Credits;
 						stu_cr_tmp->stu_course.enddate.day = cr_tmp->course.endDate.day;
 						stu_cr_tmp->stu_course.enddate.month = cr_tmp->course.endDate.month;
 						stu_cr_tmp->stu_course.enddate.year = cr_tmp->course.endDate.year; 
 						stu_cr_tmp->stu_course.Gen = loggedinStudent->student.Gender;
 						stu_cr_tmp->stu_course.Max_stdn = cr_tmp->course.Max_stdn;
-						stu_cr_tmp->stu_course.No = stu_cr_tmp->prev->stu_course.No + 1;
+						stu_cr_tmp->stu_course.No = stu_cr_tmp->prev->stu_course.No + 1; //Wrong output
 						stu_cr_tmp->stu_course.session = cr_tmp->course.session;
 						stu_cr_tmp->stu_course.startdate.day = cr_tmp->course.startDate.day;
 						stu_cr_tmp->stu_course.startdate.month = cr_tmp->course.startDate.month;
@@ -573,9 +572,8 @@ int main()
 				}
 				system("pause");
 			}
-
 			else if (choose == 4) {
-
+				ResultRegistration(stu_course, loggedinStudent, course);
 			}
 			else if (choose == 5) {
 				DeleteRegisteredCourse(stu_course, loggedinStudent, course);
@@ -584,7 +582,7 @@ int main()
 				ViewSchedule(stu_course, loggedinStudent, course);
 			}
 			else if (choose == 7) {
-				View_Y_Scoraboard(stu_course, loggedinStudent);
+				View_Y_Scoreboard(stu_course, loggedinStudent);
 				system("pause");
 			}
 			else if (choose == 0) {
