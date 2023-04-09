@@ -278,8 +278,8 @@ void UpdateTeacherInfor(std::string teacherID, STFF_NODE*& teacher);
 
 void UpdateYourInfor(STFF_NODE* loggedinStaff, STFF_NODE*& teacher);
 
-void createClass(std::string className);
-void importStudents(std::string className);
+STU_NODE* importClassFromCSV(std::string ClassID);
+
 
 
 #define BLACK 0

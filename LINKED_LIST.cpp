@@ -670,54 +670,63 @@ STFF_NODE* getInformationByTeacherID(std::string TeacherID, STFF_NODE* teacher) 
 	}
 	return nullptr;
 }
-void createClass(std::string className) {
-	std::ofstream outfile(className + ".csv");
-	if (outfile.is_open()) {
-		std::cout << "Created class " << className << " successfully!" << std::endl;
+STU_NODE* importClassFromCSV(std::string ClassID) {
+	//Kiểm tra sự tồn tại của file csv
+	string filename = ClassID + ".csv";
+	ifstream file(filename);
+
+	if (!file) {
+		cout << "File not found!";
+		return nullptr;
 	}
-	else {
-		std::cout << "Failed to create class " << className << "!" << std::endl;
-	}
-	outfile.close();
-}
-// Cach 2
-void importStudents(std::string className) {
-	std::ifstream infile(className + ".csv");
-	if (infile.is_open()) {
-		std::cout << "Importing students from " << className << ".csv..." << std::endl;
-		std::string line;
-		while (std::getline(infile, line)) {
-			std::stringstream ss(line);
-			std::string studentID, password, fName, lName, gender, socialID, classID, className;
-			int noStudent;
-			std::getline(ss, studentID, ',');
-			std::getline(ss, password, ',');
-			std::getline(ss, fName, ',');
-			std::getline(ss, lName, ',');
-			std::getline(ss, gender, ',');
-			std::getline(ss, socialID, ',');
-			std::getline(ss, classID, ',');
-			std::getline(ss, className, ',');
-			std::getline(ss, line);
-			std::stringstream ss2(line);
-			ss2 >> noStudent;
-			STU_NODE* node = new STU_NODE();
-			node->student.StudentID = studentID;
-			node->student.Password = password;
-			node->student.FName = fName;
-			node->student.LName = lName;
-			node->student.Gender = gender;
-			node->student.SocialID = socialID;
-			node->student.Classes.ClassID = classID;
-			node->student.Classes.name = className;
-			node->student.No_Student = noStudent;
-			// Add node to list
-			// ...
+
+	//Đọc thông tin học sinh từ file csv và lưu vào danh sách liên kết
+	STU_NODE* head = nullptr;
+	STU_NODE* tail = nullptr;
+	string line;
+	getline(file, line); //Bỏ qua dòng đầu tiên của file csv
+	while (getline(file, line)) {
+		STUDENT student;
+		stringstream ss(line);
+		string field;
+		getline(ss, field, ',');
+		student.No_Student = stoi(field);
+		getline(ss, field, ',');
+		student.StudentID = field;
+		getline(ss, field, ',');
+		student.Password = field;
+		getline(ss, field, ',');
+		student.FName = field;
+		getline(ss, field, ',');
+		student.LName = field;
+		getline(ss, field, ',');
+		student.Gender = field;
+		getline(ss, field, ',');
+		student.SocialID = field;
+		getline(ss, field, ',');
+		student.DoB.day = stoi(field);
+		getline(ss, field, ',');
+		student.DoB.month = stoi(field);
+		getline(ss, field, ',');
+		student.DoB.year = stoi(field);
+		getline(ss, field, ',');
+		student.Classes.name = field;
+		getline(ss, field, ',');
+		student.Classes.ClassID = field;
+
+		STU_NODE* node = new STU_NODE;
+		node->student = student;
+		node->next = nullptr;
+		node->prev = tail;
+		if (head == nullptr) {
+			head = node;
 		}
-		std::cout << "Imported students successfully!" << std::endl;
+		if (tail != nullptr) {
+			tail->next = node;
+		}
+		tail = node;
 	}
-	else {
-		std::cout << "Failed to import students from " << className << ".csv!" << std::endl;
-	}
-	infile.close();
+
+	file.close();
+	return head;
 }
