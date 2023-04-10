@@ -56,12 +56,8 @@ int main()
 
 	updateCur_stdnInCourse(course, stu_course);
 
-	/*Read_After_Update_Teachers(teacher);
-	Read_After_Update_Staffs(staff);
-	Read_After_Update_Students(student);
-	Read_After_Update_Course(stu_course, teacher, course);
-	Read_After_Update_Student_Course(student, course, teacher, stu_course);
-	return 0;*/
+	CLASS_NODE* listclass = new CLASS_NODE;
+	updateListClass(listclass, student);
 
 	while (69) {
 		int check_T, check_S;
@@ -111,13 +107,13 @@ int main()
 				char c;
 				c = _getch();
 				ShowCur(1);
-			} 
+			}
 		} while (!(check_T == 1 || check_S == 1));
 
 		//THE FUNCTIONS OF STAFF
 		while (check_T == 1) {
 			std::system("cls");
-			
+
 			string option[] = { "1.Create new.",
 				"2.Enter information.",
 				"3.Look up.",
@@ -162,15 +158,37 @@ int main()
 
 					}
 					else if (choose == 3) {
-						std::system("cls");
-						std::string ClassID;
-						std::cout << " Create a new class: " << ClassID;
-						std::cin >> ClassID;
-						importClassFromCSV(ClassID);
-						std::cout << "Enter class";
+					Here:
+						system("cls");
+						string ClassID, ClassName, SchoolYear;
+						cout << "Enter class ID: ";
+						getline(cin, ClassID);
+						cout << "Enter class name: ";
+						getline(cin, ClassName);
+						cout << "Enter School Year: ";
+						getline(cin, SchoolYear);
 
-						std::system("pause");
-
+						bool check = 0;
+						CLASS_NODE* cur_listclass = listclass;
+						while (cur_listclass != nullptr) {
+							if (cur_listclass->listclass.ClassID == ClassID) {
+								check = 1;
+							}
+							cur_listclass = cur_listclass->next;
+						}
+						if (check == 1) {
+							cout << "The class ID you entered already exists, please enter gain.";
+							system("pause");
+							goto Here;
+						}
+						cur_listclass = listclass;
+						while (cur_listclass->next != nullptr) {
+							cur_listclass = cur_listclass->next;
+						}
+						cur_listclass->next = new CLASS_NODE;
+						cur_listclass->next->listclass.ClassID = ClassID;
+						cur_listclass->next->listclass.name = ClassName;
+						cur_listclass->next->listclass.schoolYear = stoi(SchoolYear);
 					}
 					else if (choose == 4) {
 						string teacherID;
@@ -187,7 +205,6 @@ int main()
 						std::cout << "======================Update your information======================" << endl;
 
 						UpdateYourInfor(loggedinStaff, teacher);
-
 					}
 					else if (choose == 6) {
 						std::system("cls");
@@ -220,7 +237,7 @@ int main()
 					std::cin >> choose;
 					std::cin.ignore();
 					if (choose == 1) { //Add new 1st year students to 1st year classes
-						addNew1styearStudent(student);
+						addNew1styearStudent(student, listclass);
 					}
 					else if (choose == 2) { //Registration
 						break;
@@ -278,11 +295,11 @@ int main()
 					std::cin.ignore();
 					if (choose == 1) { //List of classes
 						std::system("cls");
-						viewListOfClasses(student);
+						viewListOfClasses(listclass, student);
 						std::system("pause");
 					}
 					else if (choose == 2) { //List of students in class
-						viewListStudentsOfClass(student);
+						viewListStudentsOfClass(student, listclass);
 					}
 					else if (choose == 3) { //List of courses
 						system("cls");
@@ -342,7 +359,7 @@ int main()
 						string ClassID;
 						do {
 							std::system("cls");
-							viewListOfClasses(student);
+							viewListOfClasses(listclass, student);
 							cout << "\n\nEnter the class ID which you want to view the scoreboard: ";
 							getline(cin, ClassID);
 

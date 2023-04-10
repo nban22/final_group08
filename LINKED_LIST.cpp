@@ -144,7 +144,9 @@ void getDataStudents_csv(ifstream& input, STU_NODE*& head) {
 		student.DoB.year = stoi(tmp);
 		getline(input, student.SocialID, ',');
 		getline(input, student.Classes.name, ',');
-		getline(input, student.Classes.ClassID);
+		getline(input, student.Classes.ClassID, ',');
+		getline(input, tmp);
+		student.Classes.schoolYear = stoi(tmp);
 		getData_A_Student(student, head);
 	}
 
@@ -472,7 +474,7 @@ bool Read_After_Update_Students(STU_NODE* student) {
 	if (!outfile.is_open()) {
 		return 0;
 	}
-	outfile << "No,Student ID,Password,Last Name,First Name,Gender,Date Of Birth,Social ID,Classes,Class ID";
+	outfile << "No,Student ID,Password,Last Name,First Name,Gender,Date Of Birth,Social ID,Classes,Class ID,School year";
 	STU_NODE* cur_student = student;
 	int i = 1;
 	while (cur_student) {
@@ -489,7 +491,8 @@ bool Read_After_Update_Students(STU_NODE* student) {
 			<< cur_student->student.DoB.year << ","
 			<< cur_student->student.SocialID << ","
 			<< cur_student->student.Classes.name << ","
-			<< cur_student->student.Classes.ClassID;
+			<< cur_student->student.Classes.ClassID<< ","
+			<< "2022";
 		cur_student = cur_student->next;
 	}
 	outfile.close();
@@ -595,6 +598,23 @@ void updateCur_stdnInCourse(CR_NODE*& course, STU_COURSE_NODE* head) {
 	while (cur_course) {
 		cur_course->course.Cur_stdn = countTheNumberOfStudentsInEachCourse(cur_course->course.ID, head);
 		cur_course = cur_course->next;
+	}
+}
+void updateListClass(CLASS_NODE*& listclass, STU_NODE* student) {
+	CLASS_NODE* cur_listclass = listclass;
+	STU_NODE* cur1_student = student;
+	int i = 1;
+	while (cur1_student) {
+		if (checkExistClassNODEIDinDLL(listclass, cur1_student->student.Classes.ClassID) == 0)
+		{
+			if (i != 1) {
+				cur_listclass->next = new CLASS_NODE;
+				cur_listclass = cur_listclass->next;
+			}
+			i++;
+			cur_listclass->listclass = cur1_student->student.Classes;
+		}
+		cur1_student = cur1_student->next;
 	}
 }
 int countTheNumberOfStudentsInEachCourse(std::string CourseID, STU_COURSE_NODE* head) {
