@@ -200,23 +200,27 @@ void viewListStudentsOfClass(STU_NODE* student) {
 //============================ List of courses============================ 
 void viewListOfCourses(CR_NODE* course) {
 	CR_NODE* cur_course = course;
-	cout << "============================================LIST OF COURSES============================================\n\n";
-	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
+	cout << "==============================================================LIST OF COURSES============================================================\n\n";
+	std::cout << setw(2) << left << " " << setw(3) << left << "No" << setw(5) << left << "|"
+		<< setw(11) << left << "School year" << setw(5) << left << "|"
+		<< setw(5) << left << "Sem" << setw(5) << left << "|"
 		<< setw(10) << left << "Course ID" << setw(5) << left << "|"
-		<< setw(30) << left << "Course name" << setw(5) << left << "|"
-		<< setw(25) << left << "Teacher name" << setw(5) << left << "|"
-		<< setw(10) << left << "Credits" << setw(5) << left << "|"
+		<< setw(26) << left << "Course name" << setw(5) << left << "|"
+		<< setw(23) << left << "Teacher name" << setw(5) << left << "|"
+		<< setw(9) << left << "Credits" << setw(5) << left << "|"
 		<< setw(10) << left << "Registered" << setw(5) << left << "|"
 		<< setw(20) << left << "Calendar" << endl;
-	std::cout << setfill('-') << setw(140) << left << "-" << setfill(' ') << endl;
+	std::cout << setfill('-') << setw(151) << left << "-" << setfill(' ') << endl;
 	while (cur_course) {
 		string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
 		string registered = to_string(cur_course->course.Cur_stdn) + "/" + to_string(cur_course->course.Max_stdn);
-		cout << setw(5) << left << " " << setw(5) << left << cur_course->course.No << setw(5) << left << "|"
+		cout << setw(2) << left << " " << setw(3) << left << cur_course->course.No << setw(5) << left << "|"
+			<< setw(11) << left << cur_course->course.Schoolyear << setw(5) << left << "|"
+			<< setw(5) << left << cur_course->course.Semester << setw(5) << left << "|"
 			<< setw(10) << left << cur_course->course.ID << setw(5) << left << "|"
-			<< setw(30) << left << cur_course->course.CName << setw(5) << left << "|"
-			<< setw(25) << left << fullname << setw(5) << left << "|"
-			<< setw(10) << left << cur_course->course.Credits << setw(5) << left << "|"
+			<< setw(26) << left << cur_course->course.CName << setw(5) << left << "|"
+			<< setw(23) << left << fullname << setw(5) << left << "|"
+			<< setw(9) << left << cur_course->course.Credits << setw(5) << left << "|"
 			<< setw(10) << left << registered << setw(5) << left << "|"
 			<< ConvertStringWD(cur_course->course.dayOfWeek) << "-" << ConvertStringSS(cur_course->course.session) << endl;
 

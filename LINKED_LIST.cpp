@@ -152,11 +152,10 @@ void getDataStudents_csv(ifstream& input, STU_NODE*& head) {
 }
 //Read Course'getDataCourse_csvs Data and create D_Linked List
 void getDataCourse_csv(ifstream& input, CR_NODE*& head) {
-	input.open("courses.csv"); //put this in main.cpp
-	if (input.is_open() == false)
-		return;
-	string tem;
-	getline(input, tem);
+	input.open("courses.csv"); 
+	if (input.is_open() == false) return;
+ 	string tem;
+	getline(input, tem); 
 	CR_NODE* cur = head;
 	while (input.eof() != true) {
 		if (head == nullptr) {
@@ -181,6 +180,9 @@ void getData_A_Course(ifstream& input, COURSE& course) {
 	string tmp;
 	getline(input, tmp, ',');
 	course.No = stoi(tmp);
+	getline(input, course.Schoolyear, ','); //new
+	getline(input, tmp, ',');
+	course.Semester = stoi(tmp); //end new
 	getline(input, course.ID, ',');
 	getline(input, course.CName, ',');
 	getline(input, course.LNameTeacher, ',');
@@ -214,12 +216,14 @@ void getData_A_Course(ifstream& input, COURSE& course) {
 	getline(input, tmp);
 	course.endDate.year = stoi(tmp);
 }
+
 //Read Course'getDataStu_Course_csvs Data and create D_Linked List
 void Get_Data_StudentCourse_csv(std::ifstream& input, STU_COURSE_NODE*& head) {
 	input.open("student_course.csv"); //put this in main.cpp
 	STU_COURSE studentcourse;
 
-	getline(input, studentcourse.StuID);
+	string tem;
+	getline(input, tem);
 	while (!input.eof())
 	{
 		string tmp;
@@ -229,6 +233,9 @@ void Get_Data_StudentCourse_csv(std::ifstream& input, STU_COURSE_NODE*& head) {
 			break;
 		}
 		studentcourse.No = stoi(tmp);
+		getline(input, studentcourse.Schoolyear, ',');
+		getline(input, tmp, ',');
+		studentcourse.Semester = stoi(tmp);
 		getline(input, studentcourse.StuID, ',');
 		getline(input, studentcourse.StudentName, ',');
 		getline(input, studentcourse.Gen, ',');
@@ -505,7 +512,7 @@ bool Read_After_Update_Course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, C
 	int i = 1;
 	CR_NODE* cur_course = course;
 
-	outfile << "No,ID,Cname,Last Name,First Name,Teacher ID,Credits,Cur_stdn,Max_stdn,Weekday,Session,Start Date,End Date";
+	outfile << "No,School Year,Semester,ID,Cname,Last Name,First Name,Teacher ID,Credits,Cur_stdn,Max_stdn,Weekday,Session,Start Date,End Date";
 	while (cur_course) {
 		STFF_NODE* tmp_teacher = getInformationByTeacherID(cur_course->course.teacherID, teacher);
 		if (!tmp_teacher) {
@@ -516,6 +523,8 @@ bool Read_After_Update_Course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, C
 		string session = ConvertStringonlySS(cur_course->course.session);
 		string week = ConvertStringWD(cur_course->course.dayOfWeek);
 		outfile << "\n" << i++ << ","
+			<< cur_course->course.Schoolyear << ","
+			<< cur_course->course.Semester << ","
 			<< cur_course->course.ID << ","
 			<< cur_course->course.CName << ","
 			<< tmp_teacher->staff.LName << ","
@@ -564,6 +573,8 @@ bool Read_After_Update_Student_Course(STU_NODE* student, CR_NODE* course, STFF_N
 		string session = ConvertStringonlySS(tmp_course->course.session);
 		string week = ConvertStringWD(tmp_course->course.dayOfWeek);
 		outfile << "\n" << i++ << ","
+			<< cur_stu_course->stu_course.Schoolyear << "," //new
+			<< cur_stu_course->stu_course.Semester << "," //new
 			<< cur_stu_course->stu_course.StuID << ","
 			<< student_name << ","
 			<< tmp_student->student.Gender << ","
@@ -608,6 +619,30 @@ int countTheNumberOfStudentsInEachCourse(std::string CourseID, STU_COURSE_NODE* 
 	return count;
 }
 
+bool checkExistOfSchoolyear(string year) {
+	ifstream infile;
+	infile.open("NewSchoolYear.csv");
+	if (!infile.is_open()) {
+		cout << "No file founded";
+		return 0;
+	} 
+
+	string tmp;
+	getline(infile, tmp);
+
+	while (!infile.eof()) {
+		string line;
+		getline(infile, line, '\n');
+ 		if (line == "") {
+			return 0;
+		}
+		if (line.compare(year) == 0) {
+			return 1;
+		}
+	}
+	return 0;
+} 
+
 void CreateSchoolYear(int& sYEAR) {
 	std::cout << "Input the starting year of the school year: ";
 	std::cin >> sYEAR;
@@ -623,6 +658,7 @@ void CreateSchoolYear(int& sYEAR) {
 
 	std::cout << "New school year created: " << sYEAR << "-" << sYEAR + 1 << std::endl;
 }
+
 void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff) {
 	cout << "Enter new information:" << endl;
 	cout << "Teacher ID: ";

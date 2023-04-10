@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <conio.h>
-#include<ctime> 
+#include <ctime> 
 #include "windows.h"
 using namespace std;
 

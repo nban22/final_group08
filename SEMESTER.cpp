@@ -45,7 +45,6 @@ void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& 
 		cur = cur->next;
 	}
 	//create new course
-
 	if (!cur) {
 		NewCourse->course.No = 1;
 	}
@@ -53,7 +52,33 @@ void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& 
 		int NewNo = cur->course.No;
 		NewNo++;
 		NewCourse->course.No = NewNo;
+	}	
+
+	string NewSchoolyear;
+	cout << "Enter Schoolyear: ";
+	getline(cin, NewSchoolyear);
+	if (checkExistOfSchoolyear(NewSchoolyear)) {
+		NewCourse->course.Schoolyear = NewSchoolyear;
 	}
+	else {
+		cout << "Schoolyear does not exist yet!\n";
+		cout << "\nPlease create new schoolyear first!";
+		system("pause");
+		return;
+	}
+
+	int NewSemester;
+	cout << "Enter Semester: ";
+	cin >> NewSemester;
+	if (NewSemester > 0 && NewSemester <= 3) {
+		NewCourse->course.Semester = NewSemester;
+	}
+	else {
+		cout << "Semester must be 1 to 3!\n";
+		system("pause");
+		return;
+	}
+	cin.ignore();
 	string NewCName;
 	cout << "Enter New Course Name: ";
 	getline(cin, NewCName);
@@ -116,7 +141,7 @@ AGAIN:
 		system("cls");
 
 		cout << "======================COURSE======================";
-		cout << "\n\t1. Course ID.\n"
+		cout << "\n\t1. Course ID.\n" //No changing schoolyear and semester
 			<< "\t2. Course Name.\n"
 			<< "\t3. Course Teacher name.\n"
 			<< "\t4. Course Credits.\n"
@@ -260,6 +285,7 @@ void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE* stu_course, STFF_NODE* 
 	std::system("cls");
 	CR_NODE* cur = head;
 	viewListOfCourses(cur);
+
 	cout << "Enter Course ID: ";
     string UpCID;
     cin >> UpCID;

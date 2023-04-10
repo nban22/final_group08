@@ -35,6 +35,8 @@ struct CLASS {
 #pragma once
 struct COURSE {
 	int No{};
+	std::string Schoolyear; //bool checkExistOfSchoolyear(int year) (Ctrl+F to find)
+	int Semester{}; //1 or 2 or 3  
 	std::string ID;
 	std::string CName;
 	std::string Class;
@@ -50,6 +52,8 @@ struct COURSE {
 };
 
 struct STU_COURSE {
+  	std::string Schoolyear; //bool checkExistOfSchoolyear(int year) (Ctrl+F to find)
+	int Semester{}; //1 or 2 or 3 
 	int No{};
 	std::string StuID;
 	std::string StudentName;
@@ -187,8 +191,7 @@ void changePassWordOfStaffAccount(STFF_NODE*& staff, STFF_NODE*& loggedinStaff);
 void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStudent);
 
 //SEMESTER'S OPTIONAL FUNCTIONS
-//COURSE
-
+//COURSE //roke
 CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID);
 void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 void UpdateCourseInfo(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
@@ -205,21 +208,21 @@ std::string ConvertStringonlySS(SESSION& ss);
 
 
 //COURSE_STUDENT
-
 int countTheNumberOfStudentsInEachCourse(std::string CourseID, STU_COURSE_NODE* head);
 void updateCur_stdnInCourse(CR_NODE*& course, STU_COURSE_NODE* head);
 void EnterCourseScore(STU_COURSE_NODE*& SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
-void ViewScoreBoard_Course(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
-void ViewScoreBoard_Class(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
+//void ViewScoreBoard_Course(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
+//void ViewScoreBoard_Class(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check); //they are below
 void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STU_NODE* S);
 void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head); //roke
 STU_COURSE* checkExistOfStudentCourseRecord(STU_COURSE_NODE *&head, std::string ID); //roke
 
 //SCHOOL_YEAR
+bool checkExistOfSchoolyear(std::string year);
 void CreateSchoolYear(int& sYEAR);
 
 //Add new 1st year students to 1st year classes
-void addNew1styearStudent(STU_NODE*& student);
+void addNew1styearStudent(STU_NODE*& student); 
 
 //=============view list of classes============
 STU_NODE* checkExistClassIDinDLL(STU_NODE*& listclass, std::string classID);
@@ -229,7 +232,7 @@ void viewListOfClasses(STU_NODE* student);
 
 
 //=============view list of courses============
-void viewListOfCourses(CR_NODE* course);
+void viewListOfCourses(CR_NODE* course); 
 
 //=============view list students of course============
 void viewListStudentsOfCourse(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID);
@@ -250,7 +253,7 @@ void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff);
 void Create_newStaff(STFF_NODE* staff);
 
 // add student
-void AddStudent(STU_NODE*& head);
+void AddStudent(STU_NODE*& head); 
 
 STU_NODE* getInformationByStudentID(std::string StuID, STU_NODE* student);
 CR_NODE* getInformationByCourseID(std::string CourseID, CR_NODE* course);
