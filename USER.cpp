@@ -591,7 +591,7 @@ void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStude
 	} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
 }
 
-void ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course) {
+bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course) {
 	STU_COURSE_NODE* cur_stu_course = stu_course;
 	CR_NODE* cur_course = course;
 	int count = 0;
@@ -637,9 +637,10 @@ void ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 
 	if (count == 0) {
 		cout << "You haven't registered any course " << endl;
+		return 0;
 	}
 	system("pause");
-	return;
+	return 1;
 }
 
 void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher) {
@@ -648,7 +649,11 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 	string courseID;
 	STU_COURSE_NODE* cur_stu_node = stu_course;
 	CR_NODE* cur_course = course;
-	ViewSchedule(stu_course, loggedinStudent, course);
+
+	if (!ViewSchedule(stu_course, loggedinStudent, course)) {
+		system("pause");
+		return;
+	}
 	cout << "\n\n";
 	cout << "Enter the ID of the course you want to delete: ";
 	cin >> courseID;
@@ -1018,7 +1023,7 @@ void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, 
 	cout << "===============================================================YOUR COURSES RESULTS=====================================================================\n\n";
 	std::cout << setw(3) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
 			<< setw(10) << left << "Course ID" << setw(5) << left << "|"
-			<< setw(22) << left << "Course name" << setw(5) << left << "|"
+			<< setw(25) << left << "Course name" << setw(5) << left << "|"
 			<< setw(16) << left << "Teacher name" << setw(5) << left << "|"
 			<< setw(8) << left << "Credits" << setw(5) << left << "|"
 			<< setw(8) << left << "Midterm" << setw(5) << left << "|"
@@ -1034,7 +1039,7 @@ void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, 
 			string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
 			cout << setw(3) << left << " " << setw(5) << left << count << setw(5) << left << "|"
 				<< setw(10) << left << cur_course->course.ID << setw(5) << left << "|"
-				<< setw(22) << left << cur_course->course.CName << setw(5) << left << "|"
+				<< setw(25) << left << cur_course->course.CName << setw(5) << left << "|"
 				<< setw(16) << left << fullname << setw(5) << left << "|"
 				<< setw(8) << left << cur_course->course.Credits << setw(5) << left << "|"
 				<< setw(8) << left << cur_stu_course->stu_course.midterm << setw(5) << left << "|"
