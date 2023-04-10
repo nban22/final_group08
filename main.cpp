@@ -1,4 +1,4 @@
-﻿#pragma once
+﻿
 #include "header.h"
 #include <conio.h>
 using namespace std;
@@ -22,8 +22,9 @@ using namespace std;
 
 int main()
 {
+	resizeConsole(1100, 600);
 	int count = 0;
-
+	
 	ifstream input;
 	STFF_NODE* staff = nullptr;
 	getDataStaff_csv(input, staff);
@@ -63,12 +64,11 @@ int main()
 		int check_T, check_S;
 		do {
 			std::system("cls");
-
+			
 			string user, pass;
-			int tmp_width = 40;
-			int box_width = 30;
-
-			SetColor(LIGHT_YELLOW);
+			int tmp_width = 60;
+			int box_width = 32;
+			
 			my_print(tmp_width, 1, LIGHT_YELLOW, "UNIVERSITY OF NATURAL SCIENCE");
 			my_print(tmp_width + 7, 2, LIGHT_YELLOW, "HO CHI MINH CITY");
 			my_print(tmp_width + 4, 5, LIGHT_YELLOW, "HCMUS Portal - Log in");
@@ -113,39 +113,44 @@ int main()
 		//THE FUNCTIONS OF STAFF
 		while (check_T == 1) {
 			std::system("cls");
-
+			
 			string option[] = { "1.Create new.",
 				"2.Enter information.",
 				"3.Look up.",
 				"4.Change password.",
 				"0.Log out.",
 				"-1.Exit." };
-			int x_boxStaff = 40;
-			int y_boxStaff = 5;
-			int width_boxStaff = 30;
-			int height_boxStaff = 2;
+			int x_boxStaff = 5;
+			int y_boxStaff = 4;
+			int width_boxStaff = 22;
+			int height_boxStaff = 3;
 			int amount = sizeof(option) / sizeof(option[0]);
-			int choose;
+			int choose_staff;
 
-			choose = menu_staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+			choose_staff = menu(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 			//printInformation_A_Staff(loggedinStaff);
-
-			if (choose == 1) { //Create new
+			
+			if (choose_staff == 1) { //Create new
 				while (1) {
 					std::system("cls");
-					std::cout << "======================Create new======================";
-					std::cout << "\n\t1.Create a new school year."
-						<< "\n\t2.Create semester."
-						<< "\n\t3.Create a new class."
-						<< "\n\t4.Change information of a teacher."
-						<< "\n\t5.Change your information."
-						<< "\n\t6.Create a new staff's account."
-						<< "\n\t0.Come back.\n";
-					std::cout << "=========================END==========================\n\n";
-					std::cout << "\nEnter select the option you want to choose: ";
-					std::cin >> choose;
-					std::cin.ignore();
+					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
+
+					string option_1[] = { "1.Create a new school year.",
+						"2.Create semester.",
+						"3.Create a new class.",
+						"4.Change information of a teacher.",
+						"5.Change your information.",
+						"6.Create a new staff's account.",
+						"0.Come back." };
+					int x_boxOption1 = x_boxStaff + width_boxStaff +2;
+					int y_boxOption1 = y_boxStaff;
+					int width_boxOption1 = 50;
+					int height_boxOption1 = 3;
+					int amount_option1 = sizeof(option_1) / sizeof(option_1[0]);
+					int choose;
+					choose = menu(x_boxOption1, y_boxOption1, width_boxOption1, height_boxOption1, amount_option1, option_1, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+
 					if (choose == 1) {
 						std::system("cls");
 						std::cout << " Create a school year " << endl;
@@ -191,8 +196,8 @@ int main()
 						cur_listclass->next->listclass.schoolYear = stoi(SchoolYear);
 					}
 					else if (choose == 4) {
-						string teacherID;
 						std::system("cls");
+						string teacherID;
 						std::cout << "======================Update personal information======================" << endl;
 						ViewListOfTeachers(teacher);
 						cout << "\n\nEnter the ID of the teacher you want to update: ";
@@ -211,7 +216,7 @@ int main()
 						std::cout << "======================Create a new staff's account======================" << endl;
 						Create_newStaff(staff);
 					}
-					else if (choose == 0) {
+					else if (choose == 0 + 7) {
 						break;
 					}
 					else {
@@ -220,22 +225,26 @@ int main()
 					}
 				}
 			}
-			else if (choose == 2) { //Enter information
+			else if (choose_staff == 2) { //Enter information
 				while (1) {
 					std::system("cls");
-					std::cout << "======================Enter information======================";
-					std::cout << "\n\t1.Add new 1st year students to 1st year classes."//them sinh vien nam nhat vao lop
-						<< "\n\t2.Create a course registration session."//tao phien DKHP
-						<< "\n\t3.Add a new course."//Them khoa hoc
-						<< "\n\t4.Export the file to import the list of students in each class."//Xuat file nhap DSSV tung lop
-						<< "\n\t5.Delete a course."//Xoa khoa hoc
-						<< "\n\t6.Update a course."//Cap nhat khoa hoc
-						<< "\n\t7.Update the marks in a course."//Cap nhat diem trong khoa hoc
-						<< "\n\t0.Come back.\n";
-					std::cout << "=============================END=============================\n\n";
-					std::cout << "\nEnter select the option you want to choose: ";
-					std::cin >> choose;
-					std::cin.ignore();
+					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
+					string option_2[] = { "1.Add new 1st year students to 1st year classes.",
+						"2.Create a course registration session.",
+						"3.Add a new course.",
+						"4.Export the file to import the list of students in each class.",
+						"5.Delete a course.",
+						"6.Update a course.",
+						"7.Update the marks in a course.",
+						"0.Come back." };
+					int x_boxOption2 = x_boxStaff + width_boxStaff + 2;
+					int y_boxOption2 = y_boxStaff;
+					int width_boxOption2 = 70;
+					int height_boxOption2 = 3;
+					int amount_option2 = sizeof(option_2) / sizeof(option_2[0]);
+					int choose;
+					choose = menu(x_boxOption2, y_boxOption2, width_boxOption2, height_boxOption2, amount_option2, option_2, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+					
 					if (choose == 1) { //Add new 1st year students to 1st year classes
 						addNew1styearStudent(student, listclass);
 					}
@@ -267,7 +276,7 @@ int main()
 					else if (choose == 7) { //Update the marks in a course
 						UpdateMarksInfo(student, stu_course, teacher, course);
 					}
-					else if (choose == 0) { //COME BACK
+					else if (choose == 0 + 8) { //COME BACK
 						break;
 					}
 					else {
@@ -276,23 +285,27 @@ int main()
 					}
 				}
 			}
-			else if (choose == 3) { //Look up
+			else if (choose_staff == 3) { //Look up
 				while (1) {
 					std::system("cls");
-					std::cout << "======================Look up======================";
-					std::cout << "\n\t1.List of classes." //Danh sach lop
-						<< "\n\t2.List of students in class." //Danh sach sinh vien trong lop
-						<< "\n\t3.List of courses." // Danh sach khoa hoc
-						<< "\n\t4.List of students in a course." //Danh sach sinh vien trong trong khoa hoc
-						<< "\n\t5.View a scoreboard in a course." //Xem bang diem trong khoa hoc
-						<< "\n\t6.View a scoreboard in class." //Xem bang diem trong lop
-						<< "\n\t7.Export csv file about a scoreboard of students in course to enter score."
-						//Xuat csv file bang diem sinh vien trong khoa hoc de nhap diem
-						<< "\n\t0.Come back.\n";
-					std::cout << "========================END========================\n\n";
-					std::cout << "\nEnter select the option you want to choose: ";
-					std::cin >> choose;
-					std::cin.ignore();
+					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
+
+					string option_3[] = { "1.List of classes.",
+						"2.List of students in class.",
+						"3.List of courses.",
+						"4.List of students in a course.",
+						"5.View a scoreboard in a course.",
+						"6.View a scoreboard in class.",
+						"7.Export csv file about a scoreboard of students in course to enter score.",
+						"0.Come back." };
+					int x_boxOption3 = x_boxStaff + width_boxStaff + 2;
+					int y_boxOption3 = y_boxStaff;
+					int width_boxOption3 = 78;
+					int height_boxOption3 = 3;
+					int amount_option3 = sizeof(option_3) / sizeof(option_3[0]);
+					int choose;
+					choose = menu(x_boxOption3, y_boxOption3, width_boxOption3, height_boxOption3, amount_option3, option_3, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+					
 					if (choose == 1) { //List of classes
 						std::system("cls");
 						viewListOfClasses(listclass, student);
@@ -378,7 +391,7 @@ int main()
 					else if (choose == 7) { //Export csv file about a scoreboard of students in course to enter score
 						ExportScoreBoard(stu_course, course, student);
 					}
-					else if (choose == 0) {
+					else if (choose == 0 + 8) {
 						break;
 					}
 					else {
@@ -387,44 +400,40 @@ int main()
 					}
 				}
 			}
-			else if (choose == 4) { // +++++++++++++++++++++++++CHANGE PASSWORD+++++++++++++++++++++
+			else if (choose_staff == 4) { // +++++++++++++++++++++++++CHANGE PASSWORD+++++++++++++++++++++
 				changePassWordOfStaffAccount(staff, loggedinStaff);
 			}
-			else if (choose == 0 + 5) { // ++++++++++++++++++++++++++LOG OUT++++++++++++++++++++++++++
+			else if (choose_staff == 0 + 5) { // ++++++++++++++++++++++++++LOG OUT++++++++++++++++++++++++++
 				break;
 			}
-			else if (choose == -1 + 7) { // ++++++++++++++++++++++++++++EXIT++++++++++++++++++++++++++++
+			else if (choose_staff == -1 + 7) { // ++++++++++++++++++++++++++++EXIT++++++++++++++++++++++++++++
 				system("cls");
 				std::cout << "****************************THANK YOU FOR USING!********************************";
 				return 0;
-			}
-			else {
-				std::cout << "Invalid selection, please enter again.\n\n";
-				std::system("pause");
 			}
 		}
 
 		//THE FUNCTIONS OF STUDENT
 		while (check_S == 1) {
 			std::system("cls");
-			std::cout << "======================STUDENT======================";
-			std::cout << "\n1. Change password.\n"
-				<< "2. Update your personal information.\n"
-				<< "3. Register for the course.\n"
-				<< "4. The result of register for the course.\n"
-				<< "5. Delete the course which registered.\n"
-				<< "6. View your schedule.\n"
-				<< "7. View your scoreboard.\n"
-				<< "0. Log out.\n"
-				<< "-1. Exit.\n";
-			std::cout << "========================END========================\n\n";
+			string option[] = { "1. Change password.",
+						"2. Update your personal information.",
+						"3. Register for the course.",
+						"4. The result of register for the course.",
+						"5. Delete the course which registered.",
+						"6. View your schedule.",
+						"7. View your scoreboard.",
+						"0. Log out." };
+			int x_boxStudent = 20;
+			int y_boxStudent = 5;
+			int width_boxStudent = 45;
+			int height_boxStudent = 2;
+			int amount = sizeof(option) / sizeof(option[0]);
+			int choose;
+			choose = menu(x_boxStudent, y_boxStudent, width_boxStudent, height_boxStudent, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+			
 
 			printInformation_A_Student(loggedinStudent);
-
-			std::cout << "Enter select the option you want to choose: ";
-			int choose;
-			std::cin >> choose;
-			std::cin.ignore();
 
 			if (choose == 1) {
 				changePasswordOfStudentAccount(student, loggedinStudent);
@@ -605,16 +614,12 @@ int main()
 				View_Y_Scoreboard(stu_course, loggedinStudent);
 				system("pause");
 			}
-			else if (choose == 0) {
+			else if (choose == 0 + 8) {
 				break;
 			}
-			else if (choose == -1) {
+			else if (choose == -1 + 10) {
 				std::system("pause");
 				return 0;
-			}
-			else {
-				std::cout << "Invalid selection, please enter again.\n\n";
-				std::system("pause");
 			}
 
 		}

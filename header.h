@@ -310,6 +310,7 @@ int whereY();
 void gotoXY(int x, int y);
 //============= đặt màu cho chữ =========
 void SetColor(WORD color);
+void SetColor2(int backgound_color, int text_color);
 //============== làm ẩn trỏ chuột ===========
 void ShowCur(bool CursorVisibility);
 //======= trả về mã phím người dùng bấm =========
@@ -325,9 +326,11 @@ void box(int x, int y, int width, int height, int t_color);
 // Tạo nhiều box
 void n_box(int x, int y, int width, int height, int amount, int t_color);
 //Menu của staff
-int menu_staff(int x, int y, int width, int height, int amount, std::string option[], int box_color, int text_color, int b_color_light);
+int menu(int x, int y, int width, int height, int amount, std::string option[], int box_color, int text_color, int b_color_light);
+void menu_Staff(int x, int y, int width, int height, int amount, std::string option[], int box_color, int text_color, int b_color_light, int option_num);
 // Hàm nhập tối đa số lượng cho trước, và "chỉ nhận chữ cái và kí tự @ và dấu chấm "."
 std::string my_getline(int max);
 // Hàm nhập tối đa số lượng cho trước, và chỉ nhận số"
 std::string my_getline_onlyNumber(int max);
+
 #endif
