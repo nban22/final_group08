@@ -31,6 +31,7 @@ enum SESSION {
 struct CLASS {
 	std::string name;
 	std::string ClassID;
+	int schoolYear;
 };
 #pragma once
 struct COURSE {
@@ -159,6 +160,11 @@ struct STU_COURSE_NODE {
 	STU_COURSE_NODE* next = nullptr;
 	STU_COURSE_NODE* prev = nullptr;
 };
+struct CLASS_NODE {
+	CLASS listclass{};
+	CLASS_NODE* next = nullptr;
+	CLASS_NODE* prev = nullptr;
+};
 //%%%%%%%%%%%%%%    HAM DOC DU LIEU TU FILE CSV VAO DLL     %%%%%%%%%%%%%
 //Read Teacher's Data and create D_Linked List
 void getData_A_Teacher(STAFF teacher, STFF_NODE*& head);
@@ -210,25 +216,25 @@ std::string ConvertStringonlySS(SESSION& ss);
 //COURSE_STUDENT
 int countTheNumberOfStudentsInEachCourse(std::string CourseID, STU_COURSE_NODE* head);
 void updateCur_stdnInCourse(CR_NODE*& course, STU_COURSE_NODE* head);
+void updateListClass(CLASS_NODE*& listclass, STU_NODE* student);
 void EnterCourseScore(STU_COURSE_NODE*& SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
-//void ViewScoreBoard_Course(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
-//void ViewScoreBoard_Class(STU_COURSE_NODE* SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check); //they are below
 void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STU_NODE* S);
 void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head); //roke
-STU_COURSE* checkExistOfStudentCourseRecord(STU_COURSE_NODE *&head, std::string ID); //roke
+STU_COURSE* checkExistOfStudentCourseRecord(STU_COURSE_NODE*& head, std::string ID); //roke
 
 //SCHOOL_YEAR
 bool checkExistOfSchoolyear(std::string year);
 void CreateSchoolYear(int& sYEAR);
 
 //Add new 1st year students to 1st year classes
-void addNew1styearStudent(STU_NODE*& student); 
+void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass);
 
 //=============view list of classes============
+CLASS_NODE* checkExistClassNODEIDinDLL(CLASS_NODE* listclass, std::string classID);
 STU_NODE* checkExistClassIDinDLL(STU_NODE*& listclass, std::string classID);
 void deleteSTU_NODE(STU_NODE*& head);
-void displayLISTOFCLASS(STU_NODE*& student, STU_NODE* listclass);
-void viewListOfClasses(STU_NODE* student);
+void displayLISTOFCLASS(CLASS_NODE* listclass);
+void viewListOfClasses(CLASS_NODE*& listclass, STU_NODE* student);
 
 
 //=============view list of courses============
@@ -238,7 +244,7 @@ void viewListOfCourses(CR_NODE* course);
 void viewListStudentsOfCourse(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID);
 
 //=============view list students of class============
-void viewListStudentsOfClass(STU_NODE* student);
+void viewListStudentsOfClass(STU_NODE* student, CLASS_NODE* listclass);
 
 //=============view scoreboard in a course============
 void viewScoreBoard_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID);
@@ -251,9 +257,6 @@ void displayListStudentsOfCourse(STU_NODE*& student, std::string classID);
 // Modify teacher
 void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff);
 void Create_newStaff(STFF_NODE* staff);
-
-// add student
-void AddStudent(STU_NODE*& head); 
 
 STU_NODE* getInformationByStudentID(std::string StuID, STU_NODE* student);
 CR_NODE* getInformationByCourseID(std::string CourseID, CR_NODE* course);
@@ -271,7 +274,7 @@ bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 
 void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher);
 
-void ResultRegistration(STU_COURSE_NODE *stu_course, STU_NODE* loggedinStudent, CR_NODE* course); 
+void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course);
 //
 void View_Y_Scoreboard(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent);
 
@@ -310,6 +313,7 @@ int whereY();
 void gotoXY(int x, int y);
 //============= đặt màu cho chữ =========
 void SetColor(WORD color);
+void SetColor2(int backgound_color, int text_color);
 //============== làm ẩn trỏ chuột ===========
 void ShowCur(bool CursorVisibility);
 //======= trả về mã phím người dùng bấm =========
@@ -325,9 +329,11 @@ void box(int x, int y, int width, int height, int t_color);
 // Tạo nhiều box
 void n_box(int x, int y, int width, int height, int amount, int t_color);
 //Menu của staff
-int menu_staff(int x, int y, int width, int height, int amount, std::string option[], int box_color, int text_color, int b_color_light);
+int menu(int x, int y, int width, int height, int amount, std::string option[], int box_color, int text_color, int b_color_light);
+void menu_Staff(int x, int y, int width, int height, int amount, std::string option[], int box_color, int text_color, int b_color_light, int option_num);
 // Hàm nhập tối đa số lượng cho trước, và "chỉ nhận chữ cái và kí tự @ và dấu chấm "."
 std::string my_getline(int max);
 // Hàm nhập tối đa số lượng cho trước, và chỉ nhận số"
 std::string my_getline_onlyNumber(int max);
+
 #endif

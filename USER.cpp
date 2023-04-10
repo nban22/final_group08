@@ -23,14 +23,15 @@ void printInformation_A_Staff(STFF_NODE* loggedinStaff) {
 }
 
 //2 - nter information - 1.Add new 1st year students to 1st year classes.
-void addNew1styearStudent(STU_NODE*& student) {
+void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass) {
+	HERE:
 	STU_NODE* new_student = new STU_NODE;
 	bool check;
 	STU_NODE* cur_student = student;
 	do {
 		check = 0;
 		std::system("cls");
-		viewListOfClasses(cur_student);
+		viewListOfClasses(listclass, cur_student);
 		cout << "Enter student's class id: ";
 		getline(cin, new_student->student.Classes.ClassID);
 		cur_student = student;
@@ -46,7 +47,7 @@ void addNew1styearStudent(STU_NODE*& student) {
 			cin >> ans;
 			cin.ignore();
 			if (ans == 'y' || ans == 'Y') {
-				addNew1styearStudent(student);
+				goto HERE;
 			}
 			else {
 				return;
@@ -108,6 +109,15 @@ void addNew1styearStudent(STU_NODE*& student) {
 }
 
 //============================ view list of class============================ 
+CLASS_NODE* checkExistClassNODEIDinDLL(CLASS_NODE* listclass, std::string classID) {
+	CLASS_NODE* cur = listclass;
+	while (cur) {
+		if (cur->listclass.ClassID == classID)
+			return cur;
+		cur = cur->next;
+	}
+	return nullptr;
+}
 STU_NODE* checkExistClassIDinDLL(STU_NODE*& listclass, std::string classID) {
 	STU_NODE* cur = listclass;
 	while (cur) {
@@ -125,67 +135,39 @@ void deleteSTU_NODE(STU_NODE*& head) {
 		delete tmp;
 	}
 }
-void displayLISTOFCLASS(STU_NODE*& student, STU_NODE* listclass) {
-	STU_NODE* cur_listclass = listclass;
+void displayLISTOFCLASS(CLASS_NODE* listclass) {
+	CLASS_NODE* cur_listclass = listclass;
 	int i = 1;
 	cout << "======================LIST OF CLASSES======================\n\n";
 	cout << "\t" << setw(10) << left << "No" << setw(5) << left << "|"
 		<< setw(20) << left << "Class ID" << setw(5) << left << "|"
-		<< setw(50) << left << "Class name" << endl;
-	cout << setfill('-') << setw(80) << "-" << setfill(' ') << endl;
+		<< setw(40) << left << "Class name" << setw(5) << left << "|"
+		<< setw(30) << left << "School year" << endl;
+	cout << setfill('-') << setw(110) << "-" << setfill(' ') << endl;
 	while (cur_listclass) {
 		cout << "\t" << setw(10) << left << i++ << setw(5) << left << "|"
-			<< setw(20) << left << cur_listclass->student.Classes.ClassID << setw(5) << left << "|"
-			<< setw(50) << left << cur_listclass->student.Classes.name << endl;
+			<< setw(20) << left << cur_listclass->listclass.ClassID << setw(5) << left << "|"
+			<< setw(40) << left << cur_listclass->listclass.name << setw(5) << left << "|"
+			<< setw(40) << left << cur_listclass-> listclass.schoolYear << endl;
 		cur_listclass = cur_listclass->next;
 	}
 }
-void viewListOfClasses(STU_NODE* student) {
-	STU_NODE* listclass = new STU_NODE;
-	STU_NODE* cur_listclass = listclass, * cur_student = student;
-	int i = 1;
-	while (cur_student) {
-		if (checkExistClassIDinDLL(listclass, cur_student->student.Classes.ClassID) == 0)
-		{
-			if (i != 1) {
-				cur_listclass->next = new STU_NODE;
-				cur_listclass = cur_listclass->next;
-			}
-			i++;
-			cur_listclass->student = cur_student->student;
-		}
-		cur_student = cur_student->next;
-	}
-	displayLISTOFCLASS(student, listclass);
-	std::cout << "\n\n";
-	deleteSTU_NODE(listclass);
+void viewListOfClasses(CLASS_NODE*& listclass, STU_NODE* student) {
+	updateListClass(listclass, student);
+	displayLISTOFCLASS(listclass);
 }
 
 //============================ List of students in class============================ 
-void viewListStudentsOfClass(STU_NODE* student) {
-	STU_NODE* listclass = new STU_NODE;
-	STU_NODE* cur_listclass = listclass, * cur_student = student;
-	int i = 1;
-	while (cur_student) {
-		if (checkExistClassIDinDLL(listclass, cur_student->student.Classes.ClassID) == nullptr)
-		{
-			if (i != 1) {
-				cur_listclass->next = new STU_NODE;
-				cur_listclass = cur_listclass->next;
-			}
-			cur_listclass->student = cur_student->student;
-			cur_listclass->student.No_Student = i++;
-		}
-		cur_student = cur_student->next;
-	}
+void viewListStudentsOfClass(STU_NODE* student, CLASS_NODE* listclass) {
+	
 	string classID;
 	while (1) {
 		std::system("cls");
-		displayLISTOFCLASS(student, listclass);
+		displayLISTOFCLASS(listclass);
 		std::cout << "\n\n";
 		std::cout << "\tEnter class ID which you want to open: ";
 		std::cin >> classID;
-		if (checkExistClassIDinDLL(listclass, classID) == nullptr) {
+		if (checkExistClassNODEIDinDLL(listclass, classID) == nullptr) {
 			std::cout << "\n\tYour selection doesn't exist.\n";
 			std::system("pause");
 			continue;

@@ -90,6 +90,13 @@ void resizeConsole(int width, int height)
 	GetWindowRect(console, &r);
 	MoveWindow(console, r.left, r.top, width, height, TRUE);
 }
+void SetColor2(int backgound_color, int text_color)
+{
+	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	int color_code = backgound_color * 16 + text_color;
+	SetConsoleTextAttribute(hStdout, color_code);
+}
 // Hàm tự viết
 // x, y là tọa độ con trỏ cần nhảy đến để viết, content là chuỗi cần truyền vào, t_color là màu truyền vào
 void my_print(int x, int y, int t_color, std::string content) {
@@ -152,8 +159,8 @@ void mark_bar(int x, int y, int width, int height, int b_color, std::string cont
 
 	textcolor(7);
 }
-//Menu của staff
-int menu_staff(int x, int y, int width, int height, int amount, std::string option[], int box_color, int text_color, int b_color_light) {
+//Menu 
+int menu(int x, int y, int width, int height, int amount, std::string option[], int box_color, int text_color, int b_color_light) {
 	char ch;
 	ShowCur(0);
 	int x_tmp = x, y_tmp = y;
@@ -165,8 +172,8 @@ int menu_staff(int x, int y, int width, int height, int amount, std::string opti
 	int x_del = x, y_del = y;
 	while (1) {
 		if (check == 1) {
-			mark_bar(x_del + 1, y_del + 1, width, height, text_color, option[(y_del - y) / 2]);
-			mark_bar(x_tmp + 1, y_tmp + 1, width, height, text_color + b_color_light * 16, option[(y_tmp - y) / 2]);
+			mark_bar(x_del + 1, y_del + 1, width, height, text_color, option[(y_del - y) / height]);
+			mark_bar(x_tmp + 1, y_tmp + 1, width, height, text_color + b_color_light * 16, option[(y_tmp - y) / height]);
 			check = 0;
 			x_del = x_tmp, y_del = y_tmp;
 		}
@@ -186,7 +193,6 @@ int menu_staff(int x, int y, int width, int height, int amount, std::string opti
 						y_tmp = y;
 					else
 						y_tmp += height;
-
 				}
 				//else if (ch == 75) {
 				//	//đi qua phải
@@ -196,10 +202,22 @@ int menu_staff(int x, int y, int width, int height, int amount, std::string opti
 				//}
 			}
 			else if (ch == 13) {
-				return (y_tmp - y) / 2 + 1;
+				return (y_tmp - y) / height + 1;
 			}
 		}
 	}
+
+}
+//menu Staff
+void menu_Staff(int x, int y, int width, int height, int amount, std::string option[], int box_color, int text_color, int b_color_light, int option_num) {
+	char ch;
+	ShowCur(0);
+	n_box(x, y, width, height, amount, box_color);
+	for (int i = 1; i <= amount; i++) {
+		my_print(x + 1, y + 1 + (i - 1) * height, text_color, option[i - 1]);
+	}
+	int x_tmp = x, y_tmp = y + (option_num - 1) * height;
+	mark_bar(x_tmp + 1, y_tmp + 1, width, height, text_color + b_color_light * 16, option[(y_tmp - y) / height]);
 
 }
 // Hàm nhập tối đa số lượng cho trước, và "chỉ nhận chữ cái và kí tự @ và dấu chấm "."
