@@ -576,7 +576,7 @@ int main()
 			}
 
 			else if (choose == 4) {
-
+				ResultRegistration(stu_course, loggedinStudent, course);
 			}
 			else if (choose == 5) {
 				DeleteRegisteredCourse(stu_course, loggedinStudent, course, student, teacher);
