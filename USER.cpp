@@ -378,14 +378,37 @@ void viewScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std::s
 	}
 }
 void View_Y_Scoreboard(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
+	system ("cls");
 	STU_COURSE_NODE* current = stu_course;
+
+	int count = 1;
+
+	system("cls");
+
+	cout << "=========================================================YOUR SCOREBOARD======================================================\n\n";
+	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
+		<< setw(15) << left << "SchoolYear" << setw(5) << left << "|"
+		<< setw(10) << left << "Sem" << setw(5) << left << "|"
+		<< setw(10) << left << "Course ID" << setw(5) << left << "|"
+		<< setw(30) << left << "Course name" << setw(5) << left << "|"
+		<< setw(10) << left << "Midterm" << setw(5) << left << "|"
+		<< setw(10) << left << "Final" << setw(5) << left << "|"
+		<< setw(10) << left << "Total" << setw(5) << left << "|"
+		<< setw(10) << left << "Ranking" << endl;
+	std::cout << setfill('-') << setw(150) << left << "-" << setfill(' ') << endl;
+
 	while (current != nullptr) {
 		if (current->stu_course.StuID == loggedinStudent->student.StudentID) {
-			std::cout << "CourseID: " << current->stu_course.CouID << std::endl;
-			std::cout << "CourseName: " << current->stu_course.Cname << std::endl;
-			std::cout << "Mid-term Score: " << current->stu_course.midterm << std::endl;
-			std::cout << "Final Score: " << current->stu_course.final << std::endl;
-			std::cout << "Total Score: " << current->stu_course.total << std::endl;
+			cout << setw(5) << left << " " << setw(5) << left << count << setw(5) << left << "|"
+				<< setw(15) << left << current->stu_course.Schoolyear << setw(5) << left << "|"
+				<< setw(10) << left << current->stu_course.Semester << setw(5) << left << "|"
+				<< setw(10) << left << current->stu_course.CouID << setw(5) << left << "|"
+				<< setw(30) << left << current->stu_course.Cname << setw(5) << left << "|"
+				<< setw(10) << left << current->stu_course.midterm << setw(5) << left << "|"
+				<< setw(10) << left << current->stu_course.final << setw(5) << left << "|"
+				<< setw(10) << left << current->stu_course.total << setw(5) << left << "|"
+				<< setw(10) << left << GetRanking(current->stu_course.total) << endl;
+			count++;
 		}
 		current = current->next;
 	}
@@ -1016,7 +1039,7 @@ void Create_newStaff(STFF_NODE* staff) {
 }
 
 //Roke additional function
-char GetRanking(int Grade) {
+char GetRanking(float Grade) {
 	if (Grade >= 90 && Grade <= 100)
 		return 'A';
 	else if (Grade >= 80 && Grade <= 89)

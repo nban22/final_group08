@@ -66,7 +66,7 @@ int main()
 			std::system("cls");
 			
 			string user, pass;
-			int tmp_width = 60;
+			int tmp_width = 50;
 			int box_width = 32;
 			
 			my_print(tmp_width, 1, LIGHT_YELLOW, "UNIVERSITY OF NATURAL SCIENCE");
@@ -425,14 +425,6 @@ int main()
 						"6. View your schedule.",
 						"7. View your scoreboard.",
 						"0. Log out." };
-
-/* 			int x_boxStudent = 20;
-			int y_boxStudent = 5;
-			int width_boxStudent = 45;
-			int height_boxStudent = 2;
-			int amount = sizeof(option) / sizeof(option[0]);
-			int choose;
-			choose = menu(x_boxStudent, y_boxStudent, width_boxStudent, height_boxStudent, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN); */
 			
 			int x_boxStudent = 5;
 			int y_boxStudent = 2;
@@ -462,7 +454,7 @@ int main()
 					viewListOfCourses(course);
 				AGAIN:
 					cin.ignore();
-					cout << "\n\nEnter Course ID which you want to view: ";
+					cout << "\n\nEnter Course ID which you want to register: ";
 					getline(cin, CourseID);
 
 					CR_NODE* cur = course;
