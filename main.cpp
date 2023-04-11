@@ -415,6 +415,7 @@ int main()
 
 		//THE FUNCTIONS OF STUDENT
 		while (check_S == 1) {
+			RESTART:
 			std::system("cls");
 			string option[] = { "1. Change password.",
 						"2. Update your personal information.",
@@ -424,16 +425,24 @@ int main()
 						"6. View your schedule.",
 						"7. View your scoreboard.",
 						"0. Log out." };
-			int x_boxStudent = 20;
+
+/* 			int x_boxStudent = 20;
 			int y_boxStudent = 5;
 			int width_boxStudent = 45;
 			int height_boxStudent = 2;
 			int amount = sizeof(option) / sizeof(option[0]);
 			int choose;
-			choose = menu(x_boxStudent, y_boxStudent, width_boxStudent, height_boxStudent, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+			choose = menu(x_boxStudent, y_boxStudent, width_boxStudent, height_boxStudent, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN); */
 			
+			int x_boxStudent = 5;
+			int y_boxStudent = 2;
+			int width_boxStudent = 42;
+			int height_boxStudent = 2;
+			int amount = sizeof(option) / sizeof(option[0]);
+			int choose;
+			choose = menu(x_boxStudent, y_boxStudent, width_boxStudent, height_boxStudent, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
-			printInformation_A_Student(loggedinStudent);
+			//printInformation_A_Student(loggedinStudent);
 
 			if (choose == 1) {
 				changePasswordOfStudentAccount(student, loggedinStudent);
@@ -442,7 +451,6 @@ int main()
 				UpdateStudentInfo(student, loggedinStudent);
 			}
 			else if (choose == 3) {
-			AGAIN:
 				system("cls");
 				updateCur_stdnInCourse(course, stu_course);
 
@@ -452,6 +460,8 @@ int main()
 				do {
 					system("cls");
 					viewListOfCourses(course);
+				AGAIN:
+					cin.ignore();
 					cout << "\n\nEnter Course ID which you want to view: ";
 					getline(cin, CourseID);
 
@@ -469,12 +479,12 @@ int main()
 						cout << "\nSearch for Course again? (y/n)";
 						char ans;
 						cin >> ans;
-						cin.ignore();
 						if (ans == 'y' || ans == 'Y') {
 							goto AGAIN;
 						}
-						else {
+						else if (ans == 'n' || ans == 'N') {
 							check = 2;
+							goto RESTART;
 						}
 					}
 				} while (check == 0);
@@ -617,7 +627,7 @@ int main()
 			else if (choose == 0 + 8) {
 				break;
 			}
-			else if (choose == -1 + 10) {
+			else if (choose == -1 + 9) {
 				std::system("pause");
 				return 0;
 			}

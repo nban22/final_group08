@@ -701,19 +701,32 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 
 //Update student
 void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
-	system("cls");
+	//system("cls");
+	int x_boxStudent = 5;
+	int y_boxStudent = 2;
+	int width_boxStudent = 42;
+	int height_boxStudent = 2;
+
 	char check;
 	string tmp;
-	cout << "\tUpdate your personal information."
-		<< "\n\t1. Update your gender."
-		<< "\n\t2. Update your date of birth."
-		<< "\n\t3. Update your social ID."
-		<< "\n\t0. Come back.";
-	cout << "\n\nEnter select the option you want to choose: ";
-	int choose;
-	std::cin >> choose;
-	std::cin.ignore();
+	int tmp_width = 60;
+	int box_width = 32;
+	my_print(tmp_width, 1, LIGHT_YELLOW, "Update your personal information.");
 
+	string option_1[] = { "1. Update your gender.",
+			"2. Update your date of birth.",
+			"3. Update your social ID.",
+			"0. Come back."};
+
+	int x_boxOption1 = x_boxStudent + width_boxStudent + 2;
+	int y_boxOption1 = y_boxStudent;
+	int width_boxOption1 = 50;
+	int height_boxOption1 = 3;
+	int amount_option1 = sizeof(option_1) / sizeof(option_1[0]);
+	int choose;
+	choose = menu(x_boxOption1, y_boxOption1, width_boxOption1, height_boxOption1, amount_option1, option_1, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+
+	system("cls");
 	if (choose == 1) {
 		cout << "\nEnter gender which you want to update: ";
 		cin.ignore();
@@ -752,7 +765,7 @@ void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 		}
 		UpdateStudentInfo(student, loggedinStudent);
 	}
-	else if (choose == 0) {
+	else if (choose == 4) {
 		return;
 	}
 	else {

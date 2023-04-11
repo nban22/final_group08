@@ -1,0 +1,13 @@
+No,Student ID,Student Name,Gender,Class ID,Course ID,Course Name,Credits,Max_stdn,Teacher Name,Teacher ID,Week day,session,day start,month start,day end,month end,Midterm Mark,Final Mark,Other Mark,Total Mark
+1,2021-2022,1,22240001,Huynh Dinh Gia An,Nam,22HOH1,CNTT001,Cong Nghe Thong Tin,3,100,Bui Thuc Minh,33383147,MON,S1,30,5,24,8,0,0,0,0
+2,2021-2022,1,22240002,Quan Vu Hoang Anh,Bede,22HOH1,CNTT001,Cong Nghe Thong Tin,3,100,Bui Thuc Minh,33383147,MON,S1,30,5,24,8,0,0,0,0
+3,2021-2022,1,22133001,Do Nguyen Huong Giang,Nu,22KHMT1,CNTT001,Cong Nghe Thong Tin,3,100,Bui Thuc Minh,33383147,MON,S1,30,5,24,8,0,0,0,0
+4,2021-2022,1,22133002,Pham Nguyen Anh Thu,Nam,22KHMT1,TTH003,Toan Cao Cap,3,100,Hoang Thi Thom,49375740,THU,S3,17,1,27,5,0,0,0,0
+5,2021-2022,1,22110014,Khuong Cong Hoang,Nam,22TH02,DC002,The Duc 1,2,80,Le Thi Huong,33517241,SAT,S1,30,5,24,8,0,0,0,0
+6,2021-2022,2,22110023,Dinh Thuy Ngan Kieu,Nam,22TH03,DC003,The Duc 2,2,80,Nguyen Hoai Bao,86379084,MON,S2,9,1,22,12,0,0,0,0
+7,2021-2022,3,22110024,Duong Thi Kim Lien,Nu,22TH03,DC004,Triet Hoc Mac Lenin,3,90,Nguyen Xuan Huy,17761815,THU,S2,9,1,22,12,0,0,0,0
+8,2021-2022,3,22124001,Nguyen Thi Thu Hang,Nu,22CNSH1,DC008,Phap Luat Dai Cuong,3,120,Nguyen Hoai Bao,86379084,MON,S4,17,1,27,5,0,0,0,0
+9,2021-2022,3,22124002,Tang Minh Hau,Nam,22CNSH1,TTH005,Dai So Tuyen Tinh,3,50,Nguyen Thanh Tuan,56349112,MON,S3,30,5,24,8,0,0,0,0
+10,2021-2022,3,22124001,Nguyen Thi Thu Hang,Nu,22CNSH1,DC001,Ky Nang Lam Viec Nhom,2,110,Bui Thuc Minh,33383147,MON,S3,13,6,24,8,0,0,0,0
+11,2021-2022,3,22154021,Ho Thi Phuong Nga,Nam,22CTT02,DC006,Lich Su Dang,3,100,Bui Thuc Minh,33383147,TUE,S3,30,5,24,8,0,0,0,0
+12,,0,22240001,Huynh Dinh Gia An,Nam,22HOH1,DC0010,Tam Ly Dai Cuong,2,110,Nguyen Thi Thu Trang,33856045,WED,S3,1,9,27,5,0,0,0,0
