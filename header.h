@@ -8,6 +8,7 @@
 #include <fstream>
 #include <iomanip>
 #include "windows.h"
+#include <conio.h>
 #include <Sstream>
 
 //using namespace std;
@@ -323,6 +324,8 @@ int inputKey();
 void textcolor(int x);
 // Hàm thay đổi kích cỡ của khung cmd với tham số truyền vào là chiều cao, chiều rộng.
 void resizeConsole(int width, int height);
+// Hàm xóa màn hình.
+void XoaManHinh();
 // Hàm tự viết
 void my_print(int x, int y, int t_color, std::string content);
 // Tạo box

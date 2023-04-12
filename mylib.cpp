@@ -97,6 +97,16 @@ void SetColor2(int backgound_color, int text_color)
 	int color_code = backgound_color * 16 + text_color;
 	SetConsoleTextAttribute(hStdout, color_code);
 }
+// Hàm xóa màn hình.
+void XoaManHinh()
+{
+	HANDLE hOut;
+	COORD Position;
+	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	Position.X = 0;
+	Position.Y = 0;
+	SetConsoleCursorPosition(hOut, Position);
+}
 // Hàm tự viết
 // x, y là tọa độ con trỏ cần nhảy đến để viết, content là chuỗi cần truyền vào, t_color là màu truyền vào
 void my_print(int x, int y, int t_color, std::string content) {
@@ -305,3 +315,4 @@ std::string my_getline_onlyNumber(int max) {
 	}
 	return str;
 }
+

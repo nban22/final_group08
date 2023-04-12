@@ -24,7 +24,7 @@ void printInformation_A_Staff(STFF_NODE* loggedinStaff) {
 
 //2 - nter information - 1.Add new 1st year students to 1st year classes.
 void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass) {
-	HERE:
+HERE:
 	STU_NODE* new_student = new STU_NODE;
 	bool check;
 	STU_NODE* cur_student = student;
@@ -137,21 +137,105 @@ void deleteSTU_NODE(STU_NODE*& head) {
 }
 void displayLISTOFCLASS(CLASS_NODE* listclass) {
 	CLASS_NODE* cur_listclass = listclass;
-	int i = 1;
-	cout << "======================LIST OF CLASSES======================\n\n";
-	cout << "\t" << setw(10) << left << "No" << setw(5) << left << "|"
-		<< setw(20) << left << "Class ID" << setw(5) << left << "|"
-		<< setw(40) << left << "Class name" << setw(5) << left << "|"
-		<< setw(30) << left << "School year" << endl;
-	cout << setfill('-') << setw(110) << "-" << setfill(' ') << endl;
+	int coordinate_x = 15;
+	int coordinate_y = 3;
+
+	int width_no = 10;
+	int width_classID = 15;
+	int width_className = 40;
+	int width_schoolYear = 25;
+
+	int width = width_no + width_classID + width_className + width_schoolYear + 5 * 3;
+
+	gotoXY(coordinate_x, coordinate_y); cout << "+";
+	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
+		gotoXY(i, coordinate_y); cout << "-";
+	}
+	gotoXY(coordinate_x + width, coordinate_y); cout << "+";
+
+	gotoXY(coordinate_x, coordinate_y + 1);
+	cout << setw(9) << left << "|" << setw(width_no) << left << "No" << setw(5) << left << "|"
+		<< setw(width_classID) << left << "Class ID" << setw(5) << left << "|"
+		<< setw(width_className) << left << "Class name" << setw(5) << left << "|"
+		<< setw(width_schoolYear) << left << "School year";
+
+	gotoXY(coordinate_x, coordinate_y + 2); cout << "+";
+	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
+		gotoXY(i, coordinate_y + 2); cout << "-";
+	}
+	gotoXY(coordinate_x + width, coordinate_y + 2); cout << "+";
+
+	int count = 0;
 	while (cur_listclass) {
-		cout << "\t" << setw(10) << left << i++ << setw(5) << left << "|"
-			<< setw(20) << left << cur_listclass->listclass.ClassID << setw(5) << left << "|"
-			<< setw(40) << left << cur_listclass->listclass.name << setw(5) << left << "|"
-			<< setw(40) << left << cur_listclass-> listclass.schoolYear << endl;
+		count++;
+		cur_listclass = cur_listclass->next;
+	}
+	int page_max = (count - 1) / 15 + 1;
+	int page_index = 1;
+
+LOOP1:
+	cur_listclass = listclass;
+	int i = 0;
+	int page = 0;
+	int no = 1;
+	while (cur_listclass) {
+		ShowCur(1);
+		i++;
+		if (no > count)
+			no = 0;
+		gotoXY(coordinate_x, coordinate_y + 2 + i);
+		cout << setw(9) << left << "|" << setw(width_no) << left << no++ << setw(5) << left << "|"
+			<< setw(width_classID) << left << cur_listclass->listclass.ClassID << setw(5) << left << "|"
+			<< setw(width_className) << left << cur_listclass->listclass.name << setw(5) << left << "|"
+			<< setw(width_schoolYear) << left << cur_listclass->listclass.schoolYear;
+
+		if (i == 15 || cur_listclass->next == nullptr) {
+			gotoXY(coordinate_x, coordinate_y + 2 + i + 1); cout << "+";
+			for (int j = coordinate_x + 1; j < coordinate_x + width; j++) {
+				gotoXY(j, coordinate_y + 2 + i + 1); cout << "-";
+			}
+			gotoXY(coordinate_x + width, coordinate_y + 2 + i + 1); cout << "+";
+		}
+		for (int j = coordinate_y + 1; j <= coordinate_y + i + 2; j++)
+			if (j != coordinate_y + 2) {
+				gotoXY(coordinate_x, j); cout << "|";
+				gotoXY(coordinate_x + width, j); cout << "|";
+			}
+		if (cur_listclass->next == nullptr) {
+			for (int p = coordinate_x; p <= coordinate_x + width; p++)
+				for (int k = coordinate_y + 2 + i + 2; k <= coordinate_y + 2 + 15 + 1; k++) {
+					my_print(p, k, BLACK, " ");
+				}
+		}
+		if (i == 15 || cur_listclass->next == nullptr) {
+			page++;
+			my_print(coordinate_x + width / 2 - 4, coordinate_y + 20, GREEN, "page " + to_string(page_index) + "/" + to_string(page_max));
+			i = 0;
+			if (page != page_index) {
+				cur_listclass = cur_listclass->next;
+				continue;
+			}
+			char ch;
+		LOOP:
+
+			ch = _getch();
+			if (ch == 75) {
+				if (page_index == 1)
+					goto LOOP;
+				page_index--;
+				goto LOOP1;
+			}
+			else if (ch == 77) {
+				page_index++;
+			}
+			else {
+				goto LOOP;
+			}
+		}
 		cur_listclass = cur_listclass->next;
 	}
 }
+
 void viewListOfClasses(CLASS_NODE*& listclass, STU_NODE* student) {
 	updateListClass(listclass, student);
 	displayLISTOFCLASS(listclass);
@@ -159,17 +243,24 @@ void viewListOfClasses(CLASS_NODE*& listclass, STU_NODE* student) {
 
 //============================ List of students in class============================ 
 void viewListStudentsOfClass(STU_NODE* student, CLASS_NODE* listclass) {
-	
+
 	string classID;
+	int coordinate_x = 20;
+	int coordinate_y = 27;
+	int width_box = 30;
+	int height_box = 2;
 	while (1) {
 		std::system("cls");
 		displayLISTOFCLASS(listclass);
-		std::cout << "\n\n";
-		std::cout << "\tEnter class ID which you want to open: ";
-		std::cin >> classID;
+		my_print(coordinate_x, coordinate_y, GREEN, "Enter class ID which you want to open: ");
+		box(coordinate_x + 40, coordinate_y - 1, width_box, height_box, BLUE);
+		gotoXY(coordinate_x + 40 + 1, coordinate_y);
+		classID = my_getline(width_box - 1);
+
 		if (checkExistClassNODEIDinDLL(listclass, classID) == nullptr) {
-			std::cout << "\n\tYour selection doesn't exist.\n";
-			std::system("pause");
+			my_print(coordinate_x + 10, coordinate_y + 4, RED, "Your selection doesn't exist.");
+			char ch;
+			ch = _getch();
 			continue;
 		}
 		break;
@@ -215,7 +306,7 @@ void viewListOfCourses(CR_NODE* course) {
 void ViewListOfTeachers(STFF_NODE* teacher) {
 	STFF_NODE* cur = teacher;
 	system("cls");
-	
+
 	cout << "============================================LIST OF TEACHERS ============================================\n\n";
 	std::cout << setw(5) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
 		<< setw(15) << left << "Teachers ID" << setw(5) << left << "|"
@@ -234,7 +325,7 @@ void ViewListOfTeachers(STFF_NODE* teacher) {
 			<< setw(20) << left << cur->staff.LName << setw(5) << left << "|"
 			<< setw(20) << left << cur->staff.FName << setw(5) << left << "|"
 			<< setw(10) << left << cur->staff.Gender << setw(5) << left << "|"
-			<< setw(20) << left << birthday << setw(5) <<  "|"
+			<< setw(20) << left << birthday << setw(5) << "|"
 			<< setw(20) << left << cur->staff.SocialID << setw(5) << left << "|"
 			<< setw(40) << left << cur->staff.Faculty << setw(5) << left << "|" << endl;
 		cur = cur->next;
@@ -378,7 +469,7 @@ void viewScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std::s
 	}
 }
 void View_Y_Scoreboard(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
-	system ("cls");
+	system("cls");
 	STU_COURSE_NODE* current = stu_course;
 
 	int count = 1;
@@ -739,7 +830,7 @@ void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 	string option_1[] = { "1. Update your gender.",
 			"2. Update your date of birth.",
 			"3. Update your social ID.",
-			"0. Come back."};
+			"0. Come back." };
 
 	int x_boxOption1 = x_boxStudent + width_boxStudent + 2;
 	int y_boxOption1 = y_boxStudent;
@@ -1062,15 +1153,15 @@ void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, 
 
 	cout << "===============================================================YOUR COURSES RESULTS=====================================================================\n\n";
 	std::cout << setw(3) << left << " " << setw(5) << left << "No" << setw(5) << left << "|"
-			<< setw(10) << left << "Course ID" << setw(5) << left << "|"
-			<< setw(25) << left << "Course name" << setw(5) << left << "|"
-			<< setw(16) << left << "Teacher name" << setw(5) << left << "|"
-			<< setw(8) << left << "Credits" << setw(5) << left << "|"
-			<< setw(8) << left << "Midterm" << setw(5) << left << "|"
-			<< setw(8) << left << "Final" << setw(5) << left << "|"
-			<< setw(8) << left << "Other" << setw(5) << left << "|"
-			<< setw(8) << left << "TOTAL" << setw(5) << left << "|"
-			<< setw(8) << left << "RANKING" << setw(6) << left << "|";
+		<< setw(10) << left << "Course ID" << setw(5) << left << "|"
+		<< setw(25) << left << "Course name" << setw(5) << left << "|"
+		<< setw(16) << left << "Teacher name" << setw(5) << left << "|"
+		<< setw(8) << left << "Credits" << setw(5) << left << "|"
+		<< setw(8) << left << "Midterm" << setw(5) << left << "|"
+		<< setw(8) << left << "Final" << setw(5) << left << "|"
+		<< setw(8) << left << "Other" << setw(5) << left << "|"
+		<< setw(8) << left << "TOTAL" << setw(5) << left << "|"
+		<< setw(8) << left << "RANKING" << setw(6) << left << "|";
 	cout << "\n";
 	std::cout << setfill('-') << setw(144) << left << "-" << setfill(' ') << endl;
 	while (cur_stu_course) {
@@ -1087,7 +1178,7 @@ void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, 
 				<< setw(8) << left << cur_stu_course->stu_course.other << setw(5) << left << "|"
 				<< setw(8) << left << cur_stu_course->stu_course.total << setw(5) << left << "|"
 				<< setw(8) << left << GetRanking(cur_stu_course->stu_course.total) << setw(6) << left << "|";
-				cout << endl;
+			cout << endl;
 		}
 		cur_course = cur_course->next;
 		cur_stu_course = cur_stu_course->next;

@@ -24,7 +24,7 @@ int main()
 {
 	resizeConsole(1100, 600);
 	int count = 0;
-	
+
 	ifstream input;
 	STFF_NODE* staff = nullptr;
 	getDataStaff_csv(input, staff);
@@ -64,11 +64,13 @@ int main()
 		int check_T, check_S;
 		do {
 			std::system("cls");
-			
+
+			ShowCur(1);
+
 			string user, pass;
-			int tmp_width = 50;
+			int tmp_width = 60;
 			int box_width = 32;
-			
+
 			my_print(tmp_width, 1, LIGHT_YELLOW, "UNIVERSITY OF NATURAL SCIENCE");
 			my_print(tmp_width + 7, 2, LIGHT_YELLOW, "HO CHI MINH CITY");
 			my_print(tmp_width + 4, 5, LIGHT_YELLOW, "HCMUS Portal - Log in");
@@ -113,7 +115,7 @@ int main()
 		//THE FUNCTIONS OF STAFF
 		while (check_T == 1) {
 			std::system("cls");
-			
+
 			string option[] = { "1.Create new.",
 				"2.Enter information.",
 				"3.Look up.",
@@ -130,7 +132,7 @@ int main()
 			choose_staff = menu(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 			//printInformation_A_Staff(loggedinStaff);
-			
+
 			if (choose_staff == 1) { //Create new
 				while (1) {
 					std::system("cls");
@@ -143,7 +145,7 @@ int main()
 						"5.Change your information.",
 						"6.Create a new staff's account.",
 						"0.Come back." };
-					int x_boxOption1 = x_boxStaff + width_boxStaff +2;
+					int x_boxOption1 = x_boxStaff + width_boxStaff + 2;
 					int y_boxOption1 = y_boxStaff;
 					int width_boxOption1 = 50;
 					int height_boxOption1 = 3;
@@ -244,7 +246,7 @@ int main()
 					int amount_option2 = sizeof(option_2) / sizeof(option_2[0]);
 					int choose;
 					choose = menu(x_boxOption2, y_boxOption2, width_boxOption2, height_boxOption2, amount_option2, option_2, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
-					
+
 					if (choose == 1) { //Add new 1st year students to 1st year classes
 						addNew1styearStudent(student, listclass);
 					}
@@ -305,11 +307,10 @@ int main()
 					int amount_option3 = sizeof(option_3) / sizeof(option_3[0]);
 					int choose;
 					choose = menu(x_boxOption3, y_boxOption3, width_boxOption3, height_boxOption3, amount_option3, option_3, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
-					
+
 					if (choose == 1) { //List of classes
 						std::system("cls");
 						viewListOfClasses(listclass, student);
-						std::system("pause");
 					}
 					else if (choose == 2) { //List of students in class
 						viewListStudentsOfClass(student, listclass);
@@ -401,7 +402,57 @@ int main()
 				}
 			}
 			else if (choose_staff == 4) { // +++++++++++++++++++++++++CHANGE PASSWORD+++++++++++++++++++++
-				changePassWordOfStaffAccount(staff, loggedinStaff);
+				//changePassWordOfStaffAccount(staff, loggedinStaff);
+
+			AGAIN_4:
+				system("cls");
+				ShowCur(1);
+
+				menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
+
+				ShowCur(1);
+
+				int width_tmp = 70;
+				int height_tmp = 10;
+
+				int width_box = 40;
+				int height_box = 2;
+
+				my_print(width_tmp, height_tmp, YELLOW, "Old password:");
+				box(width_tmp, height_tmp + 1, width_box, height_box, YELLOW);
+
+				my_print(width_tmp, height_tmp + 5, YELLOW, "New password:");
+				box(width_tmp, height_tmp + 6, width_box, height_box, YELLOW);
+
+				my_print(width_tmp, height_tmp + 10, YELLOW, "Verify:");
+				box(width_tmp, height_tmp + 11, width_box, height_box, YELLOW);
+
+				string old_password, new_password, new_password_again;
+
+				gotoXY(width_tmp + 1, height_tmp + 2);
+				old_password = my_getline(width_box - 1);
+
+				gotoXY(width_tmp + 1, height_tmp + 7);
+				new_password = my_getline(width_box - 1);
+
+				gotoXY(width_tmp + 1, height_tmp + 12);
+				new_password_again = my_getline(width_box - 1);
+
+				if (loggedinStaff->staff.Password != old_password) {
+					my_print(width_tmp, height_tmp + 15, RED, "Your old password has been entered incorrectly. Please, enter again.");
+					gotoXY(width_tmp, height_tmp + 17);
+					system("pause");
+					goto AGAIN_4;
+				}
+				if (new_password != new_password_again) {
+					my_print(width_tmp, height_tmp + 15, RED, "Confirmation password is not correct. Please, enter again.");
+					gotoXY(width_tmp, height_tmp + 17);
+					system("pause");
+					goto AGAIN_4;
+				}
+				loggedinStaff->staff.Password = new_password;
+				Read_After_Update_Staffs(staff);
+				my_print(width_tmp, height_tmp + 15, RED, "Change password successfully.");
 			}
 			else if (choose_staff == 0 + 5) { // ++++++++++++++++++++++++++LOG OUT++++++++++++++++++++++++++
 				break;
@@ -415,7 +466,7 @@ int main()
 
 		//THE FUNCTIONS OF STUDENT
 		while (check_S == 1) {
-			RESTART:
+		RESTART:
 			std::system("cls");
 			string option[] = { "1. Change password.",
 						"2. Update your personal information.",
@@ -425,7 +476,7 @@ int main()
 						"6. View your schedule.",
 						"7. View your scoreboard.",
 						"0. Log out." };
-			
+
 			int x_boxStudent = 5;
 			int y_boxStudent = 2;
 			int width_boxStudent = 42;
