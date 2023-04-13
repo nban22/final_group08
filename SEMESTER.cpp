@@ -1,10 +1,9 @@
 #include "header.h"
 
-using namespace std;
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@COURSE@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //-------Support functions------
-CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, string ID) {
+CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID) {
 	CR_NODE* current = head;
 	CR_NODE* FoundNode = nullptr;
 	while (current) {
@@ -18,7 +17,7 @@ CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, string ID) {
 	return FoundNode;
 }
 
-string ConvertStringWD(WEEKDAY& wd) {
+std::string ConvertStringWD(WEEKDAY& wd) {
 	if (wd == MON) return "MON";
 	else if (wd == TUE) return "TUE";
 	else if (wd == WED) return "WED";
@@ -27,7 +26,7 @@ string ConvertStringWD(WEEKDAY& wd) {
 	else return "SAT";
 }
 
-string ConvertStringSS(SESSION& ss) {
+std::string ConvertStringSS(SESSION& ss) {
 	if (ss == S1) return "S1(07:30)";
 	else if (ss == S2) return "S2(09:30)";
 	else if (ss == S3) return "S3(13:30)";
@@ -37,7 +36,7 @@ string ConvertStringSS(SESSION& ss) {
 //--------Main functions---------
 
 void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head) {
-	std::system("cls");
+	system("cls");
 	CR_NODE* NewCourse = new CR_NODE;
 	CR_NODE* cur = head;
 	viewListOfCourses(cur);
@@ -52,70 +51,70 @@ void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& 
 		int NewNo = cur->course.No;
 		NewNo++;
 		NewCourse->course.No = NewNo;
-	}	
+	}
 
-	string NewSchoolyear;
-	cout << "Enter Schoolyear: ";
-	getline(cin, NewSchoolyear);
+	std::string NewSchoolyear;
+	std::cout << "Enter Schoolyear: ";
+	std::getline(std::cin, NewSchoolyear);
 	if (checkExistOfSchoolyear(NewSchoolyear)) {
 		NewCourse->course.Schoolyear = NewSchoolyear;
 	}
 	else {
-		cout << "Schoolyear does not exist yet!\n";
-		cout << "\nPlease create new schoolyear first!";
+		std::cout << "Schoolyear does not exist yet!\n";
+		std::cout << "\nPlease create new schoolyear first!";
 		system("pause");
 		return;
 	}
 
 	int NewSemester;
-	cout << "Enter Semester: ";
-	cin >> NewSemester;
+	std::cout << "Enter Semester: ";
+	std::cin >> NewSemester;
 	if (NewSemester > 0 && NewSemester <= 3) {
 		NewCourse->course.Semester = NewSemester;
 	}
 	else {
-		cout << "Semester must be 1 to 3!\n";
+		std::cout << "Semester must be 1 to 3!\n";
 		system("pause");
 		return;
 	}
-	cin.ignore();
-	string NewCName;
-	cout << "Enter New Course Name: ";
-	getline(cin, NewCName);
+	std::cin.ignore();
+	std::string NewCName;
+	std::cout << "Enter New Course Name: ";
+	std::getline(std::cin, NewCName);
 	NewCourse->course.CName = NewCName;
-	string NewID;
-	cout << "Enter Course ID: ";
-	getline(cin, NewID);
+	std::string NewID;
+	std::cout << "Enter Course ID: ";
+	std::getline(std::cin, NewID);
 	NewCourse->course.ID = NewID;
-	string LName;
-	cout << "Enter Teacher's last name: ";
-	getline(cin, LName);
+	std::string LName;
+	std::cout << "Enter Teacher's last name: ";
+	std::getline(std::cin, LName);
 	NewCourse->course.LNameTeacher = LName;
-	string FName;
-	cout << "Enter Teacher's first name: ";
-	getline(cin, FName);
+	std::string FName;
+	std::cout << "Enter Teacher's first name: ";
+	std::getline(std::cin, FName);
 	NewCourse->course.FNameTeacher = FName;
 	int NewCredits;
-	cout << "Enter Credits: ";
-	cin >> NewCredits;
+	std::cout << "Enter Credits: ";
+	std::cin >> NewCredits;
 	NewCourse->course.Credits = NewCredits;
 	int NewMax_stdn;
-	cout << "Enter Max Students: ";
-	cin >> NewMax_stdn;
+	std::cout << "Enter Max Students: ";
+	std::cin >> NewMax_stdn;
 	NewCourse->course.Max_stdn = NewMax_stdn;
 	NewCourse->course.Cur_stdn = 0; //default
-	string NewSession;
-	cout << "Enter Session(S1->S4): ";
-	cin >> NewSession;
+	std::string NewSession;
+	std::cout << "Enter Session(S1->S4): ";
+	std::cin >> NewSession;
 	NewCourse->course.session = ConvertEnumSS(NewSession);
-	string NewWeekday;
-	cout << "Enter Weekday(MON->SAT): ";
-	cin >> NewWeekday;
+	std::string NewWeekday;
+	std::cout << "Enter Weekday(MON->SAT): ";
+	std::cin >> NewWeekday;
 	NewCourse->course.dayOfWeek = ConvertEnumWD(NewWeekday);
-	cout << "Enter Start date (Please seperate with spaces) (dd mm yyy)";
-	cin >> NewCourse->course.startDate.day >> NewCourse->course.startDate.month >> NewCourse->course.startDate.year;
-	cout << "Enter End date (Please seperate with spaces) (dd mm yyy)";
-	cin >> NewCourse->course.endDate.day >> NewCourse->course.endDate.month >> NewCourse->course.endDate.year;
+	std::cout << "Enter Start date (Please seperate with spaces) (dd mm yyy)";
+	std::cin >> NewCourse->course.startDate.day >> NewCourse->course.startDate.month >> NewCourse->course.startDate.year;
+	std::cout << "Enter End date (Please seperate with spaces) (dd mm yyy)";
+	std::cin >> NewCourse->course.endDate.day >> NewCourse->course.endDate.month >> NewCourse->course.endDate.year;
 
 	//Add course at the end
 	if (!cur) {
@@ -128,7 +127,7 @@ void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& 
 	}
 
 	system("cls");
-	cout << "Added Course Successfully\n";
+	std::cout << "Added Course Successfully\n";
 	Read_After_Update_Course(stu_course, teacher, head);
 	system("pause");
 	return;
@@ -136,18 +135,18 @@ void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& 
 
 void UpdateCourseInfo(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head) {
 AGAIN:
-	std::system("cls");
+	system("cls");
 	CR_NODE* cur = head;
 	viewListOfCourses(cur);
-	cout << "Enter Course ID: ";
-	string UpID;
-	cin >> UpID;
+	std::cout << "Enter Course ID: ";
+	std::string UpID;
+	std::cin >> UpID;
 	CR_NODE* UpNode = checkExistOfCourseRecord(head, UpID);
 	if (UpNode) {
 		system("cls");
 
-		cout << "======================COURSE======================";
-		cout << "\n\t1. Course ID.\n" //No changing schoolyear and semester
+		std::cout << "======================COURSE======================";
+		std::cout << "\n\t1. Course ID.\n" //No changing schoolyear and semester
 			<< "\t2. Course Name.\n"
 			<< "\t3. Course Teacher name.\n"
 			<< "\t4. Course Credits.\n"
@@ -156,75 +155,75 @@ AGAIN:
 			<< "\t7. Course Session.\n"
 			<< "\t8. Course Start Date.\n"
 			<< "\t9. Course End Date.\n";
-		cout << "========================END========================\n\n";
-		cout << "What would you like to update?: ";
+		std::cout << "========================END========================\n\n";
+		std::cout << "What would you like to update?: ";
 
 		//system("pause");
 
 		int choice;
-		cin >> choice;
+		std::cin >> choice;
 		switch (choice) {
 		case 1: {
-			cout << "Enter Course ID: ";
-			cin.ignore();
-			getline(cin, UpNode->course.ID);
+			std::cout << "Enter Course ID: ";
+			std::cin.ignore();
+			std::getline(std::cin, UpNode->course.ID);
 		} break;
 		case 2: {
-			cout << "Enter Course Name: ";
-			cin.ignore();
-			getline(cin, UpNode->course.CName);
+			std::cout << "Enter Course Name: ";
+			std::cin.ignore();
+			std::getline(std::cin, UpNode->course.CName);
 		} break;
 		case 3: {
-			cout << "Enter Course Teacher Last name: ";
-			cin.ignore();
-			getline(cin, UpNode->course.LNameTeacher);
-			cout << "Enter Course Teacher First name: ";
-			getline(cin, UpNode->course.LNameTeacher);
+			std::cout << "Enter Course Teacher Last name: ";
+			std::cin.ignore();
+			std::getline(std::cin, UpNode->course.LNameTeacher);
+			std::cout << "Enter Course Teacher First name: ";
+			std::getline(std::cin, UpNode->course.LNameTeacher);
 		} break;
 		case 4: {
-			cout << "Enter Course Credits: ";
-			cin >> UpNode->course.Credits;
+			std::cout << "Enter Course Credits: ";
+			std::cin >> UpNode->course.Credits;
 		} break;
 		case 5: {
-			cout << "Enter Course Max Students: ";
-			cin >> UpNode->course.Max_stdn;
+			std::cout << "Enter Course Max Students: ";
+			std::cin >> UpNode->course.Max_stdn;
 		} break;
 		case 6: {
-			cout << "Enter Course Weekday: ";
-			string wd;
-			cin >> wd;
+			std::cout << "Enter Course Weekday: ";
+			std::string wd;
+			std::cin >> wd;
 			UpNode->course.dayOfWeek = ConvertEnumWD(wd);
 		} break;
 		case 7: {
-			cout << "Enter Course Session: ";
-			string ss;
-			cin >> ss;
+			std::cout << "Enter Course Session: ";
+			std::string ss;
+			std::cin >> ss;
 			UpNode->course.session = ConvertEnumSS(ss);
 		} break;
 		case 8: {
-			cout << "Enter Start Date (Please seperate with spaces)";
-			cin >> UpNode->course.startDate.day >> UpNode->course.startDate.month >> UpNode->course.startDate.year;
+			std::cout << "Enter Start Date (Please seperate with spaces)";
+			std::cin >> UpNode->course.startDate.day >> UpNode->course.startDate.month >> UpNode->course.startDate.year;
 		} break;
 		case 9: {
-			cout << "Enter End date (Please seperate with spaces)";
-			cin >> UpNode->course.endDate.day >> UpNode->course.endDate.month >> UpNode->course.endDate.year;
+			std::cout << "Enter End date (Please seperate with spaces)";
+			std::cin >> UpNode->course.endDate.day >> UpNode->course.endDate.month >> UpNode->course.endDate.year;
 		} break;
 		default: {
-			cout << "Invalid selection, please enter again.\n\n";
+			std::cout << "Invalid selection, please enter again.\n\n";
 		} break;
 		}
 
 		system("cls");
-		cout << "Update Course Successfully\n";
+		std::cout << "Update Course Successfully\n";
 		Read_After_Update_Course(stu_course, teacher, head);
 		system("pause");
 		return;
 	}
 	else {
-		cout << "No Course Founded!";
-		cout << "\nSearch for Course again? (y/n)";
+		std::cout << "No Course Founded!";
+		std::cout << "\nSearch for Course again? (y/n)";
 		char ans;
-		cin >> ans;
+		std::cin >> ans;
 		if (ans == 'y' || ans == 'Y') {
 			goto AGAIN;
 		}
@@ -236,12 +235,12 @@ AGAIN:
 
 void DeleteCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head) {
 AGAIN:
-	std::system("cls");
+	system("cls");
 	CR_NODE* cur = head;
 	viewListOfCourses(cur);
-	cout << "Enter Course ID You Want To Delete: ";
-	string DelID;
-	cin >> DelID;
+	std::cout << "Enter Course ID You Want To Delete: ";
+	std::string DelID;
+	std::cin >> DelID;
 	CR_NODE* DelNode = checkExistOfCourseRecord(head, DelID);
 	if (DelNode) {
 		CR_NODE* tmp = DelNode;
@@ -255,17 +254,17 @@ AGAIN:
 		}
 
 		system("cls");
-		cout << "Delete Course Successfully\n";
+		std::cout << "Delete Course Successfully\n";
 		Read_After_Update_Course(stu_course, teacher, *&head);
 		system("pause");
 		return;
 	}
 	else {
-		cout << "No Course Founded!";
-		cout << "\nSearch for Course again? (y/n)";
+		std::cout << "No Course Founded!";
+		std::cout << "\nSearch for Course again? (y/n)";
 		//system("pause");
 		char ans;
-		cin >> ans;
+		std::cin >> ans;
 		if (ans == 'y' || ans == 'Y') {
 			goto AGAIN;
 		}
@@ -276,78 +275,78 @@ AGAIN:
 }
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@COURSE_STUDENT@@@@@@@@@@@@@@@@@@@@@@
-STU_COURSE* checkExistOfStudentCourseRecord(STU_COURSE_NODE *&head, std::string ID) {
+STU_COURSE* checkExistOfStudentCourseRecord(STU_COURSE_NODE*& head, std::string ID) {
 	STU_COURSE_NODE* cur = head;
-    while (cur) {
-        if (cur->stu_course.StuID == ID) {
-            return &cur->stu_course;
-        }
-        cur = cur->next;
-    }
-    return nullptr;
+	while (cur) {
+		if (cur->stu_course.StuID == ID) {
+			return &cur->stu_course;
+		}
+		cur = cur->next;
+	}
+	return nullptr;
 }
 
 void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head) {
-	std::system("cls");
+	system("cls");
 	CR_NODE* cur = head;
 	viewListOfCourses(cur);
 
-	cout << "Enter Course ID: ";
-    string UpCID;
-    cin >> UpCID;
+	std::cout << "Enter Course ID: ";
+	std::string UpCID;
+	std::cin >> UpCID;
 	CR_NODE* UpCNode = checkExistOfCourseRecord(head, UpCID);
 	if (UpCNode) {
-		AGAIN:
+	AGAIN:
 		system("cls");
-		viewListStudentsOfCourse(stu_course, student, UpCID);
-		cout << "Enter Student ID: ";
-		string UpID;
-		cin >> UpID;
+		displayLISTSTUDENTOFCOURSE(stu_course, student, UpCID);
+		std::cout << "Enter Student ID: ";
+		std::string UpID;
+		std::cin >> UpID;
 		STU_COURSE* UpNode = checkExistOfStudentCourseRecord(stu_course, UpID);
 		if (UpNode) {
 			system("cls");
 
-			cout << "======================COURSE======================";
-			cout << "\n\t1. Midterm Grade.\n"
+			std::cout << "======================COURSE======================";
+			std::cout << "\n\t1. Midterm Grade.\n"
 				<< "\t2. Final Grade.\n"
 				<< "\t3. Other Grades.\n";
-			cout << "========================END========================\n\n";
-			cout << "What would you like to update?: ";
+			std::cout << "========================END========================\n\n";
+			std::cout << "What would you like to update?: ";
 
 			//system("pause");
 
 			int choice;
-			cin >> choice;
+			std::cin >> choice;
 			switch (choice) {
 			case 1: {
-				cout << "Enter Midterm: ";
-				cin >> UpNode->midterm;
+				std::cout << "Enter Midterm: ";
+				std::cin >> UpNode->midterm;
 			} break;
 			case 2: {
-				cout << "Enter Midterm: ";
-				cin >> UpNode->final;
+				std::cout << "Enter Midterm: ";
+				std::cin >> UpNode->final;
 			} break;
 			case 3: {
-				cout << "Enter Midterm: ";
-				cin >> UpNode->other;
+				std::cout << "Enter Midterm: ";
+				std::cin >> UpNode->other;
 			} break;
 			default: {
-				cout << "Invalid selection, please enter again.\n\n";
+				std::cout << "Invalid selection, please enter again.\n\n";
 			} break;
 			}
 
 			system("cls");
-			cout << "Update Grade(s) Successfully\n";
+			std::cout << "Update Grade(s) Successfully\n";
 			//STU_NODE* student, CR_NODE* course, STFF_NODE* teacher, STU_COURSE_NODE* stu_course
 			Read_After_Update_Student_Course(student, head, teacher, stu_course);
 			system("pause");
 			return;
 		}
 		else {
-			cout << "No Student Founded! They might be in another course";
-			cout << "\nSearch for Student again? (y/n)";
+			std::cout << "No Student Founded! They might be in another course";
+			std::cout << "\nSearch for Student again? (y/n)";
 			char ans;
-			cin >> ans;
+			std::cin >> ans;
 			if (ans == 'y' || ans == 'Y') {
 				goto AGAIN;
 			}
@@ -357,10 +356,10 @@ void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE* stu_course, STFF_NODE* 
 		}
 	}
 	else {
-		cout << "No Course Found!";
-		cout << "\nSearch for Course again? (y/n)";
+		std::cout << "No Course Found!";
+		std::cout << "\nSearch for Course again? (y/n)";
 		char ans;
-		cin >> ans;
+		std::cin >> ans;
 		if (ans == 'y' || ans == 'Y') {
 			UpdateMarksInfo(student, stu_course, teacher, head);
 		}

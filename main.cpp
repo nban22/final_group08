@@ -1,7 +1,6 @@
 ﻿
 #include "header.h"
 #include <conio.h>
-using namespace std;
 
 #define BLACK 0
 #define BLUE 1
@@ -22,15 +21,15 @@ using namespace std;
 
 int main()
 {
-	resizeConsole(1100, 600);
+	resizeConsole(1200, 600);
 	int count = 0;
 
-	ifstream input;
+	std::ifstream input;
 	STFF_NODE* staff = nullptr;
 	getDataStaff_csv(input, staff);
 	STFF_NODE* loggedinStaff = new STFF_NODE;
 
-	ifstream input_T;
+	std::ifstream input_T;
 	STFF_NODE* teacher = nullptr;
 	getDataTeacher_csv(input_T, teacher);
 
@@ -42,16 +41,16 @@ int main()
 	//USER:   22240001
 	//PASSWORD:    678910
 
-	ifstream input_S;
+	std::ifstream input_S;
 	STU_NODE* student = nullptr;
 	getDataStudents_csv(input_S, student);
 	STU_NODE* loggedinStudent = new STU_NODE;
 
-	ifstream input_STU_CR;
+	std::ifstream input_STU_CR;
 	STU_COURSE_NODE* stu_course = nullptr;
 	Get_Data_StudentCourse_csv(input_STU_CR, stu_course);
 
-	ifstream input_CR;
+	std::ifstream input_CR;
 	CR_NODE* course = nullptr;
 	getDataCourse_csv(input_CR, course);
 
@@ -67,7 +66,7 @@ int main()
 
 			ShowCur(1);
 
-			string user, pass;
+			std::string user, pass;
 			int tmp_width = 60;
 			int box_width = 32;
 
@@ -116,7 +115,7 @@ int main()
 		while (check_T == 1) {
 			std::system("cls");
 
-			string option[] = { "1.Create new.",
+			std::string option[] = { "1.Create new.",
 				"2.Enter information.",
 				"3.Look up.",
 				"4.Change password.",
@@ -138,7 +137,7 @@ int main()
 					std::system("cls");
 					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
 
-					string option_1[] = { "1.Create a new school year.",
+					std::string option_1[] = { "1.Create a new school year.",
 						"2.Create semester.",
 						"3.Create a new class.",
 						"4.Change information of a teacher.",
@@ -155,7 +154,7 @@ int main()
 
 					if (choose == 1) {
 						std::system("cls");
-						std::cout << " Create a school year " << endl;
+						std::cout << " Create a school year " << std::endl;
 						int schoolYear;
 						CreateSchoolYear(schoolYear);
 						std::system("pause");
@@ -165,14 +164,14 @@ int main()
 					}
 					else if (choose == 3) {
 					Here:
-						system("cls");
-						string ClassID, ClassName, SchoolYear;
-						cout << "Enter class ID: ";
-						getline(cin, ClassID);
-						cout << "Enter class name: ";
-						getline(cin, ClassName);
-						cout << "Enter School Year: ";
-						getline(cin, SchoolYear);
+						std::system("cls");
+						std::string ClassID, ClassName, SchoolYear;
+						std::cout << "Enter class ID: ";
+						getline(std::cin, ClassID);
+						std::cout << "Enter class name: ";
+						getline(std::cin, ClassName);
+						std::cout << "Enter School Year: ";
+						getline(std::cin, SchoolYear);
 
 						bool check = 0;
 						CLASS_NODE* cur_listclass = listclass;
@@ -183,8 +182,8 @@ int main()
 							cur_listclass = cur_listclass->next;
 						}
 						if (check == 1) {
-							cout << "The class ID you entered already exists, please enter gain.";
-							system("pause");
+							std::cout << "The class ID you entered already exists, please enter gain.";
+							std::system("pause");
 							goto Here;
 						}
 						cur_listclass = listclass;
@@ -198,23 +197,23 @@ int main()
 					}
 					else if (choose == 4) {
 						std::system("cls");
-						string teacherID;
-						std::cout << "======================Update personal information======================" << endl;
+						std::string teacherID;
+						std::cout << "======================Update personal information======================" << std::endl;
 						ViewListOfTeachers(teacher);
-						cout << "\n\nEnter the ID of the teacher you want to update: ";
-						cin >> teacherID;
+						std::cout << "\n\nEnter the ID of the teacher you want to update: ";
+						std::cin >> teacherID;
 						UpdateTeacherInfor(teacherID, teacher);
 						std::system("pause");
 					}
 					else if (choose == 5) {
 						std::system("cls");
-						std::cout << "======================Update your information======================" << endl;
+						std::cout << "======================Update your information======================" << std::endl;
 
 						UpdateYourInfor(loggedinStaff, teacher);
 					}
 					else if (choose == 6) {
 						std::system("cls");
-						std::cout << "======================Create a new staff's account======================" << endl;
+						std::cout << "======================Create a new staff's account======================" << std::endl;
 						Create_newStaff(staff);
 					}
 					else if (choose == 0 + 7) {
@@ -230,7 +229,7 @@ int main()
 				while (1) {
 					std::system("cls");
 					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
-					string option_2[] = { "1.Add new 1st year students to 1st year classes.",
+					std::string option_2[] = { "1.Add new 1st year students to 1st year classes.",
 						"2.Create a course registration session.",
 						"3.Add a new course.",
 						"4.Export the file to import the list of students in each class.",
@@ -258,9 +257,9 @@ int main()
 					else if (choose == 4) { //Export the file to import the list of students in each class
 						int check;
 						std::system("cls");
-						std::cout << "\n\t\t\t ********************************************" << endl;
+						std::cout << "\n\t\t\t ********************************************" << std::endl;
 						std::cout << "\t\t\t\t      ";
-						std::cout << "Enter the scoreboard of a course." << endl;
+						std::cout << "Enter the scoreboard of a course." << std::endl;
 						EnterCourseScore(stu_course, course, loggedinStaff, check);
 						if (check != 0) {
 							Read_After_Update_Student_Course(student, course, teacher, stu_course);
@@ -291,7 +290,7 @@ int main()
 					std::system("cls");
 					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
 
-					string option_3[] = { "1.List of classes.",
+					std::string option_3[] = { "1.List of classes.",
 						"2.List of students in class.",
 						"3.List of courses.",
 						"4.List of students in a course.",
@@ -308,85 +307,23 @@ int main()
 					choose = menu(x_boxOption3, y_boxOption3, width_boxOption3, height_boxOption3, amount_option3, option_3, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 					if (choose == 1) { //List of classes
-						std::system("cls");
 						viewListOfClasses(listclass, student);
 					}
 					else if (choose == 2) { //List of students in class
 						viewListStudentsOfClass(student, listclass);
 					}
 					else if (choose == 3) { //List of courses
-						system("cls");
 						viewListOfCourses(course);
-						system("pause");
+						//std::system("pause");
 					}
 					else if (choose == 4) { //List of students in a course
-						int check = 0;
-						string CourseID;
-						do {
-							system("cls");
-							viewListOfCourses(course);
-							cout << "\n\nEnter Course ID which you want to view: ";
-							getline(cin, CourseID);
-
-							CR_NODE* cur = course;
-							while (cur) {
-								if (cur->course.ID == CourseID)
-									check = 1;
-								cur = cur->next;
-							}
-							if (check == 0) {
-								cout << "Your Course ID doesn't exist. Please enter again.\n";
-								system("pause");
-							}
-						} while (check == 0);
-						system("cls");
-						viewListStudentsOfCourse(stu_course, student, CourseID);
-						system("pause");
+						viewListStudentsOfCourse(stu_course, student, course);
 					}
 					else if (choose == 5) { //View a scoreboard in a course
-						int check = 0;
-						string CourseID;
-						do {
-							system("cls");
-							viewListOfCourses(course);
-							cout << "\n\nEnter the course ID which you want to view the scoreboard: ";
-							getline(cin, CourseID);
-
-							CR_NODE* cur = course;
-							while (cur) {
-								if (cur->course.ID == CourseID)
-									check = 1;
-								cur = cur->next;
-							}
-							if (check == 0) {
-								cout << "Your Course ID doesn't exist. Please enter again.\n";
-								system("pause");
-							}
-						} while (check == 0);
-						system("cls");
-						viewScoreBoard_Course(stu_course, student, CourseID);
-						system("pause");
+						viewScoreboardInCourse(course, stu_course, student);
 					}
 					else if (choose == 6) { //View a scoreboard in class
-						int check = 0;
-						string ClassID;
-						do {
-							std::system("cls");
-							viewListOfClasses(listclass, student);
-							cout << "\n\nEnter the class ID which you want to view the scoreboard: ";
-							getline(cin, ClassID);
-
-							if (checkExistClassIDinDLL(student, ClassID) != nullptr)
-								check = 1;
-
-							if (check == 0) {
-								cout << "Your class ID doesn't exist. Please enter again.\n";
-								system("pause");
-							}
-						} while (check == 0);
-						system("cls");
-						viewScoreBoard_Class(stu_course, student, ClassID);
-						system("pause");
+						viewScoreBoard_Class(stu_course, student, listclass);
 					}
 					else if (choose == 7) { //Export csv file about a scoreboard of students in course to enter score
 						ExportScoreBoard(stu_course, course, student);
@@ -404,7 +341,7 @@ int main()
 				//changePassWordOfStaffAccount(staff, loggedinStaff);
 
 			AGAIN_4:
-				system("cls");
+				std::system("cls");
 				ShowCur(1);
 
 				menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
@@ -426,7 +363,7 @@ int main()
 				my_print(width_tmp, height_tmp + 10, YELLOW, "Verify:");
 				box(width_tmp, height_tmp + 11, width_box, height_box, YELLOW);
 
-				string old_password, new_password, new_password_again;
+				std::string old_password, new_password, new_password_again;
 
 				gotoXY(width_tmp + 1, height_tmp + 2);
 				old_password = my_getline(width_box - 1);
@@ -440,13 +377,13 @@ int main()
 				if (loggedinStaff->staff.Password != old_password) {
 					my_print(width_tmp, height_tmp + 15, RED, "Your old password has been entered incorrectly. Please, enter again.");
 					gotoXY(width_tmp, height_tmp + 17);
-					system("pause");
+					std::system("pause");
 					goto AGAIN_4;
 				}
 				if (new_password != new_password_again) {
 					my_print(width_tmp, height_tmp + 15, RED, "Confirmation password is not correct. Please, enter again.");
 					gotoXY(width_tmp, height_tmp + 17);
-					system("pause");
+					std::system("pause");
 					goto AGAIN_4;
 				}
 				loggedinStaff->staff.Password = new_password;
@@ -457,7 +394,7 @@ int main()
 				break;
 			}
 			else if (choose_staff == -1 + 7) { // ++++++++++++++++++++++++++++EXIT++++++++++++++++++++++++++++
-				system("cls");
+				std::system("cls");
 				std::cout << "****************************THANK YOU FOR USING!********************************";
 				return 0;
 			}
@@ -467,7 +404,7 @@ int main()
 		while (check_S == 1) {
 		RESTART:
 			std::system("cls");
-			string option[] = { "1. Change password.",
+			std::string option[] = { "1. Change password.",
 						"2. Update your personal information.",
 						"3. Register for the course.",
 						"4. The result of register for the course.",
@@ -493,19 +430,19 @@ int main()
 				UpdateStudentInfo(student, loggedinStudent);
 			}
 			else if (choose == 3) {
-				system("cls");
+				std::system("cls");
 				updateCur_stdnInCourse(course, stu_course);
 
 				int check = 0;
-				string CourseID;
+				std::string CourseID;
 				CR_NODE* cur_course = course;
 				do {
-					system("cls");
+					std::system("cls");
 					viewListOfCourses(course);
 				AGAIN:
-					cin.ignore();
-					cout << "\n\nEnter Course ID which you want to register: ";
-					getline(cin, CourseID);
+					std::cin.ignore();
+					std::cout << "\n\nEnter Course ID which you want to register: ";
+					getline(std::cin, CourseID);
 
 					CR_NODE* cur = course;
 					while (cur != nullptr) {
@@ -517,10 +454,10 @@ int main()
 						cur = cur->next;
 					}
 					if (check == 0) {
-						cout << "Your Course ID doesn't exist. Please enter again.\n";
-						cout << "\nSearch for Course again? (y/n)";
+						std::cout << "Your Course ID doesn't exist. Please enter again.\n";
+						std::cout << "\nSearch for Course again? (y/n)";
 						char ans;
-						cin >> ans;
+						std::cin >> ans;
 						if (ans == 'y' || ans == 'Y') {
 							goto AGAIN;
 						}
@@ -546,7 +483,7 @@ int main()
 					check1 = true;
 				}
 				else {
-					cout << "No more slot for this course " << endl;
+					std::cout << "No more slot for this course " << std::endl;
 				}
 				//2
 				STU_COURSE_NODE* cur_stu_course = stu_course;
@@ -559,7 +496,7 @@ int main()
 				if (count < 5)
 					check2 = true;
 				else {
-					cout << "You have registered 5 courses, cannot register more " << endl;
+					std::cout << "You have registered 5 courses, cannot register more " << std::endl;
 				}
 				//3
 				cur_stu_course = stu_course;
@@ -574,7 +511,7 @@ int main()
 				while (cur_stu_course) {
 					if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID) {
 						if (cur_stu_course->stu_course.session == ConvertStringSS(cur_course->course.session) && cur_stu_course->stu_course.weekday == ConvertStringWD(cur_course->course.dayOfWeek)) {
-							cout << "Conflict between your calendar and the course's calendar" << endl;
+							std::cout << "Conflict between your calendar and the course's calendar" << std::endl;
 							break;
 						}
 					}
@@ -587,7 +524,7 @@ int main()
 
 				while (cur_stu_course) {
 					if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_stu_course->stu_course.CouID == CourseID) {
-						cout << "Your have already registed to this course " << endl;
+						std::cout << "Your have already registed to this course " << std::endl;
 						break;
 					}
 					else
@@ -600,8 +537,8 @@ int main()
 
 				if (check1 == check2 == check3 == check4 == true) {
 					char lastcheck;
-					cout << "\nAre you sure you want to register to this course? (y/n): ";
-					cin >> lastcheck;
+					std::cout << "\nAre you sure you want to register to this course? (y/n): ";
+					std::cin >> lastcheck;
 					if (lastcheck == 'y' || lastcheck == 'Y') {
 						cur_stu_course = stu_course;
 						while (cur_stu_course->next)
@@ -647,10 +584,10 @@ int main()
 
 						Read_After_Update_Student_Course(student, course, teacher, stu_course);
 
-						cout << "\nRegister successfully " << endl;
+						std::cout << "\nRegister successfully " << std::endl;
 					}
 				}
-				system("pause");
+				std::system("pause");
 			}
 
 			else if (choose == 4) {
@@ -664,7 +601,7 @@ int main()
 			}
 			else if (choose == 7) {
 				View_Y_Scoreboard(stu_course, loggedinStudent);
-				system("pause");
+				std::system("pause");
 			}
 			else if (choose == 0 + 8) {
 				break;

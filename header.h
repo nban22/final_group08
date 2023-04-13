@@ -11,9 +11,6 @@
 #include <conio.h>
 #include <Sstream>
 
-//using namespace std;
-//Shouldn't use namespace in a header files!
-
 //**********************SEMESTER.h
 struct Date {
 	int year{}, month{}, day{};
@@ -54,7 +51,7 @@ struct COURSE {
 };
 
 struct STU_COURSE {
-  	std::string Schoolyear; //bool checkExistOfSchoolyear(int year) (Ctrl+F to find)
+	std::string Schoolyear; //bool checkExistOfSchoolyear(int year) (Ctrl+F to find)
 	int Semester{}; //1 or 2 or 3 
 	int No{};
 	std::string StuID;
@@ -239,20 +236,20 @@ void viewListOfClasses(CLASS_NODE*& listclass, STU_NODE* student);
 
 
 //=============view list of courses============
-void viewListOfCourses(CR_NODE* course); 
+void viewListOfCourses(CR_NODE* course);
 
 //=============view list students of course============
-void viewListStudentsOfCourse(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID);
-
+void displayLISTSTUDENTOFCOURSE(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID);
+void viewListStudentsOfCourse(STU_COURSE_NODE* stu_course, STU_NODE* student, CR_NODE* course);
 //=============view list students of class============
 void viewListStudentsOfClass(STU_NODE* student, CLASS_NODE* listclass);
 
 //=============view scoreboard in a course============
-void viewScoreBoard_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID);
-
+void displayScoreBoard_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID);
+void viewScoreboardInCourse(CR_NODE* course, STU_COURSE_NODE* stu_course, STU_NODE* student);
 //=============view scoreboard in a class============\n m 
-void viewScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string ClassID);
-
+void displayScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string ClassID);
+void viewScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, CLASS_NODE* listclass);
 
 void displayListStudentsOfCourse(STU_NODE*& student, std::string classID);
 // Modify teacher
