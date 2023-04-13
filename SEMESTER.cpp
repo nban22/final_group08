@@ -118,8 +118,14 @@ void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& 
 	cin >> NewCourse->course.endDate.day >> NewCourse->course.endDate.month >> NewCourse->course.endDate.year;
 
 	//Add course at the end
-	cur->next = NewCourse;
-	NewCourse->prev = cur;
+	if (!cur) {
+		cur = NewCourse;
+		NewCourse->prev = nullptr;
+	}
+	else {
+		cur->next = NewCourse;
+		NewCourse->prev = cur;
+	}
 
 	system("cls");
 	cout << "Added Course Successfully\n";

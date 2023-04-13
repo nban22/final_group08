@@ -561,7 +561,7 @@ bool Read_After_Update_Student_Course(STU_NODE* student, CR_NODE* course, STFF_N
 	}
 	int i = 1;
 	STU_COURSE_NODE* cur_stu_course = stu_course;
-	outfile << "No,Student ID,Student Name,Gender,Class ID,Course ID,Course Name,Credits,Max_stdn,Teacher Name,Teacher ID,Week day,session,day start,month start,day end,month end,Midterm Mark,Final Mark,Other Mark,Total Mark";
+	outfile << "No,School Year, Sem, Student ID,Student Name,Gender,Class ID,Course ID,Course Name,Credits,Max_stdn,Teacher Name,Teacher ID,Week day,session,day start,month start,day end,month end,Midterm Mark,Final Mark,Other Mark,Total Mark";
 	while (cur_stu_course) {
 		STU_NODE* tmp_student = getInformationByStudentID(cur_stu_course->stu_course.StuID, student);
 		CR_NODE* tmp_course = getInformationByCourseID(cur_stu_course->stu_course.CouID, course);
@@ -611,6 +611,7 @@ void updateCur_stdnInCourse(CR_NODE*& course, STU_COURSE_NODE* head) {
 		cur_course = cur_course->next;
 	}
 }
+
 void updateListClass(CLASS_NODE*& listclass, STU_NODE* student) {
 	CLASS_NODE* cur_listclass = listclass;
 	STU_NODE* cur1_student = student;
@@ -628,6 +629,7 @@ void updateListClass(CLASS_NODE*& listclass, STU_NODE* student) {
 		cur1_student = cur1_student->next;
 	}
 }
+
 int countTheNumberOfStudentsInEachCourse(std::string CourseID, STU_COURSE_NODE* head) {
 	STU_COURSE_NODE* cur = head;
 	int count = 0;

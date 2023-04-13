@@ -678,7 +678,7 @@ void printInformation_A_Student(STU_NODE* loggedinStudent) {
 }
 
 void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStudent) {
-	string oldPass;
+/* 	string oldPass;
 	string newPass;
 	string newPassAgain;
 	do {
@@ -706,7 +706,51 @@ void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStude
 			system("pause");
 			break;
 		}
-	} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
+	} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain); */
+
+	ShowCur(1);
+	int width_tmp = 70;
+	int height_tmp = 10;
+
+	int width_box = 40;
+	int height_box = 2;
+
+	my_print(width_tmp, height_tmp, YELLOW, "Old password:");
+	box(width_tmp, height_tmp + 1, width_box, height_box, YELLOW);
+
+	my_print(width_tmp, height_tmp + 5, YELLOW, "New password:");
+	box(width_tmp, height_tmp + 6, width_box, height_box, YELLOW);
+
+	my_print(width_tmp, height_tmp + 10, YELLOW, "Verify:");
+	box(width_tmp, height_tmp + 11, width_box, height_box, YELLOW);
+
+	string old_password, new_password, new_password_again;
+
+	gotoXY(width_tmp + 1, height_tmp + 2);
+	old_password = my_getline(width_box - 1);
+
+	gotoXY(width_tmp + 1, height_tmp + 7);
+	new_password = my_getline(width_box - 1);
+
+	gotoXY(width_tmp + 1, height_tmp + 12);
+	new_password_again = my_getline(width_box - 1);
+
+	if (loggedinStudent->student.Password != old_password) {
+		my_print(width_tmp, height_tmp + 15, RED, "Your old password has been entered incorrectly.");
+		gotoXY(width_tmp, height_tmp + 17);
+		system("pause");
+		return;
+	}
+	if (new_password != new_password_again) {
+		my_print(width_tmp, height_tmp + 15, RED, "Confirmation password is not correct.");
+		gotoXY(width_tmp, height_tmp + 17);
+		system("pause");
+		return;
+	}
+	loggedinStudent->student.Password = new_password;
+	Read_After_Update_Students(student);
+	my_print(width_tmp, height_tmp + 15, RED, "Change password successfully.");
+	system("pause");
 }
 
 bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course) {
@@ -815,7 +859,7 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 
 //Update student
 void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
-	//system("cls");
+AGAIN:
 	int x_boxStudent = 5;
 	int y_boxStudent = 2;
 	int width_boxStudent = 42;
@@ -840,44 +884,89 @@ void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 	int choose;
 	choose = menu(x_boxOption1, y_boxOption1, width_boxOption1, height_boxOption1, amount_option1, option_1, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
-	system("cls");
 	if (choose == 1) {
-		cout << "\nEnter gender which you want to update: ";
-		cin.ignore();
-		getline(cin, tmp);
-		cout << "Are you sure you want to delete this course? (y/n): ";
+		system("cls");
+		ShowCur(1);
+		int width_tmp1 = 50;
+		int height_tmp1 = 10;
+		int width_box1 = 40;
+		int height_box1 = 2;
+
+		my_print(width_tmp1, height_tmp1, YELLOW, "Enter the gender you want to update to: ");
+		box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
+
+		gotoXY(width_tmp1 + 1, height_tmp1 + 2);
+		tmp = my_getline(width_box1 - 1);
+
+		my_print(width_tmp1, height_tmp1 + 5, RED, "Are you sure you want to change to this gender? (y/n): ");
 		cin >> check;
+		gotoXY(width_tmp1, height_tmp1 + 17);
+		cin.ignore();
 		if (check == 'y' || check == 'Y') {
 			loggedinStudent->student.Gender = tmp;
 			Read_After_Update_Students(student);
+			system("cls");
 		}
-		UpdateStudentInfo(student, loggedinStudent);
+		else
+		system("cls"); 
+		goto AGAIN;
 	}
 	else if (choose == 2) {
+		system("cls");
+		ShowCur(1);
+		int width_tmp1 = 50;
+		int height_tmp1 = 10;
+		int width_box1 = 40;
+		int height_box1 = 2;
+
+		my_print(width_tmp1, height_tmp1, YELLOW, "Enter date of birth which you want to update (dd/mm/yyyy): ");
+		box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
+
 		int day, month, year;
-		cout << "\nEnter date of birth which you want to update (dd mm yyyy): ";
+		gotoXY(width_tmp1 + 1, height_tmp1 + 2);
 		cin >> day >> month >> year;
-		cout << "Are you sure you want to delete this course? (y/n): ";
+
+		my_print(width_tmp1, height_tmp1 + 5, RED, "Are you sure you want to change to this date? (y/n): ");
 		cin >> check;
+		gotoXY(width_tmp1, height_tmp1 + 17);
+		cin.ignore();
 		if (check == 'y' || check == 'Y') {
 			loggedinStudent->student.DoB.day = day;
 			loggedinStudent->student.DoB.month = month;
 			loggedinStudent->student.DoB.year = year;
 			Read_After_Update_Students(student);
+			system("cls");
 		}
-		UpdateStudentInfo(student, loggedinStudent);
+		else
+		system("cls");  
+		goto AGAIN;
 	}
 	else if (choose == 3) {
-		cout << "\nEnter social ID which you want to update: ";
-		cin.ignore();
-		getline(cin, tmp);
-		cout << "Are you sure you want to delete this course? (y/n): ";
+		system("cls");
+		ShowCur(1);
+		int width_tmp1 = 50;
+		int height_tmp1 = 10;
+		int width_box1 = 40;
+		int height_box1 = 2;
+
+		my_print(width_tmp1, height_tmp1, YELLOW, "Enter social ID which you want to update: ");
+		box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
+
+		gotoXY(width_tmp1 + 1, height_tmp1 + 2);
+		tmp = my_getline(width_box1 - 1);
+
+		my_print(width_tmp1, height_tmp1 + 5, RED, "Are you sure you want to change to this ID? (y/n): ");
 		cin >> check;
+		gotoXY(width_tmp1, height_tmp1 + 17);
+		cin.ignore();
 		if (check == 'y' || check == 'Y') {
 			loggedinStudent->student.SocialID = tmp;
 			Read_After_Update_Students(student);
+			system("cls");
 		}
-		UpdateStudentInfo(student, loggedinStudent);
+		else
+		system("cls");  
+		goto AGAIN;
 	}
 	else if (choose == 4) {
 		return;
