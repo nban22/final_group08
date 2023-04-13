@@ -411,7 +411,8 @@ int main()
 						"5. Delete the course which registered.",
 						"6. View your schedule.",
 						"7. View your scoreboard.",
-						"0. Log out." };
+						"0. Log out.",
+						"-1. Exit." };
 
 			int x_boxStudent = 5;
 			int y_boxStudent = 2;
@@ -606,11 +607,11 @@ int main()
 			else if (choose == 0 + 8) {
 				break;
 			}
-			else if (choose == -1 + 9) {
-				std::system("pause");
+			else if (choose == -1 + 10) {
+				std::system("cls");
+				std::cout << "****************************THANK YOU FOR USING!********************************";
 				return 0;
 			}
-
 		}
 	}
 }
