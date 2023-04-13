@@ -4,7 +4,7 @@
 #include <conio.h>
 #include <ctime> 
 #include "windows.h"
-using namespace std;
+
 
 //========= lấy tọa độ x của con trỏ hiện tại =======
 int whereX()
@@ -26,7 +26,7 @@ int whereY()
 void gotoXY(int x, int y)
 {
 	HANDLE hConsoleOutput;
-	COORD Cursor_an_Pos = { x, y };
+	COORD Cursor_an_Pos = { (SHORT)x, (SHORT)y };
 	hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(hConsoleOutput, Cursor_an_Pos);
 }
@@ -97,22 +97,12 @@ void SetColor2(int backgound_color, int text_color)
 	int color_code = backgound_color * 16 + text_color;
 	SetConsoleTextAttribute(hStdout, color_code);
 }
-// Hàm xóa màn hình.
-void XoaManHinh()
-{
-	HANDLE hOut;
-	COORD Position;
-	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	Position.X = 0;
-	Position.Y = 0;
-	SetConsoleCursorPosition(hOut, Position);
-}
 // Hàm tự viết
 // x, y là tọa độ con trỏ cần nhảy đến để viết, content là chuỗi cần truyền vào, t_color là màu truyền vào
 void my_print(int x, int y, int t_color, std::string content) {
 	SetColor(t_color);
 	gotoXY(x, y);
-	cout << content;
+	std::cout << content;
 	SetColor(WHITE);
 }
 //Tạo box
@@ -122,21 +112,21 @@ void box(int x, int y, int width, int height, int t_color) {
 	SetColor(t_color);
 	for (int i = x + 1; i < x + width; i++) {
 		gotoXY(i, y);
-		cout << char(196);
+		std::cout << char(196);
 		gotoXY(i, y + height);
-		cout << char(196);
+		std::cout << char(196);
 
 	}
 	for (int i = y + 1; i < y + height; i++) {
 		gotoXY(x, i);
-		cout << char(179);
+		std::cout << char(179);
 		gotoXY(x + width, i);
-		cout << char(179);
+		std::cout << char(179);
 	}
-	gotoXY(x, y); cout << char(218);
-	gotoXY(x + width, y); cout << char(191);
-	gotoXY(x, y + height); cout << char(192);
-	gotoXY(x + width, y + height); cout << char(217);
+	gotoXY(x, y); std::cout << char(218);
+	gotoXY(x + width, y); std::cout << char(191);
+	gotoXY(x, y + height); std::cout << char(192);
+	gotoXY(x + width, y + height); std::cout << char(217);
 
 	SetColor(WHITE);
 }
@@ -149,8 +139,8 @@ void n_box(int x, int y, int width, int height, int amount, int t_color) {
 	}
 	SetColor(t_color);
 	for (int i = 1; i < amount; i++) {
-		gotoXY(x, y + i * height); cout << char(195);
-		gotoXY(x + width, y + i * height); cout << char(180);
+		gotoXY(x, y + i * height); std::cout << char(195);
+		gotoXY(x + width, y + i * height); std::cout << char(180);
 	}
 	SetColor(WHITE);
 }
@@ -162,10 +152,10 @@ void mark_bar(int x, int y, int width, int height, int b_color, std::string cont
 	for (int i = x; i < x - 1 + width; i++)
 		for (int j = y; j < y - 1 + height; j++) {
 			gotoXY(i, j);
-			cout << " ";
+			std::cout << " ";
 		}
 	gotoXY(x, y);
-	cout << content;
+	std::cout << content;
 
 	textcolor(7);
 }
@@ -220,7 +210,7 @@ int menu(int x, int y, int width, int height, int amount, std::string option[], 
 }
 //menu Staff
 void menu_Staff(int x, int y, int width, int height, int amount, std::string option[], int box_color, int text_color, int b_color_light, int option_num) {
-	char ch;
+
 	ShowCur(0);
 	n_box(x, y, width, height, amount, box_color);
 	for (int i = 1; i <= amount; i++) {
@@ -233,24 +223,24 @@ void menu_Staff(int x, int y, int width, int height, int amount, std::string opt
 // Hàm nhập tối đa số lượng cho trước, và "chỉ nhận chữ cái và kí tự @ và dấu chấm "."
 std::string my_getline(int max) {
 	char ch;
-	string str = "";
+	std::string str = "";
 	while (1) {
 		if (_kbhit()) {
 			ch = _getch();
 			if ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'Z') || ch == '@' || ch == '.') {
 				if (str.length() != max) {
 					str += ch;
-					cout << char(ch);
+					std::cout << char(ch);
 				}
 			}
 			else if (ch == 13 || ch == 27) {
 				break;
 			}
 			else if (ch == 8) {
-				int n = str.length();
+				size_t n = str.length();
 				if (n > 0) {
 					str.erase(n - 1);
-					cout << "\b \b";
+					std::cout << "\b \b";
 				}
 			}
 			else if (ch == -32) {
@@ -275,24 +265,24 @@ std::string my_getline(int max) {
 // Hàm nhập tối đa số lượng cho trước, và chỉ nhận số
 std::string my_getline_onlyNumber(int max) {
 	char ch;
-	string str = "";
+	std::string str = "";
 	while (1) {
 		if (_kbhit()) {
 			ch = _getch();
 			if (ch >= '0' && ch <= '9') {
 				if (str.length() != max) {
 					str += ch;
-					cout << char(ch);
+					std::cout << char(ch);
 				}
 			}
 			else if (ch == 13 || ch == 27) {
 				break;
 			}
 			else if (ch == 8) {
-				int n = str.length();
+				size_t n = str.length();
 				if (n > 0) {
 					str.erase(n - 1);
-					cout << "\b \b";
+					std::cout << "\b \b";
 				}
 			}
 			else if (ch == -32) {

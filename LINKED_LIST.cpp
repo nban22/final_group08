@@ -1,7 +1,5 @@
 ﻿#include "header.h"
 
-using namespace std;
-
 //***********GET DATA AND BUILD LINKED LISTS**********
 
 //STAFF
@@ -26,29 +24,29 @@ void getData_A_Teacher(STAFF teacher, STFF_NODE*& head) {
 		tmp->prev = cur;
 	}
 }
-void getDataTeacher_csv(ifstream& input, STFF_NODE*& head) {
+void getDataTeacher_csv(std::ifstream& input, STFF_NODE*& head) {
 	input.open("teachers.csv");
 	STAFF teacher;
 
-	getline(input, teacher.TeacherID);
+	std::getline(input, teacher.TeacherID);
 	while (!input.eof())
 	{
-		string tmp;
-		getline(input, tmp, ',');
+		std::string tmp;
+		std::getline(input, tmp, ',');
 		teacher.No_Staff = stoi(tmp);
-		getline(input, teacher.TeacherID, ',');
-		getline(input, teacher.LName, ',');
-		getline(input, teacher.FName, ',');
-		getline(input, teacher.Gender, ',');
-		getline(input, tmp, '/');
+		std::getline(input, teacher.TeacherID, ',');
+		std::getline(input, teacher.LName, ',');
+		std::getline(input, teacher.FName, ',');
+		std::getline(input, teacher.Gender, ',');
+		std::getline(input, tmp, '/');
 
 		teacher.DoB.month = stoi(tmp);
-		getline(input, tmp, '/');
+		std::getline(input, tmp, '/');
 		teacher.DoB.day = stoi(tmp);
-		getline(input, tmp, ',');
+		std::getline(input, tmp, ',');
 		teacher.DoB.year = stoi(tmp);
-		getline(input, teacher.SocialID, ',');
-		getline(input, teacher.Faculty);
+		std::getline(input, teacher.SocialID, ',');
+		std::getline(input, teacher.Faculty);
 
 		getData_A_Staff(teacher, head);
 	}
@@ -73,30 +71,30 @@ void getData_A_Staff(STAFF staff, STFF_NODE*& head) {
 		tmp->prev = cur;
 	}
 }
-void getDataStaff_csv(ifstream& input, STFF_NODE*& head) {
+void getDataStaff_csv(std::ifstream& input, STFF_NODE*& head) {
 	input.open("staffs.csv");
 	STAFF teacher;
 
-	getline(input, teacher.TeacherID);
+	std::getline(input, teacher.TeacherID);
 	while (!input.eof())
 	{
-		string tmp;
-		getline(input, tmp, ',');
+		std::string tmp;
+		std::getline(input, tmp, ',');
 		teacher.No_Staff = stoi(tmp);
-		getline(input, teacher.TeacherID, ',');
-		getline(input, teacher.Password, ',');
-		getline(input, teacher.LName, ',');
-		getline(input, teacher.FName, ',');
-		getline(input, teacher.Gender, ',');
-		getline(input, tmp, '/');
+		std::getline(input, teacher.TeacherID, ',');
+		std::getline(input, teacher.Password, ',');
+		std::getline(input, teacher.LName, ',');
+		std::getline(input, teacher.FName, ',');
+		std::getline(input, teacher.Gender, ',');
+		std::getline(input, tmp, '/');
 
 		teacher.DoB.month = stoi(tmp);
-		getline(input, tmp, '/');
+		std::getline(input, tmp, '/');
 		teacher.DoB.day = stoi(tmp);
-		getline(input, tmp, ',');
+		std::getline(input, tmp, ',');
 		teacher.DoB.year = stoi(tmp);
-		getline(input, teacher.SocialID, ',');
-		getline(input, teacher.Faculty);
+		std::getline(input, teacher.SocialID, ',');
+		std::getline(input, teacher.Faculty);
 
 		getData_A_Staff(teacher, head);
 	}
@@ -121,31 +119,31 @@ void getData_A_Student(STUDENT student, STU_NODE*& head) {
 		tmp->prev = cur;
 	}
 }
-void getDataStudents_csv(ifstream& input, STU_NODE*& head) {
+void getDataStudents_csv(std::ifstream& input, STU_NODE*& head) {
 	input.open("students.csv");
 
 	STUDENT student;
 
-	getline(input, student.StudentID);
+	std::getline(input, student.StudentID);
 	while (!input.eof()) {
-		string tmp;
-		getline(input, tmp, ',');
+		std::string tmp;
+		std::getline(input, tmp, ',');
 		student.No_Student = stoi(tmp);
-		getline(input, student.StudentID, ',');
-		getline(input, student.Password, ',');
-		getline(input, student.LName, ',');
-		getline(input, student.FName, ',');
-		getline(input, student.Gender, ',');
-		getline(input, tmp, '/');
+		std::getline(input, student.StudentID, ',');
+		std::getline(input, student.Password, ',');
+		std::getline(input, student.LName, ',');
+		std::getline(input, student.FName, ',');
+		std::getline(input, student.Gender, ',');
+		std::getline(input, tmp, '/');
 		student.DoB.month = stoi(tmp);
-		getline(input, tmp, '/');
+		std::getline(input, tmp, '/');
 		student.DoB.day = stoi(tmp);
-		getline(input, tmp, ',');
+		std::getline(input, tmp, ',');
 		student.DoB.year = stoi(tmp);
-		getline(input, student.SocialID, ',');
-		getline(input, student.Classes.name, ',');
-		getline(input, student.Classes.ClassID, ',');
-		getline(input, tmp);
+		std::getline(input, student.SocialID, ',');
+		std::getline(input, student.Classes.name, ',');
+		std::getline(input, student.Classes.ClassID, ',');
+		std::getline(input, tmp);
 		student.Classes.schoolYear = stoi(tmp);
 		getData_A_Student(student, head);
 	}
@@ -153,11 +151,11 @@ void getDataStudents_csv(ifstream& input, STU_NODE*& head) {
 	input.close();
 }
 //Read Course'getDataCourse_csvs Data and create D_Linked List
-void getDataCourse_csv(ifstream& input, CR_NODE*& head) {
-	input.open("courses.csv"); 
+void getDataCourse_csv(std::ifstream& input, CR_NODE*& head) {
+	input.open("courses.csv");
 	if (input.is_open() == false) return;
- 	string tem;
-	getline(input, tem); 
+	std::string tem;
+	std::getline(input, tem);
 	CR_NODE* cur = head;
 	while (input.eof() != true) {
 		if (head == nullptr) {
@@ -178,44 +176,44 @@ void getDataCourse_csv(ifstream& input, CR_NODE*& head) {
 	input.close();
 	return;
 }
-void getData_A_Course(ifstream& input, COURSE& course) {
-	string tmp;
-	getline(input, tmp, ',');
+void getData_A_Course(std::ifstream& input, COURSE& course) {
+	std::string tmp;
+	std::getline(input, tmp, ',');
 	course.No = stoi(tmp);
-	getline(input, course.Schoolyear, ','); //new
-	getline(input, tmp, ',');
+	std::getline(input, course.Schoolyear, ','); //new
+	std::getline(input, tmp, ',');
 	course.Semester = stoi(tmp); //end new
-	getline(input, course.ID, ',');
-	getline(input, course.CName, ',');
-	getline(input, course.LNameTeacher, ',');
-	getline(input, course.FNameTeacher, ',');
-	getline(input, course.teacherID, ',');
-	getline(input, tmp, ',');
+	std::getline(input, course.ID, ',');
+	std::getline(input, course.CName, ',');
+	std::getline(input, course.LNameTeacher, ',');
+	std::getline(input, course.FNameTeacher, ',');
+	std::getline(input, course.teacherID, ',');
+	std::getline(input, tmp, ',');
 	course.Credits = stoi(tmp);
-	getline(input, tmp, ',');
+	std::getline(input, tmp, ',');
 	course.Cur_stdn = stoi(tmp);
-	getline(input, tmp, ',');
+	std::getline(input, tmp, ',');
 	course.Max_stdn = stoi(tmp);
 
-	string weekday;
-	getline(input, weekday, ',');
+	std::string weekday;
+	std::getline(input, weekday, ',');
 	course.dayOfWeek = ConvertEnumWD(weekday);
-	string session;
-	getline(input, session, ',');
+	std::string session;
+	std::getline(input, session, ',');
 	course.session = ConvertEnumSS(session);;
 
-	getline(input, tmp, '/');
+	std::getline(input, tmp, '/');
 	course.startDate.month = stoi(tmp);
-	getline(input, tmp, '/');
+	std::getline(input, tmp, '/');
 	course.startDate.day = stoi(tmp);
-	getline(input, tmp, ',');
+	std::getline(input, tmp, ',');
 	course.startDate.year = stoi(tmp);
 
-	getline(input, tmp, '/');
+	std::getline(input, tmp, '/');
 	course.endDate.month = stoi(tmp);
-	getline(input, tmp, '/');
+	std::getline(input, tmp, '/');
 	course.endDate.day = stoi(tmp);
-	getline(input, tmp);
+	std::getline(input, tmp);
 	course.endDate.year = stoi(tmp);
 }
 
@@ -224,49 +222,49 @@ void Get_Data_StudentCourse_csv(std::ifstream& input, STU_COURSE_NODE*& head) {
 	input.open("student_course.csv"); //put this in main.cpp
 	STU_COURSE studentcourse;
 
-	string tem;
-	getline(input, tem);
+	std::string tem;
+	std::getline(input, tem);
 	while (!input.eof())
 	{
-		string tmp;
-		getline(input, tmp, ',');
+		std::string tmp;
+		std::getline(input, tmp, ',');
 		if (tmp == "") {
 			input.close();
 			break;
 		}
 		studentcourse.No = stoi(tmp);
-		getline(input, studentcourse.Schoolyear, ',');
-		getline(input, tmp, ',');
+		std::getline(input, studentcourse.Schoolyear, ',');
+		std::getline(input, tmp, ',');
 		studentcourse.Semester = stoi(tmp);
-		getline(input, studentcourse.StuID, ',');
-		getline(input, studentcourse.StudentName, ',');
-		getline(input, studentcourse.Gen, ',');
-		getline(input, studentcourse.Class, ',');
-		getline(input, studentcourse.CouID, ',');
-		getline(input, studentcourse.Cname, ',');
-		getline(input, tmp, ',');
+		std::getline(input, studentcourse.StuID, ',');
+		std::getline(input, studentcourse.StudentName, ',');
+		std::getline(input, studentcourse.Gen, ',');
+		std::getline(input, studentcourse.Class, ',');
+		std::getline(input, studentcourse.CouID, ',');
+		std::getline(input, studentcourse.Cname, ',');
+		std::getline(input, tmp, ',');
 		studentcourse.credits = stoi(tmp);
-		getline(input, tmp, ',');
+		std::getline(input, tmp, ',');
 		studentcourse.Max_stdn = stoi(tmp);
-		getline(input, studentcourse.Teachername, ',');
-		getline(input, studentcourse.TeacherID, ',');
-		getline(input, studentcourse.weekday, ',');
-		getline(input, studentcourse.session, ',');
-		getline(input, tmp, ',');
+		std::getline(input, studentcourse.Teachername, ',');
+		std::getline(input, studentcourse.TeacherID, ',');
+		std::getline(input, studentcourse.weekday, ',');
+		std::getline(input, studentcourse.session, ',');
+		std::getline(input, tmp, ',');
 		studentcourse.startdate.day = stoi(tmp);
-		getline(input, tmp, ',');
+		std::getline(input, tmp, ',');
 		studentcourse.startdate.month = stoi(tmp);
-		getline(input, tmp, ',');
+		std::getline(input, tmp, ',');
 		studentcourse.enddate.day = stoi(tmp);
-		getline(input, tmp, ',');
+		std::getline(input, tmp, ',');
 		studentcourse.enddate.month = stoi(tmp);
-		getline(input, tmp, ',');
+		std::getline(input, tmp, ',');
 		studentcourse.midterm = stof(tmp);
-		getline(input, tmp, ',');
+		std::getline(input, tmp, ',');
 		studentcourse.final = stof(tmp);
-		getline(input, tmp, ',');
+		std::getline(input, tmp, ',');
 		studentcourse.other = stof(tmp);
-		getline(input, tmp);
+		std::getline(input, tmp);
 		studentcourse.total = stof(tmp);
 
 		getData_A_StuCourse(studentcourse, head);
@@ -359,21 +357,21 @@ void EnterCourseScore(STU_COURSE_NODE*& SC, CR_NODE* C, STFF_NODE* loggedinStaff
 	int count = 0;
 	std::string courseID = "0";
 
-	cout << "choose a course" << endl;
+	std::cout << "choose a course" << std::endl;
 	while (cur2) {
 		if (cur2->course.teacherID == loggedinStaff->staff.TeacherID) {
-			cout << cur2->course.No << "  " << cur2->course.ID << "  " << cur2->course.CName << endl;
+			std::cout << cur2->course.No << "  " << cur2->course.ID << "  " << cur2->course.CName << std::endl;
 			count++;
 		}
 		cur2 = cur2->next;
 	}
 	if (count == 0) {
-		cout << "you have not attend any course" << endl;
+		std::cout << "you have not attend any course" << std::endl;
 		check = 0;
 		return;
 	}
-	cout << "your choice: ";
-	cin >> choice;
+	std::cout << "your choice: ";
+	std::cin >> choice;
 	while (cur1) {
 		if (cur1->stu_course.No == choice) {
 			courseID = cur1->stu_course.CouID;
@@ -384,25 +382,25 @@ void EnterCourseScore(STU_COURSE_NODE*& SC, CR_NODE* C, STFF_NODE* loggedinStaff
 	}
 
 	if (courseID == "0") {
-		cout << "Invalid selection, please enter again.\n\n";
+		std::cout << "Invalid selection, please enter again.\n\n";
 		check = 0;
 		system("pause");
 		return;
 	}
 
 	cur1 = SC;
-	cout << "\n\n";
+	std::cout << "\n\n";
 
 	while (cur1) {
 		if (courseID == cur1->stu_course.CouID) {
-			cout << "\t\tEnter Score for student:" << endl;
-			cout << cur1->stu_course.StudentName << "  " << cur1->stu_course.StuID << "  " << endl;
-			cout << "Midterm mark: ";
-			cin >> cur1->stu_course.midterm;
-			cout << "Final mark: ";
-			cin >> cur1->stu_course.final;
-			cout << "Other mark: ";
-			cin >> cur1->stu_course.other;
+			std::cout << "\t\tEnter Score for student:" << std::endl;
+			std::cout << cur1->stu_course.StudentName << "  " << cur1->stu_course.StuID << "  " << std::endl;
+			std::cout << "Midterm mark: ";
+			std::cin >> cur1->stu_course.midterm;
+			std::cout << "Final mark: ";
+			std::cin >> cur1->stu_course.final;
+			std::cout << "Other mark: ";
+			std::cin >> cur1->stu_course.other;
 			cur1->stu_course.total = (cur1->stu_course.other + cur1->stu_course.midterm + 2 * cur1->stu_course.final) / 4;
 			system("cls");
 		}
@@ -421,7 +419,7 @@ void EnterCourseScore(STU_COURSE_NODE*& SC, CR_NODE* C, STFF_NODE* loggedinStaff
 
 // ===============Doc lai file sau khi da cap nhat=============
 bool Read_After_Update_Staffs(STFF_NODE* staff) {
-	ofstream outfile;
+	std::ofstream outfile;
 	outfile.open("staffs_test.csv");
 	if (!outfile.is_open()) {
 		return 0;
@@ -449,7 +447,7 @@ bool Read_After_Update_Staffs(STFF_NODE* staff) {
 	return 1;
 }
 bool Read_After_Update_Teachers(STFF_NODE* teacher) {
-	ofstream outfile;
+	std::ofstream outfile;
 	outfile.open("teachers_test.csv");
 	if (!outfile.is_open()) {
 		return 0;
@@ -476,7 +474,7 @@ bool Read_After_Update_Teachers(STFF_NODE* teacher) {
 	return 1;
 }
 bool Read_After_Update_Students(STU_NODE* student) {
-	ofstream outfile;
+	std::ofstream outfile;
 	outfile.open("students_TEST.csv");
 	if (!outfile.is_open()) {
 		return 0;
@@ -498,7 +496,7 @@ bool Read_After_Update_Students(STU_NODE* student) {
 			<< cur_student->student.DoB.year << ","
 			<< cur_student->student.SocialID << ","
 			<< cur_student->student.Classes.name << ","
-			<< cur_student->student.Classes.ClassID<< ","
+			<< cur_student->student.Classes.ClassID << ","
 			<< "2022";
 		cur_student = cur_student->next;
 	}
@@ -506,7 +504,7 @@ bool Read_After_Update_Students(STU_NODE* student) {
 	return 1;
 }
 bool Read_After_Update_Course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE* course) {
-	ofstream outfile;
+	std::ofstream outfile;
 	outfile.open("coursestest.csv");
 	if (!outfile.is_open()) {
 		return 0;
@@ -523,8 +521,8 @@ bool Read_After_Update_Course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, C
 			cur_course = cur_course->next;
 			continue;
 		}
-		string session = ConvertStringonlySS(cur_course->course.session);
-		string week = ConvertStringWD(cur_course->course.dayOfWeek);
+		std::string session = ConvertStringonlySS(cur_course->course.session);
+		std::string week = ConvertStringWD(cur_course->course.dayOfWeek);
 		outfile << "\n" << i++ << ","
 			<< cur_course->course.Schoolyear << ","
 			<< cur_course->course.Semester << ","
@@ -554,7 +552,7 @@ bool Read_After_Update_Course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, C
 	return 1;
 }
 bool Read_After_Update_Student_Course(STU_NODE* student, CR_NODE* course, STFF_NODE* teacher, STU_COURSE_NODE* stu_course) {
-	ofstream outfile;
+	std::ofstream outfile;
 	outfile.open("Student_Course_test.csv");
 	if (!outfile.is_open()) {
 		return 0;
@@ -571,10 +569,10 @@ bool Read_After_Update_Student_Course(STU_NODE* student, CR_NODE* course, STFF_N
 			cur_stu_course = cur_stu_course->next;
 			continue;
 		}
-		string student_name = tmp_student->student.LName + " " + tmp_student->student.FName;
-		string teacher_name = tmp_teacher->staff.LName + " " + tmp_teacher->staff.FName;
-		string session = ConvertStringonlySS(tmp_course->course.session);
-		string week = ConvertStringWD(tmp_course->course.dayOfWeek);
+		std::string student_name = tmp_student->student.LName + " " + tmp_student->student.FName;
+		std::string teacher_name = tmp_teacher->staff.LName + " " + tmp_teacher->staff.FName;
+		std::string session = ConvertStringonlySS(tmp_course->course.session);
+		std::string week = ConvertStringWD(tmp_course->course.dayOfWeek);
 		outfile << "\n" << i++ << ","
 			<< cur_stu_course->stu_course.Schoolyear << "," //new
 			<< cur_stu_course->stu_course.Semester << "," //new
@@ -639,21 +637,21 @@ int countTheNumberOfStudentsInEachCourse(std::string CourseID, STU_COURSE_NODE* 
 	return count;
 }
 
-bool checkExistOfSchoolyear(string year) {
-	ifstream infile;
+bool checkExistOfSchoolyear(std::string year) {
+	std::ifstream infile;
 	infile.open("NewSchoolYear.csv");
 	if (!infile.is_open()) {
-		cout << "No file founded";
+		std::cout << "No file founded";
 		return 0;
-	} 
+	}
 
-	string tmp;
-	getline(infile, tmp);
+	std::string tmp;
+	std::getline(infile, tmp);
 
 	while (!infile.eof()) {
-		string line;
-		getline(infile, line, '\n');
- 		if (line == "") {
+		std::string line;
+		std::getline(infile, line, '\n');
+		if (line == "") {
 			return 0;
 		}
 		if (line.compare(year) == 0) {
@@ -661,7 +659,7 @@ bool checkExistOfSchoolyear(string year) {
 		}
 	}
 	return 0;
-} 
+}
 
 void CreateSchoolYear(int& sYEAR) {
 	std::cout << "Input the starting year of the school year: ";
@@ -680,23 +678,23 @@ void CreateSchoolYear(int& sYEAR) {
 }
 
 void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff) {
-	cout << "Enter new information:" << endl;
-	cout << "Teacher ID: ";
-	cin >> loggedinStaff->staff.TeacherID;
-	cout << "Password: ";
-	cin >> loggedinStaff->staff.Password;
-	cout << "First Name: ";
-	cin >> loggedinStaff->staff.FName;
-	cout << "Last Name: ";
-	cin >> loggedinStaff->staff.LName;
-	cout << "Gender: ";
-	cin >> loggedinStaff->staff.Gender;
-	cout << "Date of Birth (DD MM YYYY): ";
-	cin >> loggedinStaff->staff.DoB.day >> loggedinStaff->staff.DoB.month >> loggedinStaff->staff.DoB.year;
-	cout << "Social ID: ";
-	cin >> loggedinStaff->staff.SocialID;
-	cout << "Faculty: ";
-	cin >> loggedinStaff->staff.Faculty;
+	std::cout << "Enter new information:" << std::endl;
+	std::cout << "Teacher ID: ";
+	std::cin >> loggedinStaff->staff.TeacherID;
+	std::cout << "Password: ";
+	std::cin >> loggedinStaff->staff.Password;
+	std::cout << "First Name: ";
+	std::cin >> loggedinStaff->staff.FName;
+	std::cout << "Last Name: ";
+	std::cin >> loggedinStaff->staff.LName;
+	std::cout << "Gender: ";
+	std::cin >> loggedinStaff->staff.Gender;
+	std::cout << "Date of Birth (DD MM YYYY): ";
+	std::cin >> loggedinStaff->staff.DoB.day >> loggedinStaff->staff.DoB.month >> loggedinStaff->staff.DoB.year;
+	std::cout << "Social ID: ";
+	std::cin >> loggedinStaff->staff.SocialID;
+	std::cout << "Faculty: ";
+	std::cin >> loggedinStaff->staff.Faculty;
 }
 
 STU_NODE* getInformationByStudentID(std::string StuID, STU_NODE* student) {
@@ -728,46 +726,46 @@ STFF_NODE* getInformationByTeacherID(std::string TeacherID, STFF_NODE* teacher) 
 }
 STU_NODE* importClassFromCSV(std::string ClassID) {
 	//Kiểm tra sự tồn tại của file csv
-	string filename = ClassID + ".csv";
-	ifstream file(filename);
+	std::string filename = ClassID + ".csv";
+	std::ifstream file(filename);
 
 	if (!file) {
-		cout << "File not found!";
+		std::cout << "File not found!";
 		return nullptr;
 	}
 
 	//Đọc thông tin học sinh từ file csv và lưu vào danh sách liên kết
 	STU_NODE* head = nullptr;
 	STU_NODE* tail = nullptr;
-	string line;
-	getline(file, line); //Bỏ qua dòng đầu tiên của file csv
-	while (getline(file, line)) {
+	std::string line;
+	std::getline(file, line); //Bỏ qua dòng đầu tiên của file csv
+	while (std::getline(file, line)) {
 		STUDENT student;
-		stringstream ss(line);
-		string field;
-		getline(ss, field, ',');
+		std::stringstream ss(line);
+		std::string field;
+		std::getline(ss, field, ',');
 		student.No_Student = stoi(field);
-		getline(ss, field, ',');
+		std::getline(ss, field, ',');
 		student.StudentID = field;
-		getline(ss, field, ',');
+		std::getline(ss, field, ',');
 		student.Password = field;
-		getline(ss, field, ',');
+		std::getline(ss, field, ',');
 		student.FName = field;
-		getline(ss, field, ',');
+		std::getline(ss, field, ',');
 		student.LName = field;
-		getline(ss, field, ',');
+		std::getline(ss, field, ',');
 		student.Gender = field;
-		getline(ss, field, ',');
+		std::getline(ss, field, ',');
 		student.SocialID = field;
-		getline(ss, field, ',');
+		std::getline(ss, field, ',');
 		student.DoB.day = stoi(field);
-		getline(ss, field, ',');
+		std::getline(ss, field, ',');
 		student.DoB.month = stoi(field);
-		getline(ss, field, ',');
+		std::getline(ss, field, ',');
 		student.DoB.year = stoi(field);
-		getline(ss, field, ',');
+		std::getline(ss, field, ',');
 		student.Classes.name = field;
-		getline(ss, field, ',');
+		std::getline(ss, field, ',');
 		student.Classes.ClassID = field;
 
 		STU_NODE* node = new STU_NODE;
