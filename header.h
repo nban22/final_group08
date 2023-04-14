@@ -311,5 +311,11 @@ std::string my_getline_addSpace(int max);
 
 // Delete LL
 void DeleteLL1(STU_NODE* head);
+void DeleteLL2(STFF_NODE* head);
+void DeleteLL3(CR_NODE* head);
+void DeleteLL4(STU_COURSE_NODE* head);
+
+
+
 
 #endif

@@ -798,3 +798,36 @@ void DeleteLL1(STU_NODE* head)
 	}
 	head = nullptr;
 }
+void DeleteLL2(STFF_NODE* head)
+{
+	STFF_NODE* tmp = head;
+	while (tmp != nullptr)
+	{
+		STFF_NODE* p = tmp;
+		tmp = tmp->next;
+		delete p;
+	}
+	head = nullptr;
+}
+void DeleteLL3(CR_NODE* head)
+{
+	CR_NODE* tmp = head;
+	while (tmp != nullptr)
+	{
+		CR_NODE* p = tmp;
+		tmp = tmp->next;
+		delete p;
+	}
+	head = nullptr;
+}
+void DeleteLL4(STU_COURSE_NODE* head)
+{
+	STU_COURSE_NODE* tmp = head;
+	while (tmp != nullptr)
+	{
+		STU_COURSE_NODE* p = tmp;
+		tmp = tmp->next;
+		delete p;
+	}
+	head = nullptr;
+}
