@@ -451,7 +451,8 @@ int main()
 				std::system("cls");
 				std::cout << "****************************THANK YOU FOR USING!********************************\n\n";
 
-				DeleteLL1(student);
+				DeleteALLLinkList(student, staff, course, stu_course, listclass);
+
 				return 0;
 			}
 		}

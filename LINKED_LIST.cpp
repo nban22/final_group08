@@ -787,47 +787,67 @@ STU_NODE* importClassFromCSV(std::string ClassID) {
 	return head;
 }
 
-void DeleteLL1(STU_NODE* head)
+void DeleteLL1(STU_NODE* head1)
 {
-	STU_NODE* tmp = head;
+	STU_NODE* tmp = head1;
 	while (tmp != nullptr)
 	{
 		STU_NODE* p = tmp;
 		tmp = tmp->next;
 		delete p;
 	}
-	head = nullptr;
+	head1 = nullptr;
 }
-void DeleteLL2(STFF_NODE* head)
+void DeleteLL2(STFF_NODE* head2)
 {
-	STFF_NODE* tmp = head;
+	STFF_NODE* tmp = head2;
 	while (tmp != nullptr)
 	{
 		STFF_NODE* p = tmp;
 		tmp = tmp->next;
 		delete p;
 	}
-	head = nullptr;
+	head2 = nullptr;
 }
-void DeleteLL3(CR_NODE* head)
+void DeleteLL3(CR_NODE* head3)
 {
-	CR_NODE* tmp = head;
+	CR_NODE* tmp = head3;
 	while (tmp != nullptr)
 	{
 		CR_NODE* p = tmp;
 		tmp = tmp->next;
 		delete p;
 	}
-	head = nullptr;
+	head3 = nullptr;
 }
-void DeleteLL4(STU_COURSE_NODE* head)
+void DeleteLL4(STU_COURSE_NODE* head4)
 {
-	STU_COURSE_NODE* tmp = head;
+	STU_COURSE_NODE* tmp = head4;
 	while (tmp != nullptr)
 	{
 		STU_COURSE_NODE* p = tmp;
 		tmp = tmp->next;
 		delete p;
 	}
-	head = nullptr;
+	head4 = nullptr;
 }
+void DeleteLL5(CLASS_NODE* head5)
+{
+	CLASS_NODE* tmp = head5;
+	while (tmp != nullptr)
+	{
+		CLASS_NODE* p = tmp;
+		tmp = tmp->next;
+		delete p;
+	}
+	head5 = nullptr;
+}
+void DeleteALLLinkList(STU_NODE* head1, STFF_NODE* head2, CR_NODE* head3, STU_COURSE_NODE* head4, CLASS_NODE* head5)
+{
+	DeleteLL1(head1);
+	DeleteLL2(head2);
+	DeleteLL3(head3);
+	DeleteLL4(head4);
+	DeleteLL5(head5);
+}
+
