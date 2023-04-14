@@ -450,9 +450,12 @@ int main()
 			else if (choose == -1 + 10) {
 				std::system("cls");
 				std::cout << "****************************THANK YOU FOR USING!********************************\n\n";
+
+				DeleteLL1(student);
 				return 0;
 			}
 		}
 	}
 }
+
 

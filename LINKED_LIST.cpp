@@ -786,3 +786,15 @@ STU_NODE* importClassFromCSV(std::string ClassID) {
 	file.close();
 	return head;
 }
+
+void DeleteLL1(STU_NODE* head)
+{
+	STU_NODE* tmp = head;
+	while (tmp != nullptr)
+	{
+		STU_NODE* p = tmp;
+		tmp = tmp->next;
+		delete p;
+	}
+	head = nullptr;
+}

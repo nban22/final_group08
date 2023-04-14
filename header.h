@@ -309,4 +309,7 @@ std::string my_getline_onlyNumber(int max);
 // Hàm nhập tối đa số lượng cho trước, và "chỉ nhận chữ cái và kí tự @ và dấu chấm "." và space
 std::string my_getline_addSpace(int max);
 
+// Delete LL
+void DeleteLL1(STU_NODE* head);
+
 #endif
