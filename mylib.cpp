@@ -195,10 +195,10 @@ int menu(int x, int y, int width, int height, int amount, std::string option[], 
 						y_tmp += height;
 				}
 				//else if (ch == 75) {
-				//	//đi qua phải
+				//	//đi qua trái
 				//}
 				//else if (ch == 77) {
-				//	// đi qua trái
+				//	// đi qua phải
 				//}
 			}
 			else if (ch == 13) {
@@ -233,7 +233,7 @@ std::string my_getline(int max) {
 					std::cout << char(ch);
 				}
 			}
-			else if (ch == 13 || ch == 27) {
+			else if ((ch == 13 || ch == 27) && str.length() > 0) {
 				break;
 			}
 			else if (ch == 8) {
@@ -275,7 +275,7 @@ std::string my_getline_onlyNumber(int max) {
 					std::cout << char(ch);
 				}
 			}
-			else if (ch == 13 || ch == 27) {
+			else if ((ch == 13 || ch == 27) && str.length() > 0) {
 				break;
 			}
 			else if (ch == 8) {
@@ -302,6 +302,48 @@ std::string my_getline_onlyNumber(int max) {
 			}
 		}
 
+	}
+	return str;
+}
+// Hàm nhập tối đa số lượng cho trước, và "chỉ nhận chữ cái và kí tự @ và dấu chấm "." và space
+std::string my_getline_addSpace(int max) {
+	char ch;
+	std::string str = "";
+	while (1) {
+		if (_kbhit()) {
+			ch = _getch();
+			if ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'Z') || ch == '@' || ch == '.' || ch == ' ') {
+				if (str.length() != max) {
+					str += ch;
+					std::cout << char(ch);
+				}
+			}
+			else if (ch == 13 || ch == 27) {
+				break;
+			}
+			else if (ch == 8) {
+				size_t n = str.length();
+				if (n > 0) {
+					str.erase(n - 1);
+					std::cout << "\b \b";
+				}
+			}
+			else if (ch == -32) {
+				ch = _getch();
+				if (ch == 72) {
+
+				}
+				else if (ch == 80) {
+
+				}
+				else if (ch == 75) {
+
+				}
+				else if (ch == 77) {
+
+				}
+			}
+		}
 	}
 	return str;
 }

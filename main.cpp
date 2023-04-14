@@ -113,7 +113,6 @@ int main()
 		//THE FUNCTIONS OF STAFF
 		while (check_T == 1) {
 			std::system("cls");
-
 			std::string option[] = { "1.Create new.",
 				"2.Enter information.",
 				"3.Look up.",
@@ -130,7 +129,7 @@ int main()
 			choose_staff = menu(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 			//printInformation_A_Staff(loggedinStaff);
-
+			
 			if (choose_staff == 1) { //Create new
 				while (1) {
 					std::system("cls");
@@ -226,6 +225,7 @@ int main()
 			}
 			else if (choose_staff == 2) { //Enter information
 				while (1) {
+					
 					std::system("cls");
 					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
 					std::string option_2[] = { "1.Add new 1st year students to 1st year classes.",
@@ -299,7 +299,7 @@ int main()
 						"0.Come back." };
 					int x_boxOption3 = x_boxStaff + width_boxStaff + 2;
 					int y_boxOption3 = y_boxStaff;
-					int width_boxOption3 = 78;
+					int width_boxOption3 = 75;
 					int height_boxOption3 = 3;
 					int amount_option3 = sizeof(option_3) / sizeof(option_3[0]);
 					int choose;

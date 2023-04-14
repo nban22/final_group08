@@ -169,11 +169,11 @@ void UpdateCourseInfo(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*&
 void DeleteCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 
 //----Weekday----
-WEEKDAY ConvertEnumWD(std::string& str);
+WEEKDAY ConvertEnumWD(std::string str);
 std::string ConvertStringWD(WEEKDAY& wd);
 
 //----Session----
-SESSION ConvertEnumSS(std::string& str);
+SESSION ConvertEnumSS(std::string str);
 std::string ConvertStringSS(SESSION& ss);
 std::string ConvertStringonlySS(SESSION& ss);
 
@@ -305,5 +305,7 @@ void menu_Staff(int x, int y, int width, int height, int amount, std::string opt
 std::string my_getline(int max);
 // Hàm nhập tối đa số lượng cho trước, và chỉ nhận số"
 std::string my_getline_onlyNumber(int max);
+// Hàm nhập tối đa số lượng cho trước, và "chỉ nhận chữ cái và kí tự @ và dấu chấm "." và space
+std::string my_getline_addSpace(int max);
 
 #endif

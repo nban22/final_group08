@@ -326,7 +326,7 @@ int checkExistOfStaffAccount(STFF_NODE*& head, std::string user, std::string pas
 
 //COURSE
 //Weekday
-WEEKDAY ConvertEnumWD(std::string& str) {
+WEEKDAY ConvertEnumWD(std::string str) {
 	if (str.compare("MON") == 0 || str.compare("mon") == 0 || str.compare("Mon") == 0) return MON;
 	else if (str.compare("TUE") == 0 || str.compare("tue") == 0 || str.compare("Tue") == 0) return TUE;
 	else if (str.compare("WED") == 0 || str.compare("wed") == 0 || str.compare("Wed") == 0) return WED;
@@ -335,7 +335,7 @@ WEEKDAY ConvertEnumWD(std::string& str) {
 	else return SAT;
 }
 //Session
-SESSION ConvertEnumSS(std::string& str) {
+SESSION ConvertEnumSS(std::string str) {
 	if (str.compare("S1") == 0 || str.compare("s1") == 0) return S1;
 	else if (str.compare("S2") == 0 || str.compare("s2") == 0) return S2;
 	else if (str.compare("S3") == 0 || str.compare("s3") == 0) return S3;
@@ -559,7 +559,7 @@ bool Read_After_Update_Student_Course(STU_NODE* student, CR_NODE* course, STFF_N
 	}
 	int i = 1;
 	STU_COURSE_NODE* cur_stu_course = stu_course;
-	outfile << "No,School Year, Sem, Student ID,Student Name,Gender,Class ID,Course ID,Course Name,Credits,Max_stdn,Teacher Name,Teacher ID,Week day,session,day start,month start,day end,month end,Midterm Mark,Final Mark,Other Mark,Total Mark";
+	outfile << "No,School Year,Sem,Student ID,Student Name,Gender,Class ID,Course ID,Course Name,Credits,Max_stdn,Teacher Name,Teacher ID,Week day,session,day start,month start,day end,month end,Midterm Mark,Final Mark,Other Mark,Total Mark";
 	while (cur_stu_course) {
 		STU_NODE* tmp_student = getInformationByStudentID(cur_stu_course->stu_course.StuID, student);
 		CR_NODE* tmp_course = getInformationByCourseID(cur_stu_course->stu_course.CouID, course);

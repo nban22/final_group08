@@ -11,7 +11,6 @@ void printInformation_A_Staff(STFF_NODE* loggedinStaff) {
 	std::string DoB = std::to_string(loggedinStaff->staff.DoB.day / 10) + std::to_string(loggedinStaff->staff.DoB.day % 10) + "/"
 		+ std::to_string(loggedinStaff->staff.DoB.month / 10) + std::to_string(loggedinStaff->staff.DoB.month % 10) + "/"
 		+ std::to_string(loggedinStaff->staff.DoB.year);
-
 	std::cout << std::setw(45) << std::right << "Teacher's information"
 		<< "\n\t" << std::setfill('*') << std::setw(55) << "*" << std::setfill(' ')
 		<< "\n\t" << std::setw(15) << std::left << "Full name : " << std::setw(40) << std::right << fullname
@@ -23,17 +22,29 @@ void printInformation_A_Staff(STFF_NODE* loggedinStaff) {
 
 //2 - nter information - 1.Add new 1st year students to 1st year classes.
 void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass) {
-HERE:
+
 	STU_NODE* new_student = new STU_NODE;
 	bool check;
 	STU_NODE* cur_student = student;
 
+	int coordinate_x = 88;
+	int coordinate_y = 7;
+	int width_big_box = 40;
+	int width_small_box = 10;
+	int height_box = 2;
+
 	do {
 		check = 0;
+		ShowCur(1);
 		//std::system("cls");
 		/*viewListOfClasses(listclass, cur_student);*/
-		std::cout << "Enter student's class id: ";
-		std::getline(std::cin, new_student->student.Classes.ClassID);
+		my_print(coordinate_x + 23, coordinate_y - 3, LIGHT_RED, "GENERAL INFORMATION");
+		my_print(coordinate_x, coordinate_y, LIGHT_RED, "Enter class ID:");
+		box(coordinate_x + 25, coordinate_y - 1, width_big_box, height_box, LIGHT_RED);
+	Here_enter_y:
+		gotoXY(coordinate_x + 25 + 1, coordinate_y);
+		new_student->student.Classes.ClassID = my_getline(width_big_box - 1);
+
 		cur_student = student;
 		while (cur_student) {
 			if (cur_student->student.Classes.ClassID == new_student->student.Classes.ClassID)
@@ -41,32 +52,99 @@ HERE:
 			cur_student = cur_student->next;
 		}
 		if (check == 0) {
-			std::cout << "Your class ID which you entered it does not exist.\n";
-			std::cout << "\nSearch for Course again? (y/n)";
-			char ans;
-			std::cin >> ans;
-			std::cin.ignore();
-			if (ans == 'y' || ans == 'Y') {
-				goto HERE;
+			my_print(coordinate_x + 3, coordinate_y + 3, RED, "Your class ID which you entered it does not exist.");
+			my_print(coordinate_x + 3, coordinate_y + 4, LIGHT_RED, "Search for Course again? (y/n): ");
+			std::string ans;
+			int x_old = whereX();
+			int y_old = whereY();
+		LOOP_ans:
+			gotoXY(x_old, y_old);
+			textcolor(WHITE);
+			ans = my_getline(1);
+			if (ans != "y" && ans != "Y" && ans != "n" && ans != "N") {
+				gotoXY(x_old, y_old);
+				textcolor(BLACK);
+				std::cout << " ";
+				goto LOOP_ans;
 			}
-			else {
+			if (ans == "y" || ans == "Y") {
+				textcolor(BLACK);
+				for (int j = 0; j < width_big_box - 1; j++) {
+					gotoXY(coordinate_x + 25 + 1 + j, coordinate_y);
+					std::cout << " ";
+				}
+				for (int j = 0; j <= 55; j++) {
+					gotoXY(coordinate_x + 3 + j, coordinate_y + 3);
+					std::cout << " ";
+					gotoXY(coordinate_x + 3 + j, coordinate_y + 4);
+					std::cout << " ";
+				}
+				textcolor(WHITE);
+				goto Here_enter_y;
+			}
+			else
 				return;
-			}
 		}
 	} while (check == 0);
-	std::cout << "Enter student's last name: ";
-	std::getline(std::cin, new_student->student.LName);
-	std::cout << "Enter student's first name: ";
-	std::getline(std::cin, new_student->student.FName);
-	std::cout << "Enter student's gender: ";
-	std::getline(std::cin, new_student->student.Gender);
-	std::cout << "Enter student's date of birth: (dd mm yyyy): ";
-	std::cin >> new_student->student.DoB.day >> new_student->student.DoB.month >> new_student->student.DoB.year;
-	std::cin.ignore();
-	std::cout << "Enter student's social ID: ";
-	std::getline(std::cin, new_student->student.SocialID);
 
-	std::system("cls");
+	my_print(coordinate_x, coordinate_y + 3, LIGHT_RED, "Enter enrollment day:");
+	box(coordinate_x + 25, coordinate_y + 3 - 1, width_small_box, height_box, LIGHT_RED);
+	my_print(coordinate_x + width_small_box + 1 + 25, coordinate_y + 3, LIGHT_RED, "/");
+	box(coordinate_x + width_small_box + 2 + 25, coordinate_y + 3 - 1, width_small_box, height_box, LIGHT_RED);
+	my_print(coordinate_x + 2 * width_small_box + 3 + 25, coordinate_y + 3, LIGHT_RED, "/");
+	box(coordinate_x + 2 * width_small_box + 4 + 25, coordinate_y + 3 - 1, width_small_box, height_box, LIGHT_RED);
+
+	my_print(coordinate_x, coordinate_y + 6, LIGHT_RED, "Enter last name:");
+	box(coordinate_x + 25, coordinate_y + 6 - 1, width_big_box, height_box, LIGHT_RED);
+
+	my_print(coordinate_x, coordinate_y + 9, LIGHT_RED, "Enter first name:");
+	box(coordinate_x + 25, coordinate_y + 9 - 1, width_big_box, height_box, LIGHT_RED);
+
+	my_print(coordinate_x, coordinate_y + 12, LIGHT_RED, "Enter gender:");
+	box(coordinate_x + 25, coordinate_y + 12 - 1, width_big_box, height_box, LIGHT_RED);
+
+	my_print(coordinate_x, coordinate_y + 15, LIGHT_RED, "Enter birth date:");
+	box(coordinate_x + 25, coordinate_y + 15 - 1, width_small_box, height_box, LIGHT_RED);
+	my_print(coordinate_x + width_small_box + 1 + 25, coordinate_y + 15, LIGHT_RED, "/");
+	box(coordinate_x + width_small_box + 2 + 25, coordinate_y + 15 - 1, width_small_box, height_box, LIGHT_RED);
+	my_print(coordinate_x + 2 * width_small_box + 3 + 25, coordinate_y + 15, LIGHT_RED, "/");
+	box(coordinate_x + 2 * width_small_box + 4 + 25, coordinate_y + 15 - 1, width_small_box, height_box, LIGHT_RED);
+
+
+	my_print(coordinate_x, coordinate_y + 18, LIGHT_RED, "Enter social ID:");
+	box(coordinate_x + 25, coordinate_y + 18 - 1, width_big_box, height_box, LIGHT_RED);
+
+	//getline
+	int enrollment_day;
+	int enrollment_month;
+	int enrollment_year;//edit tại đây
+
+	gotoXY(coordinate_x + 25 + 1, coordinate_y + 3);
+	enrollment_day = stoi(my_getline_onlyNumber(2));
+	gotoXY(coordinate_x + width_small_box + 2 + 25 + 1, coordinate_y + 3);
+	enrollment_month = stoi(my_getline_onlyNumber(2));
+	gotoXY(coordinate_x + 2 * width_small_box + 3 + 25 + 2, coordinate_y + 3);
+	enrollment_year = stoi(my_getline_onlyNumber(4));
+
+	gotoXY(coordinate_x + 25 + 1, coordinate_y + 6);
+	new_student->student.LName = my_getline_addSpace(width_big_box - 1);
+
+	gotoXY(coordinate_x + 25 + 1, coordinate_y + 9);
+	new_student->student.FName = my_getline_addSpace(width_big_box - 1);
+
+	gotoXY(coordinate_x + 25 + 1, coordinate_y + 12);
+	new_student->student.Gender = my_getline(width_big_box - 1);
+
+	gotoXY(coordinate_x + 25 + 1, coordinate_y + 15);
+	new_student->student.DoB.day = stoi(my_getline_onlyNumber(2));
+	gotoXY(coordinate_x + width_small_box + 2 + 25 + 1, coordinate_y + 15);
+	new_student->student.DoB.month = stoi(my_getline_onlyNumber(2));
+	gotoXY(coordinate_x + 2 * width_small_box + 3 + 25 + 2, coordinate_y + 15);
+	new_student->student.DoB.year = stoi(my_getline_onlyNumber(4));
+
+	gotoXY(coordinate_x + 25 + 1, coordinate_y + 18);
+	new_student->student.SocialID = my_getline_onlyNumber(width_big_box - 1);
+
 	cur_student = student;
 	check = 0;
 	while (cur_student->next) {
@@ -81,15 +159,50 @@ HERE:
 	new_student->student.StudentID = std::to_string(stoi(cur_student->student.StudentID) + 1);
 	new_student->student.Password = "678910";
 
-	std::system("cls");
-	std::cout << "Information of new student is: \n";
-	std::cout << "ID: " << new_student->student.StudentID
-		<< "\nPassword: " << new_student->student.Password
-		<< "\nFull name: " << new_student->student.LName << " " << new_student->student.FName
-		<< "\nDate of birth: " << new_student->student.DoB.day << "/" << new_student->student.DoB.month << "/" << new_student->student.DoB.year
-		<< "\nSocial ID: " << new_student->student.SocialID
-		<< "\nClass name: " << new_student->student.Classes.name
-		<< "\nClass ID: " << new_student->student.Classes.ClassID << std::endl;
+	textcolor(BLACK);
+	for (int k = 0 - 3; k <= 20; k++) {
+		for (int p = 0; p <= 25 + width_big_box; p++) {
+			gotoXY(coordinate_x + p, coordinate_y - 1 + k);
+			std::cout << " ";
+		}
+	}
+	textcolor(WHITE);
+	coordinate_x += 10;
+	my_print(coordinate_x + 10, coordinate_y - 3, LIGHT_BLUE, "DETAILED INFORMATION");
+
+	std::string fullname = new_student->student.LName + " " + new_student->student.FName;
+	my_print(coordinate_x, coordinate_y, LIGHT_BLUE, "Student Name:");
+	my_print(coordinate_x + 25, coordinate_y, LIGHT_AQUA, fullname);
+
+	my_print(coordinate_x, coordinate_y + 2, LIGHT_BLUE, "Gender:");
+	my_print(coordinate_x + 25, coordinate_y + 2, LIGHT_AQUA, new_student->student.Gender);
+
+	std::string birthDate= std::to_string(new_student->student.DoB.day / 10) + std::to_string(new_student->student.DoB.day % 10) + "/"
+		+ std::to_string(new_student->student.DoB.month / 10) + std::to_string(new_student->student.DoB.month % 10) + "/"
+		+ std::to_string(new_student->student.DoB.year);
+	my_print(coordinate_x, coordinate_y + 4, LIGHT_BLUE, "Birth Date:");
+	my_print(coordinate_x + 25, coordinate_y + 4, LIGHT_AQUA, birthDate);
+
+	std::string schoolYear = std::to_string(enrollment_year) + " - " + std::to_string(enrollment_year + 1);
+	my_print(coordinate_x, coordinate_y + 6, LIGHT_BLUE, "School Year:");
+	my_print(coordinate_x + 25, coordinate_y + 6, LIGHT_AQUA, schoolYear);
+
+	my_print(coordinate_x, coordinate_y + 8, LIGHT_BLUE, "Class ID:");
+	my_print(coordinate_x + 25, coordinate_y + 8, LIGHT_AQUA, new_student->student.Classes.ClassID);
+
+	my_print(coordinate_x, coordinate_y + 10, LIGHT_BLUE, "Class Name:");
+	my_print(coordinate_x + 25, coordinate_y + 10, LIGHT_AQUA, new_student->student.Classes.name);
+
+	my_print(coordinate_x, coordinate_y + 12, LIGHT_BLUE, "Student ID:");
+	my_print(coordinate_x + 25, coordinate_y + 12, LIGHT_AQUA, new_student->student.StudentID);
+
+	my_print(coordinate_x, coordinate_y + 14, LIGHT_BLUE, "Password:");
+	my_print(coordinate_x + 25, coordinate_y + 14, LIGHT_AQUA, new_student->student.Password);
+
+	my_print(coordinate_x, coordinate_y + 16, LIGHT_BLUE, "Social ID:");
+	my_print(coordinate_x + 25, coordinate_y + 16, LIGHT_AQUA, new_student->student.SocialID);
+
+	gotoXY(coordinate_x + 25, coordinate_y + 18);
 	std::system("pause");
 
 	new_student->next = cur_student->next;
@@ -1133,12 +1246,20 @@ void ExportScoreBoard(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* st
 		if (check == 0) {
 			my_print(coordinate_x + width_box + 5, coordinate_y + 1 + 5, RED, "Your course ID which you entered does not exist.");
 			my_print(coordinate_x + width_box + 5, coordinate_y + 1 + 6, LIGHT_RED, "Search for Course again? (y/n): ");
-			char ans;
-		LOOPP:
-			ans = _getch();
-			if (ans != 'y' && ans != 'Y' && ans != 'n' && ans != 'N')
-				goto LOOPP;
-			if (ans == 'y' || ans == 'Y') {
+			std::string ans;
+			int x_old = whereX();
+			int y_old = whereY();
+		LOOP_ans:
+			gotoXY(x_old, y_old);
+			textcolor(WHITE);
+			ans = my_getline(1);
+			if (ans != "y" && ans != "Y" && ans != "n" && ans != "N") {
+				gotoXY(x_old, y_old);
+				textcolor(BLACK);
+				std::cout << " ";
+				goto LOOP_ans;
+			}
+			if (ans == "y" || ans == "Y") {
 				textcolor(BLACK);
 				for (int j = 0; j < width_box - 1; j++) {
 					gotoXY(coordinate_x + width_box + 5 + 1 + j, coordinate_y + 1 + 2);
@@ -1338,7 +1459,7 @@ bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 	return 1;
 }
 
-void RegisterForCourse(STU_NODE* student, STFF_NODE* teacher, CR_NODE* course, STU_COURSE_NODE* stu_course, STU_NODE *loggedinStudent) { //new
+void RegisterForCourse(STU_NODE* student, STFF_NODE* teacher, CR_NODE* course, STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) { //new
 AGAIN:
 	std::system("cls");
 	updateCur_stdnInCourse(course, stu_course);
@@ -1355,7 +1476,7 @@ AGAIN:
 		std::system("cls");
 		viewListOfCourses(course);
 
-	ShowCur(1);
+		ShowCur(1);
 		my_print(coordinate_x, coordinate_y, GREEN, "Enter Course ID which you want to register: ");
 		box(coordinate_x + 43, coordinate_y - 1, width_box, height_box, BLUE);
 		gotoXY(coordinate_x + 44, coordinate_y);
@@ -1433,7 +1554,7 @@ AGAIN:
 		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID) {
 			if (cur_stu_course->stu_course.session == ConvertStringSS(cur_course->course.session) && cur_stu_course->stu_course.weekday == ConvertStringWD(cur_course->course.dayOfWeek)) {
 				system("cls");
-		        my_print(coordinate_x, coordinate_y, GREEN, "Conflict between your calendar and the course's calendar.");
+				my_print(coordinate_x, coordinate_y, GREEN, "Conflict between your calendar and the course's calendar.");
 				break;
 			}
 		}
@@ -1447,7 +1568,7 @@ AGAIN:
 	while (cur_stu_course) {
 		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_stu_course->stu_course.CouID == CourseID) {
 			system("cls");
-		    my_print(coordinate_x, coordinate_y, GREEN, "Your have already registed to this course.");
+			my_print(coordinate_x, coordinate_y, GREEN, "Your have already registed to this course.");
 			break;
 		}
 		else
@@ -1619,7 +1740,7 @@ AGAIN:
 			system("cls");
 		}
 		else
-		system("cls"); 
+			system("cls");
 		goto AGAIN;
 	}
 	else if (choose == 2) {
@@ -1649,7 +1770,7 @@ AGAIN:
 			system("cls");
 		}
 		else
-		system("cls");  
+			system("cls");
 		goto AGAIN;
 	}
 	else if (choose == 3) {
@@ -1676,7 +1797,7 @@ AGAIN:
 			system("cls");
 		}
 		else
-		system("cls");  
+			system("cls");
 		goto AGAIN;
 	}
 	else if (choose == 4) {
