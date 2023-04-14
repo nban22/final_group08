@@ -160,7 +160,6 @@ int main()
 					}
 					else if (choose == 2) {
 
-
 					}
 					else if (choose == 3) {
 					Here:
@@ -407,7 +406,8 @@ int main()
 						"5. Delete the course which registered.",
 						"6. View your schedule.",
 						"7. View your scoreboard.",
-						"0. Log out." };
+						"0. Log out.",
+						"-1. Exit." };
 
 			int x_boxStudent = 5;
 			int y_boxStudent = 2;
@@ -426,166 +426,8 @@ int main()
 				UpdateStudentInfo(student, loggedinStudent);
 			}
 			else if (choose == 3) {
-				std::system("cls");
-				updateCur_stdnInCourse(course, stu_course);
-
-				int check = 0;
-				std::string CourseID;
-				CR_NODE* cur_course = course;
-				do {
-					std::system("cls");
-					viewListOfCourses(course);
-				AGAIN:
-					std::cin.ignore();
-					std::cout << "\n\nEnter Course ID which you want to register: ";
-					getline(std::cin, CourseID);
-
-					CR_NODE* cur = course;
-					while (cur != nullptr) {
-						if (cur->course.ID == CourseID) {
-							cur_course = cur;
-							check = 1;
-							break;
-						}
-						cur = cur->next;
-					}
-					if (check == 0) {
-						std::cout << "Your Course ID doesn't exist. Please enter again.\n";
-						std::cout << "\nSearch for Course again? (y/n)";
-						char ans;
-						std::cin >> ans;
-						if (ans == 'y' || ans == 'Y') {
-							goto AGAIN;
-						}
-						else if (ans == 'n' || ans == 'N') {
-							check = 2;
-							goto RESTART;
-						}
-					}
-				} while (check == 0);
-
-				bool check1 = false;
-				bool check2 = false;
-				bool check3 = false;
-				bool check4 = false;
-				//điều kiện để chấp nhận đăng ký khóa học
-				//1. lớp còn trống slot
-				//2. không đăng ký quá 5 môn học
-				//3. không bị trùng lịch học
-				//4. môn đó chưa được đăng ký
-
-				//1
-				if (cur_course->course.Cur_stdn < cur_course->course.Max_stdn) {
-					check1 = true;
-				}
-				else {
-					std::cout << "No more slot for this course " << std::endl;
-				}
-				//2
-				STU_COURSE_NODE* cur_stu_course = stu_course;
-				int count = 0;
-				while (cur_stu_course) {
-					if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID)
-						count++;
-					cur_stu_course = cur_stu_course->next;
-				}
-				if (count < 5)
-					check2 = true;
-				else {
-					std::cout << "You have registered 5 courses, cannot register more " << std::endl;
-				}
-				//3
-				cur_stu_course = stu_course;
-				cur_course = course;
-
-				while (cur_course) {
-					if (cur_course->course.ID == CourseID)
-						break;
-					cur_course = cur_course->next;
-				}
-
-				while (cur_stu_course) {
-					if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID) {
-						if (cur_stu_course->stu_course.session == ConvertStringSS(cur_course->course.session) && cur_stu_course->stu_course.weekday == ConvertStringWD(cur_course->course.dayOfWeek)) {
-							std::cout << "Conflict between your calendar and the course's calendar" << std::endl;
-							break;
-						}
-					}
-					cur_stu_course = cur_stu_course->next;
-				}
-				if (cur_stu_course == nullptr)
-					check3 = true;
-				//4
-				cur_stu_course = stu_course;
-
-				while (cur_stu_course) {
-					if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_stu_course->stu_course.CouID == CourseID) {
-						std::cout << "Your have already registed to this course " << std::endl;
-						break;
-					}
-					else
-						cur_stu_course = cur_stu_course->next;
-				}
-				if (cur_stu_course == nullptr)
-					check4 = true;
-
-				// update
-
-				if (check1 == check2 == check3 == check4 == true) {
-					char lastcheck;
-					std::cout << "\nAre you sure you want to register to this course? (y/n): ";
-					std::cin >> lastcheck;
-					if (lastcheck == 'y' || lastcheck == 'Y') {
-						cur_stu_course = stu_course;
-						while (cur_stu_course->next)
-							cur_stu_course = cur_stu_course->next;
-
-						CR_NODE* cr_tmp = new CR_NODE;
-						cr_tmp = course;
-
-						while (cr_tmp) {
-							if (cr_tmp->course.ID == CourseID)
-								break;
-							else
-								cr_tmp = cr_tmp->next;
-						}
-
-						STU_COURSE_NODE* stu_cr_tmp = new STU_COURSE_NODE;
-						stu_cr_tmp->prev = cur_stu_course;
-
-						stu_cr_tmp->stu_course.Class = loggedinStudent->student.Classes.ClassID;
-						stu_cr_tmp->stu_course.Cname = cr_tmp->course.CName;
-						stu_cr_tmp->stu_course.CouID = cr_tmp->course.ID;
-						stu_cr_tmp->stu_course.credits = cr_tmp->course.Credits;
-						stu_cr_tmp->stu_course.enddate.day = cr_tmp->course.endDate.day;
-						stu_cr_tmp->stu_course.enddate.month = cr_tmp->course.endDate.month;
-						stu_cr_tmp->stu_course.enddate.year = cr_tmp->course.endDate.year;
-						stu_cr_tmp->stu_course.Gen = loggedinStudent->student.Gender;
-						stu_cr_tmp->stu_course.Max_stdn = cr_tmp->course.Max_stdn;
-						stu_cr_tmp->stu_course.No = stu_cr_tmp->prev->stu_course.No + 1;
-						stu_cr_tmp->stu_course.session = ConvertStringSS(cr_tmp->course.session);
-						stu_cr_tmp->stu_course.startdate.day = cr_tmp->course.startDate.day;
-						stu_cr_tmp->stu_course.startdate.month = cr_tmp->course.startDate.month;
-						stu_cr_tmp->stu_course.startdate.year = cr_tmp->course.startDate.year;
-						stu_cr_tmp->stu_course.StudentName = loggedinStudent->student.LName + " " + loggedinStudent->student.FName;
-						stu_cr_tmp->stu_course.StuID = loggedinStudent->student.StudentID;
-						stu_cr_tmp->stu_course.TeacherID = cr_tmp->course.teacherID;
-						stu_cr_tmp->stu_course.Teachername = cr_tmp->course.LNameTeacher + " " + cr_tmp->course.FNameTeacher;
-						stu_cr_tmp->stu_course.weekday = ConvertStringWD(cr_tmp->course.dayOfWeek);
-						stu_cr_tmp->stu_course.final = stu_cr_tmp->stu_course.midterm = stu_cr_tmp->stu_course.other = stu_cr_tmp->stu_course.total = 0;
-						cr_tmp->course.Cur_stdn += 1;
-
-						cur_stu_course->next = stu_cr_tmp;
-						stu_cr_tmp->next = nullptr;
-
-						Read_After_Update_Student_Course(student, course, teacher, stu_course);
-
-						std::cout << "\nRegister successfully " << std::endl;
-					}
-				}
-				std::system("pause");
+				RegisterForCourse(student, teacher, course, stu_course, loggedinStudent); 
 			}
-
 			else if (choose == 4) {
 				ResultRegistration(stu_course, loggedinStudent, course);
 			}
@@ -602,11 +444,11 @@ int main()
 			else if (choose == 0 + 8) {
 				break;
 			}
-			else if (choose == -1 + 9) {
-				std::system("pause");
+			else if (choose == -1 + 10) {
+				std::system("cls");
+				std::cout << "****************************THANK YOU FOR USING!********************************\n\n";
 				return 0;
 			}
-
 		}
 	}
 }

@@ -121,8 +121,10 @@ void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& 
 		cur = NewCourse;
 		NewCourse->prev = nullptr;
 	}
-	cur->next = NewCourse;
-	NewCourse->prev = cur;
+	else {
+		cur->next = NewCourse;
+		NewCourse->prev = cur;
+	}
 
 	system("cls");
 	std::cout << "Added Course Successfully\n";
@@ -366,3 +368,21 @@ void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE* stu_course, STFF_NODE* 
 		}
 	}
 }
+
+/* void updateListCourseRes(CLASS_NODE*& listclass, STU_NODE* student) {
+	CLASS_NODE* cur_listclass = listclass;
+	STU_NODE* cur1_student = student;
+	int i = 1;
+	while (cur1_student) {
+		if (checkExistClassNODEIDinDLL(listclass, cur1_student->student.Classes.ClassID) == 0)
+		{
+			if (i != 1) {
+				cur_listclass->next = new CLASS_NODE;
+				cur_listclass = cur_listclass->next;
+			}
+			i++;
+			cur_listclass->listclass = cur1_student->student.Classes;
+		}
+		cur1_student = cur1_student->next;
+	}
+} */

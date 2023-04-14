@@ -1067,7 +1067,6 @@ void ExportScoreBoard(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* st
 	int width_box = 30;
 	int height_box = 2;
 	int amount = sizeof(option) / sizeof(option[0]);
-	int choose_staff;
 	int choice;
 
 	choice = menu(coordinate_x, coordinate_y, width_box, height_box, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
@@ -1242,35 +1241,49 @@ void printInformation_A_Student(STU_NODE* loggedinStudent) {
 }
 
 void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStudent) {
-	std::string oldPass;
-	std::string newPass;
-	std::string newPassAgain;
-	do {
-		std::system("cls");
-		std::cout << "Enter your old password: ";
-		std::getline(std::cin, oldPass);
-		if (loggedinStudent->student.Password != oldPass) {
-			std::cout << "Your old password has been entered incorrectly. Please, enter again.\n";
-			std::system("pause");
-			continue;
-		}
-		else {
-			std::cout << "Enter your new password: ";
-			std::getline(std::cin, newPass);
-			std::cout << "Enter your new password again: ";
-			std::getline(std::cin, newPassAgain);
-			if (newPass != newPassAgain) {
-				std::cout << "Confirmation password is not correct. Please, enter again.\n";
-				std::system("pause");
-				continue;
-			}
-			loggedinStudent->student.Password = newPass;
-			Read_After_Update_Students(student);
-			std::cout << "Change password successfully.\n";
-			std::system("pause");
-			break;
-		}
-	} while (loggedinStudent->student.Password != oldPass || newPass != newPassAgain);
+	ShowCur(1);
+	int width_tmp = 70;
+	int height_tmp = 10;
+
+	int width_box = 40;
+	int height_box = 2;
+
+	my_print(width_tmp, height_tmp, YELLOW, "Old password:");
+	box(width_tmp, height_tmp + 1, width_box, height_box, YELLOW);
+
+	my_print(width_tmp, height_tmp + 5, YELLOW, "New password:");
+	box(width_tmp, height_tmp + 6, width_box, height_box, YELLOW);
+
+	my_print(width_tmp, height_tmp + 10, YELLOW, "Verify:");
+	box(width_tmp, height_tmp + 11, width_box, height_box, YELLOW);
+
+	std::string old_password, new_password, new_password_again;
+
+	gotoXY(width_tmp + 1, height_tmp + 2);
+	old_password = my_getline(width_box - 1);
+
+	gotoXY(width_tmp + 1, height_tmp + 7);
+	new_password = my_getline(width_box - 1);
+
+	gotoXY(width_tmp + 1, height_tmp + 12);
+	new_password_again = my_getline(width_box - 1);
+
+	if (loggedinStudent->student.Password != old_password) {
+		my_print(width_tmp, height_tmp + 15, RED, "Your old password has been entered incorrectly.");
+		gotoXY(width_tmp, height_tmp + 17);
+		system("pause");
+		return;
+	}
+	if (new_password != new_password_again) {
+		my_print(width_tmp, height_tmp + 15, RED, "Confirmation password is not correct.");
+		gotoXY(width_tmp, height_tmp + 17);
+		system("pause");
+		return;
+	}
+	loggedinStudent->student.Password = new_password;
+	Read_After_Update_Students(student);
+	my_print(width_tmp, height_tmp + 15, RED, "Change password successfully.");
+	system("pause");
 }
 
 bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course) {
@@ -1323,6 +1336,184 @@ bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 	}
 	std::system("pause");
 	return 1;
+}
+
+void RegisterForCourse(STU_NODE* student, STFF_NODE* teacher, CR_NODE* course, STU_COURSE_NODE* stu_course, STU_NODE *loggedinStudent) { //new
+AGAIN:
+	std::system("cls");
+	updateCur_stdnInCourse(course, stu_course);
+
+	int coordinate_x = 20;
+	int coordinate_y = 27;
+	int width_box = 30;
+	int height_box = 2;
+
+	int check = 0;
+	std::string CourseID;
+	CR_NODE* cur_course = course;
+	do {
+		std::system("cls");
+		viewListOfCourses(course);
+
+	ShowCur(1);
+		my_print(coordinate_x, coordinate_y, GREEN, "Enter Course ID which you want to register: ");
+		box(coordinate_x + 43, coordinate_y - 1, width_box, height_box, BLUE);
+		gotoXY(coordinate_x + 44, coordinate_y);
+		CourseID = my_getline(width_box - 1);
+
+		CR_NODE* cur = course;
+		while (cur != nullptr) {
+			if (cur->course.ID == CourseID) {
+				cur_course = cur;
+				check = 1;
+				break;
+			}
+			cur = cur->next;
+		}
+		if (check == 0) {
+			system("cls");
+			my_print(coordinate_x, coordinate_y, GREEN, "Your Course ID doesn't exist. Please enter again.");
+			my_print(coordinate_x, coordinate_y + 1, GREEN, "Search for Course again? (y/n)");
+			gotoXY(coordinate_x + 31, coordinate_y + 1);
+			char ans;
+			std::cin >> ans;
+			if (ans == 'y' || ans == 'Y') {
+				goto AGAIN;
+			}
+			else if (ans == 'n' || ans == 'N') {
+				check = 2;
+				return;
+			}
+		}
+	} while (check == 0);
+
+	bool check1 = false;
+	bool check2 = false;
+	bool check3 = false;
+	bool check4 = false;
+	//điều kiện để chấp nhận đăng ký khóa học
+	//1. lớp còn trống slot
+	//2. không đăng ký quá 5 môn học
+	//3. không bị trùng lịch học
+	//4. môn đó chưa được đăng ký
+
+	//1
+	if (cur_course->course.Cur_stdn < cur_course->course.Max_stdn) {
+		check1 = true;
+	}
+	else {
+		system("cls");
+		my_print(coordinate_x, coordinate_y, GREEN, "This course is full.");
+	}
+	//2
+	STU_COURSE_NODE* cur_stu_course = stu_course;
+	int count = 0;
+	while (cur_stu_course) {
+		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID)
+			count++;
+		cur_stu_course = cur_stu_course->next;
+	}
+	if (count < 5)
+		check2 = true;
+	else {
+		system("cls");
+		my_print(coordinate_x, coordinate_y, GREEN, "You have registered 5 courses, cannot register more.");
+	}
+	//3
+	cur_stu_course = stu_course;
+	cur_course = course;
+
+	while (cur_course) {
+		if (cur_course->course.ID == CourseID)
+			break;
+		cur_course = cur_course->next;
+	}
+
+	while (cur_stu_course) {
+		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID) {
+			if (cur_stu_course->stu_course.session == ConvertStringSS(cur_course->course.session) && cur_stu_course->stu_course.weekday == ConvertStringWD(cur_course->course.dayOfWeek)) {
+				system("cls");
+		        my_print(coordinate_x, coordinate_y, GREEN, "Conflict between your calendar and the course's calendar.");
+				break;
+			}
+		}
+		cur_stu_course = cur_stu_course->next;
+	}
+	if (cur_stu_course == nullptr)
+		check3 = true;
+	//4
+	cur_stu_course = stu_course;
+
+	while (cur_stu_course) {
+		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_stu_course->stu_course.CouID == CourseID) {
+			system("cls");
+		    my_print(coordinate_x, coordinate_y, GREEN, "Your have already registed to this course.");
+			break;
+		}
+		else
+			cur_stu_course = cur_stu_course->next;
+	}
+	if (cur_stu_course == nullptr)
+		check4 = true;
+
+	// update
+
+	if (check1 == check2 == check3 == check4 == true) {
+		system("cls");
+		char lastcheck;
+		my_print(coordinate_x, coordinate_y, GREEN, "Are you sure you want to register to this course? (y/n):");
+		std::cin >> lastcheck;
+		if (lastcheck == 'y' || lastcheck == 'Y') {
+			cur_stu_course = stu_course;
+			while (cur_stu_course->next)
+				cur_stu_course = cur_stu_course->next;
+
+			CR_NODE* cr_tmp = new CR_NODE;
+			cr_tmp = course;
+
+			while (cr_tmp) {
+				if (cr_tmp->course.ID == CourseID)
+					break;
+				else
+					cr_tmp = cr_tmp->next;
+			}
+
+			STU_COURSE_NODE* stu_cr_tmp = new STU_COURSE_NODE;
+			stu_cr_tmp->prev = cur_stu_course;
+
+			stu_cr_tmp->stu_course.Class = loggedinStudent->student.Classes.ClassID;
+			stu_cr_tmp->stu_course.Cname = cr_tmp->course.CName;
+			stu_cr_tmp->stu_course.CouID = cr_tmp->course.ID;
+			stu_cr_tmp->stu_course.credits = cr_tmp->course.Credits;
+			stu_cr_tmp->stu_course.enddate.day = cr_tmp->course.endDate.day;
+			stu_cr_tmp->stu_course.enddate.month = cr_tmp->course.endDate.month;
+			stu_cr_tmp->stu_course.enddate.year = cr_tmp->course.endDate.year;
+			stu_cr_tmp->stu_course.Gen = loggedinStudent->student.Gender;
+			stu_cr_tmp->stu_course.Max_stdn = cr_tmp->course.Max_stdn;
+			stu_cr_tmp->stu_course.No = stu_cr_tmp->prev->stu_course.No + 1;
+			stu_cr_tmp->stu_course.session = ConvertStringSS(cr_tmp->course.session);
+			stu_cr_tmp->stu_course.startdate.day = cr_tmp->course.startDate.day;
+			stu_cr_tmp->stu_course.startdate.month = cr_tmp->course.startDate.month;
+			stu_cr_tmp->stu_course.startdate.year = cr_tmp->course.startDate.year;
+			stu_cr_tmp->stu_course.StudentName = loggedinStudent->student.LName + " " + loggedinStudent->student.FName;
+			stu_cr_tmp->stu_course.StuID = loggedinStudent->student.StudentID;
+			stu_cr_tmp->stu_course.TeacherID = cr_tmp->course.teacherID;
+			stu_cr_tmp->stu_course.Teachername = cr_tmp->course.LNameTeacher + " " + cr_tmp->course.FNameTeacher;
+			stu_cr_tmp->stu_course.weekday = ConvertStringWD(cr_tmp->course.dayOfWeek);
+			stu_cr_tmp->stu_course.final = stu_cr_tmp->stu_course.midterm = stu_cr_tmp->stu_course.other = stu_cr_tmp->stu_course.total = 0;
+			cr_tmp->course.Cur_stdn += 1;
+
+			cur_stu_course->next = stu_cr_tmp;
+			stu_cr_tmp->next = nullptr;
+
+			Read_After_Update_Student_Course(student, course, teacher, stu_course);
+
+			system("cls");
+			my_print(coordinate_x, coordinate_y, GREEN, "Register successfully!");
+			gotoXY(coordinate_x, coordinate_y + 1);
+		}
+	}
+	std::system("pause");
 }
 
 void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher) {
@@ -1379,7 +1570,7 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 
 //Update student
 void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
-	//std::system("cls");
+AGAIN:
 	int x_boxStudent = 5;
 	int y_boxStudent = 2;
 	int width_boxStudent = 42;
@@ -1404,44 +1595,89 @@ void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 	int choose;
 	choose = menu(x_boxOption1, y_boxOption1, width_boxOption1, height_boxOption1, amount_option1, option_1, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
-	std::system("cls");
 	if (choose == 1) {
-		std::cout << "\nEnter gender which you want to update: ";
-		std::cin.ignore();
-		std::getline(std::cin, tmp);
-		std::cout << "Are you sure you want to delete this course? (y/n): ";
+		system("cls");
+		ShowCur(1);
+		int width_tmp1 = 50;
+		int height_tmp1 = 10;
+		int width_box1 = 40;
+		int height_box1 = 2;
+
+		my_print(width_tmp1, height_tmp1, YELLOW, "Enter the gender you want to update to: ");
+		box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
+
+		gotoXY(width_tmp1 + 1, height_tmp1 + 2);
+		tmp = my_getline(width_box1 - 1);
+
+		my_print(width_tmp1, height_tmp1 + 5, RED, "Are you sure you want to change to this gender? (y/n): ");
 		std::cin >> check;
+		gotoXY(width_tmp1, height_tmp1 + 17);
+		std::cin.ignore();
 		if (check == 'y' || check == 'Y') {
 			loggedinStudent->student.Gender = tmp;
 			Read_After_Update_Students(student);
+			system("cls");
 		}
-		UpdateStudentInfo(student, loggedinStudent);
+		else
+		system("cls"); 
+		goto AGAIN;
 	}
 	else if (choose == 2) {
+		system("cls");
+		ShowCur(1);
+		int width_tmp1 = 50;
+		int height_tmp1 = 10;
+		int width_box1 = 40;
+		int height_box1 = 2;
+
+		my_print(width_tmp1, height_tmp1, YELLOW, "Enter date of birth which you want to update (dd/mm/yyyy): ");
+		box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
+
 		int day, month, year;
-		std::cout << "\nEnter date of birth which you want to update (dd mm yyyy): ";
+		gotoXY(width_tmp1 + 1, height_tmp1 + 2);
 		std::cin >> day >> month >> year;
-		std::cout << "Are you sure you want to delete this course? (y/n): ";
+
+		my_print(width_tmp1, height_tmp1 + 5, RED, "Are you sure you want to change to this date? (y/n): ");
 		std::cin >> check;
+		gotoXY(width_tmp1, height_tmp1 + 17);
+		std::cin.ignore();
 		if (check == 'y' || check == 'Y') {
 			loggedinStudent->student.DoB.day = day;
 			loggedinStudent->student.DoB.month = month;
 			loggedinStudent->student.DoB.year = year;
 			Read_After_Update_Students(student);
+			system("cls");
 		}
-		UpdateStudentInfo(student, loggedinStudent);
+		else
+		system("cls");  
+		goto AGAIN;
 	}
 	else if (choose == 3) {
-		std::cout << "\nEnter social ID which you want to update: ";
-		std::cin.ignore();
-		std::getline(std::cin, tmp);
-		std::cout << "Are you sure you want to delete this course? (y/n): ";
+		system("cls");
+		ShowCur(1);
+		int width_tmp1 = 50;
+		int height_tmp1 = 10;
+		int width_box1 = 40;
+		int height_box1 = 2;
+
+		my_print(width_tmp1, height_tmp1, YELLOW, "Enter social ID which you want to update: ");
+		box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
+
+		gotoXY(width_tmp1 + 1, height_tmp1 + 2);
+		tmp = my_getline(width_box1 - 1);
+
+		my_print(width_tmp1, height_tmp1 + 5, RED, "Are you sure you want to change to this ID? (y/n): ");
 		std::cin >> check;
+		gotoXY(width_tmp1, height_tmp1 + 17);
+		std::cin.ignore();
 		if (check == 'y' || check == 'Y') {
 			loggedinStudent->student.SocialID = tmp;
 			Read_After_Update_Students(student);
+			system("cls");
 		}
-		UpdateStudentInfo(student, loggedinStudent);
+		else
+		system("cls");  
+		goto AGAIN;
 	}
 	else if (choose == 4) {
 		return;
