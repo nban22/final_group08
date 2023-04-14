@@ -88,19 +88,6 @@ struct STUDENT {
 	std::string SocialID;
 	Date DoB; //Date of Birth
 	CLASS Classes;
-
-	//void ViewCourses();
-	//void LoginStudent();
-	//void LogoutStudent();
-	//void ChangeStudentPass();
-	//void UpdateStudentInfo();
-	//void RegisterCourse();
-	//void ViewSchedule();
-	//void ViewScore();
-	//void ViewStudentinCourse();
-	//void ViewStudentinClass();
-
-	//......add more later (if needed, above are all of the requirements)
 };
 
 struct STAFF {
@@ -111,26 +98,6 @@ struct STAFF {
 	Date DoB; //Date of Birth
 	std::string SocialID;
 	std::string Faculty;
-
-	////Same funcs as students
-	//void LoginStaff();
-	//void LogoutStaff();
-	//void ChangeStaffPass();
-	//void UpdateStaffInfo();
-	//void CreateSchoolYear();
-
-	////Distinct funcs
-	//void AddStudent();
-	//void RemoveStudent();
-	//void CreateCourseRegis();
-	//void ExportStudentinCourse();
-	//void EnterCourseScore();
-	//void ViewCourseScore();
-	//void ImportCourseScore();
-	//void UpdateSudentRes();
-	//void ViewClassScore();
-
-	//......add more later (if needed, above are all of the requirements)
 };
 
 
@@ -217,8 +184,8 @@ void updateCur_stdnInCourse(CR_NODE*& course, STU_COURSE_NODE* head);
 void updateListClass(CLASS_NODE*& listclass, STU_NODE* student);
 void EnterCourseScore(STU_COURSE_NODE*& SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
 void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STU_NODE* S);
-void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head); //roke
-STU_COURSE* checkExistOfStudentCourseRecord(STU_COURSE_NODE*& head, std::string ID); //roke
+void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head); 
+STU_COURSE* checkExistOfStudentCourseRecord(STU_COURSE_NODE*& head, std::string ID); 
 
 //SCHOOL_YEAR
 bool checkExistOfSchoolyear(std::string year);
@@ -268,13 +235,15 @@ void printInformation_A_Student(STU_NODE* loggedinStudent);
 // Update student
 void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStaff);
 
+void RegisterForCourse(STU_NODE* student, STFF_NODE* teacher, CR_NODE* course, STU_COURSE_NODE* stu_course, STU_NODE *loggedinStudent); //new
+
 bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course);
 
 void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher);
 
 void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course);
 //
-char GetRanking(float Grade); //roke
+char GetRanking(float Grade); 
 void View_Y_Scoreboard(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent);
 
 void ViewListOfTeachers(STFF_NODE* teacher);
