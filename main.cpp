@@ -22,6 +22,9 @@ int main()
 {
 	resizeConsole(1200, 600);
 	int count = 0;
+	int semester_count = 0;
+	SEMESTER semester[3];
+
 
 	std::ifstream input;
 	STFF_NODE* staff = nullptr;
@@ -158,7 +161,7 @@ int main()
 						std::system("pause");
 					}
 					else if (choose == 2) {
-
+						createNewSem(semester, semester_count);
 					}
 					else if (choose == 3) {
 					Here:

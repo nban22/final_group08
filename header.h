@@ -76,7 +76,7 @@ struct STU_COURSE {
 
 struct SEMESTER {
 	Date startDate, endDate;
-	COURSE* courses;
+	std::string schoolyear;
 };
 
 //*********************USERS.h
@@ -167,6 +167,7 @@ CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID);
 void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 void UpdateCourseInfo(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 void DeleteCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
+void createNewSem(SEMESTER semester[], int& count);
 
 //----Weekday----
 WEEKDAY ConvertEnumWD(std::string str);
