@@ -27,10 +27,11 @@ HERE:
 	STU_NODE* new_student = new STU_NODE;
 	bool check;
 	STU_NODE* cur_student = student;
+
 	do {
 		check = 0;
-		std::system("cls");
-		viewListOfClasses(listclass, cur_student);
+		//std::system("cls");
+		/*viewListOfClasses(listclass, cur_student);*/
 		std::cout << "Enter student's class id: ";
 		std::getline(std::cin, new_student->student.Classes.ClassID);
 		cur_student = student;
@@ -903,50 +904,87 @@ void viewScoreboardInCourse(CR_NODE* course, STU_COURSE_NODE* stu_course, STU_NO
 }
 
 void displayScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string ClassID) {
-	int i = 1;
+	int coordinate_x = 10;
+	int coordinate_y = 3;
+
+	int width_no = 5;
+	int width_studentID = 10;
+	int width_lastName = 25;
+	int width_firstName = 15;
+	int width_subject = 25;
+	int width_mark = 15;
+
+	int width = width_no + width_studentID + width_lastName + width_firstName + width_subject
+		+ width_mark + 5 * 6;
+
+	gotoXY(coordinate_x, coordinate_y); std::cout << "+";
+	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
+		gotoXY(i, coordinate_y); std::cout << "-";
+	}
+	gotoXY(coordinate_x + width, coordinate_y); std::cout << "+";
+
+	gotoXY(coordinate_x, coordinate_y + 1);
+	std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << "No" << std::setw(5) << std::left << "|"
+		<< std::setw(width_studentID) << std::left << "Student ID" << std::setw(5) << std::left << "|"
+		<< std::setw(width_lastName) << std::left << "Last name" << std::setw(5) << std::left << "|"
+		<< std::setw(width_firstName) << std::left << "Firse name" << std::setw(5) << std::left << "|"
+		<< std::setw(width_subject) << std::left << "Subject" << std::setw(5) << std::left << "|"
+		<< std::setw(width_mark) << std::left << "Mark" << "|";
+	gotoXY(coordinate_x, coordinate_y + 2); std::cout << "+";
+	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
+		gotoXY(i, coordinate_y + 2); std::cout << "-";
+	}
+	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << "+";
+
+	int count = 0;
 	STU_NODE* cur_student = student;
 	STU_COURSE_NODE* cur = stu_course;
-	std::cout << "============================================A SCOREBOARD IN CLASS " << ClassID << "============================================\n\n";
-	std::cout << std::setw(5) << std::left << " " << std::setw(5) << std::left << "No" << std::setw(5) << std::left << "|"
-		<< std::setw(10) << std::left << "Student ID" << std::setw(5) << std::left << "|"
-		<< std::setw(25) << std::left << "Last name" << std::setw(5) << std::left << "|"
-		<< std::setw(15) << std::left << "Firse name" << std::setw(5) << std::left << "|"
-		<< std::setw(25) << std::left << "Subject" << std::setw(5) << std::left << "|"
-		<< std::setw(15) << std::left << "Mark" << std::endl;
-	std::cout << std::setfill('-') << std::setw(125) << std::left << "-" << std::setfill(' ') << std::endl;
+	int i = 0;
 	while (cur_student) {
 		if (cur_student->student.Classes.ClassID == ClassID) {
 			float GPA = 0;
-			int count = 0;
+			int count_subject = 0;
 			while (cur->stu_course.StuID == cur_student->student.StudentID) {
-				std::cout << std::setw(5) << std::left << " " << std::setw(5) << std::left << " " << std::setw(5) << std::left << "|"
-					<< std::setw(10) << std::left << " " << std::setw(5) << std::left << "|"
-					<< std::setw(25) << std::left << " " << std::setw(5) << std::left << "|"
-					<< std::setw(15) << std::left << " " << std::setw(5) << std::left << "|"
-					<< std::setw(25) << std::left << cur->stu_course.Cname << std::setw(5) << std::left << "|"
-					<< std::setw(15) << std::left << cur->stu_course.total << std::endl;
+				gotoXY(coordinate_x, coordinate_y + 2 + ++i);
+				std::cout << std::setw(5) << std::left << "|" << std::setw(5) << std::left << " " << std::setw(5) << std::left << "|"
+					<< std::setw(width_studentID) << std::left << " " << std::setw(5) << std::left << "|"
+					<< std::setw(width_lastName) << std::left << " " << std::setw(5) << std::left << "|"
+					<< std::setw(width_firstName) << std::left << " " << std::setw(5) << std::left << "|"
+					<< std::setw(width_subject) << std::left << cur->stu_course.Cname << std::setw(5) << std::left << "|"
+					<< std::setw(width_mark) << std::left << cur->stu_course.total << "|";
 				GPA += cur->stu_course.total;
-				count++;
+				count_subject++;
 				cur = cur->next;
 			}
-			if (count == 0)
-				std::cout << std::setw(5) << std::left << " " << std::setw(5) << std::left << i++ << std::setw(5) << std::left << "|"
-				<< std::setw(10) << std::left << cur_student->student.StudentID << std::setw(5) << std::left << "|"
-				<< std::setw(25) << std::left << cur_student->student.LName << std::setw(5) << std::left << "|"
-				<< std::setw(15) << std::left << cur_student->student.FName << std::setw(5) << std::left << "|"
-				<< std::setw(25) << std::left << "GPA of this semester" << std::setw(5) << std::left << "|"
-				<< std::setw(15) << std::left << std::fixed << std::setprecision(2) << 0 << std::endl;
-			else
-				std::cout << std::setw(5) << std::left << " " << std::setw(5) << std::left << i++ << std::setw(5) << std::left << "|"
-				<< std::setw(10) << std::left << cur_student->student.StudentID << std::setw(5) << std::left << "|"
-				<< std::setw(25) << std::left << cur_student->student.LName << std::setw(5) << std::left << "|"
-				<< std::setw(15) << std::left << cur_student->student.FName << std::setw(5) << std::left << "|"
-				<< std::setw(25) << std::left << "GPA of this semester" << std::setw(5) << std::left << "|"
-				<< std::setw(15) << std::left << std::fixed << std::setprecision(2) << GPA / count << std::endl;
-			std::cout << std::setfill('-') << std::setw(125) << std::left << "-" << std::setfill(' ') << std::endl;
+			if (count_subject == 0) {
+				gotoXY(coordinate_x, coordinate_y + 2 + ++i);
+				std::cout << std::setw(5) << std::left << "|" << std::setw(5) << std::left << ++count << std::setw(5) << std::left << "|"
+					<< std::setw(width_studentID) << std::left << cur_student->student.StudentID << std::setw(5) << std::left << "|"
+					<< std::setw(width_lastName) << std::left << cur_student->student.LName << std::setw(5) << std::left << "|"
+					<< std::setw(width_firstName) << std::left << cur_student->student.FName << std::setw(5) << std::left << "|"
+					<< std::setw(width_subject) << std::left << "GPA" << std::setw(5) << std::left << "|"
+					<< std::setw(width_mark) << std::left << std::fixed << std::setprecision(2) << 0 << "|";
+			}
+			else {
+				gotoXY(coordinate_x, coordinate_y + 2 + ++i);
+				std::cout << std::setw(5) << std::left << "|" << std::setw(5) << std::left << ++count << std::setw(5) << std::left << "|"
+					<< std::setw(width_studentID) << std::left << cur_student->student.StudentID << std::setw(5) << std::left << "|"
+					<< std::setw(width_lastName) << std::left << cur_student->student.LName << std::setw(5) << std::left << "|"
+					<< std::setw(width_firstName) << std::left << cur_student->student.FName << std::setw(5) << std::left << "|"
+					<< std::setw(width_subject) << std::left << "GPA" << std::setw(5) << std::left << "|"
+					<< std::setw(width_mark) << std::left << std::fixed << std::setprecision(2) << GPA / count_subject << "|";
+			}
+			i++;
+			gotoXY(coordinate_x, coordinate_y + 2 + i); std::cout << "+";
+			for (int j = coordinate_x + 1; j < coordinate_x + width; j++) {
+				gotoXY(j, coordinate_y + 2 + i); std::cout << "-";
+			}
+			gotoXY(coordinate_x + width, coordinate_y + 2 + i); std::cout << "+";
+
 		}
 		cur_student = cur_student->next;
 	}
+	gotoXY(whereX() - 2 * width / 3, whereY() + 2);
 }
 void viewScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, CLASS_NODE* listclass) {
 	int check = 0;
@@ -1017,16 +1055,23 @@ void View_Y_Scoreboard(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
 
 
 void ExportScoreBoard(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* student) {
-Here:
 	std::system("cls");
 	viewListOfCourses(course);
 
-	std::cout << "\n\n\t1. Export all the courses. ";
-	std::cout << "\n\t2. Export only a course. ";
-	std::cout << "\n\t0. Come back. ";
-	std::cout << "\nEnter select the option you want to choose: ";
+
+	std::string option[] = { "1. Export all the courses.",
+				"2. Export only a course.",
+				"0.Come back." };
+	int coordinate_x = 20;
+	int coordinate_y = 25;
+	int width_box = 30;
+	int height_box = 2;
+	int amount = sizeof(option) / sizeof(option[0]);
+	int choose_staff;
 	int choice;
-	std::cin >> choice;
+
+	choice = menu(coordinate_x, coordinate_y, width_box, height_box, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+
 	CR_NODE* cur_course = course;
 	STU_COURSE_NODE* cur_stu_course = stu_course;
 	int count = 0;
@@ -1042,7 +1087,6 @@ Here:
 			output.open("Scoreboard_K22_2_" + cur_course->course.ID + ".csv");
 
 			if (!output.is_open()) {
-				std::cout << "cannot open file " << std::endl;
 				return;
 			}
 
@@ -1065,15 +1109,21 @@ Here:
 			output.close();
 			cur_course = cur_course->next;
 		}
+		my_print(coordinate_x + width_box + 5, coordinate_y + 3, LIGHT_RED, "Export successfully");
+		gotoXY(coordinate_x + width_box + 5, coordinate_y + 4);
+		std::system("pause");
 	}
 	else if (choice == 2) {
 		std::ofstream output;
 		int i = 1;
+		//viewListOfCourses(course);
+		my_print(coordinate_x + width_box + 5, coordinate_y + 1, LIGHT_RED, "Enter ID of the course you want to export:");
+		box(coordinate_x + width_box + 5, coordinate_y + 1 + 1, width_box, height_box, LIGHT_YELLOW);
+		ShowCur(1);
+	Here_enter_y:
+		gotoXY(coordinate_x + width_box + 5 + 1, coordinate_y + 1 + 2);
+		courseID = my_getline(width_box - 1);
 		cur_course = course;
-		std::system("cls");
-		viewListOfCourses(cur_course);
-		std::cout << "\n\nEnter ID of the course you want to export: ";
-		std::cin >> courseID;
 		while (cur_course) {
 			if (cur_course->course.ID == courseID) {
 				check = 1;
@@ -1082,21 +1132,33 @@ Here:
 			cur_course = cur_course->next;
 		}
 		if (check == 0) {
-			std::cout << "Your course ID which you entered does not exist.\n";
-			std::cout << "\nSearch for Course again? (y/n)";
+			my_print(coordinate_x + width_box + 5, coordinate_y + 1 + 5, RED, "Your course ID which you entered does not exist.");
+			my_print(coordinate_x + width_box + 5, coordinate_y + 1 + 6, LIGHT_RED, "Search for Course again? (y/n): ");
 			char ans;
-			std::cin >> ans;
-			std::cin.ignore();
+		LOOPP:
+			ans = _getch();
+			if (ans != 'y' && ans != 'Y' && ans != 'n' && ans != 'N')
+				goto LOOPP;
 			if (ans == 'y' || ans == 'Y') {
-				ExportScoreBoard(stu_course, course, student);
-			}
-			else {
-				return;
+				textcolor(BLACK);
+				for (int j = 0; j < width_box - 1; j++) {
+					gotoXY(coordinate_x + width_box + 5 + 1 + j, coordinate_y + 1 + 2);
+					std::cout << " ";
+				}
+				for (int j = 0; j <= 50; j++) {
+					gotoXY(coordinate_x + width_box + 5 + j, coordinate_y + 1 + 5);
+					std::cout << " ";
+					gotoXY(coordinate_x + width_box + 5 + j, coordinate_y + 1 + 6);
+					std::cout << " ";
+				}
+				textcolor(WHITE);
+				goto Here_enter_y;
 			}
 		}
 		else {
 			output.open("Scoreboard_K22_2_" + cur_course->course.ID + ".csv");
 			if (!output.is_open()) {
+				std::system("cls");
 				std::cout << "cannot open file " << std::endl;
 				return;
 			}
@@ -1115,20 +1177,15 @@ Here:
 						<< cur_stu_course->stu_course.total;
 				}
 				cur_stu_course = cur_stu_course->next;
+				output.close();
+				my_print(coordinate_x + width_box + 5, coordinate_y + 1 + 5, LIGHT_RED, "Export successfully");
+				gotoXY(coordinate_x + width_box + 5, coordinate_y + 1 + 6);
+				std::system("pause");
 			}
-			output.close();
 		}
 	}
-	else if (choice == 0)
+	else if (choice == 0 + 3)
 		return;
-	else {
-		std::cout << "your choice is invalid, pleasre choose again" << std::endl;
-		std::system("pause");
-		goto Here;
-	}
-	std::system("cls");
-	std::cout << "Export finished" << std::endl;
-	std::system("pause");
 }
 
 void changePassWordOfStaffAccount(STFF_NODE*& staff, STFF_NODE*& loggedinStaff) {
@@ -1626,8 +1683,14 @@ void Create_newStaff(STFF_NODE* staff) {
 	std::cin >> NewStaff->staff.DoB.day >> NewStaff->staff.DoB.month >> NewStaff->staff.DoB.year;
 
 	//Add course at the end
-	cur->next = NewStaff;
-	NewStaff->prev = cur;
+	if (!cur) {
+		cur = NewStaff;
+		NewStaff->prev = nullptr;
+	}
+	else {
+		cur->next = NewStaff;
+		NewStaff->prev = cur;
+	}
 
 	std::system("cls");
 	std::cout << "Added Staff Successfully\n";

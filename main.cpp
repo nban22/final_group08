@@ -1,5 +1,4 @@
-﻿
-#include "header.h"
+﻿#include "header.h"
 #include <conio.h>
 
 #define BLACK 0
@@ -81,12 +80,12 @@ int main()
 			box(tmp_width - 2, 12, box_width, 2, BRIGHT_WHITE);
 
 			gotoXY(tmp_width - 1, 9);
-			user = my_getline(box_width - 1);
-			//user = "33383147";
+			//user = my_getline(box_width - 1);
+			user = "33383147";
 
 			gotoXY(tmp_width - 1, 13);
-			pass = my_getline(box_width - 1);
-			//pass = "123456";
+			//pass = my_getline(box_width - 1);
+			pass = "123456";
 
 			check_T = checkExistOfStaffAccount(staff, user, pass, loggedinStaff);
 			check_S = checkExistOfStudentAccount(student, user, pass, loggedinStudent);
@@ -233,14 +232,14 @@ int main()
 					std::string option_2[] = { "1.Add new 1st year students to 1st year classes.",
 						"2.Create a course registration session.",
 						"3.Add a new course.",
-						"4.Export the file to import the list of students in each class.",
+						"4.Export file for editing list of students per class.",
 						"5.Delete a course.",
 						"6.Update a course.",
 						"7.Update the marks in a course.",
 						"0.Come back." };
 					int x_boxOption2 = x_boxStaff + width_boxStaff + 2;
 					int y_boxOption2 = y_boxStaff;
-					int width_boxOption2 = 70;
+					int width_boxOption2 = 54;
 					int height_boxOption2 = 3;
 					int amount_option2 = sizeof(option_2) / sizeof(option_2[0]);
 					int choose;
@@ -331,10 +330,6 @@ int main()
 					}
 					else if (choose == 0 + 8) {
 						break;
-					}
-					else {
-						std::cout << "Invalid selection, please enter again.\n\n";
-						std::system("pause");
 					}
 				}
 			}

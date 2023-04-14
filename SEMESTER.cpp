@@ -117,6 +117,10 @@ void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& 
 	std::cin >> NewCourse->course.endDate.day >> NewCourse->course.endDate.month >> NewCourse->course.endDate.year;
 
 	//Add course at the end
+	if (!cur) {
+		cur = NewCourse;
+		NewCourse->prev = nullptr;
+	}
 	cur->next = NewCourse;
 	NewCourse->prev = cur;
 
