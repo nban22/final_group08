@@ -310,12 +310,12 @@ std::string my_getline_onlyNumber(int max);
 std::string my_getline_addSpace(int max);
 
 // Delete LL
-void DeleteSTU_NODE(STU_NODE* student);
-void DeleteSTFF_NODE(STFF_NODE* staff);
-void DeleteCR_NODE(CR_NODE* course);
-void DeleteSTU_COURSE_NODE(STU_COURSE_NODE* stu_course);
-void DeleteCLASS_NODE(CLASS_NODE* listclass);
-void DeleteALLLinkList(STU_NODE* student, STFF_NODE* staff, CR_NODE* course, STU_COURSE_NODE* stu_course, CLASS_NODE* listclass);
+void DeleteSTU_NODE(STU_NODE* &student);
+void DeleteSTFF_NODE(STFF_NODE* &staff);
+void DeleteCR_NODE(CR_NODE* &course);
+void DeleteSTU_COURSE_NODE(STU_COURSE_NODE* &stu_course);
+void DeleteCLASS_NODE(CLASS_NODE* &listclass);
+void DeleteALLLinkList(STU_NODE* &student, STFF_NODE* &staff, CR_NODE* &course, STU_COURSE_NODE* &stu_course, CLASS_NODE* &listclass);
 
 
 
