@@ -787,67 +787,62 @@ STU_NODE* importClassFromCSV(std::string ClassID) {
 	return head;
 }
 
-void DeleteLL1(STU_NODE* head1)
+void DeleteSTU_NODE(STU_NODE* student)
 {
-	STU_NODE* tmp = head1;
-	while (tmp != nullptr)
+	while (student != nullptr)
 	{
-		STU_NODE* p = tmp;
-		tmp = tmp->next;
-		delete p;
+		STU_NODE* tmp = student;
+		student = student->next;
+		delete tmp;
 	}
-	head1 = nullptr;
+	delete student;
 }
-void DeleteLL2(STFF_NODE* head2)
+void DeleteSTFF_NODE(STFF_NODE* staff)
 {
-	STFF_NODE* tmp = head2;
-	while (tmp != nullptr)
+	while (staff != nullptr)
 	{
-		STFF_NODE* p = tmp;
-		tmp = tmp->next;
-		delete p;
+		STFF_NODE* tmp = staff;
+		staff = staff->next;
+		delete tmp;
 	}
-	head2 = nullptr;
+	delete staff;
 }
-void DeleteLL3(CR_NODE* head3)
+void DeleteCR_NODE(CR_NODE* course)
 {
-	CR_NODE* tmp = head3;
-	while (tmp != nullptr)
+	while (course != nullptr)
 	{
-		CR_NODE* p = tmp;
-		tmp = tmp->next;
-		delete p;
+		CR_NODE* tmp = course;
+		course = course->next;
+		delete tmp;
 	}
-	head3 = nullptr;
+	delete course;
 }
-void DeleteLL4(STU_COURSE_NODE* head4)
+void DeleteSTU_COURSE_NODE(STU_COURSE_NODE* stu_course)
 {
-	STU_COURSE_NODE* tmp = head4;
-	while (tmp != nullptr)
+	while (stu_course != nullptr)
 	{
-		STU_COURSE_NODE* p = tmp;
-		tmp = tmp->next;
-		delete p;
+		STU_COURSE_NODE* tmp = stu_course;
+		stu_course = stu_course->next;
+		delete tmp;
 	}
-	head4 = nullptr;
+	delete stu_course;
 }
-void DeleteLL5(CLASS_NODE* head5)
+void DeleteCLASS_NODE(CLASS_NODE* listclass)
 {
-	CLASS_NODE* tmp = head5;
-	while (tmp != nullptr)
+	while (listclass != nullptr)
 	{
-		CLASS_NODE* p = tmp;
-		tmp = tmp->next;
-		delete p;
+		CLASS_NODE* tmp = listclass;
+		listclass = listclass->next;
+		delete tmp;
 	}
-	head5 = nullptr;
+	delete listclass;
 }
-void DeleteALLLinkList(STU_NODE* head1, STFF_NODE* head2, CR_NODE* head3, STU_COURSE_NODE* head4, CLASS_NODE* head5)
+void DeleteALLLinkList(STU_NODE* student, STFF_NODE* staff, CR_NODE* course, STU_COURSE_NODE* stu_course, CLASS_NODE* listclass)
 {
-	DeleteLL1(head1);
-	DeleteLL2(head2);
-	DeleteLL3(head3);
-	DeleteLL4(head4);
-	DeleteLL5(head5);
+	DeleteSTU_NODE(student);
+	DeleteSTFF_NODE(staff);
+	DeleteCR_NODE(course);
+	DeleteSTU_COURSE_NODE(stu_course);
+	DeleteCLASS_NODE(listclass);
 }
 
