@@ -875,7 +875,7 @@ void displayScoreBoard_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, st
 	std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << "No" << std::setw(5) << std::left << "|"
 		<< std::setw(10) << std::left << "Student ID" << std::setw(5) << std::left << "|"
 		<< std::setw(25) << std::left << "Last name" << std::setw(5) << std::left << "|"
-		<< std::setw(15) << std::left << "Firse name" << std::setw(5) << std::left << "|"
+		<< std::setw(15) << std::left << "First name" << std::setw(5) << std::left << "|"
 		<< std::setw(15) << std::left << "Other Mark" << std::setw(5) << std::left << "|"
 		<< std::setw(15) << std::left << "Midterm Mark" << std::setw(5) << std::left << "|"
 		<< std::setw(15) << std::left << "Final Mark" << std::setw(5) << std::left << "|"
@@ -1134,21 +1134,22 @@ void View_Y_Scoreboard(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
 
 	std::system("cls");
 
-	std::cout << "=========================================================YOUR SCOREBOARD======================================================\n\n";
-	std::cout << std::setw(5) << std::left << " " << std::setw(5) << std::left << "No" << std::setw(5) << std::left << "|"
+	std::cout << "====================================================================YOUR SCOREBOARD=========================================================================\n";
+	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
+	std::cout << std::setw(3) << std::left << "|" << std::setw(5) << std::left << "No" << std::setw(5) << std::left << "|"
 		<< std::setw(15) << std::left << "SchoolYear" << std::setw(5) << std::left << "|"
-		<< std::setw(10) << std::left << "Sem" << std::setw(5) << std::left << "|"
+		<< std::setw(10) << std::left << " Sem" << std::setw(5) << std::left << "|"
 		<< std::setw(10) << std::left << "Course ID" << std::setw(5) << std::left << "|"
-		<< std::setw(30) << std::left << "Course name" << std::setw(5) << std::left << "|"
+		<< std::setw(30) << std::left << "      Course Name" << std::setw(5) << std::left << "|"
 		<< std::setw(10) << std::left << "Midterm" << std::setw(5) << std::left << "|"
 		<< std::setw(10) << std::left << "Final" << std::setw(5) << std::left << "|"
 		<< std::setw(10) << std::left << "Total" << std::setw(5) << std::left << "|"
-		<< std::setw(10) << std::left << "Ranking" << std::endl;
-	std::cout << std::setfill('-') << std::setw(150) << std::left << "-" << std::setfill(' ') << std::endl;
+		<< std::setw(11) << std::left << "Ranking" << "|" << std::endl;
+	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
 
 	while (current != nullptr) {
 		if (current->stu_course.StuID == loggedinStudent->student.StudentID) {
-			std::cout << std::setw(5) << std::left << " " << std::setw(5) << std::left << count << std::setw(5) << std::left << "|"
+			std::cout << std::setw(3) << std::left << "|" << std::setw(5) << std::left << count << std::setw(5) << std::left << "|"
 				<< std::setw(15) << std::left << current->stu_course.Schoolyear << std::setw(5) << std::left << "|"
 				<< std::setw(10) << std::left << current->stu_course.Semester << std::setw(5) << std::left << "|"
 				<< std::setw(10) << std::left << current->stu_course.CouID << std::setw(5) << std::left << "|"
@@ -1156,22 +1157,17 @@ void View_Y_Scoreboard(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
 				<< std::setw(10) << std::left << current->stu_course.midterm << std::setw(5) << std::left << "|"
 				<< std::setw(10) << std::left << current->stu_course.final << std::setw(5) << std::left << "|"
 				<< std::setw(10) << std::left << current->stu_course.total << std::setw(5) << std::left << "|"
-				<< std::setw(10) << std::left << GetRanking(current->stu_course.total) << std::endl;
+				<< std::setw(11) << std::left << GetRanking(current->stu_course.total) << "|" << std::endl;
 			count++;
 		}
 		current = current->next;
 	}
+	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
 }
-
-
-
-
 
 void ExportScoreBoard(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* student) {
 	std::system("cls");
 	viewListOfCourses(course);
-
-
 	std::string option[] = { "1. Export all the courses.",
 				"2. Export only a course.",
 				"0.Come back." };
@@ -1414,23 +1410,23 @@ bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 
 	std::system("cls");
 
-	std::cout << "============================================YOUR COURSES============================================\n\n";
-	std::cout << std::setw(5) << std::left << " " << std::setw(5) << std::left << "No" << std::setw(5) << std::left << "|"
+	std::cout << "====================================================================YOUR SCHEDULE=========================================================================\n\n";
+	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
+	std::cout << std::setw(5) << std::left << "|" << std::setw(5) << std::left << "No" << std::setw(5) << std::left << "|"
 		<< std::setw(10) << std::left << "Course ID" << std::setw(5) << std::left << "|"
 		<< std::setw(30) << std::left << "Course name" << std::setw(5) << std::left << "|"
 		<< std::setw(25) << std::left << "Teacher name" << std::setw(5) << std::left << "|"
 		<< std::setw(10) << std::left << "Credits" << std::setw(5) << std::left << "|"
 		<< std::setw(10) << std::left << "Registered" << std::setw(5) << std::left << "|"
 		<< std::setw(20) << std::left << "Calendar" << std::endl;
-	std::cout << std::setfill('-') << std::setw(140) << std::left << "-" << std::setfill(' ') << std::endl;
-
+	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
 	while (cur_stu_course) {
 		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_stu_course->stu_course.CouID == cur_course->course.ID) {
 
 			std::string registered = std::to_string(cur_course->course.Cur_stdn) + "/" + std::to_string(cur_course->course.Max_stdn);
 			std::string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
 
-			std::cout << std::setw(5) << std::left << " " << std::setw(5) << std::left << cur_course->course.No << std::setw(5) << std::left << "|"
+			std::cout << std::setw(5) << std::left << "|" << std::setw(5) << std::left << cur_course->course.No << std::setw(5) << std::left << "|"
 				<< std::setw(10) << std::left << cur_course->course.ID << std::setw(5) << std::left << "|"
 				<< std::setw(30) << std::left << cur_course->course.CName << std::setw(5) << std::left << "|"
 				<< std::setw(25) << std::left << fullname << std::setw(5) << std::left << "|"
@@ -1450,9 +1446,9 @@ bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 			cur_stu_course = cur_stu_course->next;
 		}
 	}
-
+	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
 	if (count == 0) {
-		std::cout << "You haven't registered any course " << std::endl;
+		std::cout << "\nYou haven't registered any course!" << std::endl;
 		return 0;
 	}
 	std::system("pause");
@@ -1645,17 +1641,28 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 	CR_NODE* cur_course = course;
 
 	if (!ViewSchedule(stu_course, loggedinStudent, course)) {
-		std::system("pause");
+		system("pause");
 		return;
 	}
-	std::cout << "\n\n";
-	std::cout << "Enter the ID of the course you want to delete: ";
-	std::cin >> courseID;
+
+	ShowCur(1);
+	int width_tmp1 = 50;
+	int height_tmp1 = 10;
+	int width_box1 = 45;
+	int height_box1 = 2;
+
+	my_print(width_tmp1, height_tmp1, YELLOW, "Enter the ID of the course you want to delete: ");
+	box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
+
+	gotoXY(width_tmp1 + 1, height_tmp1 + 2);
+	courseID = my_getline(width_box1 - 1);
 
 	while (cur_stu_node) {
 		if (cur_stu_node->stu_course.CouID == courseID && cur_stu_node->stu_course.StuID == loggedinStudent->student.StudentID) {
-			std::cout << "Are you sure you want to delete this course? (y/n): ";
+			my_print(width_tmp1, height_tmp1 + 5, RED, "Are you sure you want to change to cancel this course? (y/n): ");
 			std::cin >> check;
+			gotoXY(width_tmp1, height_tmp1 + 17);
+			std::cin.ignore();
 			if (check == 'y' || check == 'Y') {
 				STU_COURSE_NODE* tmp = new STU_COURSE_NODE;
 				tmp = cur_stu_node;
@@ -1673,17 +1680,18 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 				}
 				Read_After_Update_Student_Course(student, course, teacher, stu_course);
 				std::system("cls");
-				std::cout << "Delete successfully" << std::endl;
+				my_print(width_tmp1, height_tmp1 + 5, RED, "Delete successfully!");
 				std::system("pause");
 				return;
 			}
 			else
+				system("cls");
 				return;
 		}
 		else
 			cur_stu_node = cur_stu_node->next;
 	}
-	std::cout << "The course ID you entered is incorrect" << std::endl;
+	my_print(width_tmp1, height_tmp1 + 5, RED, "This course is not registered");
 	std::system("pause");
 	return;
 }
@@ -1692,6 +1700,8 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 //Update student
 void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 AGAIN:
+	system("cls");
+	printInformation_A_Student(student);
 	int x_boxStudent = 5;
 	int y_boxStudent = 2;
 	int width_boxStudent = 42;
@@ -1701,7 +1711,7 @@ AGAIN:
 	std::string tmp;
 	int tmp_width = 60;
 	int box_width = 32;
-	my_print(tmp_width, 1, LIGHT_YELLOW, "Update your personal information.");
+	my_print(tmp_width, -20, LIGHT_YELLOW, "Update your personal information.");
 
 	std::string option_1[] = { "1. Update your gender.",
 			"2. Update your date of birth.",
@@ -1714,7 +1724,7 @@ AGAIN:
 	int height_boxOption1 = 3;
 	int amount_option1 = sizeof(option_1) / sizeof(option_1[0]);
 	int choose;
-	choose = menu(x_boxOption1, y_boxOption1, width_boxOption1, height_boxOption1, amount_option1, option_1, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+	choose = menu(x_boxOption1 - 39, y_boxOption1 + 8, width_boxOption1, height_boxOption1, amount_option1, option_1, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 	if (choose == 1) {
 		system("cls");
@@ -2078,8 +2088,9 @@ void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, 
 	CR_NODE* cur_course = course;
 	int count = 0;
 
-	std::cout << "===============================================================YOUR COURSES RESULTS=====================================================================\n\n";
-	std::cout << std::setw(3) << std::left << " " << std::setw(5) << std::left << "No" << std::setw(5) << std::left << "|"
+	std::cout << "=================================================================YOUR COURSES RESULTS=======================================================================\n";
+	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
+	std::cout << std::setw(3) << std::left << "|" << std::setw(5) << std::left << "No" << std::setw(5) << std::left << "|"
 		<< std::setw(10) << std::left << "Course ID" << std::setw(5) << std::left << "|"
 		<< std::setw(25) << std::left << "Course name" << std::setw(5) << std::left << "|"
 		<< std::setw(16) << std::left << "Teacher name" << std::setw(5) << std::left << "|"
@@ -2088,14 +2099,14 @@ void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, 
 		<< std::setw(8) << std::left << "Final" << std::setw(5) << std::left << "|"
 		<< std::setw(8) << std::left << "Other" << std::setw(5) << std::left << "|"
 		<< std::setw(8) << std::left << "TOTAL" << std::setw(5) << std::left << "|"
-		<< std::setw(8) << std::left << "RANKING" << std::setw(6) << std::left << "|";
-	std::cout << "\n";
-	std::cout << std::setfill('-') << std::setw(144) << std::left << "-" << std::setfill(' ') << std::endl;
+		<< std::setw(8) << std::left << "RANKING" << std::setw(6) << std::left << "|" << "\n";
+	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
+	
 	while (cur_stu_course) {
 		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID) {
 			count++;
 			std::string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
-			std::cout << std::setw(3) << std::left << " " << std::setw(5) << std::left << count << std::setw(5) << std::left << "|"
+			std::cout << std::setw(3) << std::left << "|" << std::setw(5) << std::left << count << std::setw(5) << std::left << "|"
 				<< std::setw(10) << std::left << cur_course->course.ID << std::setw(5) << std::left << "|"
 				<< std::setw(25) << std::left << cur_course->course.CName << std::setw(5) << std::left << "|"
 				<< std::setw(16) << std::left << fullname << std::setw(5) << std::left << "|"
@@ -2104,13 +2115,12 @@ void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, 
 				<< std::setw(8) << std::left << cur_stu_course->stu_course.final << std::setw(5) << std::left << "|"
 				<< std::setw(8) << std::left << cur_stu_course->stu_course.other << std::setw(5) << std::left << "|"
 				<< std::setw(8) << std::left << cur_stu_course->stu_course.total << std::setw(5) << std::left << "|"
-				<< std::setw(8) << std::left << GetRanking(cur_stu_course->stu_course.total) << std::setw(6) << std::left << "|";
-			std::cout << std::endl;
+				<< std::setw(8) << std::left << GetRanking(cur_stu_course->stu_course.total) << std::setw(6) << std::left << "|" << std::endl;
 		}
 		cur_course = cur_course->next;
 		cur_stu_course = cur_stu_course->next;
 	}
-
+	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
 	if (count == 0) {
 		std::cout << "You haven't registered any course " << std::endl;
 	}

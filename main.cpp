@@ -84,11 +84,13 @@ int main()
 
 			gotoXY(tmp_width - 1, 9);
 			//user = my_getline(box_width - 1);
-			user = "33383147";
+			user = "22240001";
+			//user = "33383147";
 
 			gotoXY(tmp_width - 1, 13);
 			//pass = my_getline(box_width - 1);
-			pass = "123456";
+			pass = "678910";
+			//pass = "123456";
 
 			check_T = checkExistOfStaffAccount(staff, user, pass, loggedinStaff);
 			check_S = checkExistOfStudentAccount(student, user, pass, loggedinStudent);
@@ -419,8 +421,6 @@ int main()
 			int amount = sizeof(option) / sizeof(option[0]);
 			int choose;
 			choose = menu(x_boxStudent, y_boxStudent, width_boxStudent, height_boxStudent, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
-
-			//printInformation_A_Student(loggedinStudent);
 
 			if (choose == 1) {
 				changePasswordOfStudentAccount(student, loggedinStudent);
