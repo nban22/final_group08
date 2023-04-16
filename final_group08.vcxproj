@@ -127,11 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="delete_all_dll.cpp" />
+    <ClCompile Include="get_data_and_synch.cpp" />
     <ClCompile Include="LINKED_LIST.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mylib.cpp" />
     <ClCompile Include="SEMESTER.cpp" />
     <ClCompile Include="tachfilecsv.cpp" />
+    <ClCompile Include="the_features_of_staff.cpp" />
+    <ClCompile Include="the_features_of_student.cpp" />
     <ClCompile Include="USER.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -86,13 +86,13 @@ int main()
 
 			gotoXY(tmp_width - 1, 9);
 			//user = my_getline(box_width - 1);
-			user = "22240001";
-			//user = "33383147";
+			//user = "22240001";
+			user = "33383147";
 
 			gotoXY(tmp_width - 1, 13);
 			//pass = my_getline(box_width - 1);
-			pass = "678910";
-			//pass = "123456";
+			//pass = "678910";
+			pass = "123456";
 
 			check_T = checkExistOfStaffAccount(staff, user, pass, loggedinStaff);
 			check_S = checkExistOfStudentAccount(student, user, pass, loggedinStudent);
@@ -449,7 +449,7 @@ int main()
 				std::system("cls");
 				std::cout << "****************************THANK YOU FOR USING!********************************\n\n";
 
-				DeleteALLLinkList(student, staff, course, stu_course, listclass);
+				DeleteALLLinkList(student, staff,teacher, course, stu_course, listclass);
 
 				return 0;
 			}

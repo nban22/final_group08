@@ -7,6 +7,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mylib.cpp" />
     <ClCompile Include="tachfilecsv.cpp" />
+    <ClCompile Include="get_data_and_synch.cpp" />
+    <ClCompile Include="the_features_of_staff.cpp" />
+    <ClCompile Include="delete_all_dll.cpp" />
+    <ClCompile Include="the_features_of_student.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.h" />
