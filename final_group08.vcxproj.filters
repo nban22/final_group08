@@ -6,6 +6,7 @@
     <ClCompile Include="USER.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mylib.cpp" />
+    <ClCompile Include="tachfilecsv.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.h" />

@@ -131,6 +131,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mylib.cpp" />
     <ClCompile Include="SEMESTER.cpp" />
+    <ClCompile Include="tachfilecsv.cpp" />
     <ClCompile Include="USER.cpp" />
   </ItemGroup>
   <ItemGroup>

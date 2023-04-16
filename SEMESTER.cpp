@@ -223,7 +223,7 @@ Here_enter_y2:
 	NewCourse->course.endDate.month = stoi(my_getline_onlyNumber(2));
 	gotoXY(coordinate_x + 2 * width_small_box + 3 + 2, coordinate_y + 28 + 2);
 	NewCourse->course.endDate.year = stoi(my_getline_onlyNumber(4));
-	
+
 	//Add course at the end
 	if (!cur) {
 		cur = NewCourse;
@@ -234,7 +234,7 @@ Here_enter_y2:
 		NewCourse->prev = cur;
 	}
 	textcolor(BLACK);
-	for (int k = 0 -2; k <= 32; k++) {
+	for (int k = 0 - 2; k <= 32; k++) {
 		for (int p = 0; p <= 25 + width_big_box; p++) {
 			gotoXY(coordinate_x + p, coordinate_y - 1 + k);
 			std::cout << " ";
@@ -242,7 +242,7 @@ Here_enter_y2:
 	}
 	textcolor(WHITE);
 	my_print(coordinate_x, coordinate_y + 10, LIGHT_GREEN, "Added Course Successfully");
-	
+
 	Read_After_Update_Course(stu_course, teacher, head);
 	gotoXY(coordinate_x, coordinate_y + 12);
 	std::system("pause");
@@ -350,13 +350,21 @@ AGAIN:
 }
 
 void DeleteCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head) {
-AGAIN:
 	system("cls");
 	CR_NODE* cur = head;
+
+	int coordinate_x = 30;
+	int coordinate_y = 25;
+	int width_box = 30;
+	int height_box = 2;
+
 	viewListOfCourses(cur);
-	std::cout << "Enter Course ID You Want To Delete: ";
 	std::string DelID;
-	std::cin >> DelID;
+	my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "Enter Course ID You Want To Delete:");
+Here_enter_y3:
+	box(coordinate_x, coordinate_y + 1, width_box, height_box, LIGHT_AQUA);
+	gotoXY(coordinate_x + 1, coordinate_y + 1 + 1);
+	DelID = my_getline(width_box - 1);
 	CR_NODE* DelNode = checkExistOfCourseRecord(head, DelID);
 	if (DelNode) {
 		CR_NODE* tmp = DelNode;
@@ -368,25 +376,45 @@ AGAIN:
 			(DelNode->prev)->next = tmp->next;
 			delete tmp;
 		}
-
-		system("cls");
-		std::cout << "Delete Course Successfully\n";
+		my_print(coordinate_x, coordinate_y + 5, LIGHT_GREEN, "Delete Course Successfully.");
+		gotoXY(coordinate_x, coordinate_y + 7);
 		Read_After_Update_Course(stu_course, teacher, *&head);
 		system("pause");
 		return;
 	}
 	else {
-		std::cout << "No Course Founded!";
-		std::cout << "\nSearch for Course again? (y/n)";
-		//system("pause");
-		char ans;
-		std::cin >> ans;
-		if (ans == 'y' || ans == 'Y') {
-			goto AGAIN;
+		my_print(coordinate_x + 3, coordinate_y + 5, RED, "No Course Founded!");
+		my_print(coordinate_x + 3, coordinate_y + 6, LIGHT_GREEN, "Search for Course again? (y/n): ");
+		std::string ans;
+		int x_old = whereX();
+		int y_old = whereY();
+	LOOP_ans:
+		gotoXY(x_old, y_old);
+		textcolor(WHITE);
+		ans = my_getline(1);
+		if (ans != "y" && ans != "Y" && ans != "n" && ans != "N") {
+			gotoXY(x_old, y_old);
+			textcolor(BLACK);
+			std::cout << " ";
+			goto LOOP_ans;
 		}
-		else {
+		if (ans == "y" || ans == "Y") {
+			textcolor(BLACK);
+			for (int j = 0; j < width_box - 1; j++) {
+				gotoXY(coordinate_x + 1 + j, coordinate_y + 1 + 1);
+				std::cout << " ";
+			}
+			for (int j = 0; j <= 55; j++) {
+				gotoXY(coordinate_x + 3 + j, coordinate_y + 5);
+				std::cout << " ";
+				gotoXY(coordinate_x + 3 + j, coordinate_y + 6);
+				std::cout << " ";
+			}
+			textcolor(WHITE);
+			goto Here_enter_y3;
+		}
+		else
 			return;
-		}
 	}
 }
 

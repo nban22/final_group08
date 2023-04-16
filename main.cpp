@@ -58,6 +58,8 @@ int main()
 	CLASS_NODE* listclass = new CLASS_NODE;
 	updateListClass(listclass, student);
 
+	//tach_ra_tung_file_class(student, listclass);
+
 	while (69) {
 		int check_T, check_S;
 		do {
@@ -277,10 +279,6 @@ int main()
 					}
 					else if (choose == 0 + 8) { //COME BACK
 						break;
-					}
-					else {
-						std::cout << "Invalid selection, please enter again.\n\n";
-						std::system("pause");
 					}
 				}
 			}

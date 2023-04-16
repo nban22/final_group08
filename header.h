@@ -178,6 +178,13 @@ std::string ConvertStringSS(SESSION& ss);
 std::string ConvertStringonlySS(SESSION& ss);
 
 
+
+
+void tach_ra_tung_file_class(STU_NODE* student, CLASS_NODE* listclass);
+
+
+
+
 //COURSE_STUDENT
 int countTheNumberOfStudentsInEachCourse(std::string CourseID, STU_COURSE_NODE* head);
 void updateCur_stdnInCourse(CR_NODE*& course, STU_COURSE_NODE* head);

@@ -38,9 +38,9 @@ void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass) {
 		ShowCur(1);
 		//std::system("cls");
 		/*viewListOfClasses(listclass, cur_student);*/
-		my_print(coordinate_x + 23, coordinate_y - 3, LIGHT_RED, "GENERAL INFORMATION");
-		my_print(coordinate_x, coordinate_y, LIGHT_RED, "Enter class ID:");
-		box(coordinate_x + 25, coordinate_y - 1, width_big_box, height_box, LIGHT_RED);
+		my_print(coordinate_x + 23, coordinate_y - 3, LIGHT_AQUA, "GENERAL INFORMATION");
+		my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "Enter class ID:");
+		box(coordinate_x + 25, coordinate_y - 1, width_big_box, height_box, LIGHT_AQUA);
 	Here_enter_y:
 		gotoXY(coordinate_x + 25 + 1, coordinate_y);
 		new_student->student.Classes.ClassID = my_getline(width_big_box - 1);
@@ -53,7 +53,7 @@ void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass) {
 		}
 		if (check == 0) {
 			my_print(coordinate_x + 3, coordinate_y + 3, RED, "Your class ID which you entered it does not exist.");
-			my_print(coordinate_x + 3, coordinate_y + 4, LIGHT_RED, "Search for Course again? (y/n): ");
+			my_print(coordinate_x + 3, coordinate_y + 4, LIGHT_GREEN, "Search for Course again? (y/n): ");
 			std::string ans;
 			int x_old = whereX();
 			int y_old = whereY();
@@ -87,32 +87,32 @@ void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass) {
 		}
 	} while (check == 0);
 
-	my_print(coordinate_x, coordinate_y + 3, LIGHT_RED, "Enter enrollment day:");
-	box(coordinate_x + 25, coordinate_y + 3 - 1, width_small_box, height_box, LIGHT_RED);
-	my_print(coordinate_x + width_small_box + 1 + 25, coordinate_y + 3, LIGHT_RED, "/");
-	box(coordinate_x + width_small_box + 2 + 25, coordinate_y + 3 - 1, width_small_box, height_box, LIGHT_RED);
-	my_print(coordinate_x + 2 * width_small_box + 3 + 25, coordinate_y + 3, LIGHT_RED, "/");
-	box(coordinate_x + 2 * width_small_box + 4 + 25, coordinate_y + 3 - 1, width_small_box, height_box, LIGHT_RED);
+	my_print(coordinate_x, coordinate_y + 3, LIGHT_AQUA, "Enter enrollment day:");
+	box(coordinate_x + 25, coordinate_y + 3 - 1, width_small_box, height_box, LIGHT_AQUA);
+	my_print(coordinate_x + width_small_box + 1 + 25, coordinate_y + 3, LIGHT_AQUA, "/");
+	box(coordinate_x + width_small_box + 2 + 25, coordinate_y + 3 - 1, width_small_box, height_box, LIGHT_AQUA);
+	my_print(coordinate_x + 2 * width_small_box + 3 + 25, coordinate_y + 3, LIGHT_AQUA, "/");
+	box(coordinate_x + 2 * width_small_box + 4 + 25, coordinate_y + 3 - 1, width_small_box, height_box, LIGHT_AQUA);
 
-	my_print(coordinate_x, coordinate_y + 6, LIGHT_RED, "Enter last name:");
-	box(coordinate_x + 25, coordinate_y + 6 - 1, width_big_box, height_box, LIGHT_RED);
+	my_print(coordinate_x, coordinate_y + 6, LIGHT_AQUA, "Enter last name:");
+	box(coordinate_x + 25, coordinate_y + 6 - 1, width_big_box, height_box, LIGHT_AQUA);
 
-	my_print(coordinate_x, coordinate_y + 9, LIGHT_RED, "Enter first name:");
-	box(coordinate_x + 25, coordinate_y + 9 - 1, width_big_box, height_box, LIGHT_RED);
+	my_print(coordinate_x, coordinate_y + 9, LIGHT_AQUA, "Enter first name:");
+	box(coordinate_x + 25, coordinate_y + 9 - 1, width_big_box, height_box, LIGHT_AQUA);
 
-	my_print(coordinate_x, coordinate_y + 12, LIGHT_RED, "Enter gender:");
-	box(coordinate_x + 25, coordinate_y + 12 - 1, width_big_box, height_box, LIGHT_RED);
+	my_print(coordinate_x, coordinate_y + 12, LIGHT_AQUA, "Enter gender:");
+	box(coordinate_x + 25, coordinate_y + 12 - 1, width_big_box, height_box, LIGHT_AQUA);
 
-	my_print(coordinate_x, coordinate_y + 15, LIGHT_RED, "Enter birth date:");
-	box(coordinate_x + 25, coordinate_y + 15 - 1, width_small_box, height_box, LIGHT_RED);
-	my_print(coordinate_x + width_small_box + 1 + 25, coordinate_y + 15, LIGHT_RED, "/");
-	box(coordinate_x + width_small_box + 2 + 25, coordinate_y + 15 - 1, width_small_box, height_box, LIGHT_RED);
-	my_print(coordinate_x + 2 * width_small_box + 3 + 25, coordinate_y + 15, LIGHT_RED, "/");
-	box(coordinate_x + 2 * width_small_box + 4 + 25, coordinate_y + 15 - 1, width_small_box, height_box, LIGHT_RED);
+	my_print(coordinate_x, coordinate_y + 15, LIGHT_AQUA, "Enter birth date:");
+	box(coordinate_x + 25, coordinate_y + 15 - 1, width_small_box, height_box, LIGHT_AQUA);
+	my_print(coordinate_x + width_small_box + 1 + 25, coordinate_y + 15, LIGHT_AQUA, "/");
+	box(coordinate_x + width_small_box + 2 + 25, coordinate_y + 15 - 1, width_small_box, height_box, LIGHT_AQUA);
+	my_print(coordinate_x + 2 * width_small_box + 3 + 25, coordinate_y + 15, LIGHT_AQUA, "/");
+	box(coordinate_x + 2 * width_small_box + 4 + 25, coordinate_y + 15 - 1, width_small_box, height_box, LIGHT_AQUA);
 
 
-	my_print(coordinate_x, coordinate_y + 18, LIGHT_RED, "Enter social ID:");
-	box(coordinate_x + 25, coordinate_y + 18 - 1, width_big_box, height_box, LIGHT_RED);
+	my_print(coordinate_x, coordinate_y + 18, LIGHT_AQUA, "Enter social ID:");
+	box(coordinate_x + 25, coordinate_y + 18 - 1, width_big_box, height_box, LIGHT_AQUA);
 
 	//getline
 	int enrollment_day;
