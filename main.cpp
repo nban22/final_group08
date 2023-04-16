@@ -22,6 +22,9 @@ int main()
 {
 	resizeConsole(1200, 600);
 	int count = 0;
+	int semester_count = 0;
+	SEMESTER semester[3];
+
 
 	std::ifstream input;
 	STFF_NODE* staff = nullptr;
@@ -83,11 +86,13 @@ int main()
 
 			gotoXY(tmp_width - 1, 9);
 			//user = my_getline(box_width - 1);
-			user = "33383147";
+			user = "22240001";
+			//user = "33383147";
 
 			gotoXY(tmp_width - 1, 13);
 			//pass = my_getline(box_width - 1);
-			pass = "123456";
+			pass = "678910";
+			//pass = "123456";
 
 			check_T = checkExistOfStaffAccount(staff, user, pass, loggedinStaff);
 			check_S = checkExistOfStudentAccount(student, user, pass, loggedinStudent);
@@ -160,7 +165,7 @@ int main()
 						std::system("pause");
 					}
 					else if (choose == 2) {
-
+						createNewSem(semester, semester_count);
 					}
 					else if (choose == 3) {
 					Here:
@@ -415,8 +420,6 @@ int main()
 			int choose;
 			choose = menu(x_boxStudent, y_boxStudent, width_boxStudent, height_boxStudent, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
-			//printInformation_A_Student(loggedinStudent);
-
 			if (choose == 1) {
 				changePasswordOfStudentAccount(student, loggedinStudent);
 			}
@@ -445,9 +448,13 @@ int main()
 			else if (choose == -1 + 10) {
 				std::system("cls");
 				std::cout << "****************************THANK YOU FOR USING!********************************\n\n";
+
+				DeleteALLLinkList(student, staff, course, stu_course, listclass);
+
 				return 0;
 			}
 		}
 	}
 }
+
 

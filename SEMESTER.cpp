@@ -530,3 +530,63 @@ void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE* stu_course, STFF_NODE* 
 		cur1_student = cur1_student->next;
 	}
 } */
+
+void createNewSem(SEMESTER semester[], int& count) {
+	system("cls");
+
+	if (count > 2) {
+		std::cout << "All of semesters have already been created" << std::endl;
+		system("pause");
+		return;
+	}
+
+	ShowCur(1);
+	std::ifstream in;
+	in.open("NewSchoolYear.csv");
+
+	if (!in.is_open()) {
+		std::cout << "cannot open schoolyear file" << std::endl;
+		return;
+	}
+
+
+	std::string tmp, schoolyear, tmp2;
+	int day, month, year;
+	getline(in, tmp);
+	while (!in.eof()) {
+		getline(in, tmp);
+		if (tmp != "")
+			schoolyear = tmp;
+	}
+
+	tmp = schoolyear.substr(0, 4);
+	tmp2 = schoolyear.substr(5);
+
+	semester[count].schoolyear = schoolyear;
+	std::cout << "Semester " << count + 1 << std::endl;
+	std::cout << "\nSchool Year " << semester[count].schoolyear << std::endl;
+	std::cout << "\nInput start date (dd/mm/yy) : ";
+	std::cin >> day >> month >> year;
+	if (year > stoi(tmp2) || year < stoi(tmp) || month < 1 || month > 12) {
+		std::cout << "Your date is invalid, please enter again" << std::endl;
+		system("pause");
+		return;
+	}
+	semester[count].startDate.day = (day);
+	semester[count].startDate.month = (month);
+	semester[count].startDate.year = (year);
+
+	std::cout << "\nInput end date (dd/mm/yy) : ";
+	std::cin >> day >> month >> year;
+	if (year > stoi(tmp2) || year < stoi(tmp) || month < 1 || month >12) {
+		std::cout << "Your date is invalid, please enter again" << std::endl;
+		system("pause");
+		return;
+	}
+	semester[count].endDate.day = (day);
+	semester[count].endDate.month = (month);
+	semester[count].endDate.year = (year);
+
+	count++;
+	return;
+}

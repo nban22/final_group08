@@ -76,7 +76,7 @@ struct STU_COURSE {
 
 struct SEMESTER {
 	Date startDate, endDate;
-	COURSE* courses;
+	std::string schoolyear;
 };
 
 //*********************USERS.h
@@ -167,6 +167,7 @@ CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID);
 void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 void UpdateCourseInfo(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 void DeleteCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
+void createNewSem(SEMESTER semester[], int& count);
 
 //----Weekday----
 WEEKDAY ConvertEnumWD(std::string str);
@@ -314,5 +315,16 @@ std::string my_getline(int max);
 std::string my_getline_onlyNumber(int max);
 // Hàm nhập tối đa số lượng cho trước, và "chỉ nhận chữ cái và kí tự @ và dấu chấm "." và space
 std::string my_getline_addSpace(int max);
+
+// Delete LL
+void DeleteSTU_NODE(STU_NODE* &student);
+void DeleteSTFF_NODE(STFF_NODE* &staff);
+void DeleteCR_NODE(CR_NODE* &course);
+void DeleteSTU_COURSE_NODE(STU_COURSE_NODE* &stu_course);
+void DeleteCLASS_NODE(CLASS_NODE* &listclass);
+void DeleteALLLinkList(STU_NODE* &student, STFF_NODE* &staff, CR_NODE* &course, STU_COURSE_NODE* &stu_course, CLASS_NODE* &listclass);
+
+
+
 
 #endif
