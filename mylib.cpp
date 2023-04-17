@@ -227,13 +227,17 @@ std::string my_getline(int max) {
 	while (1) {
 		if (_kbhit()) {
 			ch = _getch();
-			if ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'Z') || ch == '@' || ch == '.') {
+
+			if ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'Z') || ch == '@' || ch == '.' || ch == '-' || ch == '_') {
 				if (str.length() != max) {
 					str += ch;
 					std::cout << char(ch);
 				}
 			}
-			else if ((ch == 13 || ch == 27) && str.length() > 0) {
+			else if (ch == 27) {
+				return "-1";
+			}
+			else if ((ch == 13) && str.length() > 0) {
 				break;
 			}
 			else if (ch == 8) {
@@ -275,7 +279,9 @@ std::string my_getline_onlyNumber(int max) {
 					std::cout << char(ch);
 				}
 			}
-			else if ((ch == 13 || ch == 27) && str.length() > 0) {
+			else if (ch == 27)
+				return "-1";
+			else if ((ch == 13 ) && str.length() > 0) {
 				break;
 			}
 			else if (ch == 8) {
@@ -318,7 +324,9 @@ std::string my_getline_addSpace(int max) {
 					std::cout << char(ch);
 				}
 			}
-			else if (ch == 13 || ch == 27) {
+			else if (ch == 27)
+				return "-1";
+			else if (ch == 13) {
 				break;
 			}
 			else if (ch == 8) {

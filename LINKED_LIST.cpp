@@ -57,7 +57,7 @@ SESSION ConvertEnumSS(std::string str) {
 	else if (str.compare("S3") == 0 || str.compare("s3") == 0) return S3;
 	else return S4;
 }
-std::string ConvertStringonlySS(SESSION& ss) {
+std::string ConvertStringonlySS(SESSION ss) {
 	if (ss == S1) return "S1";
 	else if (ss == S2) return "S2";
 	else if (ss == S3) return "S3";

@@ -25,7 +25,8 @@ void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass) {
 	Here_enter_y:
 		gotoXY(coordinate_x + 25 + 1, coordinate_y);
 		new_student->student.Classes.ClassID = my_getline(width_big_box - 1);
-
+		if (new_student->student.Classes.ClassID == "-1")
+			return;
 		cur_student = student;
 		while (cur_student) {
 			if (cur_student->student.Classes.ClassID == new_student->student.Classes.ClassID)
@@ -42,6 +43,8 @@ void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass) {
 			gotoXY(x_old, y_old);
 			textcolor(WHITE);
 			ans = my_getline(1);
+			if (ans == "-1")
+				return;
 			if (ans != "y" && ans != "Y" && ans != "n" && ans != "N") {
 				gotoXY(x_old, y_old);
 				textcolor(BLACK);
@@ -102,29 +105,46 @@ void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass) {
 
 	gotoXY(coordinate_x + 25 + 1, coordinate_y + 3);
 	enrollment_day = stoi(my_getline_onlyNumber(2));
+	if (std::to_string(enrollment_day) == "-1")
+		return;
 	gotoXY(coordinate_x + width_small_box + 2 + 25 + 1, coordinate_y + 3);
 	enrollment_month = stoi(my_getline_onlyNumber(2));
+	if (std::to_string(enrollment_month) == "-1")
+		return;
 	gotoXY(coordinate_x + 2 * width_small_box + 3 + 25 + 2, coordinate_y + 3);
 	enrollment_year = stoi(my_getline_onlyNumber(4));
-
+	if (std::to_string(enrollment_year) == "-1")
+		return;
 	gotoXY(coordinate_x + 25 + 1, coordinate_y + 6);
 	new_student->student.LName = my_getline_addSpace(width_big_box - 1);
-
+	if (new_student->student.LName == "-1")
+		return;
 	gotoXY(coordinate_x + 25 + 1, coordinate_y + 9);
 	new_student->student.FName = my_getline_addSpace(width_big_box - 1);
-
+	if (new_student->student.FName == "-1")
+		return;
 	gotoXY(coordinate_x + 25 + 1, coordinate_y + 12);
 	new_student->student.Gender = my_getline(width_big_box - 1);
+	if (new_student->student.Gender == "-1")
+		return;
 
 	gotoXY(coordinate_x + 25 + 1, coordinate_y + 15);
 	new_student->student.DoB.day = stoi(my_getline_onlyNumber(2));
+	if (std::to_string(new_student->student.DoB.day) == "-1")
+		return;
 	gotoXY(coordinate_x + width_small_box + 2 + 25 + 1, coordinate_y + 15);
 	new_student->student.DoB.month = stoi(my_getline_onlyNumber(2));
+	if (std::to_string(new_student->student.DoB.month) == "-1")
+		return;
 	gotoXY(coordinate_x + 2 * width_small_box + 3 + 25 + 2, coordinate_y + 15);
 	new_student->student.DoB.year = stoi(my_getline_onlyNumber(4));
+	if (std::to_string(new_student->student.DoB.year) == "-1")
+		return;
 
 	gotoXY(coordinate_x + 25 + 1, coordinate_y + 18);
 	new_student->student.SocialID = my_getline_onlyNumber(width_big_box - 1);
+	if ((new_student->student.SocialID) == "-1")
+		return;
 
 	cur_student = student;
 	check = 0;
@@ -232,7 +252,8 @@ void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& 
 Here_enter_y:
 	gotoXY(coordinate_x + 1, coordinate_y + 1 + 1);
 	NewSchoolyear = my_getline(4);
-
+	if (NewSchoolyear == "-1")
+		return;
 	if (checkExistOfSchoolyear(NewSchoolyear)) {
 		NewCourse->course.Schoolyear = NewSchoolyear;
 	}
@@ -247,6 +268,8 @@ Here_enter_y:
 		gotoXY(x_old, y_old);
 		textcolor(WHITE);
 		ans = my_getline(1);
+		if (ans == "-1")
+			return;
 		if (ans != "y" && ans != "Y" && ans != "n" && ans != "N") {
 			gotoXY(x_old, y_old);
 			textcolor(BLACK);
@@ -280,7 +303,11 @@ Here_enter_y:
 	box(coordinate_x + 30, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
 Here_enter_y2:
 	gotoXY(coordinate_x + 30 + 1, coordinate_y + 1 + 1);
-	NewSemester = stoi(my_getline_onlyNumber(1));
+	std::string tmp = my_getline_onlyNumber(1);
+	if (tmp == "-1")
+		return;
+	NewSemester = stoi(tmp);
+	
 
 	if (NewSemester > 0 && NewSemester <= 3) {
 		NewCourse->course.Semester = NewSemester;
@@ -295,6 +322,8 @@ Here_enter_y2:
 		gotoXY(x_old, y_old);
 		textcolor(WHITE);
 		ans = my_getline(1);
+		if (ans == "-1")
+			return;
 		if (ans != "y" && ans != "Y" && ans != "n" && ans != "N") {
 			gotoXY(x_old, y_old);
 			textcolor(BLACK);
@@ -324,43 +353,61 @@ Here_enter_y2:
 	box(coordinate_x, coordinate_y + 4 + 1, width_big_box, height_box, LIGHT_AQUA);
 	gotoXY(coordinate_x + 1, coordinate_y + 4 + 1 + 1);
 	NewCourse->course.CName = my_getline_addSpace(width_big_box - 1);
+	if (NewCourse->course.CName == "-1")
+		return;
 
 	my_print(coordinate_x, coordinate_y + 8, LIGHT_AQUA, "Enter Course ID:");
 	box(coordinate_x, coordinate_y + 8 + 1, width_big_box, height_box, LIGHT_AQUA);
 	gotoXY(coordinate_x + 1, coordinate_y + 8 + 1 + 1);
 	NewCourse->course.ID = my_getline_addSpace(width_big_box - 1);
+	if (NewCourse->course.ID == "-1")
+		return;
 
 	my_print(coordinate_x, coordinate_y + 12, LIGHT_AQUA, "Enter Teacher's last name:");
 	box(coordinate_x, coordinate_y + 12 + 1, width_small_box, height_box, LIGHT_AQUA);
 	gotoXY(coordinate_x + 1, coordinate_y + 12 + 1 + 1);
 	NewCourse->course.LNameTeacher = my_getline_addSpace(width_small_box - 1);
+	if (NewCourse->course.LNameTeacher == "-1")
+		return;
 
 	my_print(coordinate_x + 30, coordinate_y + 12, LIGHT_AQUA, "Enter Teacher's first name:");
 	box(coordinate_x + 30, coordinate_y + 12 + 1, width_small_box, height_box, LIGHT_AQUA);
 	gotoXY(coordinate_x + 30 + 1, coordinate_y + 12 + 1 + 1);
 	NewCourse->course.FNameTeacher = my_getline_addSpace(width_small_box - 1);
+	if (NewCourse->course.FNameTeacher == "-1")
+		return;
 
 	my_print(coordinate_x, coordinate_y + 16, LIGHT_AQUA, "Enter Credits:");
 	box(coordinate_x, coordinate_y + 16 + 1, width_small_box, height_box, LIGHT_AQUA);
 	gotoXY(coordinate_x + 1, coordinate_y + 16 + 1 + 1);
 	NewCourse->course.Credits = stoi(my_getline_onlyNumber(3));
+	if (std::to_string(NewCourse->course.Credits) == "-1")
+		return;
 
 	my_print(coordinate_x + 30, coordinate_y + 16, LIGHT_AQUA, "Enter Max Students:");
 	box(coordinate_x + 30, coordinate_y + 16 + 1, width_small_box, height_box, LIGHT_AQUA);
 	gotoXY(coordinate_x + 30 + 1, coordinate_y + 16 + 1 + 1);
 	NewCourse->course.Max_stdn = stoi(my_getline_onlyNumber(3));
+	if (std::to_string(NewCourse->course.Max_stdn) == "-1")
+		return;
 
 	NewCourse->course.Cur_stdn = 0; //default
 
 	my_print(coordinate_x, coordinate_y + 20, LIGHT_AQUA, "Enter Session(S1->S4):");
 	box(coordinate_x, coordinate_y + 20 + 1, width_small_box, height_box, LIGHT_AQUA);
 	gotoXY(coordinate_x + 1, coordinate_y + 20 + 1 + 1);
-	NewCourse->course.session = ConvertEnumSS(my_getline(2));
+	tmp = my_getline(2);
+	if (tmp == "-1")
+		return;
+	NewCourse->course.session = ConvertEnumSS(tmp);
 
 	my_print(coordinate_x + 30, coordinate_y + 20, LIGHT_AQUA, "Enter Weekday(MON->SAT):");
 	box(coordinate_x + 30, coordinate_y + 20 + 1, width_small_box, height_box, LIGHT_AQUA);
 	gotoXY(coordinate_x + 30 + 1, coordinate_y + 20 + 1 + 1);
-	NewCourse->course.dayOfWeek = ConvertEnumWD(my_getline(3));
+	tmp = my_getline(3);
+	if (tmp == "-1")
+		return;
+	NewCourse->course.dayOfWeek = ConvertEnumWD(tmp);
 
 	width_small_box -= 10;
 	my_print(coordinate_x, coordinate_y + 24, LIGHT_AQUA, "Enter Start date (dd mm yyy)");
@@ -372,10 +419,16 @@ Here_enter_y2:
 
 	gotoXY(coordinate_x + 1, coordinate_y + 24 + 2);
 	NewCourse->course.startDate.day = stoi(my_getline_onlyNumber(2));
+	if (std::to_string(NewCourse->course.startDate.day) == "-1")
+		return;
 	gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 24 + 2);
 	NewCourse->course.startDate.month = stoi(my_getline_onlyNumber(2));
+	if (std::to_string(NewCourse->course.startDate.month) == "-1")
+		return;
 	gotoXY(coordinate_x + 2 * width_small_box + 3 + 2, coordinate_y + 24 + 2);
 	NewCourse->course.startDate.year = stoi(my_getline_onlyNumber(4));
+	if (std::to_string(NewCourse->course.startDate.year) == "-1")
+		return;
 
 	my_print(coordinate_x, coordinate_y + 28, LIGHT_AQUA, "Enter End date (dd mm yyy)");
 	box(coordinate_x, coordinate_y + 28 + 1, width_small_box, height_box, LIGHT_AQUA);
@@ -386,10 +439,16 @@ Here_enter_y2:
 
 	gotoXY(coordinate_x + 1, coordinate_y + 28 + 2);
 	NewCourse->course.endDate.day = stoi(my_getline_onlyNumber(2));
+	if (std::to_string(NewCourse->course.endDate.day) == "-1")
+		return;
 	gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 28 + 2);
 	NewCourse->course.endDate.month = stoi(my_getline_onlyNumber(2));
+	if (std::to_string(NewCourse->course.endDate.month) == "-1")
+		return;
 	gotoXY(coordinate_x + 2 * width_small_box + 3 + 2, coordinate_y + 28 + 2);
 	NewCourse->course.endDate.year = stoi(my_getline_onlyNumber(4));
+	if (std::to_string(NewCourse->course.endDate.year) == "-1")
+		return;
 
 	//Add course at the end
 	if (!cur) {
