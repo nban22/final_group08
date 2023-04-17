@@ -86,13 +86,14 @@ int main()
 
 			gotoXY(tmp_width - 1, 9);
 			//user = my_getline(box_width - 1);
-			//user = "22240001";
-			user = "33383147";
 
 			gotoXY(tmp_width - 1, 13);
 			//pass = my_getline(box_width - 1);
-			//pass = "678910";
+			user = "33383147";
 			pass = "123456";
+
+			/*user = "22240001";
+			pass = "678910";*/
 
 			check_T = checkExistOfStaffAccount(staff, user, pass, loggedinStaff);
 			check_S = checkExistOfStudentAccount(student, user, pass, loggedinStudent);
@@ -142,13 +143,15 @@ int main()
 					std::system("cls");
 					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
 
-					std::string option_1[] = { "1.Create a new school year.",
+					std::string option_1[] = { 
+						"1.Create a new school year.",
 						"2.Create semester.",
 						"3.Create a new class.",
 						"4.Change information of a teacher.",
 						"5.Change your information.",
 						"6.Create a new staff's account.",
-						"0.Come back." };
+						"0.Come back." 
+					};
 					int x_boxOption1 = x_boxStaff + width_boxStaff + 2;
 					int y_boxOption1 = y_boxStaff;
 					int width_boxOption1 = 50;
@@ -255,12 +258,27 @@ int main()
 						addNew1styearStudent(student, listclass);
 					}
 					else if (choose == 2) { //Registration
+
 						break;
 					}
 					else if (choose == 3) { //Add a course
 						CreateNewCourse(stu_course, teacher, course);
 					}
 					else if (choose == 4) { //Export the file to import the list of students in each class
+						/*
+						std::string classID;
+						std::cin >> classID;
+						
+						if (checkExistClassIDinDLL(student, classID) != nullptr) {
+							std::cout << "lop do da ton tai roi. vui long nhap id lop khac";
+							continue;
+						}
+						else {
+							std::cout << "nhap school year";
+							int schoolYear;
+							std::cin >> schoolYear;
+						}*/
+
 						int check;
 						std::system("cls");
 						std::cout << "\n\t\t\t ********************************************" << std::endl;
@@ -415,7 +433,7 @@ int main()
 			int x_boxStudent = 5;
 			int y_boxStudent = 2;
 			int width_boxStudent = 42;
-			int height_boxStudent = 2;
+			int height_boxStudent = 3;
 			int amount = sizeof(option) / sizeof(option[0]);
 			int choose;
 			choose = menu(x_boxStudent, y_boxStudent, width_boxStudent, height_boxStudent, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);

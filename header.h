@@ -171,12 +171,12 @@ void createNewSem(SEMESTER semester[], int& count);
 
 //----Weekday----
 WEEKDAY ConvertEnumWD(std::string str);
-std::string ConvertStringWD(WEEKDAY& wd);
+std::string ConvertStringWD(WEEKDAY wd);
 
 //----Session----
 SESSION ConvertEnumSS(std::string str);
-std::string ConvertStringSS(SESSION& ss);
-std::string ConvertStringonlySS(SESSION& ss);
+std::string ConvertStringSS(SESSION ss);
+std::string ConvertStringonlySS(SESSION ss);
 
 
 
