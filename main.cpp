@@ -25,6 +25,13 @@ int main()
 	int semester_count = 0;
 	SEMESTER semester[3];
 
+	std::ofstream schoolyearfile;
+	schoolyearfile.open("NewSchoolYear.csv");
+	if (schoolyearfile.is_open()) {
+		schoolyearfile << "School Year,Semester 1 Start Date,Semester 1 End Date,Semester 2 Start Date,Semester 2 End Date,Semester 3 Start Date,Semester 3 End Date";
+	}
+	schoolyearfile.close();
+
 	std::ifstream input;
 	STFF_NODE* staff = nullptr;
 	getDataStaff_csv(input, staff);

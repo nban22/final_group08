@@ -453,6 +453,12 @@ void createNewSem(SEMESTER semester[], int& count) {
 	semester[count].endDate.month = (month);
 	semester[count].endDate.year = (year);
 
+	std::fstream out;
+	out.open("NewSchoolYear.csv", std::fstream::app);
+	out << semester[count].startDate.day << "/" << semester[count].startDate.month << "/" << semester[count].startDate.year << ",";
+	out << semester[count].endDate.day << "/" << semester[count].endDate.month << "/" << semester[count].endDate.year << ",";
+	out.close();
+
 	count++;
 	return;
 }

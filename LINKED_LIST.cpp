@@ -168,13 +168,13 @@ void CreateSchoolYear(int& sYEAR) {
 	std::cout << "Input the starting year of the school year: ";
 	std::cin >> sYEAR;
 
-	std::ofstream outfile("NewSchoolYear.csv");
+	std::fstream outfile("NewSchoolYear.csv", std::fstream::app);
 	if (!outfile.is_open()) {
 		std::cout << "Failed to create file." << std::endl;
 		return;
 	}
-	outfile << "School Year" << std::endl;
-	outfile << sYEAR << "-" << sYEAR + 1 << std::endl;
+
+	outfile << "\n" << sYEAR << "-" << sYEAR + 1 << ",";
 	outfile.close();
 
 	std::cout << "New school year created: " << sYEAR << "-" << sYEAR + 1 << std::endl;
