@@ -311,3 +311,137 @@ void createNewSem(SEMESTER semester[], int& count) {
 	count++;
 	return;
 }
+
+void AddStudent_csv(CLASS_NODE *&listclass) {
+AGAIN:
+	system("cls");
+	int x_box = 5;
+	int y_box = 2;
+	int width_box = 42;
+	int height_box = 2;
+
+	char check;
+	int tmp_width = 60;
+	int box_width = 32;
+	my_print(tmp_width, -20, LIGHT_YELLOW, "Choose your option of importing student(s):");
+
+	std::string option_1[] = { "1. Add to a new Class.",
+			"2. Add onto existing class.",
+			"0. Come back." };
+
+	int x_boxOption1 = x_box + width_box + 2;
+	int y_boxOption1 = y_box;
+	int width_boxOption1 = 50;
+	int height_boxOption1 = 3;
+	int amount_option1 = sizeof(option_1) / sizeof(option_1[0]);
+	int choose;
+	choose = menu(x_boxOption1 - 39, y_boxOption1 + 8, width_boxOption1, height_boxOption1, amount_option1, option_1, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+
+	if (choose == 1) {
+		system("cls");
+		ShowCur(1);
+		int width_tmp1 = 50;
+		int height_tmp1 = 10;
+		int width_box1 = 40;
+		int height_box1 = 2;
+
+		system("cls");
+		//S: CREATE A NEW CLASS
+		HERE:
+		std::system("cls");
+		std::string ClassID, ClassName, SchoolYear;
+		std::cout << "Enter class ID: ";
+		getline(std::cin, ClassID);
+		std::cout << "Enter class name: ";
+		getline(std::cin, ClassName);
+		std::cout << "Enter School Year: ";
+		getline(std::cin, SchoolYear);
+
+		bool check = 0;
+		CLASS_NODE* cur_listclass = listclass;
+		while (cur_listclass != nullptr) {
+			if (cur_listclass->listclass.ClassID == ClassID) {
+				check = 1;
+			}
+			cur_listclass = cur_listclass->next;
+		}
+		if (check == 1) {
+			std::cout << "The class ID you entered already exists! Please enter again!";
+			std::system("pause");
+			goto HERE;
+		}
+		cur_listclass = listclass;
+		while (cur_listclass->next != nullptr) {
+			cur_listclass = cur_listclass->next;
+		}
+		cur_listclass->next = new CLASS_NODE;
+		cur_listclass->next->listclass.ClassID = ClassID;
+		cur_listclass->next->listclass.name = ClassName;
+		cur_listclass->next->listclass.schoolYear = stoi(SchoolYear);
+		//E: CREATE A NEW CLASS
+
+		my_print(width_tmp1, height_tmp1, YELLOW, "Enter the import file (Ex: 22CTT02.csv): ");
+		box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
+		
+		gotoXY(width_tmp1 + 1, height_tmp1 + 2);
+		std::string filename = my_getline(width_box1 - 1);
+		lay_vao_file_newclass(listclass, filename);
+
+		my_print(width_tmp1, height_tmp1 + 5, RED, "Are you sure you want commit? (y/n): ");
+		std::cin >> check;
+		gotoXY(width_tmp1, height_tmp1 + 17);
+		std::cin.ignore();
+		if (check == 'y' || check == 'Y') {
+			system("cls");
+			std::cout << "Add Student(s) to new Class successfully!";
+		}
+		else {
+			system("cls");
+			goto AGAIN;
+		}
+	}
+	else if (choose == 2) {
+		system("cls");
+		ShowCur(1);
+		int width_tmp1 = 50;
+		int height_tmp1 = 10;
+		int width_box1 = 40;
+		int height_box1 = 2;
+
+		my_print(width_tmp1, height_tmp1, YELLOW, "Enter the new ClassID : ");
+		box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
+
+		gotoXY(width_tmp1 + 1, height_tmp1 + 2);
+		std::string NClassID = my_getline(width_box1 - 1); 
+
+		if (checkExistClassNODEIDinDLL(listclass, NClassID)) {
+			my_print(width_tmp1, height_tmp1, YELLOW, "Enter the import file (Ex: 22CTT02.csv): ");
+			box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
+			
+			gotoXY(width_tmp1 + 1, height_tmp1 + 2);
+			std::string filename = my_getline(width_box1 - 1);
+			lay_vao_file_oldclass(listclass, filename);
+
+			my_print(width_tmp1, height_tmp1 + 5, RED, "Are you sure you want commit? (y/n): ");
+			std::cin >> check;
+			gotoXY(width_tmp1, height_tmp1 + 17);
+			std::cin.ignore();
+			if (check == 'y' || check == 'Y') {
+				system("cls");
+				std::cout << "Add Student(s) to new Class successfully!";
+			}
+			else {
+				system("cls");
+				goto AGAIN;
+			}
+		}
+		else {
+			my_print(width_tmp1, height_tmp1 + 5, RED, "The ClassID you entered does not exist!");
+			std::system("pause");
+			return;
+		}
+	}
+	else if (choose == 0 + 3) {
+		return;
+	}
+}

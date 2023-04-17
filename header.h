@@ -31,6 +31,7 @@ struct CLASS {
 	std::string ClassID;
 	int schoolYear;
 };
+
 #pragma once
 struct COURSE {
 	int No{};
@@ -162,12 +163,13 @@ void changePassWordOfStaffAccount(STFF_NODE*& staff, STFF_NODE*& loggedinStaff);
 void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStudent);
 
 //SEMESTER'S OPTIONAL FUNCTIONS
-//COURSE //roke
+//COURSE 
 CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID);
 void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 void UpdateCourseInfo(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 void DeleteCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 void createNewSem(SEMESTER semester[], int& count);
+void AddStudent_csv(CLASS_NODE *&listclass);
 
 //----Weekday----
 WEEKDAY ConvertEnumWD(std::string str);
@@ -180,9 +182,9 @@ std::string ConvertStringonlySS(SESSION& ss);
 
 
 
-
 void tach_ra_tung_file_class(STU_NODE* student, CLASS_NODE* listclass);
-
+void lay_vao_file_newclass(CLASS_NODE* listclass, std::string Inputfile);
+void lay_vao_file_oldclass(CLASS_NODE* listclass, std::string Inputfile);
 
 
 

@@ -25,7 +25,6 @@ int main()
 	int semester_count = 0;
 	SEMESTER semester[3];
 
-
 	std::ifstream input;
 	STFF_NODE* staff = nullptr;
 	getDataStaff_csv(input, staff);
@@ -76,6 +75,7 @@ int main()
 
 			my_print(tmp_width, 1, LIGHT_YELLOW, "UNIVERSITY OF NATURAL SCIENCE");
 			my_print(tmp_width + 7, 2, LIGHT_YELLOW, "HO CHI MINH CITY");
+
 			my_print(tmp_width + 4, 5, LIGHT_YELLOW, "HCMUS Portal - Log in");
 
 			my_print(tmp_width - 2, 7, LIGHT_YELLOW, "User name: ");
@@ -85,14 +85,14 @@ int main()
 			box(tmp_width - 2, 12, box_width, 2, BRIGHT_WHITE);
 
 			gotoXY(tmp_width - 1, 9);
-			//user = my_getline(box_width - 1);
+			user = my_getline(box_width - 1);
 			//user = "22240001";
-			user = "33383147";
+			//user = "33383147";
 
 			gotoXY(tmp_width - 1, 13);
-			//pass = my_getline(box_width - 1);
+			pass = my_getline(box_width - 1);
 			//pass = "678910";
-			pass = "123456";
+			//pass = "123456";
 
 			check_T = checkExistOfStaffAccount(staff, user, pass, loggedinStaff);
 			check_S = checkExistOfStudentAccount(student, user, pass, loggedinStudent);
@@ -261,6 +261,8 @@ int main()
 						CreateNewCourse(stu_course, teacher, course);
 					}
 					else if (choose == 4) { //Export the file to import the list of students in each class
+						AddStudent_csv(listclass);
+
 						int check;
 						std::system("cls");
 						std::cout << "\n\t\t\t ********************************************" << std::endl;
@@ -316,7 +318,6 @@ int main()
 					}
 					else if (choose == 3) { //List of courses
 						viewListOfCourses(course);
-						//std::system("pause");
 					}
 					else if (choose == 4) { //List of students in a course
 						viewListStudentsOfCourse(stu_course, student, course);

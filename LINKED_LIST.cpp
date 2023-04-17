@@ -66,7 +66,6 @@ std::string ConvertStringonlySS(SESSION& ss) {
 
 
 void EnterCourseScore(STU_COURSE_NODE*& SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check) {
-
 	STU_COURSE_NODE* cur1 = SC;
 	CR_NODE* cur2 = C;
 	int choice;
