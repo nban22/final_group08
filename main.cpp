@@ -24,6 +24,7 @@ int main()
 	int count = 0;
 	int semester_count = 0;
 	SEMESTER semester[3];
+	std::string current_school_year;
 
 	std::ofstream schoolyearfile;
 	schoolyearfile.open("NewSchoolYear.csv");
@@ -173,11 +174,11 @@ int main()
 						std::system("cls");
 						std::cout << " Create a school year " << std::endl;
 						int schoolYear;
-						CreateSchoolYear(schoolYear);
+						CreateSchoolYear(schoolYear, semester_count, current_school_year);
 						std::system("pause");
 					}
 					else if (choose == 2) {
-						createNewSem(semester, semester_count);
+						createNewSem(semester, semester_count, current_school_year);
 					}
 					else if (choose == 3) {
 					Here:

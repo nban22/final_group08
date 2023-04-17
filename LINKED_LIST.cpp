@@ -164,7 +164,14 @@ bool checkExistOfSchoolyear(std::string year) {
 	return 0;
 }
 
-void CreateSchoolYear(int& sYEAR) {
+void CreateSchoolYear(int& sYEAR, int &semester_count, std::string &current_school_year) {
+	if (semester_count <= 2 && semester_count > 0) {
+		system("cls");
+		std::cout << "Please create all the semester of the current school year first " << std::endl;
+		return;
+	}
+
+	semester_count = 0;
 	std::cout << "Input the starting year of the school year: ";
 	std::cin >> sYEAR;
 
@@ -175,6 +182,7 @@ void CreateSchoolYear(int& sYEAR) {
 	}
 
 	outfile << "\n" << sYEAR << "-" << sYEAR + 1 << ",";
+	current_school_year = std::to_string(sYEAR) + "-" + std::to_string(sYEAR + 1);
 	outfile.close();
 
 	std::cout << "New school year created: " << sYEAR << "-" << sYEAR + 1 << std::endl;

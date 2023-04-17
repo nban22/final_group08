@@ -397,7 +397,7 @@ void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE* stu_course, STFF_NODE* 
 	}
 } */
 
-void createNewSem(SEMESTER semester[], int& count) {
+void createNewSem(SEMESTER semester[], int& count, std::string current_school_year) {
 	system("cls");
 
 	if (count > 2) {
@@ -418,12 +418,7 @@ void createNewSem(SEMESTER semester[], int& count) {
 
 	std::string tmp, schoolyear, tmp2;
 	int day, month, year;
-	getline(in, tmp);
-	while (!in.eof()) {
-		getline(in, tmp);
-		if (tmp != "")
-			schoolyear = tmp;
-	}
+	schoolyear = current_school_year;
 
 	tmp = schoolyear.substr(0, 4);
 	tmp2 = schoolyear.substr(5);

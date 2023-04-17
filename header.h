@@ -168,7 +168,7 @@ CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID);
 void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 void UpdateCourseInfo(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 void DeleteCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
-void createNewSem(SEMESTER semester[], int& count);
+void createNewSem(SEMESTER semester[], int& count, std::string current_school_year);
 void AddStudent_csv(CLASS_NODE *&listclass);
 
 //----Weekday----
@@ -199,7 +199,7 @@ STU_COURSE* checkExistOfStudentCourseRecord(STU_COURSE_NODE*& head, std::string 
 
 //SCHOOL_YEAR
 bool checkExistOfSchoolyear(std::string year);
-void CreateSchoolYear(int& sYEAR);
+void CreateSchoolYear(int& sYEAR, int &semester_count, std::string &current_school_year);
 
 //Add new 1st year students to 1st year classes
 void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass);
