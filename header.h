@@ -202,7 +202,7 @@ bool checkExistOfSchoolyear(std::string year);
 void CreateSchoolYear(int& sYEAR, int &semester_count, std::string &current_school_year);
 
 //Add new 1st year students to 1st year classes
-void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass);
+void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass, std::string current_school_year);
 
 //=============view list of classes============
 CLASS_NODE* checkExistClassNODEIDinDLL(CLASS_NODE* listclass, std::string classID);
@@ -210,6 +210,13 @@ STU_NODE* checkExistClassIDinDLL(STU_NODE*& listclass, std::string classID);
 void deleteSTU_NODE(STU_NODE*& head);
 void displayLISTOFCLASS(CLASS_NODE* listclass);
 void viewListOfClasses(CLASS_NODE*& listclass, STU_NODE* student);
+
+//=============course registration session============
+void course_registration_Session(CR_NODE*& course, STU_COURSE_NODE* stu_course, STFF_NODE* teacher);
+void View_List_of_courses_From_current_time(CR_NODE* course, int day, int month);
+void CreateNewCourse_from_current_time(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
+void UpdateCourseInfo_from_current_time(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
+void DeleteCourse_from_current_time(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 
 
 //=============view list of courses============

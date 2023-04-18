@@ -2,7 +2,7 @@
 
 ////2. ENTER INFORMATION
 //1
-void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass) {
+void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass, std::string current_school_year) {
 
 	STU_NODE* new_student = new STU_NODE;
 	bool check;
@@ -13,6 +13,13 @@ void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass) {
 	int width_big_box = 40;
 	int width_small_box = 10;
 	int height_box = 2;
+
+	if (current_school_year == "") {
+		system("cls");
+		my_print(coordinate_x - 40, coordinate_y + 3, RED, "Please create a new school year before add new students to classes.\n");
+		system("pause");
+		return;
+	}
 
 	do {
 		check = 0;
@@ -221,6 +228,76 @@ void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass) {
 	}
 	Read_After_Update_Students(student);
 }
+
+//2
+void course_registration_Session(CR_NODE*& course, STU_COURSE_NODE* stu_course, STFF_NODE* teacher) {
+	HERE:
+	system("cls");
+	int tmp_width = 60;
+	int box_width = 32;
+	std::string day_tmp, month_tmp;
+
+	my_print(tmp_width, 1, LIGHT_YELLOW, "COURSE REGISTRATION SESSION");
+
+	my_print(tmp_width + 5, 5, LIGHT_YELLOW, "INPUT CURRENT TIME");
+	
+	my_print(tmp_width - 2, 7, LIGHT_YELLOW, "Day: ");
+	box(tmp_width - 2, 8, box_width, 2, LIGHT_AQUA);
+	my_print(tmp_width - 2, 11, LIGHT_YELLOW, "Month: ");
+	box(tmp_width - 2, 12, box_width, 2, LIGHT_AQUA);
+
+	gotoXY(tmp_width - 1, 9);
+	day_tmp = my_getline(box_width - 1);
+	gotoXY(tmp_width - 1, 13);
+	month_tmp = my_getline(box_width - 1);
+
+	int day, month;
+	day = std::stoi(day_tmp);
+	month = std::stoi(month_tmp);
+
+	if (day < 1 || day > 31 || month > 12 || month < 1) {
+		std::cout << "\n\nYour date is invalid, please input again" << std::endl;
+		goto HERE;
+	}
+
+	std::system("cls");
+	std::string option[] = { "1.View list of courses.",
+		"2.Create new course.",
+		"3.Update course's information.",
+		"4.Delete course.",
+		"-1.Exit." };
+	int x_boxStaff = 5;
+	int y_boxStaff = 4;
+	int width_boxStaff = 35;
+	int height_boxStaff = 3;
+	int amount = sizeof(option) / sizeof(option[0]);
+	int choice;
+
+	choice = menu(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+
+	if (choice == 1) {
+		View_List_of_courses_From_current_time(course, day, month);
+	}
+	else if (choice == 2) {
+		View_List_of_courses_From_current_time(course, day, month);
+		system("cls");
+		CreateNewCourse_from_current_time(stu_course, teacher, course);
+	}
+	else if (choice == 3) {
+		View_List_of_courses_From_current_time(course, day, month);
+		system("cls");
+		UpdateCourseInfo_from_current_time(stu_course, teacher, course);
+	}
+	else if (choice == 4) {
+		View_List_of_courses_From_current_time(course, day, month);
+		system("cls");
+		DeleteCourse_from_current_time(stu_course, teacher, course);
+	}
+	else
+		return;
+}
+
+
 //3
 void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head) {
 	ShowCur(1);

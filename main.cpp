@@ -24,7 +24,7 @@ int main()
 	int count = 0;
 	int semester_count = 0;
 	SEMESTER semester[3];
-	std::string current_school_year;
+	std::string current_school_year = "";
 
 	std::ofstream schoolyearfile;
 	schoolyearfile.open("NewSchoolYear.csv");
@@ -172,12 +172,13 @@ int main()
 
 					if (choose == 1) {
 						std::system("cls");
-						std::cout << " Create a school year " << std::endl;
+						my_print(60, 1, LIGHT_YELLOW, "CREATE A SCHOOL YEAR");
 						int schoolYear;
 						CreateSchoolYear(schoolYear, semester_count, current_school_year);
 						std::system("pause");
 					}
 					else if (choose == 2) {
+						my_print(60, 1, LIGHT_YELLOW, "CREATE A SEMESTER");
 						createNewSem(semester, semester_count, current_school_year);
 					}
 					else if (choose == 3) {
@@ -265,10 +266,10 @@ int main()
 					choose = menu(x_boxOption2, y_boxOption2, width_boxOption2, height_boxOption2, amount_option2, option_2, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 					if (choose == 1) { //Add new 1st year students to 1st year classes
-						addNew1styearStudent(student, listclass);
+						addNew1styearStudent(student, listclass, current_school_year);
 					}
 					else if (choose == 2) { //Registration
-
+						course_registration_Session(course, stu_course, teacher);
 						break;
 					}
 					else if (choose == 3) { //Add a course

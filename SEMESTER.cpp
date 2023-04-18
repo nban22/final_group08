@@ -401,7 +401,7 @@ void createNewSem(SEMESTER semester[], int& count, std::string current_school_ye
 	system("cls");
 
 	if (count > 2) {
-		std::cout << "All of semesters have already been created" << std::endl;
+		my_print(60, 1, GREEN, "All of semesters have already been created\n");
 		system("pause");
 		return;
 	}
@@ -424,12 +424,13 @@ void createNewSem(SEMESTER semester[], int& count, std::string current_school_ye
 	tmp2 = schoolyear.substr(5);
 
 	semester[count].schoolyear = schoolyear;
-	std::cout << "Semester " << count + 1 << std::endl;
-	std::cout << "\nSchool Year " << semester[count].schoolyear << std::endl;
-	std::cout << "\nInput start date (dd/mm/yy) : ";
+	my_print(10, 3, LIGHT_YELLOW, "Semester: " + std::to_string(count + 1));
+	my_print(10, 4, LIGHT_YELLOW, "School Year: " + semester[count].schoolyear);
+	my_print(10, 6, LIGHT_YELLOW, "Input start date (dd/mm/yy): ");
+
 	std::cin >> day >> month >> year;
 	if (year > stoi(tmp2) || year < stoi(tmp) || month < 1 || month > 12) {
-		std::cout << "Your date is invalid, please enter again" << std::endl;
+		my_print(50, 8, RED, "Your date is invalid, please enter again \n");
 		system("pause");
 		return;
 	}
@@ -437,10 +438,14 @@ void createNewSem(SEMESTER semester[], int& count, std::string current_school_ye
 	semester[count].startDate.month = (month);
 	semester[count].startDate.year = (year);
 
-	std::cout << "\nInput end date (dd/mm/yy) : ";
+	system("cls");
+	my_print(10, 3, LIGHT_YELLOW, "Semester: " + std::to_string(count + 1));
+	my_print(10, 4, LIGHT_YELLOW, "School Year: " + semester[count].schoolyear);
+	my_print(10, 6, LIGHT_YELLOW, "Input end date (dd/mm/yy): ");
+
 	std::cin >> day >> month >> year;
 	if (year > stoi(tmp2) || year < stoi(tmp) || month < 1 || month >12) {
-		std::cout << "Your date is invalid, please enter again" << std::endl;
+		my_print(50, 8, RED, "Your date is invalid, please enter again \n");
 		system("pause");
 		return;
 	}
