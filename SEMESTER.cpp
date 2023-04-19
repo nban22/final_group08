@@ -531,7 +531,7 @@ AGAIN:
 		cur_listclass->next->listclass.schoolYear = stoi(SchoolYear);
 		//E: CREATE A NEW CLASS
 
-		my_print(width_tmp1, height_tmp1, YELLOW, "Enter the import file (Ex: 22CTT02.csv): ");
+		my_print(width_tmp1, height_tmp1, YELLOW, "Enter the import file (.csv): ");
 		box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
 		
 		gotoXY(width_tmp1 + 1, height_tmp1 + 2);
@@ -559,14 +559,14 @@ AGAIN:
 		int width_box1 = 40;
 		int height_box1 = 2;
 
-		my_print(width_tmp1, height_tmp1, YELLOW, "Enter the new ClassID : ");
+		my_print(width_tmp1, height_tmp1, YELLOW, "Enter the ClassID : ");
 		box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
 
 		gotoXY(width_tmp1 + 1, height_tmp1 + 2);
 		std::string NClassID = my_getline(width_box1 - 1); 
 
 		if (checkExistClassNODEIDinDLL(listclass, NClassID)) {
-			my_print(width_tmp1, height_tmp1, YELLOW, "Enter the import file (Ex: 22CTT02.csv): ");
+			my_print(width_tmp1, height_tmp1, YELLOW, "Enter the import file (.csv): ");
 			box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
 			
 			gotoXY(width_tmp1 + 1, height_tmp1 + 2);

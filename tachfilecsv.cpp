@@ -40,14 +40,16 @@ void lay_vao_file_newclass(CLASS_NODE* listclass, std::string Inputfile) {
 		system("pause");
 		return;
 	}
-
 	STU_NODE *student = new STU_NODE;
-	std::getline(Input, student->student.StudentID);
+
+	std::string title;
+	std::getline(Input, title);
 	while (!Input.eof()) {
 		std::string tmp;
 		std::getline(Input, tmp, ',');
 		student->student.No_Student = stoi(tmp);
 		std::getline(Input, student->student.StudentID, ',');
+		std::getline(Input, student->student.Password, ',');
 		std::getline(Input, student->student.LName, ',');
 		std::getline(Input, student->student.FName, ',');
 		std::getline(Input, student->student.Gender, ',');
@@ -58,9 +60,18 @@ void lay_vao_file_newclass(CLASS_NODE* listclass, std::string Inputfile) {
 		std::getline(Input, tmp, ',');
 		student->student.DoB.year = stoi(tmp);
 		std::getline(Input, student->student.SocialID, ',');
+		std::getline(Input, student->student.Classes.name, ',');
+		std::getline(Input, tmp);
+		std::getline(Input, tmp); // skip 2 line
+		student->student.Classes.ClassID = listclass->listclass.ClassID;
+		student->student.Classes.schoolYear = listclass->listclass.schoolYear;
 		updateListClass(listclass, student);
+		tach_ra_tung_file_class(student, listclass);
 	}
 	Input.close();
+
+	delete student;
+	return;
 }
 
 void lay_vao_file_oldclass(CLASS_NODE* listclass, std::string Inputfile) {
@@ -75,27 +86,34 @@ void lay_vao_file_oldclass(CLASS_NODE* listclass, std::string Inputfile) {
 		system("pause");
 		return;
 	}
+	STU_NODE* student = new STU_NODE;
 
-	std::system("cls");
-	STU_NODE* NewStudent = new STU_NODE;
-	
-	std::getline(Input, NewStudent->student.StudentID);
+	std::string title;
+	std::getline(Input, title);
 	while (!Input.eof()) {
 		std::string tmp;
 		std::getline(Input, tmp, ',');
-		std::getline(Input, NewStudent->student.StudentID, ',');
-		std::getline(Input, NewStudent->student.LName, ',');
-		std::getline(Input, NewStudent->student.FName, ',');
-		std::getline(Input, NewStudent->student.Gender, ',');
+		student->student.No_Student = stoi(tmp);
+		std::getline(Input, student->student.StudentID, ',');
+		std::getline(Input, student->student.Password, ',');
+		std::getline(Input, student->student.LName, ',');
+		std::getline(Input, student->student.FName, ',');
+		std::getline(Input, student->student.Gender, ',');
 		std::getline(Input, tmp, '/');
-		NewStudent->student.DoB.month = stoi(tmp);
+		student->student.DoB.month = stoi(tmp);
 		std::getline(Input, tmp, '/');
-		NewStudent->student.DoB.day = stoi(tmp);
+		student->student.DoB.day = stoi(tmp);
 		std::getline(Input, tmp, ',');
-		NewStudent->student.DoB.year = stoi(tmp);
-		std::getline(Input, NewStudent->student.SocialID, ',');
-		updateListClass(listclass, NewStudent);
+		student->student.DoB.year = stoi(tmp);
+		std::getline(Input, student->student.SocialID, ',');
+		std::getline(Input, student->student.Classes.name, ',');
+		std::getline(Input, student->student.Classes.ClassID, ',');
+		std::getline(Input, tmp);
+		student->student.Classes.schoolYear = stoi(tmp);
+		updateListClass(listclass, student);
 	}
 	Input.close();
+
+	delete student;
 	return;
 }
