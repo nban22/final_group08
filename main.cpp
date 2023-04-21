@@ -235,7 +235,6 @@ int main()
 			}
 			else if (choose_staff == 2) { //Enter information
 				while (1) {
-					
 					std::system("cls");
 					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
 					std::string option_2[] = { "1.Add new 1st year students to 1st year classes.",

@@ -180,9 +180,7 @@ std::string ConvertStringonlySS(SESSION ss);
 
 
 
-
 void tach_ra_tung_file_class(STU_NODE* student, CLASS_NODE* listclass);
-
 
 
 
@@ -321,8 +319,5 @@ void DeleteCR_NODE(CR_NODE* &course);
 void DeleteSTU_COURSE_NODE(STU_COURSE_NODE* &stu_course);
 void DeleteCLASS_NODE(CLASS_NODE* &listclass);
 void DeleteALLLinkList(STU_NODE* &student, STFF_NODE* &staff, STFF_NODE*& teacher, CR_NODE* &course, STU_COURSE_NODE* &stu_course, CLASS_NODE* &listclass);
-
-
-
 
 #endif
