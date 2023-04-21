@@ -31,6 +31,7 @@ struct CLASS {
 	std::string ClassID;
 	int schoolYear;
 };
+
 #pragma once
 struct COURSE {
 	int No{};
@@ -162,12 +163,13 @@ void changePassWordOfStaffAccount(STFF_NODE*& staff, STFF_NODE*& loggedinStaff);
 void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStudent);
 
 //SEMESTER'S OPTIONAL FUNCTIONS
-//COURSE //roke
+//COURSE 
 CR_NODE* checkExistOfCourseRecord(CR_NODE*& head, std::string ID);
 void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 void UpdateCourseInfo(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 void DeleteCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
-void createNewSem(SEMESTER semester[], int& count);
+void createNewSem(SEMESTER semester[], int& count, std::string current_school_year);
+void AddStudent_csv(CLASS_NODE *&listclass);
 
 //----Weekday----
 WEEKDAY ConvertEnumWD(std::string str);
@@ -181,7 +183,8 @@ std::string ConvertStringonlySS(SESSION ss);
 
 
 void tach_ra_tung_file_class(STU_NODE* student, CLASS_NODE* listclass);
-
+void lay_vao_file_newclass(CLASS_NODE* listclass, std::string Inputfile);
+void lay_vao_file_oldclass(CLASS_NODE* listclass, std::string Inputfile);
 
 
 //COURSE_STUDENT
@@ -195,10 +198,10 @@ STU_COURSE* checkExistOfStudentCourseRecord(STU_COURSE_NODE*& head, std::string 
 
 //SCHOOL_YEAR
 bool checkExistOfSchoolyear(std::string year);
-void CreateSchoolYear(int& sYEAR);
+void CreateSchoolYear(int& sYEAR, int &semester_count, std::string &current_school_year);
 
 //Add new 1st year students to 1st year classes
-void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass);
+void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass, std::string current_school_year);
 
 //=============view list of classes============
 CLASS_NODE* checkExistClassNODEIDinDLL(CLASS_NODE* listclass, std::string classID);
@@ -206,6 +209,13 @@ STU_NODE* checkExistClassIDinDLL(STU_NODE*& listclass, std::string classID);
 void deleteSTU_NODE(STU_NODE*& head);
 void displayLISTOFCLASS(CLASS_NODE* listclass);
 void viewListOfClasses(CLASS_NODE*& listclass, STU_NODE* student);
+
+//=============course registration session============
+void course_registration_Session(CR_NODE*& course, STU_COURSE_NODE* stu_course, STFF_NODE* teacher);
+void View_List_of_courses_From_current_time(CR_NODE* course, int day, int month);
+void CreateNewCourse_from_current_time(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
+void UpdateCourseInfo_from_current_time(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
+void DeleteCourse_from_current_time(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 
 
 //=============view list of courses============

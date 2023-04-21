@@ -66,7 +66,6 @@ std::string ConvertStringonlySS(SESSION ss) {
 
 
 void EnterCourseScore(STU_COURSE_NODE*& SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check) {
-
 	STU_COURSE_NODE* cur1 = SC;
 	CR_NODE* cur2 = C;
 	int choice;
@@ -154,7 +153,7 @@ bool checkExistOfSchoolyear(std::string year) {
 
 	while (!infile.eof()) {
 		std::string line;
-		std::getline(infile, line, '\n');
+		std::getline(infile, line, '-');
 		if (line == "") {
 			return 0;
 		}
@@ -165,20 +164,28 @@ bool checkExistOfSchoolyear(std::string year) {
 	return 0;
 }
 
-void CreateSchoolYear(int& sYEAR) {
-	std::cout << "Input the starting year of the school year: ";
+void CreateSchoolYear(int& sYEAR, int &semester_count, std::string &current_school_year) {
+	if (semester_count <= 2 && semester_count > 0) {
+		system("cls");
+		my_print(30, 5, RED, "Please create all the semester of the current school year first\n ");
+		return;
+	}
+
+	semester_count = 0;
+	my_print(50, 5, LIGHT_YELLOW, "Input the starting year of the school year: ");
 	std::cin >> sYEAR;
 
-	std::ofstream outfile("NewSchoolYear.csv");
+	std::fstream outfile("NewSchoolYear.csv", std::fstream::app);
 	if (!outfile.is_open()) {
 		std::cout << "Failed to create file." << std::endl;
 		return;
 	}
-	outfile << "School Year" << std::endl;
-	outfile << sYEAR << "-" << sYEAR + 1 << std::endl;
+
+	outfile << "\n" << sYEAR << "-" << sYEAR + 1 << ",";
+	current_school_year = std::to_string(sYEAR) + "-" + std::to_string(sYEAR + 1);
 	outfile.close();
 
-	std::cout << "New school year created: " << sYEAR << "-" << sYEAR + 1 << std::endl;
+	my_print(55, 7, GREEN, "New school year created: " + current_school_year + "\n");
 }
 
 void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff) {

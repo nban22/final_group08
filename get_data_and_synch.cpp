@@ -470,6 +470,7 @@ bool Read_After_Update_Student_Course(STU_NODE* student, CR_NODE* course, STFF_N
 	/*updateCur_stdnInCourse(course, stu_course);*/
 	return 1;
 }
+
 void updateCur_stdnInCourse(CR_NODE*& course, STU_COURSE_NODE* head) {
 	CR_NODE* cur_course = course;
 	while (cur_course) {

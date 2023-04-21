@@ -24,7 +24,14 @@ int main()
 	int count = 0;
 	int semester_count = 0;
 	SEMESTER semester[3];
+	std::string current_school_year = "";
 
+	std::ofstream schoolyearfile;
+	schoolyearfile.open("NewSchoolYear.csv");
+	if (schoolyearfile.is_open()) {
+		schoolyearfile << "School Year,Semester 1 Start Date,Semester 1 End Date,Semester 2 Start Date,Semester 2 End Date,Semester 3 Start Date,Semester 3 End Date";
+	}
+	schoolyearfile.close();
 
 	std::ifstream input;
 	STFF_NODE* staff = nullptr;
@@ -76,6 +83,7 @@ int main()
 
 			my_print(tmp_width, 1, LIGHT_YELLOW, "UNIVERSITY OF NATURAL SCIENCE");
 			my_print(tmp_width + 7, 2, LIGHT_YELLOW, "HO CHI MINH CITY");
+
 			my_print(tmp_width + 4, 5, LIGHT_YELLOW, "HCMUS Portal - Log in");
 
 			my_print(tmp_width - 2, 7, LIGHT_YELLOW, "User name: ");
@@ -86,10 +94,12 @@ int main()
 
 			gotoXY(tmp_width - 1, 9);
 			//user = my_getline(box_width - 1);
+			//user = "22240001";
+			user = "33383147";
 
 			gotoXY(tmp_width - 1, 13);
 			//pass = my_getline(box_width - 1);
-			user = "33383147";
+			//pass = "678910";
 			pass = "123456";
 
 			/*user = "22240001";
@@ -162,13 +172,14 @@ int main()
 
 					if (choose == 1) {
 						std::system("cls");
-						std::cout << " Create a school year " << std::endl;
+						my_print(60, 1, LIGHT_YELLOW, "CREATE A SCHOOL YEAR");
 						int schoolYear;
-						CreateSchoolYear(schoolYear);
+						CreateSchoolYear(schoolYear, semester_count, current_school_year);
 						std::system("pause");
 					}
 					else if (choose == 2) {
-						createNewSem(semester, semester_count);
+						my_print(60, 1, LIGHT_YELLOW, "CREATE A SEMESTER");
+						createNewSem(semester, semester_count, current_school_year);
 					}
 					else if (choose == 3) {
 					Here:
@@ -254,29 +265,17 @@ int main()
 					choose = menu(x_boxOption2, y_boxOption2, width_boxOption2, height_boxOption2, amount_option2, option_2, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 					if (choose == 1) { //Add new 1st year students to 1st year classes
-						addNew1styearStudent(student, listclass);
+						addNew1styearStudent(student, listclass, current_school_year);
 					}
 					else if (choose == 2) { //Registration
-
+						course_registration_Session(course, stu_course, teacher);
 						break;
 					}
 					else if (choose == 3) { //Add a course
 						CreateNewCourse(stu_course, teacher, course);
 					}
 					else if (choose == 4) { //Export the file to import the list of students in each class
-						/*
-						std::string classID;
-						std::cin >> classID;
-						
-						if (checkExistClassIDinDLL(student, classID) != nullptr) {
-							std::cout << "lop do da ton tai roi. vui long nhap id lop khac";
-							continue;
-						}
-						else {
-							std::cout << "nhap school year";
-							int schoolYear;
-							std::cin >> schoolYear;
-						}*/
+						AddStudent_csv(listclass);
 
 						int check;
 						std::system("cls");
@@ -333,7 +332,6 @@ int main()
 					}
 					else if (choose == 3) { //List of courses
 						viewListOfCourses(course);
-						//std::system("pause");
 					}
 					else if (choose == 4) { //List of students in a course
 						viewListStudentsOfCourse(stu_course, student, course);
