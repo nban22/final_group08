@@ -28,6 +28,43 @@ void tach_ra_tung_file_class(STU_NODE* student, CLASS_NODE* listclass) {
 	}
 }
 
+void tach_ra_mot_file_NEWclass(STU_NODE* student, CLASS_NODE* listclass) {
+	std::ofstream outfile("listclass/" + listclass->listclass.ClassID + ".csv", std::fstream::app);
+	outfile << "\n" << student->student.No_Student << ","
+		<< student->student.StudentID << ","
+		<< student->student.LName << ","
+		<< student->student.FName << ","
+		<< student->student.Gender << ","
+		<< student->student.DoB.month << "/"
+		<< student->student.DoB.day << "/"
+		<< student->student.DoB.year << ","
+		<< student->student.SocialID;
+	outfile.close();
+}
+
+void cap_nhat_mot_file_class(STU_NODE* student, CLASS_NODE* listclass) {
+	std::ifstream infile("listclass/" + listclass->listclass.ClassID + ".csv");
+	int No = 0;
+	std::string tmp;
+	while (!infile.eof()) {
+		getline(infile, tmp);
+		No++;
+	}
+	infile.close();
+
+	std::ofstream outfile("listclass/" + listclass->listclass.ClassID + ".csv", std::fstream::app);
+	outfile << "\n" << No << ","
+		<< student->student.StudentID << ","
+		<< student->student.LName << ","
+		<< student->student.FName << ","
+		<< student->student.Gender << ","
+		<< student->student.DoB.month << "/"
+		<< student->student.DoB.day << "/"
+		<< student->student.DoB.year << ","
+		<< student->student.SocialID;
+	outfile.close();
+}
+
 void lay_vao_file_newclass(CLASS_NODE* listclass, std::string Inputfile) {
 	int width_tmp1 = 50;
 	int height_tmp1 = 10;
@@ -65,8 +102,7 @@ void lay_vao_file_newclass(CLASS_NODE* listclass, std::string Inputfile) {
 		std::getline(Input, tmp); // skip 2 line
 		student->student.Classes.ClassID = listclass->listclass.ClassID;
 		student->student.Classes.schoolYear = listclass->listclass.schoolYear;
-		updateListClass(listclass, student);
-		tach_ra_tung_file_class(student, listclass);
+		tach_ra_mot_file_NEWclass(student, listclass);
 	}
 	Input.close();
 
@@ -110,7 +146,7 @@ void lay_vao_file_oldclass(CLASS_NODE* listclass, std::string Inputfile) {
 		std::getline(Input, student->student.Classes.ClassID, ',');
 		std::getline(Input, tmp);
 		student->student.Classes.schoolYear = stoi(tmp);
-		updateListClass(listclass, student);
+		cap_nhat_mot_file_class(student, listclass);
 	}
 	Input.close();
 

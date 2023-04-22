@@ -215,37 +215,68 @@ void create_a_new_school_year() {
 				if (tmp == "-1") return;
 				else smter_next->endDate.year = stoi(tmp);
 
-				file_next_semester << "1,"
-					<< smter_next->startDate.day << "/"
-					<< smter_next->startDate.month << "/"
-					<< smter_next->startDate.year << ","
-					<< smter_next->endDate.day << "/"
-					<< smter_next->endDate.month << "/"
-					<< smter_next->endDate.year;
+				//TESTING
 
-				textcolor(BLACK * 16 + BLACK);
-				for (int j = 0; j < 20; j++)
-					for (int i = 0; i < 41; i++) {
-						gotoXY(coordinate_x + i, coordinate_y + j);
-						std::cout << " ";
-					}
-				textcolor(WHITE);
+				if (Test_ifValid_Date(smter_next)) {
+					file_next_semester << "1,"
+						<< smter_next->startDate.day << "/"
+						<< smter_next->startDate.month << "/"
+						<< smter_next->startDate.year << ","
+						<< smter_next->endDate.day << "/"
+						<< smter_next->endDate.month << "/"
+						<< smter_next->endDate.year;
 
-				textcolor(LIGHT_GREEN * 16 + BLACK);
-				for (int j = 0; j < 3; j++)
-					for (int i = 0; i < 41; i++) {
-						gotoXY(coordinate_x + 2 + i, coordinate_y + 8 + j);
-						std::cout << " ";
-					}
-				gotoXY(coordinate_x + 4 + 1, coordinate_y + 8 + 1);
-				std::cout << "Created the new school year successfully.";
-				textcolor(WHITE);
+					textcolor(BLACK * 16 + BLACK);
+					for (int j = 0; j < 20; j++)
+						for (int i = 0; i < 41; i++) {
+							gotoXY(coordinate_x + i, coordinate_y + j);
+							std::cout << " ";
+						}
+					textcolor(WHITE);
 
-				char ch;
-				ch = _getch();
+					textcolor(LIGHT_GREEN * 16 + BLACK);
+					for (int j = 0; j < 3; j++)
+						for (int i = 0; i < 41; i++) {
+							gotoXY(coordinate_x + 2 + i, coordinate_y + 8 + j);
+							std::cout << " ";
+						}
+					gotoXY(coordinate_x + 4 + 1, coordinate_y + 8 + 1);
+					std::cout << "Created the new school year successfully.";
+					textcolor(WHITE);
 
-				delete smter_next;
-				file_next_semester.close();
+					char ch;
+					ch = _getch();
+
+					delete smter_next;
+					file_next_semester.close();
+				}
+				else {
+					textcolor(BLACK * 16 + BLACK);
+					for (int j = 0; j < 20; j++)
+						for (int i = 0; i < 41; i++) {
+							gotoXY(coordinate_x + i, coordinate_y + j);
+							std::cout << " ";
+						}
+					textcolor(WHITE);
+
+					textcolor(LIGHT_GREEN * 16 + BLACK);
+					for (int j = 0; j < 3; j++)
+						for (int i = 0; i < 41; i++) {
+							gotoXY(coordinate_x + i, coordinate_y + 8 + j);
+							std::cout << " ";
+						}
+					gotoXY(coordinate_x + 2 + 1, coordinate_y + 8 + 1);
+					std::cout << "Date is not valid.";
+					textcolor(WHITE);
+
+					char ch;
+					ch = _getch();
+
+					delete smter_next;
+					delete[] smter;
+					file_semester.close();
+					return;
+				}
 			}
 		}
 		delete[] smter;
@@ -367,39 +398,69 @@ void create_semester() {
 			if (tmp == "-1") return;
 			else smter_next->endDate.year = stoi(tmp);
 
-			std::fstream file_next_semester("semester" + std::to_string(schYear) + "_" + std::to_string(schYear + 1) + ".txt", std::ios::app);
+			//TESTING
+			if (Test_ifValid_Date(smter_next)) {
+				std::fstream file_next_semester("semester" + std::to_string(schYear) + "_" + std::to_string(schYear + 1) + ".txt", std::ios::app);
 
-			file_next_semester << "\n" << i << ","
-				<< smter_next->startDate.day << "/"
-				<< smter_next->startDate.month << "/"
-				<< smter_next->startDate.year << ","
-				<< smter_next->endDate.day << "/"
-				<< smter_next->endDate.month << "/"
-				<< smter_next->endDate.year;
+				file_next_semester << "\n" << i << ","
+					<< smter_next->startDate.day << "/"
+					<< smter_next->startDate.month << "/"
+					<< smter_next->startDate.year << ","
+					<< smter_next->endDate.day << "/"
+					<< smter_next->endDate.month << "/"
+					<< smter_next->endDate.year;
 
-			textcolor(BLACK * 16 + BLACK);
-			for (int j = 0; j < 20; j++)
-				for (int i = 0; i < 41; i++) {
-					gotoXY(coordinate_x + i, coordinate_y + j);
-					std::cout << " ";
-				}
-			textcolor(WHITE);
+				textcolor(BLACK * 16 + BLACK);
+				for (int j = 0; j < 20; j++)
+					for (int i = 0; i < 41; i++) {
+						gotoXY(coordinate_x + i, coordinate_y + j);
+						std::cout << " ";
+					}
+				textcolor(WHITE);
 
-			textcolor(LIGHT_GREEN * 16 + BLACK);
-			for (int j = 0; j < 3; j++)
-				for (int i = 0; i < 41; i++) {
-					gotoXY(coordinate_x + i, coordinate_y + 8 + j);
-					std::cout << " ";
-				}
-			gotoXY(coordinate_x + 2 + 1, coordinate_y + 8 + 1);
-			std::cout << "Created the semester successfully.";
-			textcolor(WHITE);
+				textcolor(LIGHT_GREEN * 16 + BLACK);
+				for (int j = 0; j < 3; j++)
+					for (int i = 0; i < 41; i++) {
+						gotoXY(coordinate_x + i, coordinate_y + 8 + j);
+						std::cout << " ";
+					}
+				gotoXY(coordinate_x + 2 + 1, coordinate_y + 8 + 1);
+				std::cout << "Created the semester successfully.";
+				textcolor(WHITE);
 
-			char ch;
-			ch = _getch();
+				char ch;
+				ch = _getch();
 
-			delete smter_next;
-			file_next_semester.close();
+				delete smter_next;
+				file_next_semester.close();
+			}
+			else {
+				textcolor(BLACK * 16 + BLACK);
+				for (int j = 0; j < 20; j++)
+					for (int i = 0; i < 41; i++) {
+						gotoXY(coordinate_x + i, coordinate_y + j);
+						std::cout << " ";
+					}
+				textcolor(WHITE);
+
+				textcolor(LIGHT_GREEN * 16 + BLACK);
+				for (int j = 0; j < 3; j++)
+					for (int i = 0; i < 41; i++) {
+						gotoXY(coordinate_x + i, coordinate_y + 8 + j);
+						std::cout << " ";
+					}
+				gotoXY(coordinate_x + 2 + 1, coordinate_y + 8 + 1);
+				std::cout << "Date is not valid.";
+				textcolor(WHITE);
+
+				char ch;
+				ch = _getch();
+
+				delete smter_next;
+				delete[] smter;
+				file_semester.close();
+				return;
+			}
 		}
 	}
 	delete[] smter;
@@ -948,6 +1009,8 @@ Here_enter_y2:
 	NewCourse->course.endDate.year = stoi(my_getline_onlyNumber(4));
 	if (std::to_string(NewCourse->course.endDate.year) == "-1")
 		return;
+
+
 
 	//Add course at the end
 	if (!cur) {
@@ -2265,4 +2328,37 @@ void ExportScoreBoard(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* st
 	}
 	else if (choice == 0 + 3)
 		return;
+}
+
+//////////////////////////////////////////TEST FUNCTION//////////////////////////////////////////
+bool Test_ifValid_Date(SEMESTER* smter) {
+	if (smter->startDate.year > smter->endDate.year) {
+		return 0;
+	}
+	else if (smter->startDate.year < smter->endDate.year) {
+		if (smter->startDate.month > smter->endDate.month) {
+			return 0;
+		}
+		else if (smter->startDate.month < smter->endDate.month) {
+			if (smter->startDate.day > smter->endDate.day) {
+				return 0;
+			}
+		}
+    }
+	else if (smter->startDate.year == smter->endDate.year) {
+		if (smter->startDate.month >= smter->endDate.month) {
+			return 0;
+		}
+		else if (smter->startDate.month < smter->endDate.month) {
+			if (smter->startDate.day > smter->endDate.day) {
+				return 0;
+			}
+		}
+		else if (smter->startDate.month == smter->endDate.month) {
+			if (smter->startDate.day >= smter->endDate.day) {
+				return 0;
+			}
+		}
+	}
+	return 1;
 }

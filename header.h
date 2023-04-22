@@ -184,6 +184,8 @@ std::string ConvertStringonlySS(SESSION ss);
 
 
 void tach_ra_tung_file_class(STU_NODE* student, CLASS_NODE* listclass);
+void tach_ra_mot_file_NEWclass(STU_NODE* student, CLASS_NODE* listclass);
+void cap_nhat_mot_file_class(STU_NODE* student, CLASS_NODE* listclass);
 void lay_vao_file_newclass(CLASS_NODE* listclass, std::string Inputfile);
 void lay_vao_file_oldclass(CLASS_NODE* listclass, std::string Inputfile);
 
@@ -210,9 +212,6 @@ STU_NODE* checkExistClassIDinDLL(STU_NODE*& listclass, std::string classID);
 void deleteSTU_NODE(STU_NODE*& head);
 void displayLISTOFCLASS(CLASS_NODE* listclass);
 void viewListOfClasses(CLASS_NODE*& listclass, STU_NODE* student);
-
-
-
 
 
 void create_a_new_school_year();
@@ -269,6 +268,7 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 
 void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course);
 //
+bool Test_ifValid_Date(SEMESTER* smter);
 char GetRanking(float Grade); 
 void View_Y_Scoreboard(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent);
 

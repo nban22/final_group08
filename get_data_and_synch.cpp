@@ -478,6 +478,7 @@ void updateCur_stdnInCourse(CR_NODE*& course, STU_COURSE_NODE* head) {
 		cur_course = cur_course->next;
 	}
 }
+
 void updateListClass(CLASS_NODE*& listclass, STU_NODE* student) {
 	CLASS_NODE* cur_listclass = listclass;
 	STU_NODE* cur1_student = student;
