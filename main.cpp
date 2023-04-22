@@ -147,20 +147,20 @@ int main()
 			choose_staff = menu(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 			//printInformation_A_Staff(loggedinStaff);
-			
+
 			if (choose_staff == 1) { //Create new
 				while (1) {
 					std::system("cls");
 					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
 
-					std::string option_1[] = { 
+					std::string option_1[] = {
 						"1.Create a new school year.",
 						"2.Create semester.",
 						"3.Create a new class.",
 						"4.Change information of a teacher.",
 						"5.Change your information.",
 						"6.Create a new staff's account.",
-						"0.Come back." 
+						"0.Come back."
 					};
 					int x_boxOption1 = x_boxStaff + width_boxStaff + 2;
 					int y_boxOption1 = y_boxStaff;
@@ -171,15 +171,10 @@ int main()
 					choose = menu(x_boxOption1, y_boxOption1, width_boxOption1, height_boxOption1, amount_option1, option_1, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 					if (choose == 1) {
-						std::system("cls");
-						my_print(60, 1, LIGHT_YELLOW, "CREATE A SCHOOL YEAR");
-						int schoolYear;
-						CreateSchoolYear(schoolYear, semester_count, current_school_year);
-						std::system("pause");
+						create_a_new_school_year();
 					}
 					else if (choose == 2) {
-						my_print(60, 1, LIGHT_YELLOW, "CREATE A SEMESTER");
-						createNewSem(semester, semester_count, current_school_year);
+						create_semester();
 					}
 					else if (choose == 3) {
 					Here:
@@ -415,7 +410,6 @@ int main()
 
 		//THE FUNCTIONS OF STUDENT
 		while (check_S == 1) {
-		RESTART:
 			std::system("cls");
 			std::string option[] = { "1. Change password.",
 						"2. Update your personal information.",
@@ -442,7 +436,7 @@ int main()
 				UpdateStudentInfo(student, loggedinStudent);
 			}
 			else if (choose == 3) {
-				RegisterForCourse(student, teacher, course, stu_course, loggedinStudent); 
+				RegisterForCourse(student, teacher, course, stu_course, loggedinStudent);
 			}
 			else if (choose == 4) {
 				ResultRegistration(stu_course, loggedinStudent, course);
@@ -464,7 +458,7 @@ int main()
 				std::system("cls");
 				std::cout << "****************************THANK YOU FOR USING!********************************\n\n";
 
-				DeleteALLLinkList(student, staff,teacher, course, stu_course, listclass);
+				DeleteALLLinkList(student, staff, teacher, course, stu_course, listclass);
 
 				return 0;
 			}

@@ -216,7 +216,7 @@ void createNewSem(SEMESTER semester[], int& count, std::string current_school_ye
 	return;
 }
 
-void AddStudent_csv(CLASS_NODE *&listclass) {
+void AddStudent_csv(CLASS_NODE*& listclass) {
 AGAIN:
 	system("cls");
 	int x_box = 5;
@@ -251,15 +251,15 @@ AGAIN:
 
 		system("cls");
 		//S: CREATE A NEW CLASS
-		HERE:
+	HERE:
 		std::system("cls");
 		std::string ClassID, ClassName, SchoolYear;
 		std::cout << "Enter class ID: ";
-		getline(std::cin, ClassID);
+		std::getline(std::cin, ClassID);
 		std::cout << "Enter class name: ";
-		getline(std::cin, ClassName);
+		std::getline(std::cin, ClassName);
 		std::cout << "Enter School Year: ";
-		getline(std::cin, SchoolYear);
+		std::getline(std::cin, SchoolYear);
 
 		bool check = 0;
 		CLASS_NODE* cur_listclass = listclass;
@@ -286,16 +286,17 @@ AGAIN:
 
 		my_print(width_tmp1, height_tmp1, YELLOW, "Enter the import file (.csv): ");
 		box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
-		
+
 		gotoXY(width_tmp1 + 1, height_tmp1 + 2);
 		std::string filename = my_getline(width_box1 - 1);
 		lay_vao_file_newclass(listclass, filename);
 
 		my_print(width_tmp1, height_tmp1 + 5, RED, "Are you sure you want commit? (y/n): ");
-		std::cin >> check;
+		char ans;
+		std::cin >> ans;
 		gotoXY(width_tmp1, height_tmp1 + 17);
 		std::cin.ignore();
-		if (check == 'y' || check == 'Y') {
+		if (ans == 'y' || ans == 'Y') {
 			system("cls");
 			std::cout << "Add Student(s) to new Class successfully!";
 		}
@@ -316,12 +317,12 @@ AGAIN:
 		box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
 
 		gotoXY(width_tmp1 + 1, height_tmp1 + 2);
-		std::string NClassID = my_getline(width_box1 - 1); 
+		std::string NClassID = my_getline(width_box1 - 1);
 
 		if (checkExistClassNODEIDinDLL(listclass, NClassID)) {
 			my_print(width_tmp1, height_tmp1, YELLOW, "Enter the import file (.csv): ");
 			box(width_tmp1, height_tmp1 + 1, width_box1, height_box1, YELLOW);
-			
+
 			gotoXY(width_tmp1 + 1, height_tmp1 + 2);
 			std::string filename = my_getline(width_box1 - 1);
 			lay_vao_file_oldclass(listclass, filename);

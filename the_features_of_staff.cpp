@@ -1,5 +1,413 @@
 ﻿#include "header.h"
 
+////1. CREATE NEW
+//1
+void create_a_new_school_year() {
+	int coordinate_x = 100;
+	int coordinate_y = 8;
+	int width_box = 40;
+	int height_box = 3;
+	int width_small_box = 10;
+
+	coordinate_x += 10;
+	my_print(coordinate_x - 10, coordinate_y, LIGHT_YELLOW, "Do you want to create a new school year");
+
+	int x_tmp = 110;
+	int y_tmp = 10;
+	int width_tmp = 8;
+	int height_tmp = 3;
+	int distance = 3;
+	std::string option[] = { "YES", "NO" };
+	int amount = sizeof(option) / sizeof(option[0]);
+
+	box(x_tmp, y_tmp, width_tmp, height_tmp, LIGHT_YELLOW);
+	box(x_tmp + width_tmp + distance, y_tmp, width_tmp, height_tmp, LIGHT_YELLOW);
+	my_print(x_tmp + 1 + 2, y_tmp + 1, LIGHT_YELLOW, option[0]);
+	my_print(x_tmp + width_tmp + distance + 1 + 2, y_tmp + 1, LIGHT_YELLOW, option[1]);
+	char ch;
+	int check = 1;
+	int x_cur = x_tmp;
+	int y_cur = y_tmp;
+	int x_old = x_cur;
+	int y_old = y_cur;
+
+	int choice = 0;
+	while (true) {
+		if (check == 1) {
+			textcolor(BLACK * 16 + LIGHT_YELLOW);
+			for (int j = 0; j < height_tmp - 1; j++)
+				for (int i = 0; i < width_tmp - 1; i++) {
+					gotoXY(x_old + 1 + i, y_old + 1 + j);
+					std::cout << " ";
+				}
+			gotoXY(x_old + 1 + 2, y_old + 1);
+			std::cout << option[(x_old - x_tmp) / (width_tmp + distance)];
+			textcolor(WHITE);
+
+			textcolor(LIGHT_AQUA * 16 + BLACK);
+			for (int j = 0; j < height_tmp - 1; j++)
+				for (int i = 0; i < width_tmp - 1; i++) {
+					gotoXY(x_cur + 1 + i, y_cur + 1 + j);
+					std::cout << " ";
+				}
+			gotoXY(x_cur + 1 + 2, y_tmp + 1);
+			std::cout << option[(x_cur - x_tmp) / (width_tmp + distance)];
+			textcolor(WHITE);
+
+			x_old = x_cur, y_old = y_cur;
+			check = 0;
+		}
+		if (_kbhit()) {
+			ch = _getch();
+			if (ch == -32) {
+				ch = _getch();
+				check = 1;
+				if (ch == 75) {
+					if (x_cur == x_tmp)
+						x_cur = x_tmp + (amount - 1) * (width_tmp + distance);
+					else
+						x_cur -= width_tmp + distance;
+				}
+				else if (ch == 77) {
+					if (x_cur == x_tmp + (amount - 1) * (width_tmp + distance))
+						x_cur = x_tmp;
+					else
+						x_cur += width_tmp + distance;
+				}
+			}
+			else if (ch == 13) {
+				choice = (x_cur - x_tmp) / (width_tmp + distance) + 1;
+				break;
+			}
+		}
+	}
+	coordinate_x -= 10;
+	if (choice == 1) {
+		std::ifstream file_schoolYear("schoolYear.txt");
+		if (!file_schoolYear.is_open()) {
+			textcolor(WHITE * 16 + BLACK);
+			gotoXY(coordinate_x - 10, coordinate_y + 8);
+			std::cout << "Can not open file schoolYear.txt" << std::endl;
+			gotoXY(coordinate_x - 10, coordinate_y + 10);
+			std::system("pause");
+			textcolor(WHITE);
+			return;
+		}
+		std::string cur_schYear;
+		while (!file_schoolYear.eof()) {
+			file_schoolYear >> cur_schYear;
+		}
+		file_schoolYear.close();
+		int schYear = stoi(cur_schYear.substr(0, 4));
+
+		std::ifstream file_semester("semester" + std::to_string(schYear) + "_" + std::to_string(schYear + 1) + ".txt");
+		if (!file_semester.is_open()) {
+			textcolor(WHITE * 16 + BLACK);
+			gotoXY(coordinate_x - 10, coordinate_y + 8);
+			std::cout << "Can not open file semester" + std::to_string(schYear) + "_" + std::to_string(schYear + 1) + ".txt" << std::endl;
+			gotoXY(coordinate_x - 10, coordinate_y + 10);
+			std::system("pause");
+			textcolor(WHITE);
+			return;
+		}
+		SEMESTER* smter = new SEMESTER[3];
+		int i = 0;
+		if (file_semester.is_open()) {
+			while (!file_semester.eof() && i < 3) {
+				std::string tmp;
+				std::getline(file_semester, tmp);
+				smter[i].semester = stoi(tmp.substr(0, 1));
+				i++;
+			}
+			if (smter[i - 1].semester != 3) {
+				textcolor(BLACK * 16 + BLACK);
+				for (int j = 0; j < 10; j++)
+					for (int i = 0; i < 50; i++) {
+						gotoXY(x_tmp - 10 + i, y_tmp - 3 + j);
+						std::cout << " ";
+					}
+				textcolor(WHITE);
+
+				textcolor(WHITE * 16 + BLACK);
+				gotoXY(coordinate_x - 10, coordinate_y + 2);
+				std::cout << "Please create the next semester for the current school year before." << std::endl;
+				gotoXY(coordinate_x - 10, coordinate_y + 4);
+				std::system("pause");
+				textcolor(WHITE);
+			}
+			else {
+				std::ofstream file_schoolYear("schoolYear.txt", std::ios::app);
+				file_schoolYear << "\n" << schYear + 1 << "-" << schYear + 2;
+				file_schoolYear.close();
+
+				std::ofstream file_next_semester("semester" + std::to_string(schYear + 1) + "_" + std::to_string(schYear + 2) + ".txt");
+				SEMESTER* smter_next = new SEMESTER;
+				textcolor(BLACK * 16 + BLACK);
+				for (int j = 0; j < 10; j++)
+					for (int i = 0; i < 50; i++) {
+						gotoXY(x_tmp - 10 + i, y_tmp - 3 + j);
+						std::cout << " ";
+					}
+				textcolor(WHITE);
+
+				textcolor(LIGHT_YELLOW * 16 + BLACK);
+				for (int j = 0; j < 3; j++)
+					for (int i = 0; i < 40; i++) {
+						gotoXY(coordinate_x + 2 + i, coordinate_y - 5 + j);
+						std::cout << " ";
+					}
+				gotoXY(coordinate_x + 2 + 8, coordinate_y - 5 + 1);
+				std::cout << "CREATE A NEW SCHOOL YEAR";
+				textcolor(WHITE);
+
+				my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "Semester:");
+				box(coordinate_x, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+				my_print(coordinate_x + 1 + 4, coordinate_y + 2, LIGHT_RED, "1");
+
+				my_print(coordinate_x, coordinate_y + 5, LIGHT_AQUA, "School Year:");
+				box(coordinate_x, coordinate_y + 5 + 1, width_box, height_box, LIGHT_AQUA);
+				my_print(coordinate_x + 1 + 15, coordinate_y + 5 + 2, LIGHT_RED, std::to_string(schYear + 1) + "-" + std::to_string(schYear + 2));
+
+				my_print(coordinate_x, coordinate_y + 10, LIGHT_AQUA, "The start date of the semester:");
+				box(coordinate_x, coordinate_y + 10 + 1, width_small_box, height_box, LIGHT_AQUA);
+				my_print(coordinate_x + width_small_box + 1, coordinate_y + 10 + 2, LIGHT_AQUA, "/");
+				box(coordinate_x + width_small_box + 2, coordinate_y + 10 + 1, width_small_box, height_box, LIGHT_AQUA);
+				my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 10 + 2, LIGHT_AQUA, "/");
+				box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 10 + 1, width_small_box, height_box, LIGHT_AQUA);
+
+				my_print(coordinate_x, coordinate_y + 15, LIGHT_AQUA, "The end date of the semester:");
+				box(coordinate_x, coordinate_y + 15 + 1, width_small_box, height_box, LIGHT_AQUA);
+				my_print(coordinate_x + width_small_box + 1, coordinate_y + 15 + 2, LIGHT_AQUA, "/");
+				box(coordinate_x + width_small_box + 2, coordinate_y + 15 + 1, width_small_box, height_box, LIGHT_AQUA);
+				my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 15 + 2, LIGHT_AQUA, "/");
+				box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 15 + 1, width_small_box, height_box, LIGHT_AQUA);
+
+				ShowCur(1);
+
+				gotoXY(coordinate_x + 1 + 3, coordinate_y + 10 + 1 + 1);
+				std::string tmp = my_getline_onlyNumber(2);
+				if (tmp == "-1") return;
+				else smter_next->startDate.day = stoi(tmp);
+
+				gotoXY(coordinate_x + width_small_box + 2 + 1 + 3, coordinate_y + 10 + 1 + 1);
+				tmp = my_getline_onlyNumber(2);
+				if (tmp == "-1") return;
+				else smter_next->startDate.month = stoi(tmp);
+
+				gotoXY(coordinate_x + 2 * width_small_box + 4 + 1 + 2, coordinate_y + 10 + 1 + 1);
+				tmp = my_getline_onlyNumber(4);
+				if (tmp == "-1") return;
+				else smter_next->startDate.year = stoi(tmp);
+
+
+				gotoXY(coordinate_x + 1 + 3, coordinate_y + 15 + 1 + 1);
+				tmp = my_getline_onlyNumber(2);
+				if (tmp == "-1") return;
+				else smter_next->endDate.day = stoi(tmp);
+
+				gotoXY(coordinate_x + width_small_box + 2 + 1 + 3, coordinate_y + 15 + 1 + 1);
+				tmp = my_getline_onlyNumber(2);
+				if (tmp == "-1") return;
+				else smter_next->endDate.month = stoi(tmp);
+
+				gotoXY(coordinate_x + 2 * width_small_box + 4 + 1 + 2, coordinate_y + 15 + 1 + 1);
+				tmp = my_getline_onlyNumber(4);
+				if (tmp == "-1") return;
+				else smter_next->endDate.year = stoi(tmp);
+
+				file_next_semester << "1,"
+					<< smter_next->startDate.day << "/"
+					<< smter_next->startDate.month << "/"
+					<< smter_next->startDate.year << ","
+					<< smter_next->endDate.day << "/"
+					<< smter_next->endDate.month << "/"
+					<< smter_next->endDate.year;
+
+				textcolor(BLACK * 16 + BLACK);
+				for (int j = 0; j < 20; j++)
+					for (int i = 0; i < 41; i++) {
+						gotoXY(coordinate_x + i, coordinate_y + j);
+						std::cout << " ";
+					}
+				textcolor(WHITE);
+
+				textcolor(LIGHT_GREEN * 16 + BLACK);
+				for (int j = 0; j < 3; j++)
+					for (int i = 0; i < 41; i++) {
+						gotoXY(coordinate_x + 2 + i, coordinate_y + 8 + j);
+						std::cout << " ";
+					}
+				gotoXY(coordinate_x + 4 + 1, coordinate_y + 8 + 1);
+				std::cout << "Created the new school year successfully.";
+				textcolor(WHITE);
+
+				char ch;
+				ch = _getch();
+
+				delete smter_next;
+				file_next_semester.close();
+			}
+		}
+		delete[] smter;
+		file_semester.close();
+	}
+	else if (choice == 2) {
+		return;
+	}
+}
+
+//2
+void create_semester() {
+	int coordinate_x = 100;
+	int coordinate_y = 8;
+	int width_box = 40;
+	int height_box = 3;
+	int width_small_box = 10;
+
+	std::ifstream file_schoolYear("schoolYear.txt");
+	if (!file_schoolYear.is_open()) {
+		textcolor(WHITE * 16 + BLACK);
+		gotoXY(coordinate_x - 10, coordinate_y + 8);
+		std::cout << "Can not open file schoolYear.txt" << std::endl;
+		gotoXY(coordinate_x - 10, coordinate_y + 10);
+		std::system("pause");
+		textcolor(WHITE);
+		return;
+	}
+	std::string cur_schYear;
+	while (!file_schoolYear.eof()) {
+		file_schoolYear >> cur_schYear;
+	}
+	file_schoolYear.close();
+	int schYear = stoi(cur_schYear.substr(0, 4));
+
+	std::ifstream file_semester("semester" + std::to_string(schYear) + "_" + std::to_string(schYear + 1) + ".txt");
+	if (!file_semester.is_open()) {
+		textcolor(WHITE * 16 + BLACK);
+		gotoXY(coordinate_x - 10, coordinate_y + 8);
+		std::cout << "Can not open file semester" + std::to_string(schYear) + "_" + std::to_string(schYear + 1) + ".txt" << std::endl;
+		gotoXY(coordinate_x - 10, coordinate_y + 10);
+		std::system("pause");
+		textcolor(WHITE);
+		return;
+	}
+	SEMESTER* smter = new SEMESTER[3];
+	int i = 0;
+	if (file_semester.is_open()) {
+		while (!file_semester.eof() && i < 3) {
+			std::string tmp;
+			std::getline(file_semester, tmp);
+			smter[i].semester = stoi(tmp.substr(0, 1));
+			i++;
+		}
+		if (smter[i - 1].semester == 3) {
+			textcolor(WHITE * 16 + BLACK);
+			gotoXY(coordinate_x - 10, coordinate_y + 8);
+			std::cout << "You have created three semesters" << std::endl;
+			gotoXY(coordinate_x - 10, coordinate_y + 10);
+			std::system("pause");
+			textcolor(WHITE);
+			return;
+		}
+		else {
+			SEMESTER* smter_next = new SEMESTER;
+
+			my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "Semester:");
+			box(coordinate_x, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+			my_print(coordinate_x + 1 + 4, coordinate_y + 2, LIGHT_RED, std::to_string(++i));
+
+			my_print(coordinate_x, coordinate_y + 5, LIGHT_AQUA, "School Year:");
+			box(coordinate_x, coordinate_y + 5 + 1, width_box, height_box, LIGHT_AQUA);
+			my_print(coordinate_x + 1 + 15, coordinate_y + 5 + 2, LIGHT_RED, std::to_string(schYear) + "-" + std::to_string(schYear + 1));
+
+			my_print(coordinate_x, coordinate_y + 10, LIGHT_AQUA, "The start date of the semester:");
+			box(coordinate_x, coordinate_y + 10 + 1, width_small_box, height_box, LIGHT_AQUA);
+			my_print(coordinate_x + width_small_box + 1, coordinate_y + 10 + 2, LIGHT_AQUA, "/");
+			box(coordinate_x + width_small_box + 2, coordinate_y + 10 + 1, width_small_box, height_box, LIGHT_AQUA);
+			my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 10 + 2, LIGHT_AQUA, "/");
+			box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 10 + 1, width_small_box, height_box, LIGHT_AQUA);
+
+			my_print(coordinate_x, coordinate_y + 15, LIGHT_AQUA, "The end date of the semester:");
+			box(coordinate_x, coordinate_y + 15 + 1, width_small_box, height_box, LIGHT_AQUA);
+			my_print(coordinate_x + width_small_box + 1, coordinate_y + 15 + 2, LIGHT_AQUA, "/");
+			box(coordinate_x + width_small_box + 2, coordinate_y + 15 + 1, width_small_box, height_box, LIGHT_AQUA);
+			my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 15 + 2, LIGHT_AQUA, "/");
+			box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 15 + 1, width_small_box, height_box, LIGHT_AQUA);
+
+			ShowCur(1);
+
+			gotoXY(coordinate_x + 1 + 3, coordinate_y + 10 + 1 + 1);
+			std::string tmp = my_getline_onlyNumber(2);
+			if (tmp == "-1") return;
+			else smter_next->startDate.day = stoi(tmp);
+
+			gotoXY(coordinate_x + width_small_box + 2 + 1 + 3, coordinate_y + 10 + 1 + 1);
+			tmp = my_getline_onlyNumber(2);
+			if (tmp == "-1") return;
+			else smter_next->startDate.month = stoi(tmp);
+
+			gotoXY(coordinate_x + 2 * width_small_box + 4 + 1 + 2, coordinate_y + 10 + 1 + 1);
+			tmp = my_getline_onlyNumber(4);
+			if (tmp == "-1") return;
+			else smter_next->startDate.year = stoi(tmp);
+
+
+			gotoXY(coordinate_x + 1 + 3, coordinate_y + 15 + 1 + 1);
+			tmp = my_getline_onlyNumber(2);
+			if (tmp == "-1") return;
+			else smter_next->endDate.day = stoi(tmp);
+
+			gotoXY(coordinate_x + width_small_box + 2 + 1 + 3, coordinate_y + 15 + 1 + 1);
+			tmp = my_getline_onlyNumber(2);
+			if (tmp == "-1") return;
+			else smter_next->endDate.month = stoi(tmp);
+
+			gotoXY(coordinate_x + 2 * width_small_box + 4 + 1 + 2, coordinate_y + 15 + 1 + 1);
+			tmp = my_getline_onlyNumber(4);
+			if (tmp == "-1") return;
+			else smter_next->endDate.year = stoi(tmp);
+
+			std::fstream file_next_semester("semester" + std::to_string(schYear) + "_" + std::to_string(schYear + 1) + ".txt", std::ios::app);
+
+			file_next_semester << "\n" << i << ","
+				<< smter_next->startDate.day << "/"
+				<< smter_next->startDate.month << "/"
+				<< smter_next->startDate.year << ","
+				<< smter_next->endDate.day << "/"
+				<< smter_next->endDate.month << "/"
+				<< smter_next->endDate.year;
+
+			textcolor(BLACK * 16 + BLACK);
+			for (int j = 0; j < 20; j++)
+				for (int i = 0; i < 41; i++) {
+					gotoXY(coordinate_x + i, coordinate_y + j);
+					std::cout << " ";
+				}
+			textcolor(WHITE);
+
+			textcolor(LIGHT_GREEN * 16 + BLACK);
+			for (int j = 0; j < 3; j++)
+				for (int i = 0; i < 41; i++) {
+					gotoXY(coordinate_x + i, coordinate_y + 8 + j);
+					std::cout << " ";
+				}
+			gotoXY(coordinate_x + 2 + 1, coordinate_y + 8 + 1);
+			std::cout << "Created the semester successfully.";
+			textcolor(WHITE);
+
+			char ch;
+			ch = _getch();
+
+			delete smter_next;
+			file_next_semester.close();
+		}
+	}
+	delete[] smter;
+	file_semester.close();
+}
+
+
+
 ////2. ENTER INFORMATION
 //1
 void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass, std::string current_school_year) {
@@ -692,8 +1100,6 @@ Here_enter_y:
 		my_print(coordinate_x + width_box + distance + 1, coordinate_y + 1 + 8 * height_box, LIGHT_AQUA, endDate);
 
 		choice = menu(coordinate_x, coordinate_y, width_box, height_box, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
-
-	loop_here:
 
 
 

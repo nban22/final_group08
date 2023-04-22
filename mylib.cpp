@@ -93,7 +93,6 @@ void resizeConsole(int width, int height)
 void SetColor2(int backgound_color, int text_color)
 {
 	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-
 	int color_code = backgound_color * 16 + text_color;
 	SetConsoleTextAttribute(hStdout, color_code);
 }

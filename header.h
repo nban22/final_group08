@@ -78,6 +78,7 @@ struct STU_COURSE {
 struct SEMESTER {
 	Date startDate, endDate;
 	std::string schoolyear;
+	int semester;
 };
 
 //*********************USERS.h
@@ -209,6 +210,15 @@ STU_NODE* checkExistClassIDinDLL(STU_NODE*& listclass, std::string classID);
 void deleteSTU_NODE(STU_NODE*& head);
 void displayLISTOFCLASS(CLASS_NODE* listclass);
 void viewListOfClasses(CLASS_NODE*& listclass, STU_NODE* student);
+
+
+
+
+
+void create_a_new_school_year();
+void create_semester();
+
+
 
 //=============course registration session============
 void course_registration_Session(CR_NODE*& course, STU_COURSE_NODE* stu_course, STFF_NODE* teacher);
