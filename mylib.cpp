@@ -99,10 +99,10 @@ void SetColor2(int backgound_color, int text_color)
 // Hàm tự viết
 // x, y là tọa độ con trỏ cần nhảy đến để viết, content là chuỗi cần truyền vào, t_color là màu truyền vào
 void my_print(int x, int y, int t_color, std::string content) {
-	SetColor(t_color);
+	textcolor(t_color);
 	gotoXY(x, y);
 	std::cout << content;
-	SetColor(WHITE);
+	textcolor(WHITE);
 }
 //Tạo box
 void box(int x, int y, int width, int height, int t_color) {
@@ -207,6 +207,74 @@ int menu(int x, int y, int width, int height, int amount, std::string option[], 
 	}
 
 }
+
+int enter_again_yes_no(int coordinate_x, int coordinate_y, int width_box, int height_box, int distance, int mark_bar_color, int text_color) {
+	std::string option[] = { "YES", "NO" };
+	int amount = sizeof(option) / sizeof(option[0]);
+
+	box(coordinate_x, coordinate_y, width_box, height_box, text_color);
+	box(coordinate_x + width_box + distance, coordinate_y, width_box, height_box, text_color);
+	my_print(coordinate_x + 1 + 2, coordinate_y + 1, text_color, option[0]);
+	my_print(coordinate_x + width_box + distance + 1 + 2, coordinate_y + 1, text_color, option[1]);
+	char ch;
+	int check = 1;
+	int x_cur = coordinate_x;
+	int y_cur = coordinate_y;
+	int x_old = x_cur;
+	int y_old = y_cur;
+
+	int choice = 0;
+	while (true) {
+		if (check == 1) {
+			textcolor(BLACK * 16 + text_color);
+			for (int j = 0; j < height_box - 1; j++)
+				for (int i = 0; i < width_box - 1; i++) {
+					gotoXY(x_old + 1 + i, y_old + 1 + j);
+					std::cout << " ";
+				}
+			gotoXY(x_old + 1 + 2, y_old + 1);
+			std::cout << option[(x_old - coordinate_x) / (width_box + distance)];
+			textcolor(WHITE);
+
+			textcolor(mark_bar_color * 16 + BLACK);
+			for (int j = 0; j < height_box - 1; j++)
+				for (int i = 0; i < width_box - 1; i++) {
+					gotoXY(x_cur + 1 + i, y_cur + 1 + j);
+					std::cout << " ";
+				}
+			gotoXY(x_cur + 1 + 2, coordinate_y + 1);
+			std::cout << option[(x_cur - coordinate_x) / (width_box + distance)];
+			textcolor(WHITE);
+
+			x_old = x_cur, y_old = y_cur;
+			check = 0;
+		}
+		if (_kbhit()) {
+			ch = _getch();
+			if (ch == -32) {
+				ch = _getch();
+				check = 1;
+				if (ch == 75) {
+					if (x_cur == coordinate_x)
+						x_cur = coordinate_x + (amount - 1) * (width_box + distance);
+					else
+						x_cur -= width_box + distance;
+				}
+				else if (ch == 77) {
+					if (x_cur == coordinate_x + (amount - 1) * (width_box + distance))
+						x_cur = coordinate_x;
+					else
+						x_cur += width_box + distance;
+				}
+			}
+			else if (ch == 13) {
+				return (x_cur - coordinate_x) / (width_box + distance) + 1;
+
+			}
+		}
+	}
+}
+
 //menu Staff
 void menu_Staff(int x, int y, int width, int height, int amount, std::string option[], int box_color, int text_color, int b_color_light, int option_num) {
 

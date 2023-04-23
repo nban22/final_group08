@@ -1,6 +1,6 @@
 No,Teacher ID,Password,Last Name,First Name,Gender,Date Of Birth,Social ID,Faculty
-1,33383147,123456,Bui Thuc,Minh,Nam,02/19/1983,064600354250,Nang luong va moi truong dien tu
-2,33517241,123456,Le Thi,Huong,Nu,08/19/1991,056289033449,Ky thuat dien
-3,86379084,123456,Nguyen Hoai,Bao,Nam,10/04/1989,083967240944,Thiet bi mang va nha may dien
-4,17761815,123456,Nguyen Xuan,Huy,Nam,06/21/1983,055279107468,Ky thuat dien
-5,33856045,123456,Nguyen Thi Thu,Trang,Nu,04/09/1985,056754953433,Mang va he thong dien
+1,admin,123,Nguyen Thi Thu,Trang,Nu,04/09/1985,056754953433,Mang va he thong dien
+2,33383147,123456,Bui Thuc,Minh,Nam,02/19/1983,064600354250,Nang luong va moi truong dien tu
+3,33517241,123456,Le Thi,Huong,Nu,08/19/1991,056289033449,Ky thuat dien
+4,86379084,123456,Nguyen Hoai,Bao,Nam,10/04/1989,083967240944,Thiet bi mang va nha may dien
+5,17761815,123456,Nguyen Xuan,Huy,Nam,06/21/1983,055279107468,Ky thuat dien

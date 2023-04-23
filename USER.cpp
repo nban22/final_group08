@@ -50,33 +50,118 @@ void deleteSTU_NODE(STU_NODE*& head) {
 }
 
 
-void ViewListOfTeachers(STFF_NODE* teacher) {
-	STFF_NODE* cur = teacher;
-	std::system("cls");
+void displayListOfTeachers(STFF_NODE* teacher) {
+	STFF_NODE* cur_teacher = teacher;
+	int coordinate_x = 10;
+	int coordinate_y = 3;
 
-	std::cout << "============================================LIST OF TEACHERS ============================================\n\n";
-	std::cout << std::setw(5) << std::left << " " << std::setw(5) << std::left << "No" << std::setw(5) << std::left << "|"
-		<< std::setw(15) << std::left << "Teachers ID" << std::setw(5) << std::left << "|"
-		<< std::setw(20) << std::left << "Teacher's last name" << std::setw(5) << std::left << "|"
-		<< std::setw(20) << std::left << "Teacher's first name" << std::setw(5) << std::left << "|"
-		<< std::setw(10) << std::left << "Gender" << std::setw(5) << std::left << "|"
-		<< std::setw(20) << std::left << "Day of Birth" << std::setw(5) << std::left << "|"
-		<< std::setw(20) << std::left << "Social ID" << std::setw(5) << std::left << "|"
-		<< std::setw(40) << std::left << "Faculty" << std::setw(5) << std::left << "|" << std::endl;
-	std::cout << std::setfill('-') << std::setw(190) << std::left << "-" << std::setfill(' ') << "\n";
+	int width_no = 5;
+	int width_teacherID = 12;
+	int width_teacherName = 25;
+	int width_gender = 8;
+	int width_DOB = 14;
+	int width_socialID = 14;
+	int width_faculty = 40;
 
-	while (cur) {
-		std::string birthday = std::to_string(cur->staff.DoB.day) + "/" + std::to_string(cur->staff.DoB.month) + "/" + std::to_string(cur->staff.DoB.year);
-		std::cout << std::setw(5) << std::left << " " << std::setw(5) << std::left << cur->staff.No_Staff << std::setw(5) << std::left << "|"
-			<< std::setw(15) << std::left << cur->staff.TeacherID << std::setw(5) << std::left << "|"
-			<< std::setw(20) << std::left << cur->staff.LName << std::setw(5) << std::left << "|"
-			<< std::setw(20) << std::left << cur->staff.FName << std::setw(5) << std::left << "|"
-			<< std::setw(10) << std::left << cur->staff.Gender << std::setw(5) << std::left << "|"
-			<< std::setw(20) << std::left << birthday << std::setw(5) << "|"
-			<< std::setw(20) << std::left << cur->staff.SocialID << std::setw(5) << std::left << "|"
-			<< std::setw(40) << std::left << cur->staff.Faculty << std::setw(5) << std::left << "|" << std::endl;
-		cur = cur->next;
+	int width = width_no + width_teacherID + width_teacherName + width_gender + width_DOB + width_socialID + width_faculty + 3 * 10 - 8;
+
+	gotoXY(coordinate_x, coordinate_y); std::cout << "+";
+	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
+		gotoXY(i, coordinate_y); std::cout << "-";
 	}
+	gotoXY(coordinate_x + width, coordinate_y); std::cout << "+";
+
+	gotoXY(coordinate_x, coordinate_y + 1);
+	std::cout << std::setw(4) << std::left << "|" << std::setw(width_no) << std::left << "No" << std::setw(3) << std::left << "|"
+		<< std::setw(width_teacherID) << std::left << "Teacher ID" << std::setw(3) << std::left << "|"
+		<< std::setw(width_teacherName) << std::left << "Teacher's Name" << std::setw(3) << std::left << "|"
+		<< std::setw(width_gender) << std::left << "Gender" << std::setw(3) << std::left << "|"
+		<< std::setw(width_DOB) << std::left << "Day of Birth" << std::setw(3) << std::left << "|"
+		<< std::setw(width_socialID) << std::left << "Social ID" << std::setw(3) << std::left << "|"
+		<< std::setw(width_faculty) << std::left << "Faculty";
+
+	gotoXY(coordinate_x, coordinate_y + 2); std::cout << "+";
+	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
+		gotoXY(i, coordinate_y + 2); std::cout << "-";
+	}
+	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << "+";
+
+	int count = 0;
+	while (cur_teacher) {
+		count++;
+		cur_teacher = cur_teacher->next;
+	}
+	int page_max = (count - 1) / 15 + 1;
+	int page_index = 1;
+
+LOOP1:
+	cur_teacher = teacher;
+	int i = 0;
+	int page = 0;
+	int no = 1;
+	while (cur_teacher) {
+		ShowCur(1);
+		i++;
+		if (no > count)
+			no = 0;
+		gotoXY(coordinate_x, coordinate_y + 2 + i);
+		std::string birthday = std::to_string(cur_teacher->staff.DoB.day) + "/" + std::to_string(cur_teacher->staff.DoB.month) + "/" + std::to_string(cur_teacher->staff.DoB.year);
+		std::string fullname = cur_teacher->staff.LName + " " + cur_teacher->staff.FName;
+
+		std::cout << std::setw(4) << std::left << "|" << std::setw(width_no) << std::left << no++ << std::setw(3) << std::left << "|"
+			<< std::setw(width_teacherID) << std::left << cur_teacher->staff.TeacherID << std::setw(3) << std::left << "|"
+			<< std::setw(width_teacherName) << std::left << fullname << std::setw(3) << std::left << "|"
+			<< std::setw(width_gender) << std::left << cur_teacher->staff.Gender << std::setw(3) << std::left << "|"
+			<< std::setw(width_DOB) << std::left << birthday << std::setw(3) << "|"
+			<< std::setw(width_socialID) << std::left << cur_teacher->staff.SocialID << std::setw(3) << std::left << "|"
+			<< std::setw(width_faculty) << std::left << cur_teacher->staff.Faculty << std::setw(3) << std::left << "|";
+
+		if (i == 15 || cur_teacher->next == nullptr) {
+			gotoXY(coordinate_x, coordinate_y + 2 + i + 1); std::cout << "+";
+			for (int j = coordinate_x + 1; j < coordinate_x + width; j++) {
+				gotoXY(j, coordinate_y + 2 + i + 1); std::cout << "-";
+			}
+			gotoXY(coordinate_x + width, coordinate_y + 2 + i + 1); std::cout << "+";
+		}
+		for (int j = coordinate_y + 1; j <= coordinate_y + i + 2; j++)
+			if (j != coordinate_y + 2) {
+				gotoXY(coordinate_x, j); std::cout << "|";
+				gotoXY(coordinate_x + width, j); std::cout << "|";
+			}
+		if (cur_teacher->next == nullptr) {
+			for (int p = coordinate_x; p <= coordinate_x + width; p++)
+				for (int k = coordinate_y + 2 + i + 2; k <= coordinate_y + 2 + 15 + 1; k++) {
+					my_print(p, k, BLACK, " ");
+				}
+		}
+		if (i == 15 || cur_teacher->next == nullptr) {
+			page++;
+			my_print(coordinate_x + width / 2 - 4, coordinate_y + 20, GREEN, "page " + std::to_string(page_index) + "/" + std::to_string(page_max));
+			i = 0;
+			if (page != page_index) {
+				cur_teacher = cur_teacher->next;
+				continue;
+			}
+			char ch;
+		LOOP:
+
+			ch = _getch();
+			if (ch == 75) {
+				if (page_index == 1)
+					goto LOOP;
+				page_index--;
+				goto LOOP1;
+			}
+			else if (ch == 77) {
+				page_index++;
+			}
+			else {
+				goto LOOP;
+			}
+		}
+		cur_teacher = cur_teacher->next;
+	}
+
 }
 
 
@@ -148,39 +233,39 @@ void View_Y_Scoreboard(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
 		}
 		current = current->next;
 	}
-		
-/* 	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
-	std::cout << std::setw(3) << std::left << "|" << std::setw(5) << std::left << "No" << std::setw(5) << std::left << "|"
-		<< std::setw(15) << std::left << "SchoolYear" << std::setw(5) << std::left << "|"
-		<< std::setw(10) << std::left << " Sem" << std::setw(5) << std::left << "|"
-		<< std::setw(10) << std::left << "Course ID" << std::setw(5) << std::left << "|"
-		<< std::setw(30) << std::left << "Course Name" << std::setw(5) << std::left << "|"
-		<< std::setw(10) << std::left << "Midterm" << std::setw(5) << std::left << "|"
-		<< std::setw(10) << std::left << "Final" << std::setw(5) << std::left << "|"
-		<< std::setw(10) << std::left << "Total" << std::setw(5) << std::left << "|"
-		<< std::setw(11) << std::left << "Ranking" << "|" << std::endl;
-	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
 
-	while (current != nullptr) {
-		if (current->stu_course.StuID == loggedinStudent->student.StudentID) {
-			std::cout << std::setw(3) << std::left << "|" << std::setw(5) << std::left << count << std::setw(5) << std::left << "|"
-				<< std::setw(15) << std::left << current->stu_course.Schoolyear << std::setw(5) << std::left << "|"
-				<< std::setw(10) << std::left << current->stu_course.Semester << std::setw(5) << std::left << "|"
-				<< std::setw(10) << std::left << current->stu_course.CouID << std::setw(5) << std::left << "|"
-				<< std::setw(30) << std::left << current->stu_course.Cname << std::setw(5) << std::left << "|"
-				<< std::setw(10) << std::left << current->stu_course.midterm << std::setw(5) << std::left << "|"
-				<< std::setw(10) << std::left << current->stu_course.final << std::setw(5) << std::left << "|"
-				<< std::setw(10) << std::left << current->stu_course.total << std::setw(5) << std::left << "|"
-				<< std::setw(11) << std::left << GetRanking(current->stu_course.total) << "|" << std::endl;
-			count++;
+	/* 	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
+		std::cout << std::setw(3) << std::left << "|" << std::setw(5) << std::left << "No" << std::setw(5) << std::left << "|"
+			<< std::setw(15) << std::left << "SchoolYear" << std::setw(5) << std::left << "|"
+			<< std::setw(10) << std::left << " Sem" << std::setw(5) << std::left << "|"
+			<< std::setw(10) << std::left << "Course ID" << std::setw(5) << std::left << "|"
+			<< std::setw(30) << std::left << "Course Name" << std::setw(5) << std::left << "|"
+			<< std::setw(10) << std::left << "Midterm" << std::setw(5) << std::left << "|"
+			<< std::setw(10) << std::left << "Final" << std::setw(5) << std::left << "|"
+			<< std::setw(10) << std::left << "Total" << std::setw(5) << std::left << "|"
+			<< std::setw(11) << std::left << "Ranking" << "|" << std::endl;
+		std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
+
+		while (current != nullptr) {
+			if (current->stu_course.StuID == loggedinStudent->student.StudentID) {
+				std::cout << std::setw(3) << std::left << "|" << std::setw(5) << std::left << count << std::setw(5) << std::left << "|"
+					<< std::setw(15) << std::left << current->stu_course.Schoolyear << std::setw(5) << std::left << "|"
+					<< std::setw(10) << std::left << current->stu_course.Semester << std::setw(5) << std::left << "|"
+					<< std::setw(10) << std::left << current->stu_course.CouID << std::setw(5) << std::left << "|"
+					<< std::setw(30) << std::left << current->stu_course.Cname << std::setw(5) << std::left << "|"
+					<< std::setw(10) << std::left << current->stu_course.midterm << std::setw(5) << std::left << "|"
+					<< std::setw(10) << std::left << current->stu_course.final << std::setw(5) << std::left << "|"
+					<< std::setw(10) << std::left << current->stu_course.total << std::setw(5) << std::left << "|"
+					<< std::setw(11) << std::left << GetRanking(current->stu_course.total) << "|" << std::endl;
+				count++;
+			}
+			current = current->next;
 		}
-		current = current->next;
-	}
-	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+"; */
+		std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+"; */
 }
 
 
-void View_List_of_courses_From_current_time(CR_NODE *course, int day, int month) {
+void View_List_of_courses_From_current_time(CR_NODE* course, int day, int month) {
 	std::system("cls");
 	int coordinate_x = 0;
 	int coordinate_y = 3;
@@ -615,11 +700,6 @@ Here_enter_y:
 
 		choice = menu(coordinate_x, coordinate_y, width_box, height_box, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
-	loop_here:
-
-
-
-
 		//system("pause");
 		switch (choice) {
 		case 1: {
@@ -873,37 +953,6 @@ Here_enter_y3:
 }
 
 
-void changePassWordOfStaffAccount(STFF_NODE*& staff, STFF_NODE*& loggedinStaff) {
-	std::string oldPass;
-	std::string newPass;
-	std::string newPassAgain;
-	do {
-		std::system("cls");
-		std::cout << "Enter your old password: ";
-		std::getline(std::cin, oldPass);
-		if (loggedinStaff->staff.Password != oldPass) {
-			std::cout << "Your old password has been entered incorrectly. Please, enter again.\n\n";
-			std::system("pause");
-			continue;
-		}
-		else {
-			std::cout << "Enter your new password: ";
-			std::getline(std::cin, newPass);
-			std::cout << "Enter your new password again: ";
-			std::getline(std::cin, newPassAgain);
-			if (newPass != newPassAgain) {
-				std::cout << "Confirmation password is not correct. Please, enter again.\n\n";
-				std::system("pause");
-				continue;
-			}
-			loggedinStaff->staff.Password = newPass;
-			Read_After_Update_Staffs(staff);
-			std::cout << "Change password successfully.\n\n";
-			std::system("pause");
-			break;
-		}
-	} while (loggedinStaff->staff.Password != oldPass || newPass != newPassAgain);
-}
 
 
 
@@ -992,7 +1041,7 @@ bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 
 
 	int width = width_no + width_CourseID + width_courseName + width_teacherName + width_credits +
-				width_registered + width_calendar + 5 * 7;
+		width_registered + width_calendar + 5 * 7;
 
 	gotoXY(coordinate_x, coordinate_y); std::cout << "+";
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
@@ -1021,7 +1070,7 @@ bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 			count++;
 			std::string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
 			std::string registered = std::to_string(cur_course->course.Cur_stdn) + "/" + std::to_string(cur_course->course.Max_stdn);
-		    std::string calendar = ConvertStringWD(cur_course->course.dayOfWeek) + "-" + ConvertStringSS(cur_course->course.session);
+			std::string calendar = ConvertStringWD(cur_course->course.dayOfWeek) + "-" + ConvertStringSS(cur_course->course.session);
 			std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << count << std::setw(5) << std::left << "|"
 				<< std::setw(width_CourseID) << std::left << cur_course->course.ID << std::setw(5) << std::left << "|"
 				<< std::setw(width_courseName) << std::left << cur_course->course.CName << std::setw(5) << std::left << "|"
@@ -1033,45 +1082,45 @@ bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 		cur_course = cur_course->next;
 		cur_stu_course = cur_stu_course->next;
 	}
-	
-/* 	std::cout << "====================================================================YOUR SCHEDULE=========================================================================\n\n";
-	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
-	std::cout << std::setw(5) << std::left << "|" << std::setw(5) << std::left << "No" << std::setw(5) << std::left << "|"
-		<< std::setw(10) << std::left << "Course ID" << std::setw(5) << std::left << "|"
-		<< std::setw(30) << std::left << "Course name" << std::setw(5) << std::left << "|"
-		<< std::setw(25) << std::left << "Teacher name" << std::setw(5) << std::left << "|"
-		<< std::setw(10) << std::left << "Credits" << std::setw(5) << std::left << "|"
-		<< std::setw(10) << std::left << "Registered" << std::setw(5) << std::left << "|"
-		<< std::setw(20) << std::left << "Calendar" << std::endl;
-	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
-	while (cur_stu_course) {
-		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_stu_course->stu_course.CouID == cur_course->course.ID) {
 
-			std::string registered = std::to_string(cur_course->course.Cur_stdn) + "/" + std::to_string(cur_course->course.Max_stdn);
-			std::string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
+	/* 	std::cout << "====================================================================YOUR SCHEDULE=========================================================================\n\n";
+		std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
+		std::cout << std::setw(5) << std::left << "|" << std::setw(5) << std::left << "No" << std::setw(5) << std::left << "|"
+			<< std::setw(10) << std::left << "Course ID" << std::setw(5) << std::left << "|"
+			<< std::setw(30) << std::left << "Course name" << std::setw(5) << std::left << "|"
+			<< std::setw(25) << std::left << "Teacher name" << std::setw(5) << std::left << "|"
+			<< std::setw(10) << std::left << "Credits" << std::setw(5) << std::left << "|"
+			<< std::setw(10) << std::left << "Registered" << std::setw(5) << std::left << "|"
+			<< std::setw(20) << std::left << "Calendar" << std::endl;
+		std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
+		while (cur_stu_course) {
+			if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_stu_course->stu_course.CouID == cur_course->course.ID) {
 
-			std::cout << std::setw(5) << std::left << "|" << std::setw(5) << std::left << cur_course->course.No << std::setw(5) << std::left << "|"
-				<< std::setw(10) << std::left << cur_course->course.ID << std::setw(5) << std::left << "|"
-				<< std::setw(30) << std::left << cur_course->course.CName << std::setw(5) << std::left << "|"
-				<< std::setw(25) << std::left << fullname << std::setw(5) << std::left << "|"
-				<< std::setw(10) << std::left << cur_course->course.Credits << std::setw(5) << std::left << "|"
-				<< std::setw(10) << std::left << registered << std::setw(5) << std::left << "|"
-				<< ConvertStringWD(cur_course->course.dayOfWeek) << "-" << ConvertStringSS(cur_course->course.session) << std::endl;
-			count++;
-			cur_course = cur_course->next;
-			cur_stu_course = cur_stu_course->next;
-		}
-		else if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_stu_course->stu_course.CouID != cur_course->course.ID) {
-			if (cur_course->next)
+				std::string registered = std::to_string(cur_course->course.Cur_stdn) + "/" + std::to_string(cur_course->course.Max_stdn);
+				std::string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
+
+				std::cout << std::setw(5) << std::left << "|" << std::setw(5) << std::left << cur_course->course.No << std::setw(5) << std::left << "|"
+					<< std::setw(10) << std::left << cur_course->course.ID << std::setw(5) << std::left << "|"
+					<< std::setw(30) << std::left << cur_course->course.CName << std::setw(5) << std::left << "|"
+					<< std::setw(25) << std::left << fullname << std::setw(5) << std::left << "|"
+					<< std::setw(10) << std::left << cur_course->course.Credits << std::setw(5) << std::left << "|"
+					<< std::setw(10) << std::left << registered << std::setw(5) << std::left << "|"
+					<< ConvertStringWD(cur_course->course.dayOfWeek) << "-" << ConvertStringSS(cur_course->course.session) << std::endl;
+				count++;
 				cur_course = cur_course->next;
+				cur_stu_course = cur_stu_course->next;
+			}
+			else if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_stu_course->stu_course.CouID != cur_course->course.ID) {
+				if (cur_course->next)
+					cur_course = cur_course->next;
+			}
+			else {
+				cur_course = cur_course->next;
+				cur_stu_course = cur_stu_course->next;
+			}
 		}
-		else {
-			cur_course = cur_course->next;
-			cur_stu_course = cur_stu_course->next;
-		}
-	}
-	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+"; */
-	
+		std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+"; */
+
 	if (count == 0) {
 		std::cout << "\nYou haven't registered any course!\n" << std::endl;
 		return 0;
@@ -1311,7 +1360,7 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 			}
 			else
 				system("cls");
-				return;
+			return;
 		}
 		else
 			cur_stu_node = cur_stu_node->next;
@@ -1326,7 +1375,7 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 AGAIN:
 	system("cls");
-	
+
 	int x_boxStudent = 5;
 	int y_boxStudent = 2;
 	int width_boxStudent = 42;
@@ -1446,251 +1495,6 @@ AGAIN:
 	}
 }
 
-void UpdateTeacherInfor(std::string teacherID, STFF_NODE*& teacher) {
-	STFF_NODE* cur = teacher;
-	std::string tmp;
-	int check = 0;
-	std::system("cls");
-
-	while (cur) {
-		if (cur->staff.TeacherID == teacherID) {
-			check = 1;
-			break;
-		}
-		cur = cur->next;
-	}
-
-	if (check == 0) {
-		std::cout << "Your ID is invalid, please type again" << std::endl;
-		return;
-	}
-
-	printInformation_A_Staff(cur);
-	std::cout << "\n\nWhat do you want to update? " << std::endl;
-
-	int choice;
-	std::cout << "\n\t1. Update gender."
-		<< "\n\t2. Update date of birth."
-		<< "\n\t3. Update social ID."
-		<< "\n\t4. Update Faculty."
-		<< "\n\t0. Come back.";
-	std::cout << "\n\nEnter select the option you want to choose: ";
-	std::cin >> choice;
-
-	if (choice == 1) {
-		std::cout << "\nEnter gender which you want to update: ";
-		std::cin.ignore();
-		std::getline(std::cin, tmp);
-		std::cout << "Are you sure you want to change? (y/n): ";
-		std::cin >> check;
-		if (check == 'y' || check == 'Y') {
-			cur->staff.Gender = tmp;
-			Read_After_Update_Teachers(teacher);
-		}
-		UpdateTeacherInfor(teacherID, teacher);
-	}
-	else if (choice == 2) {
-		std::cout << "\nEnter date of birth which you want to update (dd mm yyyy): ";
-		int day, month, year;
-		std::cin >> day >> month >> year;
-		std::cout << "Are you sure you want to change? (y/n): ";
-		std::cin >> check;
-		if (check == 'y' || check == 'Y') {
-			cur->staff.DoB.day = day;
-			cur->staff.DoB.month = month;
-			cur->staff.DoB.year = year;
-			Read_After_Update_Teachers(teacher);
-		}
-		UpdateTeacherInfor(teacherID, teacher);
-	}
-	else if (choice == 3) {
-		std::cout << "\nEnter social ID which you want to update: ";
-		std::cin.ignore();
-		std::getline(std::cin, tmp);
-		std::cout << "Are you sure you want to change? (y/n): ";
-		std::cin >> check;
-		if (check == 'y' || check == 'Y') {
-			cur->staff.SocialID = tmp;
-			Read_After_Update_Teachers(teacher);
-		}
-		UpdateTeacherInfor(teacherID, teacher);
-	}
-	else if (choice == 4) {
-		std::cout << "\nEnter your new faculty: ";
-		std::cin.ignore();
-		std::getline(std::cin, tmp);
-		std::cout << "Are you sure you want to change? (y/n): ";
-		std::cin >> check;
-		if (check == 'y' || check == 'Y') {
-			cur->staff.Faculty = tmp;
-			Read_After_Update_Teachers(teacher);
-		}
-		UpdateTeacherInfor(teacherID, teacher);
-	}
-	else if (choice == 0) {
-		return;
-	}
-	else {
-		std::cout << "Invalid selection, please enter again.\n\n";
-		std::system("pause");
-		UpdateTeacherInfor(teacherID, teacher);
-	}
-}
-
-void UpdateYourInfor(STFF_NODE* loggedinStaff, STFF_NODE*& teacher) {
-	STFF_NODE* cur = teacher;
-	char check;
-	std::string tmp;
-
-	std::system("cls");
-	printInformation_A_Staff(loggedinStaff);
-
-
-	while (cur) {
-		if (cur->staff.TeacherID == loggedinStaff->staff.TeacherID)
-			break;
-		else
-			cur = cur->next;
-	}
-
-	std::cout << "\n\nWhat do you want to update? " << std::endl;
-
-	int choice;
-	std::cout << "\n\t1. Update gender."
-		<< "\n\t2. Update date of birth."
-		<< "\n\t3. Update social ID."
-		<< "\n\t4. Update Faculty."
-		<< "\n\t0. Come back.";
-	std::cout << "\n\nEnter select the option you want to choose: ";
-	std::cin >> choice;
-
-	if (choice == 1) {
-		std::cout << "\nEnter gender which you want to update: ";
-		std::cin.ignore();
-		std::getline(std::cin, tmp);
-		std::cout << "Are you sure you want to change? (y/n): ";
-		std::cin >> check;
-		if (check == 'y' || check == 'Y') {
-			cur->staff.Gender = tmp;
-			Read_After_Update_Teachers(teacher);
-		}
-		UpdateYourInfor(loggedinStaff, teacher);
-	}
-	else if (choice == 2) {
-		std::cout << "\nEnter date of birth which you want to update (dd mm yyyy): ";
-		int day, month, year;
-		std::cin >> day >> month >> year;
-		std::cout << "Are you sure you want to change? (y/n): ";
-		std::cin >> check;
-		if (check == 'y' || check == 'Y') {
-			cur->staff.DoB.day = day;
-			cur->staff.DoB.month = month;
-			cur->staff.DoB.year = year;
-			Read_After_Update_Teachers(teacher);
-		}
-		UpdateYourInfor(loggedinStaff, teacher);
-	}
-	else if (choice == 3) {
-		std::cout << "\nEnter social ID which you want to update: ";
-		std::cin.ignore();
-		std::getline(std::cin, tmp);
-		std::cout << "Are you sure you want to change? (y/n): ";
-		std::cin >> check;
-		if (check == 'y' || check == 'Y') {
-			cur->staff.SocialID = tmp;
-			Read_After_Update_Teachers(teacher);
-		}
-		UpdateYourInfor(loggedinStaff, teacher);
-	}
-	else if (choice == 4) {
-		std::cout << "\nEnter your new faculty: ";
-		std::cin.ignore();
-		std::getline(std::cin, tmp);
-		std::cout << "Are you sure you want to change? (y/n): ";
-		std::cin >> check;
-		if (check == 'y' || check == 'Y') {
-			cur->staff.Faculty = tmp;
-			Read_After_Update_Teachers(teacher);
-		}
-		UpdateYourInfor(loggedinStaff, teacher);
-	}
-	else if (choice == 0) {
-		return;
-	}
-	else {
-		std::cout << "Invalid selection, please enter again.\n\n";
-		std::system("pause");
-		UpdateYourInfor(loggedinStaff, teacher);
-	}
-}
-
-void Create_newStaff(STFF_NODE* staff) {
-	std::system("cls");
-	STFF_NODE* NewStaff = new STFF_NODE;
-	STFF_NODE* cur = staff;
-	while (cur->next) {
-		cur = cur->next;
-	}
-	//create new staff account
-
-	if (!cur) {
-		NewStaff->staff.No_Staff = 1;
-	}
-	else {
-		int NewNo = cur->staff.No_Staff;
-		NewNo++;
-		NewStaff->staff.No_Staff = NewNo;
-	}
-	std::string NewLName;
-	std::cout << "Enter The Staff's Last Name: ";
-	std::getline(std::cin, NewLName);
-	NewStaff->staff.LName = NewLName;
-	std::string NewFName;
-	std::cout << "Enter The Staff's First Name: ";
-	std::getline(std::cin, NewFName);
-	NewStaff->staff.FName = NewFName;
-	std::string NewGender;
-	std::cout << "Enter The Staff's Gender: ";
-	std::getline(std::cin, NewGender);
-	NewStaff->staff.Gender = NewGender;
-
-	std::string NewSocialID;
-	std::cout << "Enter Staff's Social ID: ";
-	std::getline(std::cin, NewSocialID);
-	NewStaff->staff.SocialID = NewSocialID;
-	std::string NewID;
-	std::cout << "Enter Staff's ID (This will be the login username): ";
-	std::getline(std::cin, NewID);
-	NewStaff->staff.TeacherID = NewID;
-	std::string NewPass;
-	std::cout << "Enter Staff's Password: ";
-	std::getline(std::cin, NewPass);
-	NewStaff->staff.Password = NewPass;
-
-	std::string NewFaculty;
-	std::cout << "Enter Staff's Faculty: ";
-	std::getline(std::cin, NewFaculty);
-	NewStaff->staff.Faculty = NewFaculty;
-
-	std::cout << "Enter Staff's Date of Birth (Please seperate with spaces) (dd/mm/yyyy)";
-	std::cin >> NewStaff->staff.DoB.day >> NewStaff->staff.DoB.month >> NewStaff->staff.DoB.year;
-
-	//Add course at the end
-	if (!cur) {
-		cur = NewStaff;
-		NewStaff->prev = nullptr;
-	}
-	else {
-		cur->next = NewStaff;
-		NewStaff->prev = cur;
-	}
-
-	std::system("cls");
-	std::cout << "Added Staff Successfully\n";
-	Read_After_Update_Staffs(staff);
-	std::system("pause");
-	return;
-}
 
 //Roke additional function
 char GetRanking(float Grade) {
@@ -1777,39 +1581,39 @@ void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, 
 		cur_course = cur_course->next;
 		cur_stu_course = cur_stu_course->next;
 	}
-		
-/* 	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
-	std::cout << std::setw(3) << std::left << "|" << std::setw(5) << std::left << "No" << std::setw(5) << std::left << "|"
-		<< std::setw(10) << std::left << "Course ID" << std::setw(5) << std::left << "|"
-		<< std::setw(25) << std::left << "Course name" << std::setw(5) << std::left << "|"
-		<< std::setw(16) << std::left << "Teacher name" << std::setw(5) << std::left << "|"
-		<< std::setw(8) << std::left << "Credits" << std::setw(5) << std::left << "|"
-		<< std::setw(8) << std::left << "Midterm" << std::setw(5) << std::left << "|"
-		<< std::setw(8) << std::left << "Final" << std::setw(5) << std::left << "|"
-		<< std::setw(8) << std::left << "Other" << std::setw(5) << std::left << "|"
-		<< std::setw(8) << std::left << "TOTAL" << std::setw(5) << std::left << "|"
-		<< std::setw(8) << std::left << "RANKING" << std::setw(6) << std::left << "|" << "\n";
-	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
-	
-	while (cur_stu_course) {
-		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID) {
-			count++;
-			std::string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
-			std::cout << std::setw(3) << std::left << "|" << std::setw(5) << std::left << count << std::setw(5) << std::left << "|"
-				<< std::setw(10) << std::left << cur_course->course.ID << std::setw(5) << std::left << "|"
-				<< std::setw(25) << std::left << cur_course->course.CName << std::setw(5) << std::left << "|"
-				<< std::setw(16) << std::left << fullname << std::setw(5) << std::left << "|"
-				<< std::setw(8) << std::left << cur_course->course.Credits << std::setw(5) << std::left << "|"
-				<< std::setw(8) << std::left << cur_stu_course->stu_course.midterm << std::setw(5) << std::left << "|"
-				<< std::setw(8) << std::left << cur_stu_course->stu_course.final << std::setw(5) << std::left << "|"
-				<< std::setw(8) << std::left << cur_stu_course->stu_course.other << std::setw(5) << std::left << "|"
-				<< std::setw(8) << std::left << cur_stu_course->stu_course.total << std::setw(5) << std::left << "|"
-				<< std::setw(8) << std::left << GetRanking(cur_stu_course->stu_course.total) << std::setw(6) << std::left << "|" << std::endl;
+
+	/* 	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
+		std::cout << std::setw(3) << std::left << "|" << std::setw(5) << std::left << "No" << std::setw(5) << std::left << "|"
+			<< std::setw(10) << std::left << "Course ID" << std::setw(5) << std::left << "|"
+			<< std::setw(25) << std::left << "Course name" << std::setw(5) << std::left << "|"
+			<< std::setw(16) << std::left << "Teacher name" << std::setw(5) << std::left << "|"
+			<< std::setw(8) << std::left << "Credits" << std::setw(5) << std::left << "|"
+			<< std::setw(8) << std::left << "Midterm" << std::setw(5) << std::left << "|"
+			<< std::setw(8) << std::left << "Final" << std::setw(5) << std::left << "|"
+			<< std::setw(8) << std::left << "Other" << std::setw(5) << std::left << "|"
+			<< std::setw(8) << std::left << "TOTAL" << std::setw(5) << std::left << "|"
+			<< std::setw(8) << std::left << "RANKING" << std::setw(6) << std::left << "|" << "\n";
+		std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+";
+
+		while (cur_stu_course) {
+			if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID) {
+				count++;
+				std::string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
+				std::cout << std::setw(3) << std::left << "|" << std::setw(5) << std::left << count << std::setw(5) << std::left << "|"
+					<< std::setw(10) << std::left << cur_course->course.ID << std::setw(5) << std::left << "|"
+					<< std::setw(25) << std::left << cur_course->course.CName << std::setw(5) << std::left << "|"
+					<< std::setw(16) << std::left << fullname << std::setw(5) << std::left << "|"
+					<< std::setw(8) << std::left << cur_course->course.Credits << std::setw(5) << std::left << "|"
+					<< std::setw(8) << std::left << cur_stu_course->stu_course.midterm << std::setw(5) << std::left << "|"
+					<< std::setw(8) << std::left << cur_stu_course->stu_course.final << std::setw(5) << std::left << "|"
+					<< std::setw(8) << std::left << cur_stu_course->stu_course.other << std::setw(5) << std::left << "|"
+					<< std::setw(8) << std::left << cur_stu_course->stu_course.total << std::setw(5) << std::left << "|"
+					<< std::setw(8) << std::left << GetRanking(cur_stu_course->stu_course.total) << std::setw(6) << std::left << "|" << std::endl;
+			}
+			cur_course = cur_course->next;
+			cur_stu_course = cur_stu_course->next;
 		}
-		cur_course = cur_course->next;
-		cur_stu_course = cur_stu_course->next;
-	}
-	std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+"; */
+		std::cout << "+" << "----------------------------------------------------------------------------------------------------------------------------------------------------------" << "+"; */
 	if (count == 0) {
 		std::cout << "You haven't registered any course " << std::endl;
 	}

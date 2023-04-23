@@ -21,7 +21,7 @@
 int main()
 {
 	resizeConsole(1200, 600);
-	int count = 0;
+	/*int count = 0;
 	int semester_count = 0;
 	SEMESTER semester[3];
 	std::string current_school_year = "";
@@ -31,7 +31,7 @@ int main()
 	if (schoolyearfile.is_open()) {
 		schoolyearfile << "School Year,Semester 1 Start Date,Semester 1 End Date,Semester 2 Start Date,Semester 2 End Date,Semester 3 Start Date,Semester 3 End Date";
 	}
-	schoolyearfile.close();
+	schoolyearfile.close();*/
 
 	std::ifstream input;
 	STFF_NODE* staff = nullptr;
@@ -177,57 +177,15 @@ int main()
 						create_semester();
 					}
 					else if (choose == 3) {
-					Here:
-						std::system("cls");
-						std::string ClassID, ClassName, SchoolYear;
-						std::cout << "Enter class ID: ";
-						getline(std::cin, ClassID);
-						std::cout << "Enter class name: ";
-						getline(std::cin, ClassName);
-						std::cout << "Enter School Year: ";
-						getline(std::cin, SchoolYear);
-
-						bool check = 0;
-						CLASS_NODE* cur_listclass = listclass;
-						while (cur_listclass != nullptr) {
-							if (cur_listclass->listclass.ClassID == ClassID) {
-								check = 1;
-							}
-							cur_listclass = cur_listclass->next;
-						}
-						if (check == 1) {
-							std::cout << "The class ID you entered already exists, please enter gain.";
-							std::system("pause");
-							goto Here;
-						}
-						cur_listclass = listclass;
-						while (cur_listclass->next != nullptr) {
-							cur_listclass = cur_listclass->next;
-						}
-						cur_listclass->next = new CLASS_NODE;
-						cur_listclass->next->listclass.ClassID = ClassID;
-						cur_listclass->next->listclass.name = ClassName;
-						cur_listclass->next->listclass.schoolYear = stoi(SchoolYear);
+						create_a_new_class(listclass);
 					}
 					else if (choose == 4) {
-						std::system("cls");
-						std::string teacherID;
-						std::cout << "======================Update personal information======================" << std::endl;
-						ViewListOfTeachers(teacher);
-						std::cout << "\n\nEnter the ID of the teacher you want to update: ";
-						std::cin >> teacherID;
-						UpdateTeacherInfor(teacherID, teacher);
-						std::system("pause");
+						UpdateTeacherInfor(teacher);
 					}
 					else if (choose == 5) {
-						std::system("cls");
-						std::cout << "======================Update your information======================" << std::endl;
-
-						UpdateYourInfor(loggedinStaff, teacher);
+						UpdateYourInfor(loggedinStaff, teacher, staff);
 					}
 					else if (choose == 6) {
-						std::system("cls");
-						std::cout << "======================Create a new staff's account======================" << std::endl;
 						Create_newStaff(staff);
 					}
 					else if (choose == 0 + 7) {
@@ -260,11 +218,10 @@ int main()
 					choose = menu(x_boxOption2, y_boxOption2, width_boxOption2, height_boxOption2, amount_option2, option_2, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 					if (choose == 1) { //Add new 1st year students to 1st year classes
-						addNew1styearStudent(student, listclass, current_school_year);
+						addNew1styearStudent(student, listclass);
 					}
 					else if (choose == 2) { //Registration
 						course_registration_Session(course, stu_course, teacher);
-						break;
 					}
 					else if (choose == 3) { //Add a course
 						CreateNewCourse(stu_course, teacher, course);
@@ -280,7 +237,7 @@ int main()
 						EnterCourseScore(stu_course, course, loggedinStaff, check);
 						if (check != 0) {
 							Read_After_Update_Student_Course(student, course, teacher, stu_course);
-							count = 7;
+							//count = 7;
 						}
 						std::system("pause");
 					}
@@ -346,8 +303,6 @@ int main()
 				}
 			}
 			else if (choose_staff == 4) { // +++++++++++++++++++++++++CHANGE PASSWORD+++++++++++++++++++++
-				//changePassWordOfStaffAccount(staff, loggedinStaff);
-
 			AGAIN_4:
 				std::system("cls");
 				ShowCur(1);
