@@ -271,7 +271,7 @@ bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 
 void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher);
 
-void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course);
+void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent);
 //
 bool Test_ifValid_Date(SEMESTER* smter);
 char GetRanking(float Grade); 

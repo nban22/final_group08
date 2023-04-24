@@ -1021,21 +1021,35 @@ bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 
 	while (cur_stu_course) {
 		ShowCur(1);
-		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID) {
+		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_course->course.ID == cur_stu_course->stu_course.CouID) {
 			count++;
-			std::string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
+			//std::string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
 			std::string registered = std::to_string(cur_course->course.Cur_stdn) + "/" + std::to_string(cur_course->course.Max_stdn);
 			std::string calendar = ConvertStringWD(cur_course->course.dayOfWeek) + "-" + ConvertStringSS(cur_course->course.session);
 			std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << count << std::setw(5) << std::left << "|"
-				<< std::setw(width_CourseID) << std::left << cur_course->course.ID << std::setw(5) << std::left << "|"
-				<< std::setw(width_courseName) << std::left << cur_course->course.CName << std::setw(5) << std::left << "|"
-				<< std::setw(width_teacherName) << std::left << fullname << std::setw(5) << std::left << "|"
-				<< std::setw(width_credits) << std::left << cur_course->course.Credits << std::setw(5) << std::left << "|"
+				<< std::setw(width_CourseID) << std::left << cur_stu_course->stu_course.CouID << std::setw(5) << std::left << "|"
+				<< std::setw(width_courseName) << std::left << cur_stu_course->stu_course.Cname << std::setw(5) << std::left << "|"
+				<< std::setw(width_teacherName) << std::left << cur_stu_course->stu_course.Teachername << std::setw(5) << std::left << "|"
+				<< std::setw(width_credits) << std::left << cur_stu_course->stu_course.credits << std::setw(5) << std::left << "|"
 				<< std::setw(width_registered) << std::left << registered << std::setw(5) << std::left << "|"
 				<< std::setw(width_calendar) << std::left << calendar << "|\n";
+
+			cur_course = cur_course->next;
+			cur_stu_course = cur_stu_course->next;
 		}
-		cur_course = cur_course->next;
-		cur_stu_course = cur_stu_course->next;
+		else if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_course->course.ID != cur_stu_course->stu_course.CouID) {
+			cur_course = course;
+			while (cur_course->course.ID != cur_stu_course->stu_course.CouID)
+				cur_course = cur_course->next;
+		}
+		else {
+			if (!cur_course->next)
+				cur_stu_course = cur_stu_course->next;
+			else {
+				cur_course = cur_course->next;
+				cur_stu_course = cur_stu_course->next;
+			}
+		}
 	}
 
 	if (count == 0) {

@@ -593,7 +593,7 @@ again_courseID:
 	}
 }
 //4
-void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course) {
+void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
 	std::system("cls");
 	int coordinate_x = 15;
 	int coordinate_y = 6;
@@ -736,11 +736,7 @@ LOOP1:
 		STU_COURSE_NODE* tmp = cur_list_stu_student;
 		cur_list_stu_student = cur_list_stu_student->next;
 		delete tmp;
-	}/*if (count == 0) {
-		std::cout << "You haven't registered any course " << std::endl;
 	}
-	std::system("pause");
-	return;*/
 }
 //5
 void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher) {
@@ -793,7 +789,7 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 			return;
 		}
 	}
-	ResultRegistration(stu_course, loggedinStudent, course);
+	ResultRegistration(stu_course, loggedinStudent);
 	int coordinate_x_tmp = 30;
 	int coordinate_y_tmp = 23;
 	int width_box = 30;
