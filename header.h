@@ -13,7 +13,10 @@
 
 //**********************SEMESTER.h
 struct Date {
-	int year{}, month{}, day{};
+	int year {}, month{}, day{};
+};
+struct Time {
+	int hour, minute, second;
 };
 
 enum WEEKDAY {
@@ -214,7 +217,8 @@ void viewListOfClasses(CLASS_NODE*& listclass, STU_NODE* student);
 void create_a_new_school_year();
 void create_semester();
 void create_a_new_class(CLASS_NODE*& listclass);
-
+void changePasswordOfStaff(STFF_NODE* loggedinStaff, STFF_NODE* staff);
+void get_current_schoolYear_semester(int coordinate_x, int coordinate_y, std::string& cur_year, std::string& cur_semester);
 
 
 
@@ -279,7 +283,7 @@ void UpdateYourInfor(STFF_NODE*& loggedinStaff, STFF_NODE*& teacher, STFF_NODE*&
 
 STU_NODE* importClassFromCSV(std::string ClassID);
 
-
+void set_time_course_regis();
 
 #define BLACK 0
 #define BLUE 1

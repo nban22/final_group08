@@ -284,3 +284,35 @@ AGAIN:
 		return;
 	}
 }
+
+void get_current_schoolYear_semester(int coordinate_x, int coordinate_y, std::string& cur_year, std::string& cur_semester) {
+	std::ifstream fileSchoolYear("schoolYear.txt");
+	if (!fileSchoolYear.is_open()) {
+		my_print(coordinate_x, coordinate_y, RED * 16 + LIGHT_AQUA, "Can not open file schoolYear.txt");
+		char ans = _getch();
+		return;
+	}
+	else {
+		while (!fileSchoolYear.eof())
+			std::getline(fileSchoolYear, cur_year);
+		std::string filename_semester = "semester" + cur_year.substr(0, 4) + "_" + std::to_string(stoi(cur_year.substr(0, 4)) + 1) + ".txt";
+		std::ifstream fileSemester(filename_semester);
+		if (!fileSemester.is_open()) {
+			my_print(coordinate_x, coordinate_y, RED * 16 + LIGHT_AQUA, "Can not open file " + filename_semester);
+			char ans = _getch();
+			fileSchoolYear.close();
+			return;
+		}
+		else {
+
+			while (!fileSemester.eof())
+				std::getline(fileSemester, cur_semester);
+			cur_semester = cur_semester.substr(0, 1);
+			fileSchoolYear.close();
+			fileSemester.close();
+			return;
+		}
+		fileSemester.close();
+	}
+	fileSchoolYear.close();
+}

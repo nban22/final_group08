@@ -205,9 +205,7 @@ int menu(int x, int y, int width, int height, int amount, std::string option[], 
 			}
 		}
 	}
-
 }
-
 int enter_again_yes_no(int coordinate_x, int coordinate_y, int width_box, int height_box, int distance, int mark_bar_color, int text_color) {
 	std::string option[] = { "YES", "NO" };
 	int amount = sizeof(option) / sizeof(option[0]);

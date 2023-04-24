@@ -809,7 +809,7 @@ void UpdateYourInfor(STFF_NODE*& loggedinStaff, STFF_NODE*& teacher, STFF_NODE*&
 		cur_teacher = cur_teacher->next;
 	}
 
-update_Ỷourinfor:
+update_Yourinfor:
 	std::system("cls");
 	int coordinate_x_infor = 45;
 	int coordinate_y_infor = 3;
@@ -896,14 +896,14 @@ update_Ỷourinfor:
 		LName = my_getline_addSpace(width_box - 1);
 		ShowCur(0);
 		if (LName == "-1")
-			goto update_Ỷourinfor;
+			goto update_Yourinfor;
 
 		ShowCur(1);
 		gotoXY(coordinate_x + 1, coordinate_y + -2 + 11 + 2);
 		FName = my_getline_addSpace(width_box - 1);
 		ShowCur(0);
 		if (FName == "-1")
-			goto update_Ỷourinfor;
+			goto update_Yourinfor;
 
 		my_print(coordinate_x + 36 + 1, coordinate_y - 5 + 6 + 2 + 4, LIGHT_GREEN, "Are you sure you want to change?");
 		int choose = enter_again_yes_no(coordinate_x + 36 + 1, coordinate_y - 5 + 13, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
@@ -917,7 +917,7 @@ update_Ỷourinfor:
 			}
 			Read_After_Update_Staffs(staff);
 		}
-		goto update_Ỷourinfor;
+		goto update_Yourinfor;
 	}
 	else if (choice == 2) {
 		textcolor(LIGHT_YELLOW * 16 + BLACK);
@@ -937,7 +937,7 @@ update_Ỷourinfor:
 		tmp = my_getline_addSpace(width_box - 1);
 		ShowCur(0);
 		if (tmp == "-1")
-			goto update_Ỷourinfor;
+			goto update_Yourinfor;
 
 		my_print(coordinate_x + 1, coordinate_y + 6 + 2 + 4, LIGHT_GREEN, "Are you sure you want to change?");
 		int choose = enter_again_yes_no(coordinate_x + 1, coordinate_y + 13, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
@@ -949,7 +949,7 @@ update_Ỷourinfor:
 			}
 			Read_After_Update_Staffs(staff);
 		}
-		goto update_Ỷourinfor;
+		goto update_Yourinfor;
 	}
 	else if (choice == 3) {
 		textcolor(LIGHT_YELLOW * 16 + BLACK);
@@ -975,7 +975,7 @@ update_Ỷourinfor:
 		tmp = my_getline_onlyNumber(2);
 		ShowCur(0);
 		if (tmp == "-1")
-			goto update_Ỷourinfor;
+			goto update_Yourinfor;
 		else
 			newDOB.day = stoi(tmp);
 
@@ -984,7 +984,7 @@ update_Ỷourinfor:
 		tmp = my_getline_onlyNumber(2);
 		ShowCur(0);
 		if (tmp == "-1")
-			goto update_Ỷourinfor;
+			goto update_Yourinfor;
 		else
 			newDOB.month = stoi(tmp);
 
@@ -993,7 +993,7 @@ update_Ỷourinfor:
 		tmp = my_getline_onlyNumber(4);
 		ShowCur(0);
 		if (tmp == "-1")
-			goto update_Ỷourinfor;
+			goto update_Yourinfor;
 		else
 			newDOB.year = stoi(tmp);
 
@@ -1007,7 +1007,7 @@ update_Ỷourinfor:
 			}
 			Read_After_Update_Staffs(staff);
 		}
-		goto update_Ỷourinfor;
+		goto update_Yourinfor;
 	}
 	else if (choice == 4) {
 		textcolor(LIGHT_YELLOW * 16 + BLACK);
@@ -1027,7 +1027,7 @@ update_Ỷourinfor:
 		tmp = my_getline(width_box - 1);
 		ShowCur(0);
 		if (tmp == "-1")
-			goto update_Ỷourinfor;
+			goto update_Yourinfor;
 
 		my_print(coordinate_x + 1, coordinate_y + 6 + 2 + 4, LIGHT_GREEN, "Are you sure you want to change?");
 		int choose = enter_again_yes_no(coordinate_x + 1, coordinate_y + 13, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
@@ -1039,7 +1039,7 @@ update_Ỷourinfor:
 			}
 			Read_After_Update_Staffs(staff);
 		}
-		goto update_Ỷourinfor;
+		goto update_Yourinfor;
 	}
 	else if (choice == 5) {
 		textcolor(LIGHT_YELLOW * 16 + BLACK);
@@ -1049,7 +1049,7 @@ update_Ỷourinfor:
 				std::cout << " ";
 			}
 		gotoXY(coordinate_x + 13 + 1, coordinate_y + 1);
-		std::cout << "UPDATE GENDER";
+		std::cout << "UPDATE FACULTY";
 		textcolor(WHITE);
 
 		my_print(coordinate_x, coordinate_y + 6, LIGHT_RED, "Enter faculty which you want to update:");
@@ -1059,7 +1059,7 @@ update_Ỷourinfor:
 		tmp = my_getline_addSpace(width_box - 1);
 		ShowCur(0);
 		if (tmp == "-1")
-			goto update_Ỷourinfor;
+			goto update_Yourinfor;
 
 		my_print(coordinate_x + 1, coordinate_y + 6 + 2 + 4, LIGHT_GREEN, "Are you sure you want to change?");
 		int choose = enter_again_yes_no(coordinate_x + 1, coordinate_y + 13, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
@@ -1071,7 +1071,7 @@ update_Ỷourinfor:
 			}
 			Read_After_Update_Staffs(staff);
 		}
-		goto update_Ỷourinfor;
+		goto update_Yourinfor;
 	}
 	else if (choice == 0 + 6) {
 		return;
@@ -1497,73 +1497,182 @@ void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass) {
 	Read_After_Update_Students(student);
 }
 //2
-void course_registration_Session(CR_NODE*& course, STU_COURSE_NODE* stu_course, STFF_NODE* teacher) {
-HERE:
-	system("cls");
-	int tmp_width = 60;
-	int box_width = 32;
-	std::string day_tmp, month_tmp;
+void set_time_course_regis() {
+	int coordinate_x = 105;
+	int coordinate_y = 7;
+	int width_big_box = 40;
+	int width_small_box = 10;
+	int height_box = 2;
+	std::string cur_year;
+	std::string cur_semester;
 
-	my_print(tmp_width, 1, LIGHT_YELLOW, "COURSE REGISTRATION SESSION");
-
-	my_print(tmp_width + 5, 5, LIGHT_YELLOW, "INPUT CURRENT TIME");
-
-	my_print(tmp_width - 2, 7, LIGHT_YELLOW, "Day: ");
-	box(tmp_width - 2, 8, box_width, 2, LIGHT_AQUA);
-	my_print(tmp_width - 2, 11, LIGHT_YELLOW, "Month: ");
-	box(tmp_width - 2, 12, box_width, 2, LIGHT_AQUA);
-
-	int day, month;
-	gotoXY(tmp_width - 1, 9);
-	day_tmp = my_getline(box_width - 1);
-	if (day_tmp == "-1") return;
-	else day = stoi(day_tmp);
-	gotoXY(tmp_width - 1, 13);
-	month_tmp = my_getline(box_width - 1);
-	if (month_tmp == "-1") return;
-	else month = stoi(month_tmp);
-
-
-	if (day < 1 || day > 31 || month > 12 || month < 1) {
-		std::cout << "\n\nYour date is invalid, please input again" << std::endl;
-		goto HERE;
-	}
-
-	std::system("cls");
-	std::string option[] = { "1.View list of courses.",
-		"2.Create new course.",
-		"3.Update course's information.",
-		"4.Delete course.",
-		"-1.Exit." };
-	int x_boxStaff = 5;
-	int y_boxStaff = 4;
-	int width_boxStaff = 35;
-	int height_boxStaff = 3;
-	int amount = sizeof(option) / sizeof(option[0]);
-	int choice;
-
-	choice = menu(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
-
-	if (choice == 1) {
-		View_List_of_courses_From_current_time(course, day, month);
-	}
-	else if (choice == 2) {
-		View_List_of_courses_From_current_time(course, day, month);
-		system("cls");
-		CreateNewCourse_from_current_time(stu_course, teacher, course);
-	}
-	else if (choice == 3) {
-		View_List_of_courses_From_current_time(course, day, month);
-		system("cls");
-		UpdateCourseInfo_from_current_time(stu_course, teacher, course);
-	}
-	else if (choice == 4) {
-		View_List_of_courses_From_current_time(course, day, month);
-		system("cls");
-		DeleteCourse_from_current_time(stu_course, teacher, course);
-	}
-	else
+	std::ifstream fileSchoolYear("schoolYear.txt");
+	if (!fileSchoolYear.is_open()) {
+		my_print(coordinate_x, coordinate_y, RED * 16 + LIGHT_AQUA, "Can not open file schoolYear.txt");
+		char ans = _getch();
 		return;
+	}
+	else {
+		while (!fileSchoolYear.eof())
+			std::getline(fileSchoolYear, cur_year);
+		std::string filename_semester = "semester" + cur_year.substr(0, 4) + "_" + std::to_string(stoi(cur_year.substr(0, 4)) + 1) + ".txt";
+		std::ifstream fileSemester(filename_semester);
+		if (!fileSemester.is_open()) {
+			my_print(coordinate_x, coordinate_y, RED * 16 + LIGHT_AQUA, "Can not open file " + filename_semester);
+			char ans = _getch();
+			fileSchoolYear.close();
+			return;
+		}
+		else {
+			while (!fileSemester.eof())
+				std::getline(fileSemester, cur_semester);
+			cur_semester = cur_semester.substr(0, 1);
+			std::ofstream file_CourseRegis("timeCrsRegis" + cur_year.substr(0, 4) + "_" + std::to_string(stoi(cur_year.substr(0, 4)) + 1) + "_" + cur_semester + ".txt");
+			if (file_CourseRegis.is_open()) {
+
+				my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "Enter start time:");
+				box(coordinate_x, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+				my_print(coordinate_x + width_small_box + 1, coordinate_y + 1 + 1, LIGHT_AQUA, ":");
+				box(coordinate_x + width_small_box + 2, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+				my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 1 + 1, LIGHT_AQUA, ":");
+				box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+
+				my_print(coordinate_x, coordinate_y + 4, LIGHT_AQUA, "Enter start date:");
+				box(coordinate_x, coordinate_y + 4 + 1, width_small_box, height_box, LIGHT_AQUA);
+				my_print(coordinate_x + width_small_box + 1, coordinate_y + 4 + 1 + 1, LIGHT_AQUA, "/");
+				box(coordinate_x + width_small_box + 2, coordinate_y + 4 + 1, width_small_box, height_box, LIGHT_AQUA);
+				my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 4 + 1 + 1, LIGHT_AQUA, "/");
+				box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 4 + 1, width_small_box, height_box, LIGHT_AQUA);
+
+				my_print(coordinate_x, coordinate_y + 8, LIGHT_AQUA, "Enter end time:");
+				box(coordinate_x, coordinate_y + 8 + 1, width_small_box, height_box, LIGHT_AQUA);
+				my_print(coordinate_x + width_small_box + 1, coordinate_y + 8 + 1 + 1, LIGHT_AQUA, ":");
+				box(coordinate_x + width_small_box + 2, coordinate_y + 8 + 1, width_small_box, height_box, LIGHT_AQUA);
+				my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 8 + 1 + 1, LIGHT_AQUA, ":");
+				box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 8 + 1, width_small_box, height_box, LIGHT_AQUA);
+
+				my_print(coordinate_x, coordinate_y + 12, LIGHT_AQUA, "Enter start date:");
+				box(coordinate_x, coordinate_y + 12 + 1, width_small_box, height_box, LIGHT_AQUA);
+				my_print(coordinate_x + width_small_box + 1, coordinate_y + 12 + 1 + 1, LIGHT_AQUA, "/");
+				box(coordinate_x + width_small_box + 2, coordinate_y + 12 + 1, width_small_box, height_box, LIGHT_AQUA);
+				my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 12 + 1 + 1, LIGHT_AQUA, "/");
+				box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 12 + 1, width_small_box, height_box, LIGHT_AQUA);
+
+				Date start_date, end_date;
+				Time start_time, end_time;
+				ShowCur(1);
+				std::string tmp;
+
+				textcolor(LIGHT_YELLOW * 16 + BLACK);
+				for (int j = 0; j < 3; j++)
+					for (int i = 0; i < 35; i++) {
+						gotoXY(coordinate_x + i, coordinate_y - 5 + j);
+						std::cout << " ";
+					}
+				gotoXY(coordinate_x + 4, coordinate_y - 5 + 1);
+				std::cout << "COURSE REGISTRATION PERIOD";
+				textcolor(WHITE);
+
+				gotoXY(coordinate_x + 1, coordinate_y + 1 + 1);
+				tmp = my_getline_onlyNumber(2);
+				if (tmp == "-1") return;
+				else start_time.hour = stoi(tmp);
+
+				gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 1 + 1);
+				tmp = my_getline_onlyNumber(2);
+				if (tmp == "-1") return;
+				else start_time.minute = stoi(tmp);
+
+				gotoXY(coordinate_x + 2 * width_small_box + 4 + 1, coordinate_y + 1 + 1);
+				tmp = my_getline_onlyNumber(2);
+				if (tmp == "-1") return;
+				else start_time.second = stoi(tmp);
+
+				gotoXY(coordinate_x + 1, coordinate_y + 4 + 1 + 1);
+				tmp = my_getline_onlyNumber(2);
+				if (tmp == "-1") return;
+				else start_date.day = stoi(tmp);
+
+				gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 4 + 1 + 1);
+				tmp = my_getline_onlyNumber(2);
+				if (tmp == "-1") return;
+				else start_date.month = stoi(tmp);
+
+				gotoXY(coordinate_x + 2 * width_small_box + 4 + 1, coordinate_y + 4 + 1 + 1);
+				tmp = my_getline_onlyNumber(4);
+				if (tmp == "-1") return;
+				else start_date.year = stoi(tmp);
+
+				gotoXY(coordinate_x + 1, coordinate_y + 8 + 1 + 1);
+				tmp = my_getline_onlyNumber(2);
+				if (tmp == "-1") return;
+				else end_time.hour = stoi(tmp);
+
+				gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 8 + 1 + 1);
+				tmp = my_getline_onlyNumber(2);
+				if (tmp == "-1") return;
+				else end_time.minute = stoi(tmp);
+
+				gotoXY(coordinate_x + 2 * width_small_box + 4 + 1, coordinate_y + 8 + 1 + 1);
+				tmp = my_getline_onlyNumber(2);
+				if (tmp == "-1") return;
+				else end_time.second = stoi(tmp);
+
+				gotoXY(coordinate_x + 1, coordinate_y + 12 + 1 + 1);
+				tmp = my_getline_onlyNumber(2);
+				if (tmp == "-1") return;
+				else end_date.day = stoi(tmp);
+
+				gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 12 + 1 + 1);
+				tmp = my_getline_onlyNumber(2);
+				if (tmp == "-1") return;
+				else end_date.month = stoi(tmp);
+
+				gotoXY(coordinate_x + 2 * width_small_box + 4 + 1, coordinate_y + 12 + 1 + 1);
+				tmp = my_getline_onlyNumber(4);
+				if (tmp == "-1") return;
+				else  end_date.year = stoi(tmp);
+
+				ShowCur(0);
+
+				my_print(coordinate_x + 6, coordinate_y + 18, LIGHT_GREEN * 16 + BLACK, "Are you sure creating:");
+				int choice = enter_again_yes_no(coordinate_x + 7, coordinate_y + 18 + 1, 7, 3, 5, LIGHT_AQUA, YELLOW);
+				if (choice == 1) {
+					file_CourseRegis
+						<< start_time.hour << ":" << start_time.minute << ":" << start_time.second << "\n"
+						<< start_date.day << "/" << start_date.month << "/" << start_date.year << "\n"
+						<< end_time.hour << ":" << end_time.minute << ":" << end_time.second << "\n"
+						<< end_date.day << "/" << end_date.month << "/" << end_date.year;
+					textcolor(BLACK * 16 + BLACK);
+					for (int j = 0; j < 25; j++)
+						for (int i = 0; i < 35; i++) {
+							gotoXY(coordinate_x + i, coordinate_y + j);
+							std::cout << " ";
+						}
+					textcolor(WHITE);
+
+					textcolor(LIGHT_GREEN * 16 + BLACK);
+					for (int j = 0; j < 3; j++)
+						for (int i = 0; i < 48; i++) {
+							gotoXY(coordinate_x - 1 + i, coordinate_y + 10 + j);
+							std::cout << " ";
+						}
+					gotoXY(coordinate_x, coordinate_y + 10 + 1);
+					std::cout << "Created course registration time successfully.";
+					textcolor(WHITE);
+				}
+			}
+
+			char ans = _getch();
+			file_CourseRegis.close();
+			fileSchoolYear.close();
+			fileSemester.close();
+			return;
+		}
+		fileSemester.close();
+
+	}
+	fileSchoolYear.close();
 }
 //3
 void CreateNewCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head) {
@@ -3213,6 +3322,116 @@ void ExportScoreBoard(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* st
 		}
 	}
 	else if (choice == 0 + 3)
+		return;
+}
+
+////4
+void changePasswordOfStaff(STFF_NODE* loggedinStaff, STFF_NODE* staff) {
+
+	int coordinate_x = 70;
+	int coordinate_y = 10;
+
+	int width_box = 40;
+	int height_box = 2;
+AGAIN_4:
+	textcolor(LIGHT_YELLOW * 16 + BLACK);
+	for (int j = 0; j < 3; j++)
+		for (int i = 0; i < 41; i++) {
+			gotoXY(coordinate_x + i, coordinate_y - 5 + j);
+			std::cout << " ";
+		}
+	gotoXY(coordinate_x + 12, coordinate_y - 5 + +1);
+	std::cout << "CHANGE PASSWORD";
+	textcolor(WHITE);
+
+	my_print(coordinate_x, coordinate_y, YELLOW, "Old password:");
+	box(coordinate_x, coordinate_y + 1, width_box, height_box, YELLOW);
+
+	my_print(coordinate_x, coordinate_y + 5, YELLOW, "New password:");
+	box(coordinate_x, coordinate_y + 6, width_box, height_box, YELLOW);
+
+	my_print(coordinate_x, coordinate_y + 10, YELLOW, "Verify:");
+	box(coordinate_x, coordinate_y + 11, width_box, height_box, YELLOW);
+
+	std::string old_password, new_password, new_password_again;
+	ShowCur(1);
+
+	gotoXY(coordinate_x + 1, coordinate_y + 2);
+	old_password = my_getline(width_box - 1);
+	if (old_password == "-1")
+		return;
+
+	gotoXY(coordinate_x + 1, coordinate_y + 7);
+	new_password = my_getline(width_box - 1);
+	if (new_password == "-1")
+		return;
+
+	gotoXY(coordinate_x + 1, coordinate_y + 12);
+	new_password_again = my_getline(width_box - 1);
+	if (new_password_again == "-1")
+		return;
+
+	if (loggedinStaff->staff.Password != old_password) {
+		ShowCur(0);
+		my_print(coordinate_x, coordinate_y + 15, RED * 16 + LIGHT_AQUA, "Your old password has been entered incorrectly.");
+		my_print(coordinate_x, coordinate_y + 17, LIGHT_GREEN * 16 + BLACK, "Please enter again. ");
+		char ans = _getch();
+
+		textcolor(BLACK * 16 + BLACK);
+		for (int j = 0; j < 18; j++)
+			for (int i = 0; i < 41 + 6; i++) {
+				gotoXY(coordinate_x + i, coordinate_y + j);
+				std::cout << " ";
+			}
+		textcolor(WHITE);
+
+		ShowCur(1);
+		goto AGAIN_4;
+	}
+	if (new_password != new_password_again) {
+		ShowCur(0);
+		my_print(coordinate_x, coordinate_y + 15, RED * 16 + LIGHT_AQUA, "Confirmation password is not correct.");
+		my_print(coordinate_x, coordinate_y + 17, LIGHT_GREEN * 16 + BLACK, "Please enter again. ");
+		char ans = _getch();
+
+		textcolor(BLACK * 16 + BLACK);
+		for (int j = 0; j < 18; j++)
+			for (int i = 0; i < 41; i++) {
+				gotoXY(coordinate_x + i, coordinate_y + j);
+				std::cout << " ";
+			}
+		textcolor(WHITE);
+
+		ShowCur(1);
+		goto AGAIN_4;
+	}
+	textcolor(BLACK * 16 + BLACK);
+	for (int j = 0; j < 18; j++)
+		for (int i = 0; i < 41; i++) {
+			gotoXY(coordinate_x + i, coordinate_y + j);
+			std::cout << " ";
+		}
+	textcolor(WHITE);
+
+	ShowCur(0);
+	my_print(coordinate_x, coordinate_y + 5, LIGHT_GREEN * 16 + BLACK, "Are you sure you want to save this password:");
+	int choice = enter_again_yes_no(coordinate_x + 13, coordinate_y + 7, 7, 3, 4, LIGHT_AQUA, YELLOW);
+	if (choice == 1) {
+		loggedinStaff->staff.Password = new_password;
+		Read_After_Update_Staffs(staff);
+
+		textcolor(LIGHT_GREEN * 16 + BLACK);
+		for (int j = 0; j < 3; j++)
+			for (int i = 0; i < 41; i++) {
+				gotoXY(coordinate_x + i, coordinate_y + 12 + j);
+				std::cout << " ";
+			}
+		gotoXY(coordinate_x + 6, coordinate_y + 12 + 1);
+		std::cout << "Changed password successfully.";
+		textcolor(WHITE);
+		char ans = _getch();
+	}
+	else
 		return;
 }
 
