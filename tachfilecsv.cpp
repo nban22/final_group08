@@ -30,6 +30,9 @@ void tach_ra_tung_file_class(STU_NODE* student, CLASS_NODE* listclass) {
 
 void tach_ra_mot_file_NEWclass(STU_NODE* student, CLASS_NODE* listclass) {
 	std::ofstream outfile("listclass/" + listclass->listclass.ClassID + ".csv", std::fstream::app);
+	if (student->student.No_Student == 1) {
+		outfile << "No,Student ID,Last Name,First Name,Gender,Date Of Birth,Social ID";
+	}
 	outfile << "\n" << student->student.No_Student << ","
 		<< student->student.StudentID << ","
 		<< student->student.LName << ","
