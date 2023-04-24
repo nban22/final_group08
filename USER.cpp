@@ -1022,21 +1022,35 @@ bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NOD
 
 	while (cur_stu_course) {
 		ShowCur(1);
-		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID) {
+		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_course->course.ID == cur_stu_course->stu_course.CouID) {
 			count++;
-			std::string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
+			//std::string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
 			std::string registered = std::to_string(cur_course->course.Cur_stdn) + "/" + std::to_string(cur_course->course.Max_stdn);
 			std::string calendar = ConvertStringWD(cur_course->course.dayOfWeek) + "-" + ConvertStringSS(cur_course->course.session);
 			std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << count << std::setw(5) << std::left << "|"
-				<< std::setw(width_CourseID) << std::left << cur_course->course.ID << std::setw(5) << std::left << "|"
-				<< std::setw(width_courseName) << std::left << cur_course->course.CName << std::setw(5) << std::left << "|"
-				<< std::setw(width_teacherName) << std::left << fullname << std::setw(5) << std::left << "|"
-				<< std::setw(width_credits) << std::left << cur_course->course.Credits << std::setw(5) << std::left << "|"
+				<< std::setw(width_CourseID) << std::left << cur_stu_course->stu_course.CouID << std::setw(5) << std::left << "|"
+				<< std::setw(width_courseName) << std::left << cur_stu_course->stu_course.Cname << std::setw(5) << std::left << "|"
+				<< std::setw(width_teacherName) << std::left << cur_stu_course->stu_course.Teachername << std::setw(5) << std::left << "|"
+				<< std::setw(width_credits) << std::left << cur_stu_course->stu_course.credits << std::setw(5) << std::left << "|"
 				<< std::setw(width_registered) << std::left << registered << std::setw(5) << std::left << "|"
 				<< std::setw(width_calendar) << std::left << calendar << "|\n";
+
+			cur_course = cur_course->next;
+			cur_stu_course = cur_stu_course->next;
 		}
-		cur_course = cur_course->next;
-		cur_stu_course = cur_stu_course->next;
+		else if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID && cur_course->course.ID != cur_stu_course->stu_course.CouID) {
+			cur_course = course;
+			while (cur_course->course.ID != cur_stu_course->stu_course.CouID)
+				cur_course = cur_course->next;
+		}
+		else {
+			if (!cur_course->next)
+				cur_stu_course = cur_stu_course->next;
+			else {
+				cur_course = cur_course->next;
+				cur_stu_course = cur_stu_course->next;
+			}
+		}
 	}
 
 	/* 	std::cout << "====================================================================YOUR SCHEDULE=========================================================================\n\n";
@@ -1107,6 +1121,8 @@ AGAIN:
 		box(coordinate_x + 43, coordinate_y - 1, width_box, height_box, LIGHT_AQUA);
 		gotoXY(coordinate_x + 44, coordinate_y);
 		CourseID = my_getline(width_box - 1);
+		if (CourseID == "-1")
+			return;
 
 		CR_NODE* cur = course;
 		while (cur != nullptr) {
@@ -1286,6 +1302,8 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 
 	gotoXY(width_tmp1 + 1, height_tmp1 + 2);
 	courseID = my_getline(width_box1 - 1);
+	if (courseID == "-1")
+		return;
 
 	while (cur_stu_node) {
 		if (cur_stu_node->stu_course.CouID == courseID && cur_stu_node->stu_course.StuID == loggedinStudent->student.StudentID) {
@@ -1347,10 +1365,9 @@ char GetRanking(float Grade) {
 		return 'E';
 }
 
-void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course) {
+void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
 	std::system("cls");
 	STU_COURSE_NODE* cur_stu_course = stu_course;
-	CR_NODE* cur_course = course;
 	int count = 0;
 
 	std::system("cls");
@@ -1401,19 +1418,17 @@ void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, 
 		ShowCur(1);
 		if (cur_stu_course->stu_course.StuID == loggedinStudent->student.StudentID) {
 			count++;
-			std::string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
 			std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << count << std::setw(5) << std::left << "|"
-				<< std::setw(width_CourseID) << std::left << cur_course->course.ID << std::setw(5) << std::left << "|"
-				<< std::setw(width_courseName) << std::left << cur_course->course.CName << std::setw(5) << std::left << "|"
-				<< std::setw(width_teacherName) << std::left << fullname << std::setw(5) << std::left << "|"
-				<< std::setw(width_credits) << std::left << cur_course->course.Credits << std::setw(5) << std::left << "|"
+				<< std::setw(width_CourseID) << std::left << cur_stu_course->stu_course.CouID << std::setw(5) << std::left << "|"
+				<< std::setw(width_courseName) << std::left << cur_stu_course->stu_course.Cname << std::setw(5) << std::left << "|"
+				<< std::setw(width_teacherName) << std::left << cur_stu_course->stu_course.Teachername << std::setw(5) << std::left << "|"
+				<< std::setw(width_credits) << std::left << cur_stu_course->stu_course.credits << std::setw(5) << std::left << "|"
 				<< std::setw(width_mid) << std::left << cur_stu_course->stu_course.midterm << std::setw(5) << std::left << "|"
 				<< std::setw(width_final) << std::left << cur_stu_course->stu_course.final << std::setw(5) << std::left << "|"
 				<< std::setw(width_other) << std::left << cur_stu_course->stu_course.other << std::setw(5) << std::left << "|"
 				<< std::setw(width_total) << std::left << cur_stu_course->stu_course.total << std::setw(5) << std::left << "|"
 				<< std::setw(width_Ranking) << std::left << GetRanking(cur_stu_course->stu_course.total) << std::setw(5) << std::left << "|" << std::endl;
 		}
-		cur_course = cur_course->next;
 		cur_stu_course = cur_stu_course->next;
 	}
 
