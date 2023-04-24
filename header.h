@@ -10,6 +10,7 @@
 #include "windows.h"
 #include <conio.h>
 #include <Sstream>
+#include <ctime>
 
 //**********************SEMESTER.h
 struct Date {
@@ -263,7 +264,8 @@ void printInformation_A_Student(STU_NODE* loggedinStudent);
 // Update student
 void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStaff);
 
-void RegisterForCourse(STU_NODE* student, STFF_NODE* teacher, CR_NODE* course, STU_COURSE_NODE* stu_course, STU_NODE *loggedinStudent); //new
+bool check_time(Time start_time, Date start_date, Time end_time, Date end_date);
+void RegisterForCourse(STU_NODE*& student, STFF_NODE*& teacher, CR_NODE*& course, STU_COURSE_NODE*& stu_course, STU_NODE *loggedinStudent); //new
 
 bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course);
 

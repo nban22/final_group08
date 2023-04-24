@@ -84,12 +84,14 @@ int main()
 			gotoXY(tmp_width - 1, 9);
 			//user = my_getline(box_width - 1);
 			user = "22240001";
-			//user = "33383147";
 
 			gotoXY(tmp_width - 1, 13);
 			//pass = my_getline(box_width - 1);
 			pass = "678910";
-			//pass = "123456";
+
+
+			/*user = "33383147";
+			pass = "123456";*/
 
 			/*user = "22240001";
 			pass = "678910";*/
@@ -345,7 +347,6 @@ int main()
 			}
 			else if (choose == 7) {
 				View_Y_Scoreboard(stu_course, loggedinStudent);
-				std::system("pause");
 			}
 			else if (choose == 0 + 8) {
 				break;

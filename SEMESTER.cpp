@@ -308,6 +308,7 @@ void get_current_schoolYear_semester(int coordinate_x, int coordinate_y, std::st
 			while (!fileSemester.eof())
 				std::getline(fileSemester, cur_semester);
 			cur_semester = cur_semester.substr(0, 1);
+			cur_year = cur_year.substr(0, 4);
 			fileSchoolYear.close();
 			fileSemester.close();
 			return;
@@ -316,3 +317,4 @@ void get_current_schoolYear_semester(int coordinate_x, int coordinate_y, std::st
 	}
 	fileSchoolYear.close();
 }
+

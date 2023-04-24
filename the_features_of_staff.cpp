@@ -2450,7 +2450,7 @@ void displayListStudentsOfCourse(STU_NODE*& student, std::string classID) {
 	gotoXY(coordinate_x, coordinate_y); std::cout << "+";
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
 		gotoXY(i, coordinate_y); std::cout << "-";
-	}
+	} 
 	gotoXY(coordinate_x + width, coordinate_y); std::cout << "+";
 
 	gotoXY(coordinate_x, coordinate_y + 1);
