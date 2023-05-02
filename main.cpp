@@ -89,9 +89,8 @@ int main()
 			//pass = my_getline(box_width - 1);
 			pass = "678910";
 
-
-			/*user = "33383147";
-			pass = "123456";*/
+			user = "33383147";
+			pass = "123456";
 
 			/*user = "22240001";
 			pass = "678910";*/
@@ -314,8 +313,7 @@ int main()
 						"3. Register for the course.",
 						"4. The result of register for the course.",
 						"5. Delete the course which registered.",
-						"6. View your schedule.",
-						"7. View your scoreboard.",
+						"6. View your scoreboard.",
 						"0. Log out.",
 						"-1. Exit." };
 
@@ -343,15 +341,12 @@ int main()
 				DeleteRegisteredCourse(stu_course, loggedinStudent, course, student, teacher);
 			}
 			else if (choose == 6) {
-				ViewSchedule(stu_course, loggedinStudent, course);
+				View_academic_result(stu_course, loggedinStudent);
 			}
-			else if (choose == 7) {
-				View_Y_Scoreboard(stu_course, loggedinStudent);
-			}
-			else if (choose == 0 + 8) {
+			else if (choose == 0 + 7) {
 				break;
 			}
-			else if (choose == -1 + 10) {
+			else if (choose == -1 + 9) {
 				std::system("cls");
 				std::cout << "****************************THANK YOU FOR USING!********************************\n\n";
 

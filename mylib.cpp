@@ -23,7 +23,7 @@ int whereY()
 	return -1;
 }
 //============== dịch con trỏ hiện tại đến điểm có tọa độ (x,y) ==========
-void gotoXY(int x, int y)
+inline void gotoXY(int x, int y)
 {
 	HANDLE hConsoleOutput;
 	COORD Cursor_an_Pos = { (SHORT)x, (SHORT)y };
@@ -108,7 +108,7 @@ void my_print(int x, int y, int t_color, std::string content) {
 void box(int x, int y, int width, int height, int t_color) {
 	if (width <= 2 || height <= 1)
 		return;
-	SetColor(t_color);
+	textcolor(t_color);
 	for (int i = x + 1; i < x + width; i++) {
 		gotoXY(i, y);
 		std::cout << char(196);
@@ -127,7 +127,7 @@ void box(int x, int y, int width, int height, int t_color) {
 	gotoXY(x, y + height); std::cout << char(192);
 	gotoXY(x + width, y + height); std::cout << char(217);
 
-	SetColor(WHITE);
+	textcolor(WHITE);
 }
 // Tạo nhiều BOX
 void n_box(int x, int y, int width, int height, int amount, int t_color) {
@@ -338,7 +338,7 @@ std::string my_getline_onlyNumber(int max) {
 	while (1) {
 		if (_kbhit()) {
 			ch = _getch();
-			if (ch >= '0' && ch <= '9') {
+			if ((ch >= '0' && ch <= '9' )|| (ch == '.') || (ch == '-')) {
 				if (str.length() != max) {
 					str += ch;
 					std::cout << char(ch);

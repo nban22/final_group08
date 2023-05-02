@@ -198,8 +198,8 @@ void updateCur_stdnInCourse(CR_NODE*& course, STU_COURSE_NODE* head);
 void updateListClass(CLASS_NODE*& listclass, STU_NODE* student);
 void EnterCourseScore(STU_COURSE_NODE*& SC, CR_NODE* C, STFF_NODE* loggedinStaff, int& check);
 void ExportScoreBoard(STU_COURSE_NODE* SC, CR_NODE* C, STU_NODE* S);
-void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head); 
-STU_COURSE* checkExistOfStudentCourseRecord(STU_COURSE_NODE*& head, std::string ID); 
+void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE*& stu_course, STFF_NODE* teacher, CR_NODE*& course); 
+STU_COURSE_NODE* checkExistOfStudentCourseRecord(STU_COURSE_NODE*& stu_course, std::string courseID);
 
 //SCHOOL_YEAR
 bool checkExistOfSchoolyear(std::string year);
@@ -210,7 +210,7 @@ void addNew1styearStudent(STU_NODE*& student, CLASS_NODE* listclass);
 //=============view list of classes============
 CLASS_NODE* checkExistClassNODEIDinDLL(CLASS_NODE* listclass, std::string classID);
 STU_NODE* checkExistClassIDinDLL(STU_NODE*& listclass, std::string classID);
-void deleteSTU_NODE(STU_NODE*& head);
+
 void displayLISTOFCLASS(CLASS_NODE* listclass);
 void viewListOfClasses(CLASS_NODE*& listclass, STU_NODE* student);
 
@@ -220,15 +220,6 @@ void create_semester();
 void create_a_new_class(CLASS_NODE*& listclass);
 void changePasswordOfStaff(STFF_NODE* loggedinStaff, STFF_NODE* staff);
 void get_current_schoolYear_semester(int coordinate_x, int coordinate_y, std::string& cur_year, std::string& cur_semester);
-
-
-
-//=============course registration session============
-void course_registration_Session(CR_NODE*& course, STU_COURSE_NODE* stu_course, STFF_NODE* teacher);
-void View_List_of_courses_From_current_time(CR_NODE* course, int day, int month);
-void CreateNewCourse_from_current_time(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
-void UpdateCourseInfo_from_current_time(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
-void DeleteCourse_from_current_time(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 
 
 //=============view list of courses============
@@ -249,7 +240,6 @@ void viewScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, CLASS_
 
 void displayListStudentsOfCourse(STU_NODE*& student, std::string classID);
 // Modify teacher
-void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff);
 void Create_newStaff(STFF_NODE* staff);
 
 STU_NODE* getInformationByStudentID(std::string StuID, STU_NODE* student);
@@ -267,7 +257,6 @@ void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStaff);
 bool check_time(Time start_time, Date start_date, Time end_time, Date end_date);
 void RegisterForCourse(STU_NODE*& student, STFF_NODE*& teacher, CR_NODE*& course, STU_COURSE_NODE*& stu_course, STU_NODE *loggedinStudent); //new
 
-bool ViewSchedule(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent, CR_NODE* course);
 
 void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher);
 
@@ -275,7 +264,7 @@ void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent);
 //
 bool Test_ifValid_Date(SEMESTER* smter);
 char GetRanking(float Grade); 
-void View_Y_Scoreboard(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent);
+void View_academic_result(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent);
 
 void displayListOfTeachers(STFF_NODE* teacher);
 

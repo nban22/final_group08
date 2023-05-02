@@ -1524,118 +1524,118 @@ void set_time_course_regis() {
 			return;
 		}
 		else {
+			my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "Enter start time:");
+			box(coordinate_x, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+			my_print(coordinate_x + width_small_box + 1, coordinate_y + 1 + 1, LIGHT_AQUA, ":");
+			box(coordinate_x + width_small_box + 2, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+			my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 1 + 1, LIGHT_AQUA, ":");
+			box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+
+			my_print(coordinate_x, coordinate_y + 4, LIGHT_AQUA, "Enter start date:");
+			box(coordinate_x, coordinate_y + 4 + 1, width_small_box, height_box, LIGHT_AQUA);
+			my_print(coordinate_x + width_small_box + 1, coordinate_y + 4 + 1 + 1, LIGHT_AQUA, "/");
+			box(coordinate_x + width_small_box + 2, coordinate_y + 4 + 1, width_small_box, height_box, LIGHT_AQUA);
+			my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 4 + 1 + 1, LIGHT_AQUA, "/");
+			box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 4 + 1, width_small_box, height_box, LIGHT_AQUA);
+
+			my_print(coordinate_x, coordinate_y + 8, LIGHT_AQUA, "Enter end time:");
+			box(coordinate_x, coordinate_y + 8 + 1, width_small_box, height_box, LIGHT_AQUA);
+			my_print(coordinate_x + width_small_box + 1, coordinate_y + 8 + 1 + 1, LIGHT_AQUA, ":");
+			box(coordinate_x + width_small_box + 2, coordinate_y + 8 + 1, width_small_box, height_box, LIGHT_AQUA);
+			my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 8 + 1 + 1, LIGHT_AQUA, ":");
+			box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 8 + 1, width_small_box, height_box, LIGHT_AQUA);
+
+			my_print(coordinate_x, coordinate_y + 12, LIGHT_AQUA, "Enter start date:");
+			box(coordinate_x, coordinate_y + 12 + 1, width_small_box, height_box, LIGHT_AQUA);
+			my_print(coordinate_x + width_small_box + 1, coordinate_y + 12 + 1 + 1, LIGHT_AQUA, "/");
+			box(coordinate_x + width_small_box + 2, coordinate_y + 12 + 1, width_small_box, height_box, LIGHT_AQUA);
+			my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 12 + 1 + 1, LIGHT_AQUA, "/");
+			box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 12 + 1, width_small_box, height_box, LIGHT_AQUA);
+
+			Date start_date, end_date;
+			Time start_time, end_time;
+			ShowCur(1);
+			std::string tmp;
+
+			textcolor(LIGHT_YELLOW * 16 + BLACK);
+			for (int j = 0; j < 3; j++)
+				for (int i = 0; i < 35; i++) {
+					gotoXY(coordinate_x + i, coordinate_y - 5 + j);
+					std::cout << " ";
+				}
+			gotoXY(coordinate_x + 4, coordinate_y - 5 + 1);
+			std::cout << "COURSE REGISTRATION PERIOD";
+			textcolor(WHITE);
+
+			gotoXY(coordinate_x + 1, coordinate_y + 1 + 1);
+			tmp = my_getline_onlyNumber(2);
+			if (tmp == "-1") return;
+			else start_time.hour = stoi(tmp);
+
+			gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 1 + 1);
+			tmp = my_getline_onlyNumber(2);
+			if (tmp == "-1") return;
+			else start_time.minute = stoi(tmp);
+
+			gotoXY(coordinate_x + 2 * width_small_box + 4 + 1, coordinate_y + 1 + 1);
+			tmp = my_getline_onlyNumber(2);
+			if (tmp == "-1") return;
+			else start_time.second = stoi(tmp);
+
+			gotoXY(coordinate_x + 1, coordinate_y + 4 + 1 + 1);
+			tmp = my_getline_onlyNumber(2);
+			if (tmp == "-1") return;
+			else start_date.day = stoi(tmp);
+
+			gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 4 + 1 + 1);
+			tmp = my_getline_onlyNumber(2);
+			if (tmp == "-1") return;
+			else start_date.month = stoi(tmp);
+
+			gotoXY(coordinate_x + 2 * width_small_box + 4 + 1, coordinate_y + 4 + 1 + 1);
+			tmp = my_getline_onlyNumber(4);
+			if (tmp == "-1") return;
+			else start_date.year = stoi(tmp);
+
+			gotoXY(coordinate_x + 1, coordinate_y + 8 + 1 + 1);
+			tmp = my_getline_onlyNumber(2);
+			if (tmp == "-1") return;
+			else end_time.hour = stoi(tmp);
+
+			gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 8 + 1 + 1);
+			tmp = my_getline_onlyNumber(2);
+			if (tmp == "-1") return;
+			else end_time.minute = stoi(tmp);
+
+			gotoXY(coordinate_x + 2 * width_small_box + 4 + 1, coordinate_y + 8 + 1 + 1);
+			tmp = my_getline_onlyNumber(2);
+			if (tmp == "-1") return;
+			else end_time.second = stoi(tmp);
+
+			gotoXY(coordinate_x + 1, coordinate_y + 12 + 1 + 1);
+			tmp = my_getline_onlyNumber(2);
+			if (tmp == "-1") return;
+			else end_date.day = stoi(tmp);
+
+			gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 12 + 1 + 1);
+			tmp = my_getline_onlyNumber(2);
+			if (tmp == "-1") return;
+			else end_date.month = stoi(tmp);
+
+			gotoXY(coordinate_x + 2 * width_small_box + 4 + 1, coordinate_y + 12 + 1 + 1);
+			tmp = my_getline_onlyNumber(4);
+			if (tmp == "-1") return;
+			else  end_date.year = stoi(tmp);
+
 			while (!fileSemester.eof())
 				std::getline(fileSemester, cur_semester);
 			cur_semester = cur_semester.substr(0, 1);
 			std::ofstream file_CourseRegis("timeCrsRegis" + cur_year.substr(0, 4) + "_" + std::to_string(stoi(cur_year.substr(0, 4)) + 1) + "_" + cur_semester + ".txt");
 			if (file_CourseRegis.is_open()) {
 
-				my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "Enter start time:");
-				box(coordinate_x, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
-				my_print(coordinate_x + width_small_box + 1, coordinate_y + 1 + 1, LIGHT_AQUA, ":");
-				box(coordinate_x + width_small_box + 2, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
-				my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 1 + 1, LIGHT_AQUA, ":");
-				box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
-
-				my_print(coordinate_x, coordinate_y + 4, LIGHT_AQUA, "Enter start date:");
-				box(coordinate_x, coordinate_y + 4 + 1, width_small_box, height_box, LIGHT_AQUA);
-				my_print(coordinate_x + width_small_box + 1, coordinate_y + 4 + 1 + 1, LIGHT_AQUA, "/");
-				box(coordinate_x + width_small_box + 2, coordinate_y + 4 + 1, width_small_box, height_box, LIGHT_AQUA);
-				my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 4 + 1 + 1, LIGHT_AQUA, "/");
-				box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 4 + 1, width_small_box, height_box, LIGHT_AQUA);
-
-				my_print(coordinate_x, coordinate_y + 8, LIGHT_AQUA, "Enter end time:");
-				box(coordinate_x, coordinate_y + 8 + 1, width_small_box, height_box, LIGHT_AQUA);
-				my_print(coordinate_x + width_small_box + 1, coordinate_y + 8 + 1 + 1, LIGHT_AQUA, ":");
-				box(coordinate_x + width_small_box + 2, coordinate_y + 8 + 1, width_small_box, height_box, LIGHT_AQUA);
-				my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 8 + 1 + 1, LIGHT_AQUA, ":");
-				box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 8 + 1, width_small_box, height_box, LIGHT_AQUA);
-
-				my_print(coordinate_x, coordinate_y + 12, LIGHT_AQUA, "Enter start date:");
-				box(coordinate_x, coordinate_y + 12 + 1, width_small_box, height_box, LIGHT_AQUA);
-				my_print(coordinate_x + width_small_box + 1, coordinate_y + 12 + 1 + 1, LIGHT_AQUA, "/");
-				box(coordinate_x + width_small_box + 2, coordinate_y + 12 + 1, width_small_box, height_box, LIGHT_AQUA);
-				my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 12 + 1 + 1, LIGHT_AQUA, "/");
-				box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 12 + 1, width_small_box, height_box, LIGHT_AQUA);
-
-				Date start_date, end_date;
-				Time start_time, end_time;
-				ShowCur(1);
-				std::string tmp;
-
-				textcolor(LIGHT_YELLOW * 16 + BLACK);
-				for (int j = 0; j < 3; j++)
-					for (int i = 0; i < 35; i++) {
-						gotoXY(coordinate_x + i, coordinate_y - 5 + j);
-						std::cout << " ";
-					}
-				gotoXY(coordinate_x + 4, coordinate_y - 5 + 1);
-				std::cout << "COURSE REGISTRATION PERIOD";
-				textcolor(WHITE);
-
-				gotoXY(coordinate_x + 1, coordinate_y + 1 + 1);
-				tmp = my_getline_onlyNumber(2);
-				if (tmp == "-1") return;
-				else start_time.hour = stoi(tmp);
-
-				gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 1 + 1);
-				tmp = my_getline_onlyNumber(2);
-				if (tmp == "-1") return;
-				else start_time.minute = stoi(tmp);
-
-				gotoXY(coordinate_x + 2 * width_small_box + 4 + 1, coordinate_y + 1 + 1);
-				tmp = my_getline_onlyNumber(2);
-				if (tmp == "-1") return;
-				else start_time.second = stoi(tmp);
-
-				gotoXY(coordinate_x + 1, coordinate_y + 4 + 1 + 1);
-				tmp = my_getline_onlyNumber(2);
-				if (tmp == "-1") return;
-				else start_date.day = stoi(tmp);
-
-				gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 4 + 1 + 1);
-				tmp = my_getline_onlyNumber(2);
-				if (tmp == "-1") return;
-				else start_date.month = stoi(tmp);
-
-				gotoXY(coordinate_x + 2 * width_small_box + 4 + 1, coordinate_y + 4 + 1 + 1);
-				tmp = my_getline_onlyNumber(4);
-				if (tmp == "-1") return;
-				else start_date.year = stoi(tmp);
-
-				gotoXY(coordinate_x + 1, coordinate_y + 8 + 1 + 1);
-				tmp = my_getline_onlyNumber(2);
-				if (tmp == "-1") return;
-				else end_time.hour = stoi(tmp);
-
-				gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 8 + 1 + 1);
-				tmp = my_getline_onlyNumber(2);
-				if (tmp == "-1") return;
-				else end_time.minute = stoi(tmp);
-
-				gotoXY(coordinate_x + 2 * width_small_box + 4 + 1, coordinate_y + 8 + 1 + 1);
-				tmp = my_getline_onlyNumber(2);
-				if (tmp == "-1") return;
-				else end_time.second = stoi(tmp);
-
-				gotoXY(coordinate_x + 1, coordinate_y + 12 + 1 + 1);
-				tmp = my_getline_onlyNumber(2);
-				if (tmp == "-1") return;
-				else end_date.day = stoi(tmp);
-
-				gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 12 + 1 + 1);
-				tmp = my_getline_onlyNumber(2);
-				if (tmp == "-1") return;
-				else end_date.month = stoi(tmp);
-
-				gotoXY(coordinate_x + 2 * width_small_box + 4 + 1, coordinate_y + 12 + 1 + 1);
-				tmp = my_getline_onlyNumber(4);
-				if (tmp == "-1") return;
-				else  end_date.year = stoi(tmp);
-
 				ShowCur(0);
 
-				my_print(coordinate_x + 6, coordinate_y + 18, LIGHT_GREEN * 16 + BLACK, "Are you sure creating:");
+				my_print(coordinate_x + 1, coordinate_y + 18, LIGHT_GREEN * 16 + BLACK, "Are you sure you want to create:");
 				int choice = enter_again_yes_no(coordinate_x + 7, coordinate_y + 18 + 1, 7, 3, 5, LIGHT_AQUA, YELLOW);
 				if (choice == 1) {
 					file_CourseRegis
@@ -1645,7 +1645,7 @@ void set_time_course_regis() {
 						<< end_date.day << "/" << end_date.month << "/" << end_date.year;
 					textcolor(BLACK * 16 + BLACK);
 					for (int j = 0; j < 25; j++)
-						for (int i = 0; i < 35; i++) {
+						for (int i = 0; i < 40; i++) {
 							gotoXY(coordinate_x + i, coordinate_y + j);
 							std::cout << " ";
 						}
@@ -1654,15 +1654,14 @@ void set_time_course_regis() {
 					textcolor(LIGHT_GREEN * 16 + BLACK);
 					for (int j = 0; j < 3; j++)
 						for (int i = 0; i < 48; i++) {
-							gotoXY(coordinate_x - 1 + i, coordinate_y + 10 + j);
+							gotoXY(coordinate_x - 5 + i, coordinate_y + 10 + j);
 							std::cout << " ";
 						}
-					gotoXY(coordinate_x, coordinate_y + 10 + 1);
+					gotoXY(coordinate_x - 4, coordinate_y + 10 + 1);
 					std::cout << "Created course registration time successfully.";
 					textcolor(WHITE);
 				}
 			}
-
 			char ans = _getch();
 			file_CourseRegis.close();
 			fileSchoolYear.close();
@@ -1816,7 +1815,7 @@ Here_enter_y2:
 	my_print(coordinate_x, coordinate_y + 8, LIGHT_AQUA, "Enter Course ID:");
 	box(coordinate_x, coordinate_y + 8 + 1, width_big_box, height_box, LIGHT_AQUA);
 	gotoXY(coordinate_x + 1, coordinate_y + 8 + 1 + 1);
-	tmp = (my_getline_addSpace(width_big_box - 1));
+	tmp = (my_getline(width_big_box - 1));
 	if (tmp == "-1")
 		return;
 	else
@@ -1967,7 +1966,7 @@ void DeleteCourse(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& hea
 
 	viewListOfCourses(cur);
 	std::string DelID, tmp;
-	my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "Enter Course ID You Want To Delete:");
+	my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "Enter Course ID you want to delete:");
 Here_enter_y3:
 	box(coordinate_x, coordinate_y + 1, width_box, height_box, LIGHT_AQUA);
 	gotoXY(coordinate_x + 1, coordinate_y + 1 + 1);
@@ -1975,7 +1974,7 @@ Here_enter_y3:
 	if (tmp == "-1")
 		return;
 	else
-		DelID = (tmp);
+		DelID = tmp;
 	CR_NODE* DelNode = checkExistOfCourseRecord(head, DelID);
 	if (DelNode) {
 		CR_NODE* tmp = DelNode;
@@ -2046,7 +2045,7 @@ Here_enter_y:
 	if (tmp == "-1")
 		return;
 	else
-		UpID = (tmp);
+		UpID = tmp;
 	CR_NODE* UpNode = checkExistOfCourseRecord(head, UpID);
 	int coordinate_x = 10;
 	int coordinate_y = 2;
@@ -2194,7 +2193,7 @@ Here_enter_y:
 			if (tmp == "-1")
 				return;
 			else
-				UpNode->course.dayOfWeek = ConvertEnumWD(my_getline(3));
+				UpNode->course.dayOfWeek = ConvertEnumWD(tmp);
 			textcolor(WHITE);
 			ShowCur(0);
 		} break;
@@ -2207,7 +2206,7 @@ Here_enter_y:
 			if (tmp == "-1")
 				return;
 			else
-				UpNode->course.session = ConvertEnumSS(my_getline(2));
+				UpNode->course.session = ConvertEnumSS(tmp);
 			textcolor(WHITE);
 			ShowCur(0);
 		} break;
@@ -2254,17 +2253,25 @@ Here_enter_y:
 			box(coordinate_x + 2 * width_box + distance + 5 + 2 * width_small_box + 4, coordinate_y + 8 * height_box, width_small_box, height_box, LIGHT_AQUA);
 
 			gotoXY(coordinate_x + 2 * width_box + distance + 5 + 1, coordinate_y + 8 * height_box + 1);
-			UpNode->course.endDate.day = stoi(my_getline_onlyNumber(2));
-
-			gotoXY(coordinate_x + 2 * width_box + distance + 5 + width_small_box + 2 + 1, coordinate_y + 8 * height_box + 1);
 			tmp = (my_getline_onlyNumber(2));
 			if (tmp == "-1")
 				return;
 			else
 				UpNode->course.endDate.day = stoi(tmp);
 
+			gotoXY(coordinate_x + 2 * width_box + distance + 5 + width_small_box + 2 + 1, coordinate_y + 8 * height_box + 1);
+			tmp = (my_getline_onlyNumber(2));
+			if (tmp == "-1")
+				return;
+			else
+				UpNode->course.endDate.month = stoi(tmp);
+
 			gotoXY(coordinate_x + 2 * width_box + distance + 5 + 2 * width_small_box + 3 + 2, coordinate_y + 8 * height_box + 1);
-			UpNode->course.endDate.year = stoi(my_getline_onlyNumber(4));
+			tmp = (my_getline_onlyNumber(4));
+			if (tmp == "-1")
+				return;
+			else
+				UpNode->course.endDate.year = stoi(tmp);
 			ShowCur(0);
 		} break;
 		case 0 + 10:
@@ -2323,38 +2330,223 @@ LOOP_ans:
 		return;
 
 }
+//7
+void UpdateMarksInfo(STU_NODE* student, STU_COURSE_NODE*& stu_course, STFF_NODE* teacher, CR_NODE*& course) {
+	system("cls");
+	int coordinate_x = 40;
+	int coordinate_y = 25;
+	int width_box = 30;
+	int width_small_box = 10;
+	int height_box = 2;
+
+again_courseID2:
+	CR_NODE* cur = course;
+	viewListOfCourses(cur);
+
+again_courseID:
+	my_print(coordinate_x, coordinate_y, YELLOW * 16 + BLACK, "Enter Course ID:");
+	box(coordinate_x, coordinate_y + 1, width_box, height_box, LIGHT_AQUA);
+	std::string courseID;
+	gotoXY(coordinate_x + 1, coordinate_y + 2);
+	ShowCur(1);
+	courseID = my_getline(width_box - 1);
+	if (courseID == "-1")
+		return;
+	ShowCur(0);
+
+	CR_NODE* course_node = checkExistOfCourseRecord(course, courseID);
+	if (course_node) {
+		std::system("cls");
+		displayLISTSTUDENTOFCOURSE(stu_course, student, courseID);
+
+	again_studentID:
+		my_print(coordinate_x, coordinate_y, YELLOW * 16 + BLACK, "Enter Student ID:");
+		box(coordinate_x, coordinate_y + 1, width_box, height_box, LIGHT_AQUA);
+		std::string studentID;
+		gotoXY(coordinate_x + 1, coordinate_y + 2);
+		ShowCur(1);
+		studentID = my_getline(width_box - 1);
+		if (studentID == "-1")
+			goto again_courseID2;
+		ShowCur(0);
+
+		STU_COURSE_NODE* stu_course_node = checkExistOfStudentCourseRecord(stu_course, studentID);
+		if (stu_course_node) {
+
+			textcolor(BLACK * 16 + BLACK);
+			for (int iy = 0; iy < 7; iy++)
+				for (int ix = 0; ix < 80 + 11; ix++) {
+					gotoXY(coordinate_x + ix, coordinate_y + iy);
+					std::cout << " ";
+				}
+			textcolor(WHITE);
+
+			my_print(coordinate_x, coordinate_y, YELLOW * 16 + BLACK, "1. Other Grade:");
+			box(coordinate_x, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+
+			my_print(coordinate_x + 20, coordinate_y, YELLOW * 16 + BLACK, "Midterm Grade:");
+			box(coordinate_x + 20, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+
+			my_print(coordinate_x + 40, coordinate_y, YELLOW * 16 + BLACK, "Final Grade:");
+			box(coordinate_x + 40, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+
+			my_print(coordinate_x + 60, coordinate_y, YELLOW * 16 + BLACK, "Total Grade:");
+			box(coordinate_x + 60, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+
+			std::string other, midterm, final, total;
+
+			gotoXY(coordinate_x + 1, coordinate_y + 1 + 1);
+			ShowCur(1);
+			other = my_getline_onlyNumber(width_small_box - 1);
+			ShowCur(0);
+			if (other == "-1")
+				return;
+
+			gotoXY(coordinate_x + 20 + 1, coordinate_y + 1 + 1);
+			ShowCur(1);
+			midterm = my_getline_onlyNumber(width_small_box - 1);
+			ShowCur(0);
+			if (midterm == "-1")
+				return;
+
+			gotoXY(coordinate_x + 40 + 1, coordinate_y + 1 + 1);
+			ShowCur(1);
+			final = my_getline_onlyNumber(width_small_box - 1);
+			ShowCur(0);
+			if (final == "-1")
+				return;
+
+			gotoXY(coordinate_x + 60 + 1, coordinate_y + 1 + 1);
+			ShowCur(1);
+			total = my_getline_onlyNumber(width_small_box - 1);
+			ShowCur(0);
+			if (final == "-1")
+				return;
+
+			my_print(coordinate_x + 25 - 8, coordinate_y + 4, LIGHT_GREEN * 16 + BLACK, "Are you sure you want to update these:");
+			int choice = enter_again_yes_no(coordinate_x + 25 + 1, coordinate_y + 5, 7, 3, 4, LIGHT_AQUA, YELLOW);
+			if (choice == 1) {
+				textcolor(BLACK * 16 + BLACK);
+				for (int iy = 0; iy < 9; iy++)
+					for (int ix = 0; ix < 80 + 11; ix++) {
+						gotoXY(coordinate_x + ix, coordinate_y + iy);
+						std::cout << " ";
+					}
+				textcolor(WHITE);
+
+				stu_course_node->stu_course.midterm = stof(midterm);
+				stu_course_node->stu_course.final = stof(final);
+				stu_course_node->stu_course.other = stof(other);
+				stu_course_node->stu_course.total = stof(total);
+
+				textcolor(GREEN * 16 + BLACK);
+				for (int iy = 0; iy < 3; iy++)
+					for (int ix = 0; ix < 40; ix++) {
+						gotoXY(coordinate_x + 20 + ix, coordinate_y + 2 + iy);
+						std::cout << " ";
+					}
+				gotoXY(coordinate_x + 20 + 10, coordinate_y + 2 + 1);
+				std::cout << "Update Successfully.";
+				textcolor(WHITE);
+				Read_After_Update_Student_Course(student, course, teacher, stu_course);
+				char ans = _getch();
+			}
+			else
+				return;
+		}
+		else {
+			my_print(coordinate_x + 40, coordinate_y, RED * 16 + BLACK, "No Student Founded! They might be in another course");
+			my_print(coordinate_x + 40, coordinate_y + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter again:");
+			int choice = enter_again_yes_no(coordinate_x + 40 + 5, coordinate_y + 3, 7, 3, 4, LIGHT_AQUA, YELLOW);
+			if (choice == 1) {
+				textcolor(BLACK * 16 + BLACK);
+				for (int iy = 0; iy < 7; iy++)
+					for (int ix = 0; ix < 80 + 11; ix++) {
+						gotoXY(coordinate_x + ix, coordinate_y + iy);
+						std::cout << " ";
+					}
+				textcolor(WHITE);
+				goto again_studentID;
+			}
+		}
+	}
+	else {
+		my_print(coordinate_x + 40, coordinate_y, RED * 16 + BLACK, "No Course Found!");
+		my_print(coordinate_x + 40, coordinate_y + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter again:");
+		int choice = enter_again_yes_no(coordinate_x + 40 + 5, coordinate_y + 3, 7, 3, 4, LIGHT_AQUA, YELLOW);
+		if (choice == 1) {
+			textcolor(BLACK * 16 + BLACK);
+			for (int iy = 0; iy < 7; iy++)
+				for (int ix = 0; ix < 80 - 13; ix++) {
+					gotoXY(coordinate_x + ix, coordinate_y + iy);
+					std::cout << " ";
+				}
+			textcolor(WHITE);
+			goto again_courseID;
+		}
+	}
+}
 
 ////3. LOOK UP
-//1
+	/*
+		  194
+	218	┌  ┬  ┐ 191         197 ┼
+
+	195 ├  ┼  ┤ 180			179 │
+
+	192 └  ┴  ┘ 217			196 ─
+		  193
+	*/
+	//1
 void displayLISTOFCLASS(CLASS_NODE* listclass) {
 	CLASS_NODE* cur_listclass = listclass;
-	int coordinate_x = 15;
-	int coordinate_y = 3;
+	int coordinate_x = 30;
+	int coordinate_y = 6;
 
-	int width_no = 10;
+	int width_no = 8;
 	int width_classID = 15;
 	int width_className = 40;
-	int width_schoolYear = 25;
+	int width_schoolYear = 15;
+	int tmp = 5;
+	int width = width_no + width_classID + width_className + width_schoolYear + tmp * 4;
 
-	int width = width_no + width_classID + width_className + width_schoolYear + 5 * 3;
+	textcolor(LIGHT_YELLOW * 16 + BLACK);
+	for (int j = 0; j < 3; j++)
+		for (int i = 0; i < 40; i++) {
+			gotoXY(coordinate_x + width / 2 - 40 / 2 + i, coordinate_y - 4 + j);
+			std::cout << " ";
+		}
+	gotoXY(coordinate_x + width / 2 - 40 / 2 + 13, coordinate_y - 4 + 1);
+	std::cout << "LIST OF CLASS";
+	textcolor(WHITE);
 
-	gotoXY(coordinate_x, coordinate_y); std::cout << "+";
+	gotoXY(coordinate_x, coordinate_y); std::cout << char(218);
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
-		gotoXY(i, coordinate_y); std::cout << "-";
+		gotoXY(i, coordinate_y); std::cout << char(196);
 	}
-	gotoXY(coordinate_x + width, coordinate_y); std::cout << "+";
+	gotoXY(coordinate_x + width, coordinate_y); std::cout << char(191);
+
+	gotoXY(coordinate_x + width_no + tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_classID + 2 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_classID + width_className + 3 * tmp, coordinate_y); std::cout << char(194);
+
 
 	gotoXY(coordinate_x, coordinate_y + 1);
-	std::cout << std::setw(9) << std::left << "|" << std::setw(width_no) << std::left << "No" << std::setw(5) << std::left << "|"
-		<< std::setw(width_classID) << std::left << "Class ID" << std::setw(5) << std::left << "|"
-		<< std::setw(width_className) << std::left << "Class name" << std::setw(5) << std::left << "|"
-		<< std::setw(width_schoolYear) << std::left << "School year";
+	std::cout << std::setw(tmp) << std::left << char(179) << std::setw(width_no) << std::left << "No"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_classID) << std::left << "Class ID" 
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_className) << std::left << "Class name" 
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_schoolYear) << std::left << "School year";
 
-	gotoXY(coordinate_x, coordinate_y + 2); std::cout << "+";
+	gotoXY(coordinate_x, coordinate_y + 2); std::cout << char(195);
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
-		gotoXY(i, coordinate_y + 2); std::cout << "-";
+		gotoXY(i, coordinate_y + 2); std::cout << char(196);
 	}
-	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << "+";
+	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << char(180);
+
+	gotoXY(coordinate_x + width_no + +tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_classID + 2 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_classID + width_className + 3 * tmp, coordinate_y + 2); std::cout << char(197);
+
 
 	int count = 0;
 	while (cur_listclass) {
@@ -2375,22 +2567,26 @@ LOOP1:
 		if (no > count)
 			no = 0;
 		gotoXY(coordinate_x, coordinate_y + 2 + i);
-		std::cout << std::setw(9) << std::left << "|" << std::setw(width_no) << std::left << no++ << std::setw(5) << std::left << "|"
-			<< std::setw(width_classID) << std::left << cur_listclass->listclass.ClassID << std::setw(5) << std::left << "|"
-			<< std::setw(width_className) << std::left << cur_listclass->listclass.name << std::setw(5) << std::left << "|"
-			<< std::setw(width_schoolYear) << std::left << cur_listclass->listclass.schoolYear;
+		std::cout << std::setw(tmp) << std::left << char(179) << std::setw(width_no) << std::left << no++ 
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_classID) << std::left << cur_listclass->listclass.ClassID
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_className) << std::left << cur_listclass->listclass.name
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_schoolYear) << std::left << cur_listclass->listclass.schoolYear;
 
 		if (i == 15 || cur_listclass->next == nullptr) {
-			gotoXY(coordinate_x, coordinate_y + 2 + i + 1); std::cout << "+";
+			gotoXY(coordinate_x, coordinate_y + 2 + i + 1); std::cout << char(192);
 			for (int j = coordinate_x + 1; j < coordinate_x + width; j++) {
-				gotoXY(j, coordinate_y + 2 + i + 1); std::cout << "-";
+				gotoXY(j, coordinate_y + 2 + i + 1); std::cout << char(196);
 			}
-			gotoXY(coordinate_x + width, coordinate_y + 2 + i + 1); std::cout << "+";
+			gotoXY(coordinate_x + width, coordinate_y + 2 + i + 1); std::cout << char(217);
+
+			gotoXY(coordinate_x + width_no + +tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+			gotoXY(coordinate_x + width_no + width_classID + 2 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+			gotoXY(coordinate_x + width_no + width_classID + width_className + 3 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
 		}
 		for (int j = coordinate_y + 1; j <= coordinate_y + i + 2; j++)
 			if (j != coordinate_y + 2) {
-				gotoXY(coordinate_x, j); std::cout << "|";
-				gotoXY(coordinate_x + width, j); std::cout << "|";
+				gotoXY(coordinate_x, j); std::cout << char(179);
+				gotoXY(coordinate_x + width, j); std::cout << char(179);
 			}
 		if (cur_listclass->next == nullptr) {
 			for (int p = coordinate_x; p <= coordinate_x + width; p++)
@@ -2433,40 +2629,65 @@ void viewListOfClasses(CLASS_NODE*& listclass, STU_NODE* student) {
 }
 //2
 void displayListStudentsOfCourse(STU_NODE*& student, std::string classID) {
-
-	int coordinate_x = 10;
-	int coordinate_y = 3;
+	int coordinate_x = 20;
+	int coordinate_y = 5;
 
 	int width_no = 5;
 	int width_studentID = 15;
 	int width_lastName = 20;
-	int width_firstName = 10;
+	int width_firstName = 12;
 	int width_gender = 10;
 	int width_DOB = 15;
-	int width_socialID = 20;
+	int width_socialID = 16;
+	int tmp = 4;
 
-	int width = width_no + width_studentID + width_lastName + width_firstName + width_gender + width_DOB + width_socialID + 5 * 7;
+	int width = width_no + width_studentID + width_lastName + width_firstName + width_gender + width_DOB + width_socialID + tmp * 7;
 
-	gotoXY(coordinate_x, coordinate_y); std::cout << "+";
+	textcolor(LIGHT_YELLOW * 16 + BLACK);
+	for (int j = 0; j < 3; j++)
+		for (int i = 0; i < 40; i++) {
+			gotoXY(coordinate_x + width / 2 - 40 / 2 + i, coordinate_y - 4 + j);
+			std::cout << " ";
+		}
+	gotoXY(coordinate_x + width / 2 - 40 / 2 + 5, coordinate_y - 4 + 1);
+	std::cout << "LIST STUDENTS OF CLASS " + classID;
+	textcolor(WHITE);
+
+	gotoXY(coordinate_x, coordinate_y); std::cout << char(218);
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
-		gotoXY(i, coordinate_y); std::cout << "-";
-	} 
-	gotoXY(coordinate_x + width, coordinate_y); std::cout << "+";
+		gotoXY(i, coordinate_y); std::cout << char(196);
+	}
+	gotoXY(coordinate_x + width, coordinate_y); std::cout << char(191);
+
+	gotoXY(coordinate_x + width_no + tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + 2 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + 3 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + 4 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_gender + 5 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_gender + width_DOB + 6 * tmp, coordinate_y); std::cout << char(194);
 
 	gotoXY(coordinate_x, coordinate_y + 1);
-	std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << "No" << std::setw(5) << std::left << "|"
-		<< std::setw(width_studentID) << std::left << "Student ID" << std::setw(5) << std::left << "|"
-		<< std::setw(width_lastName) << std::left << "Last name" << std::setw(5) << std::left << "|"
-		<< std::setw(width_firstName) << std::left << "First name" << std::setw(5) << std::left << "|"
-		<< std::setw(width_gender) << std::left << "Gender" << std::setw(5) << std::left << "|"
-		<< std::setw(width_DOB) << std::left << "Date of birth" << std::setw(5) << std::left << "|"
-		<< std::setw(width_socialID) << std::left << "social ID";
+	std::cout 
+		<< std::setw(tmp) << std::left << char(179) << std::setw(width_no) << std::left << "No"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_studentID) << std::left << "Student ID" 
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_lastName) << std::left << "Last name" 
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_firstName) << std::left << "First name"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_gender) << std::left << "Gender"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_DOB) << std::left << "Date of birth" 
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_socialID) << std::left << "social ID";
 
-	gotoXY(coordinate_x, coordinate_y + 2); std::cout << "+";
+	gotoXY(coordinate_x, coordinate_y + 2); std::cout << char(195);
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
-		gotoXY(i, coordinate_y + 2); std::cout << "-";
+		gotoXY(i, coordinate_y + 2); std::cout << char(196);
 	}
-	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << "+";
+	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << char(180);
+
+	gotoXY(coordinate_x + width_no + tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + 2 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + 3 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + 4 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_gender + 5 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_gender + width_DOB + 6 * tmp, coordinate_y + 2); std::cout << char(197);
 
 	int count = 0;
 	STU_NODE* cur_student = student;
@@ -2508,25 +2729,34 @@ LOOP1:
 		std::string DOB = std::to_string(cur_list_student->student.DoB.day / 10) + std::to_string(cur_list_student->student.DoB.day % 10) + "/"
 			+ std::to_string(cur_list_student->student.DoB.month / 10) + std::to_string(cur_list_student->student.DoB.month % 10) + "/"
 			+ std::to_string(cur_list_student->student.DoB.year);
-		std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << no++ << std::setw(5) << std::left << "|"
-			<< std::setw(width_studentID) << std::left << cur_list_student->student.StudentID << std::setw(5) << std::left << "|"
-			<< std::setw(width_lastName) << std::left << cur_list_student->student.LName << std::setw(5) << std::left << "|"
-			<< std::setw(width_firstName) << std::left << cur_list_student->student.FName << std::setw(5) << std::left << "|"
-			<< std::setw(width_gender) << std::left << cur_list_student->student.Gender << std::setw(5) << std::left << "|"
-			<< std::setw(width_DOB) << std::left << DOB << std::setw(5) << std::left << "|"
-			<< std::setw(width_socialID) << std::left << cur_list_student->student.SocialID;
+		std::cout 
+			<< std::setw(tmp) << std::left << char(179) << std::setw(width_no) << std::left << no++ 
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_studentID) << std::left << cur_list_student->student.StudentID
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_lastName) << std::left << cur_list_student->student.LName
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_firstName) << std::left << cur_list_student->student.FName 
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_gender) << std::left << cur_list_student->student.Gender
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_DOB) << std::left << DOB 
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_socialID) << std::left << cur_list_student->student.SocialID;
 
 		if (i == 15 || cur_list_student->next == nullptr) {
-			gotoXY(coordinate_x, coordinate_y + 2 + i + 1); std::cout << "+";
+			gotoXY(coordinate_x, coordinate_y + 2 + i + 1); std::cout << char(192);
 			for (int j = coordinate_x + 1; j < coordinate_x + width; j++) {
-				gotoXY(j, coordinate_y + 2 + i + 1); std::cout << "-";
+				gotoXY(j, coordinate_y + 2 + i + 1); std::cout << char(196);
 			}
-			gotoXY(coordinate_x + width, coordinate_y + 2 + i + 1); std::cout << "+";
+			gotoXY(coordinate_x + width, coordinate_y + 2 + i + 1); std::cout << char(217);
 		}
+
+		gotoXY(coordinate_x + width_no + tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_studentID + 2 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_studentID + width_lastName + 3 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + 4 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_gender + 5 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_gender + width_DOB + 6 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+
 		for (int j = coordinate_y + 1; j <= coordinate_y + i + 2; j++)
 			if (j != coordinate_y + 2) {
-				gotoXY(coordinate_x, j); std::cout << "|";
-				gotoXY(coordinate_x + width, j); std::cout << "|";
+				gotoXY(coordinate_x, j); std::cout << char(179);
+				gotoXY(coordinate_x + width, j); std::cout << char(179);
 			}
 		if (cur_list_student->next == nullptr) {
 			for (int p = coordinate_x; p <= coordinate_x + width; p++)
@@ -2569,41 +2799,47 @@ LOOP1:
 	}
 }
 void viewListStudentsOfClass(STU_NODE* student, CLASS_NODE* listclass) {
-
-	std::string classID, tmp;
-	int coordinate_x = 20;
+	std::string classID;
+	int coordinate_x = 35;
 	int coordinate_y = 27;
 	int width_box = 30;
 	int height_box = 2;
-	while (1) {
-		std::system("cls");
-		displayLISTOFCLASS(listclass);
-		my_print(coordinate_x, coordinate_y, GREEN, "Enter class ID which you want to open: ");
-		box(coordinate_x + 40, coordinate_y - 1, width_box, height_box, BLUE);
-		gotoXY(coordinate_x + 40 + 1, coordinate_y);
-		tmp = (my_getline(width_box - 1));
-		if (tmp == "-1")
-			return;
-		else
-			classID = (tmp);
+	std::system("cls");
+	displayLISTOFCLASS(listclass);
+enter_classID:
+	my_print(coordinate_x, coordinate_y, YELLOW * 16 + BLACK, "Enter class ID which you want to open: ");
+	box(coordinate_x, coordinate_y + 1, width_box, height_box, LIGHT_AQUA);
+	gotoXY(coordinate_x + 1, coordinate_y + 2);
+	ShowCur(1);
+	classID = my_getline(width_box - 1);
+	ShowCur(0);
+	if (classID == "-1")
+		return;
 
-		if (checkExistClassNODEIDinDLL(listclass, classID) == nullptr) {
-			my_print(coordinate_x + 10, coordinate_y + 4, RED, "Your selection doesn't exist.");
-			char ch;
-			ch = _getch();
-			continue;
+	if (checkExistClassNODEIDinDLL(listclass, classID) == nullptr) {
+		my_print(coordinate_x + 50, coordinate_y, RED * 16 + WHITE, "Your selection doesn't exist.");
+		my_print(coordinate_x + 50, coordinate_y + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter agagin:");
+		int choice = enter_again_yes_no(coordinate_x + 50 + 3, coordinate_y + 3, 7, 3, 4, LIGHT_AQUA, YELLOW);
+		if (choice == 1) {
+			textcolor(BLACK * 16 + BLACK);
+			for (int j = 0; j < 5 + 2; j++)
+				for (int i = 0; i < 70 + 9; i++) {
+					gotoXY(coordinate_x + i, coordinate_y + j);
+					std::cout << " ";
+				}
+			textcolor(WHITE);
+			goto enter_classID;
 		}
-		break;
+		else return;
 	}
 	std::system("cls");
 	displayListStudentsOfCourse(student, classID);
-	std::system("pause");
 }
 //3
 void viewListOfCourses(CR_NODE* course) {
 	std::system("cls");
-	int coordinate_x = 0;
-	int coordinate_y = 3;
+	int coordinate_x = 9;
+	int coordinate_y = 5;
 
 	int width_no = 5;
 	int width_schoolYear = 11;
@@ -2613,33 +2849,62 @@ void viewListOfCourses(CR_NODE* course) {
 	int width_teacherName = 23;
 	int width_credits = 9;
 	int width_registered = 10;
-	int width_calendar = 20;
+	int width_calendar = 18;
+	int tmp = 3;
 
 	int width = width_no + width_schoolYear + width_semester + width_courseID + width_courseName + width_teacherName + width_credits
-		+ width_registered + width_calendar + 5 * 8;
+		+ width_registered + width_calendar + tmp * 8;
 
-	gotoXY(coordinate_x, coordinate_y); std::cout << "+";
+	textcolor(LIGHT_YELLOW * 16 + BLACK);
+	for (int j = 0; j < 3; j++)
+		for (int i = 0; i < 40; i++) {
+			gotoXY(coordinate_x + width / 2 - 40 / 2 + i, coordinate_y - 4 + j);
+			std::cout << " ";
+		}
+	gotoXY(coordinate_x + width / 2 - 40 / 2 + 12, coordinate_y - 4 + 1);
+	std::cout << "LIST OF COURSES";
+	textcolor(WHITE);
+
+	gotoXY(coordinate_x, coordinate_y); std::cout << char(218);
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
-		gotoXY(i, coordinate_y); std::cout << "-";
+		gotoXY(i, coordinate_y); std::cout << char(196);
 	}
-	gotoXY(coordinate_x + width, coordinate_y); std::cout << "+";
+	gotoXY(coordinate_x + width, coordinate_y); std::cout << char(191);
+
+	gotoXY(coordinate_x + width_no + tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_schoolYear + 2 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + 3 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + 4 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + width_courseName + 5 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + width_courseName + width_teacherName + 6 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + width_courseName + width_teacherName + width_credits + 7 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + width_courseName + width_teacherName + width_credits + width_registered + 8 * tmp, coordinate_y); std::cout << char(194);
 
 	gotoXY(coordinate_x, coordinate_y + 1);
-	std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << "No" << std::setw(5) << std::left << "|"
-		<< std::setw(width_schoolYear) << std::left << "School year" << std::setw(5) << std::left << "|"
-		<< std::setw(width_semester) << std::left << "Sem" << std::setw(5) << std::left << "|"
-		<< std::setw(width_courseID) << std::left << "Course ID" << std::setw(5) << std::left << "|"
-		<< std::setw(width_courseName) << std::left << "Course name" << std::setw(5) << std::left << "|"
-		<< std::setw(width_teacherName) << std::left << "Teacher name" << std::setw(5) << std::left << "|"
-		<< std::setw(width_credits) << std::left << "Credits" << std::setw(5) << std::left << "|"
-		<< std::setw(width_registered) << std::left << "Registered" << std::setw(5) << std::left << "|"
-		<< std::setw(width_calendar) << std::left << "Calendar";
+	std::cout << std::setw(tmp) << std::left << char(179) << std::setw(width_no) << std::left << "No"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_schoolYear) << std::left << "School year"
+		<< std::setw(tmp) << std::left << char(179) << std::setw(width_semester) << std::left << "Sem" 
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_courseID) << std::left << "Course ID" 
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_courseName) << std::left << "Course name"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_teacherName) << std::left << "Teacher name"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_credits) << std::left << "Credits" 
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_registered) << std::left << "Registered"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_calendar) << std::left << "Calendar";
 
-	gotoXY(coordinate_x, coordinate_y + 2); std::cout << "+";
+	gotoXY(coordinate_x, coordinate_y + 2); std::cout << char(195);
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
-		gotoXY(i, coordinate_y + 2); std::cout << "-";
+		gotoXY(i, coordinate_y + 2); std::cout << char(196);
 	}
-	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << "+";
+	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << char(180);
+
+	gotoXY(coordinate_x + width_no + tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_schoolYear + 2 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + 3 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + 4 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + width_courseName + 5 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + width_courseName + width_teacherName + 6 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + width_courseName + width_teacherName + width_credits + 7 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + width_courseName + width_teacherName + width_credits + width_registered + 8 * tmp, coordinate_y + 2); std::cout << char(197);
 
 	int count = 0;
 	CR_NODE* cur_course = course;
@@ -2665,27 +2930,38 @@ LOOP1:
 		std::string fullname = cur_course->course.LNameTeacher + " " + cur_course->course.FNameTeacher;
 		std::string registered = std::to_string(cur_course->course.Cur_stdn) + "/" + std::to_string(cur_course->course.Max_stdn);
 		std::string calendar = ConvertStringWD(cur_course->course.dayOfWeek) + "-" + ConvertStringSS(cur_course->course.session);
-		std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << no++ << std::setw(5) << std::left << "|"
-			<< std::setw(width_schoolYear) << std::left << cur_course->course.Schoolyear << std::setw(5) << std::left << "|"
-			<< std::setw(width_semester) << std::left << cur_course->course.Semester << std::setw(5) << std::left << "|"
-			<< std::setw(width_courseID) << std::left << cur_course->course.ID << std::setw(5) << std::left << "|"
-			<< std::setw(width_courseName) << std::left << cur_course->course.CName << std::setw(5) << std::left << "|"
-			<< std::setw(width_teacherName) << std::left << fullname << std::setw(5) << std::left << "|"
-			<< std::setw(width_credits) << std::left << cur_course->course.Credits << std::setw(5) << std::left << "|"
-			<< std::setw(width_registered) << std::left << registered << std::setw(5) << std::left << "|"
-			<< std::setw(width_calendar) << std::left << calendar;
+		std::cout 
+			<< std::setw(tmp) << std::left << char(179) << std::setw(width_no) << std::left << no++ 
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_schoolYear) << std::left << cur_course->course.Schoolyear
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_semester) << std::left << cur_course->course.Semester
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_courseID) << std::left << cur_course->course.ID
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_courseName) << std::left << cur_course->course.CName
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_teacherName) << std::left << fullname
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_credits) << std::left << cur_course->course.Credits 
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_registered) << std::left << registered 
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_calendar) << std::left << calendar;
 
 		if (i == 15 || cur_course->next == nullptr) {
-			gotoXY(coordinate_x, coordinate_y + 2 + i + 1); std::cout << "+";
+			gotoXY(coordinate_x, coordinate_y + 2 + i + 1); std::cout << char(192);
 			for (int j = coordinate_x + 1; j < coordinate_x + width; j++) {
-				gotoXY(j, coordinate_y + 2 + i + 1); std::cout << "-";
+				gotoXY(j, coordinate_y + 2 + i + 1); std::cout << char(196);
 			}
-			gotoXY(coordinate_x + width, coordinate_y + 2 + i + 1); std::cout << "+";
+			gotoXY(coordinate_x + width, coordinate_y + 2 + i + 1); std::cout << char(217);
 		}
+
+		gotoXY(coordinate_x + width_no + tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_schoolYear + 2 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + 3 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + 4 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + width_courseName + 5 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + width_courseName + width_teacherName + 6 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + width_courseName + width_teacherName + width_credits + 7 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_schoolYear + width_semester + width_courseID + width_courseName + width_teacherName + width_credits + width_registered + 8 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+
 		for (int j = coordinate_y + 1; j <= coordinate_y + i + 2; j++)
 			if (j != coordinate_y + 2) {
-				gotoXY(coordinate_x, j); std::cout << "|";
-				gotoXY(coordinate_x + width, j); std::cout << "|";
+				gotoXY(coordinate_x, j); std::cout << char(179);
+				gotoXY(coordinate_x + width, j); std::cout << char(179);
 			}
 		if (cur_course->next == nullptr) {
 			for (int p = coordinate_x; p <= coordinate_x + width; p++)
@@ -2723,39 +2999,62 @@ LOOP1:
 }
 //4
 void displayLISTSTUDENTOFCOURSE(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID) {
-
-	int coordinate_x = 10;
-	int coordinate_y = 3;
+	int coordinate_x = 20;
+	int coordinate_y = 5;
 
 	int width_no = 5;
 	int width_studentID = 15;
 	int width_studentName = 30;
 	int width_gender = 10;
 	int width_DOB = 15;
-	int socialID = 20;
+	int socialID = 15;
+	int tmp = 5;
 
+	int width = width_no + width_studentID + width_studentName + width_gender + width_DOB + socialID + tmp * 6;
 
-	int width = width_no + width_studentID + width_studentName + width_gender + width_DOB + socialID + 5 * 7;
+	textcolor(LIGHT_YELLOW * 16 + BLACK);
+	for (int j = 0; j < 3; j++)
+		for (int i = 0; i < 40; i++) {
+			gotoXY(coordinate_x + width / 2 - 40 / 2 + i, coordinate_y - 4 + j);
+			std::cout << " ";
+		}
+	gotoXY(coordinate_x + width / 2 - 40 / 2 + 5, coordinate_y - 4 + 1);
+	std::cout << "LIST STUDENTS OF COURSE " + CourseID;
+	textcolor(WHITE);
 
-	gotoXY(coordinate_x, coordinate_y); std::cout << "+";
+	gotoXY(coordinate_x, coordinate_y); std::cout << char(218);
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
-		gotoXY(i, coordinate_y); std::cout << "-";
+		gotoXY(i, coordinate_y); std::cout << char(196);
 	}
-	gotoXY(coordinate_x + width, coordinate_y); std::cout << "+";
+	gotoXY(coordinate_x + width, coordinate_y); std::cout << char(191);
+
+	gotoXY(coordinate_x + width_no + tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + 2 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + width_studentName + 3 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + width_studentName + width_gender + 4 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + width_studentName + width_gender + width_DOB + 5 * tmp, coordinate_y); std::cout << char(194);
 
 	gotoXY(coordinate_x, coordinate_y + 1);
-	std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << "No" << std::setw(5) << std::left << "|"
-		<< std::setw(width_studentID) << std::left << "Student ID" << std::setw(5) << std::left << "|"
-		<< std::setw(width_studentName) << std::left << "Student's name" << std::setw(5) << std::left << "|"
-		<< std::setw(width_gender) << std::left << "Gender" << std::setw(5) << std::left << "|"
-		<< std::setw(width_DOB) << std::left << "Date of birth" << std::setw(5) << std::left << "|"
-		<< std::setw(socialID) << std::left << "Social ID";
+	std::cout 
+		<< std::setw(tmp) << std::left << char(179) << std::setw(width_no) << std::left << "No"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_studentID) << std::left << "Student ID"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_studentName) << std::left << "Student's name" 
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_gender) << std::left << "Gender"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_DOB) << std::left << "Date of birth" 
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(socialID) << std::left << "Social ID";
 
-	gotoXY(coordinate_x, coordinate_y + 2); std::cout << "+";
+	gotoXY(coordinate_x, coordinate_y + 2); std::cout << char(195);
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
-		gotoXY(i, coordinate_y + 2); std::cout << "-";
+		gotoXY(i, coordinate_y + 2); std::cout << char(196);
 	}
-	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << "+";
+	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << char(180);
+
+	gotoXY(coordinate_x + width_no + tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + 2 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + width_studentName + 3 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + width_studentName + width_gender + 4 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + width_studentName + width_gender + width_DOB + 5 * tmp, coordinate_y + 2); std::cout << char(197);
+
 
 	int count = 0;
 	STU_COURSE_NODE* cur = stu_course;
@@ -2795,29 +3094,37 @@ LOOP1:
 			no = 0;
 		gotoXY(coordinate_x, coordinate_y + 2 + i);
 
-		STU_NODE* tmp = getInformationByStudentID(cur_list_course->stu_course.StuID, student);
-		std::string DoB = std::to_string(tmp->student.DoB.day / 10) + std::to_string(tmp->student.DoB.day % 10) + "/"
-			+ std::to_string(tmp->student.DoB.month / 10) + std::to_string(tmp->student.DoB.month % 10) + "/"
-			+ std::to_string(tmp->student.DoB.year);
-		std::string fullname = tmp->student.LName + " " + tmp->student.FName;
-		std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << no++ << std::setw(5) << std::left << "|"
-			<< std::setw(width_studentID) << std::left << cur_list_course->stu_course.StuID << std::setw(5) << std::left << "|"
-			<< std::setw(width_studentName) << std::left << fullname << std::setw(5) << std::left << "|"
-			<< std::setw(width_gender) << std::left << tmp->student.Gender << std::setw(5) << std::left << "|"
-			<< std::setw(width_DOB) << std::left << DoB << std::setw(5) << std::left << "|"
-			<< std::setw(socialID) << std::left << tmp->student.SocialID;
+		STU_NODE* tmp_student = getInformationByStudentID(cur_list_course->stu_course.StuID, student);
+		std::string DoB = std::to_string(tmp_student->student.DoB.day / 10) + std::to_string(tmp_student->student.DoB.day % 10) + "/"
+			+ std::to_string(tmp_student->student.DoB.month / 10) + std::to_string(tmp_student->student.DoB.month % 10) + "/"
+			+ std::to_string(tmp_student->student.DoB.year);
+		std::string fullname = tmp_student->student.LName + " " + tmp_student->student.FName;
+		std::cout 
+			<< std::setw(tmp) << std::left << char(179) << std::setw(width_no) << std::left << no++ 
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_studentID) << std::left << cur_list_course->stu_course.StuID
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_studentName) << std::left << fullname 
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_gender) << std::left << tmp_student->student.Gender
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_DOB) << std::left << DoB 
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(socialID) << std::left << tmp_student->student.SocialID;
 
 		if (i == 15 || cur_list_course->next == nullptr) {
-			gotoXY(coordinate_x, coordinate_y + 2 + i + 1); std::cout << "+";
+			gotoXY(coordinate_x, coordinate_y + 2 + i + 1); std::cout << char(192);
 			for (int j = coordinate_x + 1; j < coordinate_x + width; j++) {
-				gotoXY(j, coordinate_y + 2 + i + 1); std::cout << "-";
+				gotoXY(j, coordinate_y + 2 + i + 1); std::cout << char(196);
 			}
-			gotoXY(coordinate_x + width, coordinate_y + 2 + i + 1); std::cout << "+";
+			gotoXY(coordinate_x + width, coordinate_y + 2 + i + 1); std::cout << char(217);
 		}
+
+		gotoXY(coordinate_x + width_no + tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_studentID + 2 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_studentID + width_studentName + 3 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_studentID + width_studentName + width_gender + 4 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+		gotoXY(coordinate_x + width_no + width_studentID + width_studentName + width_gender + width_DOB + 5 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+
 		for (int j = coordinate_y + 1; j <= coordinate_y + i + 2; j++)
 			if (j != coordinate_y + 2) {
-				gotoXY(coordinate_x, j); std::cout << "|";
-				gotoXY(coordinate_x + width, j); std::cout << "|";
+				gotoXY(coordinate_x, j); std::cout << char(179);
+				gotoXY(coordinate_x + width, j); std::cout << char(179);
 			}
 		if (cur_list_course->next == nullptr) {
 			for (int p = coordinate_x; p <= coordinate_x + width; p++)
@@ -2860,79 +3167,112 @@ LOOP1:
 	}
 }
 void viewListStudentsOfCourse(STU_COURSE_NODE* stu_course, STU_NODE* student, CR_NODE* course) {
-	int coordinate_x = 20;
+	int coordinate_x = 35;
 	int coordinate_y = 27;
 	int width_box = 30;
 	int height_box = 2;
 	int check = 0;
+	std::string CourseID;
 
-	std::string CourseID, tmp;
-	do {
-		std::system("cls");
-		viewListOfCourses(course);
-		my_print(coordinate_x, coordinate_y, GREEN, "Enter Course ID which you want to open: ");
-		box(coordinate_x + 41, coordinate_y - 1, width_box, height_box, BLUE);
-		gotoXY(coordinate_x + 41 + 1, coordinate_y);
-		tmp = (my_getline(width_box - 1));
-		if (tmp == "-1")
-			return;
-		else
-			CourseID = (tmp);
-
-		CR_NODE* cur = course;
-		while (cur) {
-			if (cur->course.ID == CourseID)
-				check = 1;
-			cur = cur->next;
-		}
-		if (check == 0) {
-			my_print(coordinate_x + 10, coordinate_y + 4, RED, "Your Course ID doesn't exist. Please enter again.");
-			char ch;
-			ch = _getch();
-		}
-	} while (check == 0);
 	std::system("cls");
-	displayLISTSTUDENTOFCOURSE(stu_course, student, CourseID);
-	std::system("pause");
+	viewListOfCourses(course);
+enter_courseID:
+	my_print(coordinate_x, coordinate_y, YELLOW * 16 + BLACK, "Enter Course ID which you want to open: ");
+	box(coordinate_x, coordinate_y + 1, width_box, height_box, LIGHT_AQUA);
+	gotoXY(coordinate_x + 1, coordinate_y + 2);
+	ShowCur(1);
+	CourseID = (my_getline(width_box - 1));
+	ShowCur(0);
+	if (CourseID == "-1")
+		return;
+
+	CR_NODE* cur = course;
+	while (cur) {
+		if (cur->course.ID == CourseID)
+			check = 1;
+		cur = cur->next;
+	}
+	if (check == 0) {
+		my_print(coordinate_x + 50, coordinate_y, RED * 16 + WHITE, "Your selection doesn't exist.");
+		my_print(coordinate_x + 50, coordinate_y + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter agagin:");
+		int choice = enter_again_yes_no(coordinate_x + 50 + 3, coordinate_y + 3, 7, 3, 4, LIGHT_AQUA, YELLOW);
+		if (choice == 1) {
+			textcolor(BLACK * 16 + BLACK);
+			for (int j = 0; j < 5 + 2; j++)
+				for (int i = 0; i < 70 + 9; i++) {
+					gotoXY(coordinate_x + i, coordinate_y + j);
+					std::cout << " ";
+				}
+			textcolor(WHITE);
+			goto enter_courseID;
+		}
+		else return;
+	}
+		std::system("cls");
+		displayLISTSTUDENTOFCOURSE(stu_course, student, CourseID);
 }
 //5
 void displayScoreBoard_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string CourseID) {
-
-	int coordinate_x = 3;
-	int coordinate_y = 3;
+	int coordinate_x = 13;
+	int coordinate_y = 5;
 
 	int width_no = 5;
 	int width_studentID = 10;
 	int width_lastName = 25;
 	int width_firstName = 15;
-	int width_other = 15;
-	int width_midterm = 15;
-	int width_final = 15;
-	int width_total = 15;
+	int width_mark = 10;
+	int tmp = 5;
 
-	int width = width_no + width_studentID + width_lastName + width_firstName + width_other
-		+ width_midterm + width_final + width_total + 5 * 8;
+	int width = width_no + width_studentID + width_lastName + width_firstName + 4 *width_mark + tmp * 8;
 
-	gotoXY(coordinate_x, coordinate_y); std::cout << "+";
+	textcolor(LIGHT_YELLOW * 16 + BLACK);
+	for (int j = 0; j < 3; j++)
+		for (int i = 0; i < 40; i++) {
+			gotoXY(coordinate_x + width / 2 - 40 / 2 + i, coordinate_y - 4 + j);
+			std::cout << " ";
+		}
+	gotoXY(coordinate_x + width / 2 - 40 / 2 + 5, coordinate_y - 4 + 1);
+	std::cout << "LIST STUDENTS OF COURSE " + CourseID;
+	textcolor(WHITE);
+
+	gotoXY(coordinate_x, coordinate_y); std::cout << char(218);
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
-		gotoXY(i, coordinate_y); std::cout << "-";
+		gotoXY(i, coordinate_y); std::cout << char(196);
 	}
-	gotoXY(coordinate_x + width, coordinate_y); std::cout << "+";
+	gotoXY(coordinate_x + width, coordinate_y); std::cout << char(191);
+	
+	gotoXY(coordinate_x + width_no + tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + 2 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + 3 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + 4 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_mark + 5 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_mark + width_mark + 6 * tmp, coordinate_y); std::cout << char(194);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_mark + width_mark + width_mark + 7 * tmp, coordinate_y); std::cout << char(194);
 
 	gotoXY(coordinate_x, coordinate_y + 1);
-	std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << "No" << std::setw(5) << std::left << "|"
-		<< std::setw(10) << std::left << "Student ID" << std::setw(5) << std::left << "|"
-		<< std::setw(25) << std::left << "Last name" << std::setw(5) << std::left << "|"
-		<< std::setw(15) << std::left << "First name" << std::setw(5) << std::left << "|"
-		<< std::setw(15) << std::left << "Other Mark" << std::setw(5) << std::left << "|"
-		<< std::setw(15) << std::left << "Midterm Mark" << std::setw(5) << std::left << "|"
-		<< std::setw(15) << std::left << "Final Mark" << std::setw(5) << std::left << "|"
-		<< std::setw(15) << std::left << "Total Mark";
-	gotoXY(coordinate_x, coordinate_y + 2); std::cout << "+";
+	std::cout 
+		<< std::setw(tmp) << std::left << char(179) << std::setw(width_no) << std::left << "No"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_studentID) << std::left << "Student ID"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_lastName) << std::left << "Last name"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_firstName) << std::left << "First name"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_mark) << std::left << "Other"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_mark) << std::left << "Midterm"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_mark) << std::left << "Final"
+		<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_mark) << std::left << "Total";
+
+	gotoXY(coordinate_x, coordinate_y + 2); std::cout << char(195);
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
-		gotoXY(i, coordinate_y + 2); std::cout << "-";
+		gotoXY(i, coordinate_y + 2); std::cout << char(196);
 	}
-	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << "+";
+	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << char(180);
+
+	gotoXY(coordinate_x + width_no + tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + 2 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + 3 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + 4 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_mark + 5 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_mark + width_mark + 6 * tmp, coordinate_y + 2); std::cout << char(197);
+	gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_mark + width_mark + width_mark + 7 * tmp, coordinate_y + 2); std::cout << char(197);
 
 	int count = 0;
 	STU_COURSE_NODE* cur = stu_course;
@@ -2972,26 +3312,37 @@ LOOP1:
 		if (no > count)
 			no = 0;
 		gotoXY(coordinate_x, coordinate_y + 2 + i);
-		STU_NODE* tmp = getInformationByStudentID(cur_list_stu_course->stu_course.StuID, student);
-		std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << no++ << std::setw(5) << std::left << "|"
-			<< std::setw(10) << std::left << cur_list_stu_course->stu_course.StuID << std::setw(5) << std::left << "|"
-			<< std::setw(25) << std::left << tmp->student.LName << std::setw(5) << std::left << "|"
-			<< std::setw(15) << std::left << tmp->student.FName << std::setw(5) << std::left << "|"
-			<< std::setw(15) << std::left << cur_list_stu_course->stu_course.other << std::setw(5) << std::left << "|"
-			<< std::setw(15) << std::left << cur_list_stu_course->stu_course.midterm << std::setw(5) << std::left << "|"
-			<< std::setw(15) << std::left << cur_list_stu_course->stu_course.final << std::setw(5) << std::left << "|"
-			<< std::setw(15) << std::left << cur_list_stu_course->stu_course.total;
+		STU_NODE* tmp_student = getInformationByStudentID(cur_list_stu_course->stu_course.StuID, student);
+		std::cout 
+			<< std::setw(tmp) << std::left << char(179) << std::setw(width_no) << std::left << no++
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_studentID) << std::left << cur_list_stu_course->stu_course.StuID
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_lastName) << std::left << tmp_student->student.LName
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_firstName) << std::left << tmp_student->student.FName
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_mark) << std::left << cur_list_stu_course->stu_course.other 
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_mark) << std::left << cur_list_stu_course->stu_course.midterm
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_mark) << std::left << cur_list_stu_course->stu_course.final
+			<< std::setw(tmp) << std::left << char(179)	<< std::setw(width_mark) << std::left << cur_list_stu_course->stu_course.total;
+
 		if (i == 15 || cur_list_stu_course->next == nullptr) {
-			gotoXY(coordinate_x, coordinate_y + 2 + i + 1); std::cout << "+";
+			gotoXY(coordinate_x, coordinate_y + 2 + i + 1); std::cout << char(192);
 			for (int j = coordinate_x + 1; j < coordinate_x + width; j++) {
-				gotoXY(j, coordinate_y + 2 + i + 1); std::cout << "-";
+				gotoXY(j, coordinate_y + 2 + i + 1); std::cout << char(196);
 			}
-			gotoXY(coordinate_x + width, coordinate_y + 2 + i + 1); std::cout << "+";
+			gotoXY(coordinate_x + width, coordinate_y + 2 + i + 1); std::cout << char(217);
+
+			gotoXY(coordinate_x + width_no + tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+			gotoXY(coordinate_x + width_no + width_studentID + 2 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+			gotoXY(coordinate_x + width_no + width_studentID + width_lastName + 3 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+			gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + 4 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+			gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_mark + 5 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+			gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_mark + width_mark + 6 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
+			gotoXY(coordinate_x + width_no + width_studentID + width_lastName + width_firstName + width_mark + width_mark + width_mark + 7 * tmp, coordinate_y + 2 + i + 1); std::cout << char(193);
 		}
+
 		for (int j = coordinate_y + 1; j <= coordinate_y + i + 2; j++)
 			if (j != coordinate_y + 2) {
-				gotoXY(coordinate_x, j); std::cout << "|";
-				gotoXY(coordinate_x + width, j); std::cout << "|";
+				gotoXY(coordinate_x, j); std::cout << char(179);
+				gotoXY(coordinate_x + width, j); std::cout << char(179);
 			}
 		if (cur_list_stu_course->next == nullptr) {
 			for (int p = coordinate_x; p <= coordinate_x + width; p++)
@@ -3034,37 +3385,50 @@ LOOP1:
 	}
 }
 void viewScoreboardInCourse(CR_NODE* course, STU_COURSE_NODE* stu_course, STU_NODE* student) {
-	int check = 0;
-	int coordinate_x = 30;
-	int coordinate_y = 26;
-	int width_box = 40;
+	int coordinate_x = 35;
+	int coordinate_y = 27;
+	int width_box = 30;
 	int height_box = 2;
-	std::string CourseID, tmp;
-	do {
-		std::system("cls");
-		viewListOfCourses(course);
-		my_print(coordinate_x, coordinate_y, LIGHT_RED, "Enter the course ID which you want to view the scoreboard : ");
-		box(coordinate_x, coordinate_y + 1, width_box, height_box, PURPLE);
-		gotoXY(coordinate_x + 1, coordinate_y + 2);
-		tmp = (my_getline(width_box - 1));
-		if (tmp == "-1")
-			return;
-		else
-			CourseID = (tmp);
-		CR_NODE* cur = course;
-		while (cur) {
-			if (cur->course.ID == CourseID)
-				check = 1;
-			cur = cur->next;
+	int check = 0;
+	std::string CourseID;
+
+	std::system("cls");
+	viewListOfCourses(course);
+enter_courseID:
+	my_print(coordinate_x, coordinate_y, YELLOW * 16 + BLACK, "Enter Course ID which you want to open: ");
+	box(coordinate_x, coordinate_y + 1, width_box, height_box, LIGHT_AQUA);
+	gotoXY(coordinate_x + 1, coordinate_y + 2);
+	ShowCur(1);
+	CourseID = (my_getline(width_box - 1));
+	ShowCur(0);
+	if (CourseID == "-1")
+		return;
+
+	CR_NODE* cur = course;
+	while (cur) {
+		if (cur->course.ID == CourseID)
+			check = 1;
+		cur = cur->next;
+	}
+	if (check == 0) {
+		my_print(coordinate_x + 50, coordinate_y, RED * 16 + WHITE, "Your Course ID doesn't exist.");
+		my_print(coordinate_x + 50, coordinate_y + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter agagin:");
+		int choice = enter_again_yes_no(coordinate_x + 50 + 3, coordinate_y + 3, 7, 3, 4, LIGHT_AQUA, YELLOW);
+		if (choice == 1) {
+			textcolor(BLACK * 16 + BLACK);
+			for (int j = 0; j < 5 + 2; j++)
+				for (int i = 0; i < 70 + 9; i++) {
+					gotoXY(coordinate_x + i, coordinate_y + j);
+					std::cout << " ";
+				}
+			textcolor(WHITE);
+			goto enter_courseID;
 		}
-		if (check == 0) {
-			my_print(coordinate_x, coordinate_y + 4, RED, "Your Course ID doesn't exist. Please enter again.");
-			std::system("pause");
-		}
-	} while (check == 0);
+		else return;
+	}
 	std::system("cls");
 	displayScoreBoard_Course(stu_course, student, CourseID);
-	std::system("pause");
+
 }
 //6
 void displayScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std::string ClassID) {
@@ -3081,24 +3445,34 @@ void displayScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std
 	int width = width_no + width_studentID + width_lastName + width_firstName + width_subject
 		+ width_mark + 5 * 6;
 
-	gotoXY(coordinate_x, coordinate_y); std::cout << "+";
+	gotoXY(coordinate_x, coordinate_y); std::cout << char(218);
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
-		gotoXY(i, coordinate_y); std::cout << "-";
+		gotoXY(i, coordinate_y); std::cout << char(196);
 	}
-	gotoXY(coordinate_x + width, coordinate_y); std::cout << "+";
+	gotoXY(coordinate_x + width, coordinate_y); std::cout << char(191);
+
+	/*
+		  194
+	218	┌  ┬  ┐ 191         197 ┼
+
+	195 ├  ┼  ┤ 180			179 │
+
+	192 └  ┴  ┘ 217			196 ─
+		  193
+	*/
 
 	gotoXY(coordinate_x, coordinate_y + 1);
-	std::cout << std::setw(5) << std::left << "|" << std::setw(width_no) << std::left << "No" << std::setw(5) << std::left << "|"
-		<< std::setw(width_studentID) << std::left << "Student ID" << std::setw(5) << std::left << "|"
-		<< std::setw(width_lastName) << std::left << "Last name" << std::setw(5) << std::left << "|"
-		<< std::setw(width_firstName) << std::left << "Firse name" << std::setw(5) << std::left << "|"
-		<< std::setw(width_subject) << std::left << "Subject" << std::setw(5) << std::left << "|"
-		<< std::setw(width_mark) << std::left << "Mark" << "|";
-	gotoXY(coordinate_x, coordinate_y + 2); std::cout << "+";
+	std::cout << std::setw(5) << std::left << char(179) << std::setw(width_no) << std::left << "No" << std::setw(5) << std::left << char(179)
+		<< std::setw(width_studentID) << std::left << "Student ID" << std::setw(5) << std::left << char(179)
+		<< std::setw(width_lastName) << std::left << "Last name" << std::setw(5) << std::left << char(179)
+		<< std::setw(width_firstName) << std::left << "Firse name" << std::setw(5) << std::left << char(179)
+		<< std::setw(width_subject) << std::left << "Subject" << std::setw(5) << std::left << char(179)
+		<< std::setw(width_mark) << std::left << "Mark" << char(179);
+	gotoXY(coordinate_x, coordinate_y + 2); std::cout << char(195);
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
-		gotoXY(i, coordinate_y + 2); std::cout << "-";
+		gotoXY(i, coordinate_y + 2); std::cout << char(196);
 	}
-	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << "+";
+	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << char(180);
 
 	int count = 0;
 	STU_NODE* cur_student = student;
@@ -3110,76 +3484,91 @@ void displayScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std
 			int count_subject = 0;
 			while (cur->stu_course.StuID == cur_student->student.StudentID) {
 				gotoXY(coordinate_x, coordinate_y + 2 + ++i);
-				std::cout << std::setw(5) << std::left << "|" << std::setw(5) << std::left << " " << std::setw(5) << std::left << "|"
-					<< std::setw(width_studentID) << std::left << " " << std::setw(5) << std::left << "|"
-					<< std::setw(width_lastName) << std::left << " " << std::setw(5) << std::left << "|"
-					<< std::setw(width_firstName) << std::left << " " << std::setw(5) << std::left << "|"
-					<< std::setw(width_subject) << std::left << cur->stu_course.Cname << std::setw(5) << std::left << "|"
-					<< std::setw(width_mark) << std::left << cur->stu_course.total << "|";
+				std::cout << std::setw(5) << std::left << char(179) << std::setw(5) << std::left << " " << std::setw(5) << std::left << char(179)
+					<< std::setw(width_studentID) << std::left << " " << std::setw(5) << std::left << char(179)
+					<< std::setw(width_lastName) << std::left << " " << std::setw(5) << std::left << char(179)
+					<< std::setw(width_firstName) << std::left << " " << std::setw(5) << std::left << char(179)
+					<< std::setw(width_subject) << std::left << cur->stu_course.Cname << std::setw(5) << std::left << char(179)
+					<< std::setw(width_mark) << std::left << cur->stu_course.total << char(179);
 				GPA += cur->stu_course.total;
 				count_subject++;
 				cur = cur->next;
 			}
 			if (count_subject == 0) {
 				gotoXY(coordinate_x, coordinate_y + 2 + ++i);
-				std::cout << std::setw(5) << std::left << "|" << std::setw(5) << std::left << ++count << std::setw(5) << std::left << "|"
-					<< std::setw(width_studentID) << std::left << cur_student->student.StudentID << std::setw(5) << std::left << "|"
-					<< std::setw(width_lastName) << std::left << cur_student->student.LName << std::setw(5) << std::left << "|"
-					<< std::setw(width_firstName) << std::left << cur_student->student.FName << std::setw(5) << std::left << "|"
-					<< std::setw(width_subject) << std::left << "GPA" << std::setw(5) << std::left << "|"
-					<< std::setw(width_mark) << std::left << std::fixed << std::setprecision(2) << 0 << "|";
+				std::cout << std::setw(5) << std::left << char(179) << std::setw(5) << std::left << ++count << std::setw(5) << std::left << char(179)
+					<< std::setw(width_studentID) << std::left << cur_student->student.StudentID << std::setw(5) << std::left << char(179)
+					<< std::setw(width_lastName) << std::left << cur_student->student.LName << std::setw(5) << std::left << char(179)
+					<< std::setw(width_firstName) << std::left << cur_student->student.FName << std::setw(5) << std::left << char(179)
+					<< std::setw(width_subject) << std::left << "GPA" << std::setw(5) << std::left << char(179)
+					<< std::setw(width_mark) << std::left << std::fixed << std::setprecision(2) << 0 << char(179);
 			}
 			else {
 				gotoXY(coordinate_x, coordinate_y + 2 + ++i);
-				std::cout << std::setw(5) << std::left << "|" << std::setw(5) << std::left << ++count << std::setw(5) << std::left << "|"
-					<< std::setw(width_studentID) << std::left << cur_student->student.StudentID << std::setw(5) << std::left << "|"
-					<< std::setw(width_lastName) << std::left << cur_student->student.LName << std::setw(5) << std::left << "|"
-					<< std::setw(width_firstName) << std::left << cur_student->student.FName << std::setw(5) << std::left << "|"
-					<< std::setw(width_subject) << std::left << "GPA" << std::setw(5) << std::left << "|"
-					<< std::setw(width_mark) << std::left << std::fixed << std::setprecision(2) << GPA / count_subject << "|";
+				std::cout << std::setw(5) << std::left << char(179) << std::setw(5) << std::left << ++count << std::setw(5) << std::left << char(179)
+					<< std::setw(width_studentID) << std::left << cur_student->student.StudentID << std::setw(5) << std::left << char(179)
+					<< std::setw(width_lastName) << std::left << cur_student->student.LName << std::setw(5) << std::left << char(179)
+					<< std::setw(width_firstName) << std::left << cur_student->student.FName << std::setw(5) << std::left << char(179)
+					<< std::setw(width_subject) << std::left << "GPA" << std::setw(5) << std::left << char(179)
+					<< std::setw(width_mark) << std::left << std::fixed << std::setprecision(2) << GPA / count_subject << char(179);
 			}
 			i++;
-			gotoXY(coordinate_x, coordinate_y + 2 + i); std::cout << "+";
+			gotoXY(coordinate_x, coordinate_y + 2 + i); std::cout << char(195);
 			for (int j = coordinate_x + 1; j < coordinate_x + width; j++) {
-				gotoXY(j, coordinate_y + 2 + i); std::cout << "-";
+				gotoXY(j, coordinate_y + 2 + i); std::cout << char(196);
 			}
-			gotoXY(coordinate_x + width, coordinate_y + 2 + i); std::cout << "+";
+			gotoXY(coordinate_x + width, coordinate_y + 2 + i); std::cout << char(180);
 
 		}
 		cur_student = cur_student->next;
 	}
+	gotoXY(coordinate_x, coordinate_y + 2 + i); std::cout << char(192);
+	for (int j = coordinate_x + 1; j < coordinate_x + width; j++) {
+		gotoXY(j, coordinate_y + 2 + i); std::cout << char(196);
+	}
+	gotoXY(coordinate_x + width, coordinate_y + 2 + i); std::cout << char(217);
+
 	gotoXY(whereX() - 2 * width / 3, whereY() + 2);
+	system("pause");
 }
 void viewScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, CLASS_NODE* listclass) {
-	int check = 0;
-	std::string ClassID, tmp;
-	int coordinate_x = 20;
-	int coordinate_y = 25;
+	int coordinate_x = 35;
+	int coordinate_y = 27;
 	int width_box = 30;
 	int height_box = 2;
-	do {
-		std::system("cls");
-		viewListOfClasses(listclass, student);
-		my_print(coordinate_x, coordinate_y, LIGHT_RED, "Enter the class ID which you want to view the scoreboard: ");
-		box(coordinate_x + 59, coordinate_y - 1, width_box, height_box, LIGHT_AQUA);
-		gotoXY(coordinate_x + 59 + 1, coordinate_y);
-		tmp = (my_getline(width_box - 1));
-		if (tmp == "-1")
-			return;
-		else
-			ClassID = (tmp);
+	int check = 0;
+	std::string ClassID;
 
-		if (checkExistClassIDinDLL(student, ClassID) != nullptr)
-			check = 1;
+	std::system("cls");
+	viewListOfClasses(listclass, student);
+enter_class_ID:
+	my_print(coordinate_x, coordinate_y, YELLOW * 16 + BLACK, "Enter the class ID which you want to open:");
+	box(coordinate_x, coordinate_y + 1, width_box, height_box, LIGHT_AQUA);
+	gotoXY(coordinate_x + 1, coordinate_y + 2);
+	ShowCur(1);
+	ClassID = (my_getline(width_box - 1));
+	ShowCur(0);
+	if (ClassID == "-1")
+		return;
 
-		if (check == 0) {
-			my_print(coordinate_x, coordinate_y + 3, RED, "Your class ID doesn't exist. Please enter again.");
-			system("pause");
+	if (checkExistClassIDinDLL(student, ClassID) == nullptr) {
+		my_print(coordinate_x + 50, coordinate_y, RED * 16 + WHITE, "Your Class ID doesn't exist.");
+		my_print(coordinate_x + 50, coordinate_y + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter agagin:");
+		int choice = enter_again_yes_no(coordinate_x + 50 + 3, coordinate_y + 3, 7, 3, 4, LIGHT_AQUA, YELLOW);
+		if (choice == 1) {
+			textcolor(BLACK * 16 + BLACK);
+			for (int j = 0; j < 5 + 2; j++)
+				for (int i = 0; i < 70 + 9; i++) {
+					gotoXY(coordinate_x + i, coordinate_y + j);
+					std::cout << " ";
+				}
+			textcolor(WHITE);
+			goto enter_class_ID;
 		}
-	} while (check == 0);
-	system("cls");
+		else return;
+	}
+	std::system("cls");
 	displayScoreBoard_Class(stu_course, student, ClassID);
-	system("pause");
 }
 //7
 void ExportScoreBoard(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* student) {

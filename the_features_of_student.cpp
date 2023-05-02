@@ -1,5 +1,6 @@
 ﻿#include "header.h"
 
+ 
 //1
 void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 	int coordinate_x = 70;
@@ -625,12 +626,12 @@ void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) 
 	gotoXY(coordinate_x + width, coordinate_y); std::cout << "+";
 
 	gotoXY(coordinate_x, coordinate_y + 1);
-	std::cout << std::setw(3) << std::left << "|" << std::setw(width_no) << std::left << "No" << std::setw(3) << std::left << "|"
-		<< std::setw(width_courseID) << std::left << "Course ID" << std::setw(3) << std::left << "|"
-		<< std::setw(width_courseName) << std::left << "Course name" << std::setw(3) << std::left << "|"
-		<< std::setw(width_TeacherName) << std::left << "Teacher's Name" << std::setw(3) << std::left << "|"
-		<< std::setw(width_Credits) << std::left << "Credits" << std::setw(3) << std::left << "|"
-		<< std::setw(width_maxstd) << std::left << "Max student" << std::setw(3) << std::left << "|"
+	std::cout << std::setw(3) << std::left << char(179) << std::setw(width_no) << std::left << "No" << std::setw(3) << std::left << char(179)
+		<< std::setw(width_courseID) << std::left << "Course ID" << std::setw(3) << std::left << char(179)
+		<< std::setw(width_courseName) << std::left << "Course name" << std::setw(3) << std::left << char(179)
+		<< std::setw(width_TeacherName) << std::left << "Teacher's Name" << std::setw(3) << std::left << char(179)
+		<< std::setw(width_Credits) << std::left << "Credits" << std::setw(3) << std::left << char(179)
+		<< std::setw(width_maxstd) << std::left << "Max student" << std::setw(3) << std::left << char(179)
 		<< std::setw(width_calendar) << std::left << "Calendar";
 
 	gotoXY(coordinate_x, coordinate_y + 2); std::cout << "+";
@@ -678,12 +679,12 @@ LOOP1:
 
 		gotoXY(coordinate_x, coordinate_y + 2 + i);
 		std::string calendar = ConvertStringWD(ConvertEnumWD(cur_list_stu_student->stu_course.weekday)) + "-" + ConvertStringSS(ConvertEnumSS(cur_list_stu_student->stu_course.session));
-		std::cout << std::setw(3) << std::left << "|" << std::setw(width_no) << std::left << no++ << std::setw(3) << std::left << "|"
-			<< std::setw(width_courseID) << std::left << cur_list_stu_student->stu_course.CouID << std::setw(3) << std::left << "|"
-			<< std::setw(width_courseName) << std::left << cur_list_stu_student->stu_course.Cname << std::setw(3) << std::left << "|"
-			<< std::setw(width_TeacherName) << std::left << cur_list_stu_student->stu_course.Teachername << std::setw(3) << std::left << "|"
-			<< std::setw(width_Credits) << std::left << cur_list_stu_student->stu_course.credits << std::setw(3) << std::left << "|"
-			<< std::setw(width_maxstd) << std::left << cur_list_stu_student->stu_course.Max_stdn << std::setw(3) << std::left << "|"
+		std::cout << std::setw(3) << std::left << char(179) << std::setw(width_no) << std::left << no++ << std::setw(3) << std::left << char(179)
+			<< std::setw(width_courseID) << std::left << cur_list_stu_student->stu_course.CouID << std::setw(3) << std::left << char(179)
+			<< std::setw(width_courseName) << std::left << cur_list_stu_student->stu_course.Cname << std::setw(3) << std::left << char(179)
+			<< std::setw(width_TeacherName) << std::left << cur_list_stu_student->stu_course.Teachername << std::setw(3) << std::left << char(179)
+			<< std::setw(width_Credits) << std::left << cur_list_stu_student->stu_course.credits << std::setw(3) << std::left << char(179)
+			<< std::setw(width_maxstd) << std::left << cur_list_stu_student->stu_course.Max_stdn << std::setw(3) << std::left << char(179)
 			<< std::setw(width_calendar) << std::left << calendar;
 
 		if (i == 15 || cur_list_stu_student->next == nullptr) {
@@ -695,8 +696,8 @@ LOOP1:
 		}
 		for (int j = coordinate_y + 1; j <= coordinate_y + i + 2; j++)
 			if (j != coordinate_y + 2) {
-				gotoXY(coordinate_x, j); std::cout << "|";
-				gotoXY(coordinate_x + width, j); std::cout << "|";
+				gotoXY(coordinate_x, j); std::cout << char(179);
+				gotoXY(coordinate_x + width, j); std::cout << char(179);
 			}
 		if (cur_list_stu_student->next == nullptr) {
 			for (int p = coordinate_x; p <= coordinate_x + width; p++)
@@ -878,4 +879,150 @@ again_coutseID_delete:
 	}
 	else
 		return;
+}
+//6
+void View_academic_result(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
+	std::system("cls");
+	int coordinate_x = 15;
+	int coordinate_y = 6;
+
+	textcolor(LIGHT_YELLOW * 16 + BLACK);
+	for (int j = 0; j < 3; j++)
+		for (int i = 0; i < 40; i++) {
+			gotoXY(coordinate_x + 45 + i, coordinate_y - 4 + j);
+			std::cout << " ";
+		}
+	gotoXY(coordinate_x + 45 + 5, coordinate_y - 4 + 1);
+	std::cout << "ACADEMIC RESULT";
+	textcolor(WHITE);
+
+	int width_no = 5;
+	int width_courseID = 13;
+	int width_courseName = 25;
+	int width_Credits = 9;
+	int width_mark = 10;
+
+	int width = width_no + width_courseID + width_courseName + width_Credits + width_mark * 4 + 3 * 8;
+
+	gotoXY(coordinate_x, coordinate_y); std::cout << "+";
+	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
+		gotoXY(i, coordinate_y); std::cout << "-";
+	}
+	gotoXY(coordinate_x + width, coordinate_y); std::cout << "+";
+
+	gotoXY(coordinate_x, coordinate_y + 1);
+	std::cout << std::setw(3) << std::left << char(179) << std::setw(width_no) << std::left << "No" << std::setw(3) << std::left << char(179)
+		<< std::setw(width_courseID) << std::left << "Course ID" << std::setw(3) << std::left << char(179)
+		<< std::setw(width_courseName) << std::left << "Course name" << std::setw(3) << std::left << char(179)
+		<< std::setw(width_Credits) << std::left << "Credits" << std::setw(3) << std::left << char(179)
+		<< std::setw(width_mark) << std::left << "Other" << std::setw(3) << std::left << char(179)
+		<< std::setw(width_mark) << std::left << "Midterm" << std::setw(3) << std::left << char(179)
+		<< std::setw(width_mark) << std::left << "Final" << std::setw(3) << std::left << char(179)
+		<< std::setw(width_mark) << std::left << "Total";
+
+	gotoXY(coordinate_x, coordinate_y + 2); std::cout << "+";
+	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
+		gotoXY(i, coordinate_y + 2); std::cout << "-";
+	}
+	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << "+";
+
+	int count = 0;
+	STU_COURSE_NODE* cur_stu_student = stu_course;
+	STU_COURSE_NODE* list_stu_student = nullptr;
+	STU_COURSE_NODE* cur_list_stu_student = list_stu_student;
+	while (cur_stu_student) {
+		if (cur_stu_student->stu_course.StuID == loggedinStudent->student.StudentID) {
+			count++;
+			if (list_stu_student == nullptr) {
+				cur_list_stu_student = list_stu_student = new STU_COURSE_NODE;
+				cur_list_stu_student->stu_course = cur_stu_student->stu_course;
+				cur_list_stu_student->next = nullptr;
+				cur_list_stu_student->prev = nullptr;
+			}
+			else {
+				cur_list_stu_student->next = new STU_COURSE_NODE;
+				cur_list_stu_student->next->stu_course = cur_stu_student->stu_course;
+				cur_list_stu_student->next->prev = cur_list_stu_student;
+				cur_list_stu_student = cur_list_stu_student->next;
+				cur_list_stu_student->next = nullptr;
+			}
+		}
+		cur_stu_student = cur_stu_student->next;
+	}
+	int page_max = (count - 1) / 15 + 1;
+	int page_index = 1;
+
+LOOP1:
+	cur_list_stu_student = list_stu_student;
+	int i = 0;
+	int page = 0;
+	int no = 1;
+	while (cur_list_stu_student) {
+		ShowCur(1);
+		i++;
+		if (no > count)
+			no = 0;
+
+		gotoXY(coordinate_x, coordinate_y + 2 + i);
+		std::string calendar = ConvertStringWD(ConvertEnumWD(cur_list_stu_student->stu_course.weekday)) + "-" + ConvertStringSS(ConvertEnumSS(cur_list_stu_student->stu_course.session));
+		std::cout << std::setw(3) << std::left << char(179) << std::setw(width_no) << std::left << no++ << std::setw(3) << std::left << char(179)
+			<< std::setw(width_courseID) << std::left << cur_list_stu_student->stu_course.CouID << std::setw(3) << std::left << char(179)
+			<< std::setw(width_courseName) << std::left << cur_list_stu_student->stu_course.Cname << std::setw(3) << std::left << char(179)
+			<< std::setw(width_Credits) << std::left << cur_list_stu_student->stu_course.credits << std::setw(3) << std::left << char(179)
+			<< std::setw(width_mark) << std::left << cur_list_stu_student->stu_course.other << std::setw(3) << std::left << char(179)
+			<< std::setw(width_mark) << std::left << cur_list_stu_student->stu_course.midterm << std::setw(3) << std::left << char(179)
+			<< std::setw(width_mark) << std::left << cur_list_stu_student->stu_course.final << std::setw(3) << std::left << char(179)
+			<< std::setw(width_mark) << std::left << cur_list_stu_student->stu_course.total;
+
+		if (i == 15 || cur_list_stu_student->next == nullptr) {
+			gotoXY(coordinate_x, coordinate_y + 2 + i + 1); std::cout << "+";
+			for (int j = coordinate_x + 1; j < coordinate_x + width; j++) {
+				gotoXY(j, coordinate_y + 2 + i + 1); std::cout << "-";
+			}
+			gotoXY(coordinate_x + width, coordinate_y + 2 + i + 1); std::cout << "+";
+		}
+		for (int j = coordinate_y + 1; j <= coordinate_y + i + 2; j++)
+			if (j != coordinate_y + 2) {
+				gotoXY(coordinate_x, j); std::cout << char(179);
+				gotoXY(coordinate_x + width, j); std::cout << char(179);
+			}
+		if (cur_list_stu_student->next == nullptr) {
+			for (int p = coordinate_x; p <= coordinate_x + width; p++)
+				for (int k = coordinate_y + 2 + i + 2; k <= coordinate_y + 2 + 15 + 1; k++) {
+					my_print(p, k, BLACK, " ");
+				}
+		}
+		if (i == 15 || cur_list_stu_student->next == nullptr) {
+			page++;
+			my_print(coordinate_x + width / 2 - 4, coordinate_y + 20, GREEN, "page " + std::to_string(page_index) + "/" + std::to_string(page_max));
+			i = 0;
+			if (page != page_index) {
+				cur_list_stu_student = cur_list_stu_student->next;
+				continue;
+			}
+			char ch;
+		LOOP:
+
+			ch = _getch();
+			if (ch == 75) {
+				if (page_index == 1)
+					goto LOOP;
+				page_index--;
+				goto LOOP1;
+			}
+			else if (ch == 77) {
+				page_index++;
+			}
+			else {
+				goto LOOP;
+			}
+		}
+		cur_list_stu_student = cur_list_stu_student->next;
+	}
+	cur_list_stu_student = list_stu_student;
+	while (cur_list_stu_student) {
+		STU_COURSE_NODE* tmp = cur_list_stu_student;
+		cur_list_stu_student = cur_list_stu_student->next;
+		delete tmp;
+	}
 }

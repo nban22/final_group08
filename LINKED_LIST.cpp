@@ -50,12 +50,26 @@ WEEKDAY ConvertEnumWD(std::string str) {
 	else if (str.compare("FRI") == 0 || str.compare("fri") == 0 || str.compare("Fri") == 0) return FRI;
 	else return SAT;
 }
+std::string ConvertStringWD(WEEKDAY wd) {
+	if (wd == MON) return "MON";
+	else if (wd == TUE) return "TUE";
+	else if (wd == WED) return "WED";
+	else if (wd == THU) return "THU";
+	else if (wd == FRI) return "FRI";
+	else return "SAT";
+}
 //Session
 SESSION ConvertEnumSS(std::string str) {
 	if (str.compare("S1") == 0 || str.compare("s1") == 0) return S1;
 	else if (str.compare("S2") == 0 || str.compare("s2") == 0) return S2;
 	else if (str.compare("S3") == 0 || str.compare("s3") == 0) return S3;
 	else return S4;
+}
+std::string ConvertStringSS(SESSION ss) {
+	if (ss == S1) return "S1(07:30)";
+	else if (ss == S2) return "S2(09:30)";
+	else if (ss == S3) return "S3(13:30)";
+	else return "S4(15:30)";
 }
 std::string ConvertStringonlySS(SESSION ss) {
 	if (ss == S1) return "S1";
@@ -160,27 +174,6 @@ bool checkExistOfSchoolyear(std::string year) {
 		}
 	}
 	return 0;
-}
-
-
-void UpdateStaffInfo(STFF_NODE* staff, STFF_NODE* loggedinStaff) {
-	std::cout << "Enter new information:" << std::endl;
-	std::cout << "Teacher ID: ";
-	std::cin >> loggedinStaff->staff.TeacherID;
-	std::cout << "Password: ";
-	std::cin >> loggedinStaff->staff.Password;
-	std::cout << "First Name: ";
-	std::cin >> loggedinStaff->staff.FName;
-	std::cout << "Last Name: ";
-	std::cin >> loggedinStaff->staff.LName;
-	std::cout << "Gender: ";
-	std::cin >> loggedinStaff->staff.Gender;
-	std::cout << "Date of Birth (DD MM YYYY): ";
-	std::cin >> loggedinStaff->staff.DoB.day >> loggedinStaff->staff.DoB.month >> loggedinStaff->staff.DoB.year;
-	std::cout << "Social ID: ";
-	std::cin >> loggedinStaff->staff.SocialID;
-	std::cout << "Faculty: ";
-	std::cin >> loggedinStaff->staff.Faculty;
 }
 
 STU_NODE* getInformationByStudentID(std::string StuID, STU_NODE* student) {
