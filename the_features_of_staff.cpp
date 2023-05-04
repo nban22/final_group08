@@ -3441,9 +3441,10 @@ void displayScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std
 	int width_firstName = 15;
 	int width_subject = 25;
 	int width_mark = 15;
+	int width_GPA = 10;
 
 	int width = width_no + width_studentID + width_lastName + width_firstName + width_subject
-		+ width_mark + 5 * 6;
+		+ width_mark + width_GPA + 5 * 7;
 
 	gotoXY(coordinate_x, coordinate_y); std::cout << char(218);
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
@@ -3465,9 +3466,10 @@ void displayScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std
 	std::cout << std::setw(5) << std::left << char(179) << std::setw(width_no) << std::left << "No" << std::setw(5) << std::left << char(179)
 		<< std::setw(width_studentID) << std::left << "Student ID" << std::setw(5) << std::left << char(179)
 		<< std::setw(width_lastName) << std::left << "Last name" << std::setw(5) << std::left << char(179)
-		<< std::setw(width_firstName) << std::left << "Firse name" << std::setw(5) << std::left << char(179)
+		<< std::setw(width_firstName) << std::left << "First name" << std::setw(5) << std::left << char(179)
 		<< std::setw(width_subject) << std::left << "Subject" << std::setw(5) << std::left << char(179)
-		<< std::setw(width_mark) << std::left << "Mark" << char(179);
+		<< std::setw(width_mark) << std::left << "Mark" << std::setw(5) << std::left << char(179)
+		<< std::setw(width_GPA) << std::left << "GPA" << char(179);
 	gotoXY(coordinate_x, coordinate_y + 2); std::cout << char(195);
 	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
 		gotoXY(i, coordinate_y + 2); std::cout << char(196);
@@ -3489,7 +3491,8 @@ void displayScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std
 					<< std::setw(width_lastName) << std::left << " " << std::setw(5) << std::left << char(179)
 					<< std::setw(width_firstName) << std::left << " " << std::setw(5) << std::left << char(179)
 					<< std::setw(width_subject) << std::left << cur->stu_course.Cname << std::setw(5) << std::left << char(179)
-					<< std::setw(width_mark) << std::left << cur->stu_course.total << char(179);
+					<< std::setw(width_mark) << std::left << std::fixed << std::setprecision(2) << cur->stu_course.total << std::setw(5) << std::left << char(179)
+					<< std::setw(width_GPA) << std::left << " " << char(179);
 				GPA += cur->stu_course.total;
 				count_subject++;
 				cur = cur->next;
@@ -3500,8 +3503,10 @@ void displayScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std
 					<< std::setw(width_studentID) << std::left << cur_student->student.StudentID << std::setw(5) << std::left << char(179)
 					<< std::setw(width_lastName) << std::left << cur_student->student.LName << std::setw(5) << std::left << char(179)
 					<< std::setw(width_firstName) << std::left << cur_student->student.FName << std::setw(5) << std::left << char(179)
-					<< std::setw(width_subject) << std::left << "GPA" << std::setw(5) << std::left << char(179)
-					<< std::setw(width_mark) << std::left << std::fixed << std::setprecision(2) << 0 << char(179);
+					<< std::setw(width_subject) << std::left << " " << std::setw(5) << std::left << char(179)
+					<< std::setw(width_mark) << std::left << " "  << std::setw(5) << std::left << char(179)
+ 					//<< std::setw(width_subject) << std::left << "GPA" << std::setw(5) << std::left << char(179)
+					<< std::setw(width_GPA) << std::left << std::fixed << std::setprecision(2) << 0 << char(179); 
 			}
 			else {
 				gotoXY(coordinate_x, coordinate_y + 2 + ++i);
@@ -3509,8 +3514,10 @@ void displayScoreBoard_Class(STU_COURSE_NODE* stu_course, STU_NODE* student, std
 					<< std::setw(width_studentID) << std::left << cur_student->student.StudentID << std::setw(5) << std::left << char(179)
 					<< std::setw(width_lastName) << std::left << cur_student->student.LName << std::setw(5) << std::left << char(179)
 					<< std::setw(width_firstName) << std::left << cur_student->student.FName << std::setw(5) << std::left << char(179)
-					<< std::setw(width_subject) << std::left << "GPA" << std::setw(5) << std::left << char(179)
-					<< std::setw(width_mark) << std::left << std::fixed << std::setprecision(2) << GPA / count_subject << char(179);
+					<< std::setw(width_subject) << std::left << " " << std::setw(5) << std::left << char(179)
+					<< std::setw(width_mark) << std::left << " " << std::setw(5) << std::left << char(179)
+					//<< std::setw(width_subject) << std::left << "GPA" << std::setw(5) << std::left << char(179)
+					<< std::setw(width_GPA) << std::left << std::fixed << std::setprecision(2) << GPA / count_subject << char(179);
 			}
 			i++;
 			gotoXY(coordinate_x, coordinate_y + 2 + i); std::cout << char(195);

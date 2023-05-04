@@ -82,18 +82,16 @@ int main()
 			box(tmp_width - 2, 12, box_width, 2, BRIGHT_WHITE);
 
 			gotoXY(tmp_width - 1, 9);
-			//user = my_getline(box_width - 1);
-			user = "22240001";
+			user = my_getline(box_width - 1);
 
 			gotoXY(tmp_width - 1, 13);
-			//pass = my_getline(box_width - 1);
-			pass = "678910";
+			pass = my_getline(box_width - 1);
 
-			user = "33383147";
-			pass = "123456";
-
-			/*user = "22240001";
-			pass = "678910";*/
+			/* user = "33383147";
+			pass = "123456"; */
+ 
+			/* user = "22240001";
+			pass = "678910";  */
 
 			check_T = checkExistOfStaffAccount(staff, user, pass, loggedinStaff);
 			check_S = checkExistOfStudentAccount(student, user, pass, loggedinStudent);
