@@ -1,10 +1,4 @@
-﻿#include "header.h"
-
-#include <stdio.h>
-#include <conio.h>
-#include <ctime> 
-#include "windows.h"
-
+﻿#include "myGraphicsLib.h"
 
 //========= lấy tọa độ x của con trỏ hiện tại =======
 int whereX()
@@ -338,7 +332,7 @@ std::string my_getline_onlyNumber(int max) {
 	while (1) {
 		if (_kbhit()) {
 			ch = _getch();
-			if ((ch >= '0' && ch <= '9' )|| (ch == '.') || (ch == '-')) {
+			if ((ch >= '0' && ch <= '9') || (ch == '.') || (ch == '-')) {
 				if (str.length() != max) {
 					str += ch;
 					std::cout << char(ch);
@@ -346,7 +340,7 @@ std::string my_getline_onlyNumber(int max) {
 			}
 			else if (ch == 27)
 				return "-1";
-			else if ((ch == 13 ) && str.length() > 0) {
+			else if ((ch == 13) && str.length() > 0) {
 				break;
 			}
 			else if (ch == 8) {
@@ -420,4 +414,3 @@ std::string my_getline_addSpace(int max) {
 	}
 	return str;
 }
-

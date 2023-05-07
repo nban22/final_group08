@@ -5,14 +5,24 @@
     <ClCompile Include="SEMESTER.cpp" />
     <ClCompile Include="USER.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mylib.cpp" />
     <ClCompile Include="tachfilecsv.cpp" />
-    <ClCompile Include="get_data_and_synch.cpp" />
-    <ClCompile Include="the_features_of_staff.cpp" />
-    <ClCompile Include="delete_all_dll.cpp" />
-    <ClCompile Include="the_features_of_student.cpp" />
+    <ClCompile Include="staff_1.cpp" />
+    <ClCompile Include="baseStructure.cpp" />
+    <ClCompile Include="myGraphicsLib.cpp" />
+    <ClCompile Include="getDataAndSynch.cpp" />
+    <ClCompile Include="staff_2.cpp" />
+    <ClCompile Include="staff_3.cpp" />
+    <ClCompile Include="staff_4_5.cpp" />
+    <ClCompile Include="deleteDLL.cpp" />
+    <ClCompile Include="student.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.h" />
+    <ClInclude Include="staff.h" />
+    <ClInclude Include="baseStructure.h" />
+    <ClInclude Include="myGraphicsLib.h" />
+    <ClInclude Include="getDataAndSynch.h" />
+    <ClInclude Include="deleteDLL.h" />
+    <ClInclude Include="student.h" />
   </ItemGroup>
 </Project>

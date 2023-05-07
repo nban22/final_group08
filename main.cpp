@@ -1,5 +1,10 @@
 ﻿#include "header.h"
-#include <conio.h>
+#include "baseStructure.h"
+#include "getDataAndSynch.h"
+#include "myGraphicsLib.h"
+#include "staff.h"
+#include "student.h"
+#include "deleteDLL.h"
 
 #define BLACK 0
 #define BLUE 1
@@ -52,10 +57,10 @@ int main()
 	CR_NODE* course = nullptr;
 	getDataCourse_csv(input_CR, course);
 
-	updateCur_stdnInCourse(course, stu_course);
+	update_cur_stdn_in_course(course, stu_course);
 
 	CLASS_NODE* listclass = new CLASS_NODE;
-	updateListClass(listclass, student);
+	update_list_of_classes(listclass, student);
 
 	//tach_ra_tung_file_class(student, listclass);
 
@@ -95,8 +100,8 @@ int main()
 			/*user = "22240001";
 			pass = "678910";*/
 
-			check_T = checkExistOfStaffAccount(staff, user, pass, loggedinStaff);
-			check_S = checkExistOfStudentAccount(student, user, pass, loggedinStudent);
+			check_T = check_exist_of_staff_account(staff, user, pass, loggedinStaff);
+			check_S = check_exist_of_student_account(student, user, pass, loggedinStudent);
 
 			if (check_T == 1 || check_S == 1) {
 				continue;
@@ -170,10 +175,10 @@ int main()
 						create_a_new_class(listclass);
 					}
 					else if (choose == 4) {
-						UpdateTeacherInfor(teacher);
+						update_information_of_teacher(teacher);
 					}
 					else if (choose == 5) {
-						UpdateYourInfor(loggedinStaff, teacher, staff);
+						update_your_information(loggedinStaff, teacher, staff);
 					}
 					else if (choose == 6) {
 						Create_newStaff(staff);
@@ -208,37 +213,37 @@ int main()
 					choose = menu(x_boxOption2, y_boxOption2, width_boxOption2, height_boxOption2, amount_option2, option_2, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 					if (choose == 1) { //Add new 1st year students to 1st year classes
-						addNew1styearStudent(student, listclass);
+						add_new_first_year_student(student, listclass);
 					}
 					else if (choose == 2) { //Registration
 						 set_time_course_regis();
 					}
 					else if (choose == 3) { //Add a course
-						CreateNewCourse(stu_course, teacher, course);
+						create_new_course(stu_course, teacher, course);
 					}
 					else if (choose == 4) { //Export the file to import the list of students in each class
-						AddStudent_csv(listclass);
+						//AddStudent_csv(listclass);
 
-						int check;
-						std::system("cls");
-						std::cout << "\n\t\t\t ********************************************" << std::endl;
-						std::cout << "\t\t\t\t      ";
-						std::cout << "Enter the scoreboard of a course." << std::endl;
-						EnterCourseScore(stu_course, course, loggedinStaff, check);
-						if (check != 0) {
-							Read_After_Update_Student_Course(student, course, teacher, stu_course);
-							//count = 7;
-						}
-						std::system("pause");
+						//int check;
+						//std::system("cls");
+						//std::cout << "\n\t\t\t ********************************************" << std::endl;
+						//std::cout << "\t\t\t\t      ";
+						//std::cout << "Enter the scoreboard of a course." << std::endl;
+						//EnterCourseScore(stu_course, course, loggedinStaff, check);
+						//if (check != 0) {
+						//	reread_after_update_student_course(student, course, teacher, stu_course);
+						//	//count = 7;
+						//}
+						//std::system("pause");
 					}
 					else if (choose == 5) { //Delete a course
-						DeleteCourse(stu_course, teacher, course);
+						delete_course(stu_course, teacher, course);
 					}
 					else if (choose == 6) { //Update a course
-						UpdateCourseInfo(stu_course, teacher, course);
+						update_course_information(stu_course, teacher, course);
 					}
 					else if (choose == 7) { //Update the marks in a course
-						UpdateMarksInfo(student, stu_course, teacher, course);
+						update_mark_information(student, stu_course, teacher, course);
 					}
 					else if (choose == 0 + 8) { //COME BACK
 						break;
@@ -267,25 +272,25 @@ int main()
 					choose = menu(x_boxOption3, y_boxOption3, width_boxOption3, height_boxOption3, amount_option3, option_3, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 					if (choose == 1) { //List of classes
-						viewListOfClasses(listclass, student);
+						view_list_of_classes(listclass, student);
 					}
 					else if (choose == 2) { //List of students in class
-						viewListStudentsOfClass(student, listclass);
+						view_list_students_of_class(student, listclass);
 					}
 					else if (choose == 3) { //List of courses
-						viewListOfCourses(course);
+						view_list_of_courses(course);
 					}
 					else if (choose == 4) { //List of students in a course
-						viewListStudentsOfCourse(stu_course, student, course);
+						view_list_students_of_course(stu_course, student, course);
 					}
 					else if (choose == 5) { //View a scoreboard in a course
-						viewScoreboardInCourse(course, stu_course, student);
+						view_scoreboard_in_course(course, stu_course, student);
 					}
 					else if (choose == 6) { //View a scoreboard in class
-						viewScoreBoard_Class(stu_course, student, listclass);
+						view_scoreboard_in_class(stu_course, student, listclass);
 					}
 					else if (choose == 7) { //Export csv file about a scoreboard of students in course to enter score
-						ExportScoreBoard(stu_course, course, student);
+						export_scoreboard(stu_course, course, student);
 					}
 					else if (choose == 0 + 8) {
 						break;
@@ -293,7 +298,7 @@ int main()
 				}
 			}
 			else if (choose_staff == 4) { 
-				changePasswordOfStaff(loggedinStaff, staff);
+				change_password_of_staff_account(loggedinStaff, staff);
 			}
 			else if (choose_staff == 0 + 5) { // ++++++++++++++++++++++++++LOG OUT++++++++++++++++++++++++++
 				break;
@@ -326,22 +331,22 @@ int main()
 			choose = menu(x_boxStudent, y_boxStudent, width_boxStudent, height_boxStudent, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 			if (choose == 1) {
-				changePasswordOfStudentAccount(student, loggedinStudent);
+				change_password_of_student_account(student, loggedinStudent);
 			}
 			else if (choose == 2) {
-				UpdateStudentInfo(student, loggedinStudent);
+				update_student_information(student, loggedinStudent);
 			}
 			else if (choose == 3) {
-				RegisterForCourse(student, teacher, course, stu_course, loggedinStudent);
+				register_for_course(student, teacher, course, stu_course, loggedinStudent);
 			}
 			else if (choose == 4) {
-				ResultRegistration(stu_course, loggedinStudent);
+				result_registration(stu_course, loggedinStudent);
 			}
 			else if (choose == 5) {
-				DeleteRegisteredCourse(stu_course, loggedinStudent, course, student, teacher);
+				delete_registered_course(stu_course, loggedinStudent, course, student, teacher);
 			}
 			else if (choose == 6) {
-				View_academic_result(stu_course, loggedinStudent);
+				view_academic_result(stu_course, loggedinStudent);
 			}
 			else if (choose == 0 + 7) {
 				break;
@@ -350,7 +355,7 @@ int main()
 				std::system("cls");
 				std::cout << "****************************THANK YOU FOR USING!********************************\n\n";
 
-				DeleteALLLinkList(student, staff, teacher, course, stu_course, listclass);
+				delete_all_DLL(student, staff, teacher, course, stu_course, listclass);
 
 				return 0;
 			}

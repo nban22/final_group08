@@ -1,8 +1,7 @@
-﻿#include "header.h"
+﻿#include "student.h"
 
- 
 //1
-void changePasswordOfStudentAccount(STU_NODE*& student, STU_NODE*& loggedinStudent) {
+void change_password_of_student_account(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 	int coordinate_x = 70;
 	int coordinate_y = 10;
 
@@ -93,7 +92,7 @@ AGAIN_changepass:
 	int choice = enter_again_yes_no(coordinate_x + 13, coordinate_y + 7, 7, 3, 4, LIGHT_AQUA, YELLOW);
 	if (choice == 1) {
 		loggedinStudent->student.Password = new_password;
-		Read_After_Update_Students(student);
+		reread_after_update_student(student);
 
 		textcolor(LIGHT_GREEN * 16 + BLACK);
 		for (int j = 0; j < 3; j++)
@@ -110,7 +109,7 @@ AGAIN_changepass:
 		return;
 }
 //2
-void UpdateStudentInfo(STU_NODE*& student, STU_NODE*& loggedinStudent) {
+void update_student_information(STU_NODE*& student, STU_NODE*& loggedinStudent) {
 	STU_NODE* cur_student = student;
 	int check = 0;
 	while (cur_student) {
@@ -209,7 +208,7 @@ update_Yourinfor:
 		int choose = enter_again_yes_no(coordinate_x + 1, coordinate_y + 13, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
 		if (choose == 1) {
 			loggedinStudent->student.Gender = tmp;
-			Read_After_Update_Students(student);
+			reread_after_update_student(student);
 		}
 		goto update_Yourinfor;
 	}
@@ -263,7 +262,7 @@ update_Yourinfor:
 		int choose = enter_again_yes_no(coordinate_x + 1, coordinate_y + 13, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
 		if (choose == 1) {
 			loggedinStudent->student.DoB = newDOB;
-			Read_After_Update_Students(student);
+			reread_after_update_student(student);
 		}
 		goto update_Yourinfor;
 	}
@@ -291,7 +290,7 @@ update_Yourinfor:
 		int choose = enter_again_yes_no(coordinate_x + 1, coordinate_y + 13, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
 		if (choose == 1) {
 			loggedinStudent->student.SocialID = tmp;
-			Read_After_Update_Students(student);
+			reread_after_update_student(student);
 		}
 		goto update_Yourinfor;
 	}
@@ -300,7 +299,7 @@ update_Yourinfor:
 	}
 }
 //3
-void RegisterForCourse(STU_NODE*& student, STFF_NODE*& teacher, CR_NODE*& course, STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent) {
+void register_for_course(STU_NODE*& student, STFF_NODE*& teacher, CR_NODE*& course, STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent) {
 	std::string cur_year;
 	std::string cur_semester;
 	get_current_schoolYear_semester(80, 15, cur_year, cur_semester);
@@ -351,7 +350,7 @@ void RegisterForCourse(STU_NODE*& student, STFF_NODE*& teacher, CR_NODE*& course
 		}
 	}
 	std::system("cls");
-	updateCur_stdnInCourse(course, stu_course);
+	update_cur_stdn_in_course(course, stu_course);
 
 	int coordinate_x = 50;
 	int coordinate_y = 26;
@@ -363,7 +362,7 @@ void RegisterForCourse(STU_NODE*& student, STFF_NODE*& teacher, CR_NODE*& course
 	CR_NODE* cur_course = course;
 
 	std::system("cls");
-	viewListOfCourses(course);
+	view_list_of_courses(course);
 again_courseID:
 
 	my_print(coordinate_x, coordinate_y, LIGHT_YELLOW * 16 + BLACK, "Enter Course ID which you want to register:");
@@ -410,7 +409,7 @@ again_courseID:
 	//4. không bị trùng lịch học
 
 	//1
-	updateCur_stdnInCourse(course, stu_course);
+	update_cur_stdn_in_course(course, stu_course);
 	if (cur_course->course.Cur_stdn < cur_course->course.Max_stdn) {
 		check1 = true;
 	}
@@ -589,12 +588,12 @@ again_courseID:
 			textcolor(WHITE);
 			char ans = _getch();
 
-			Read_After_Update_Student_Course(student, course, teacher, stu_course);
+			reread_after_update_student_course(student, course, teacher, stu_course);
 		}
 	}
 }
 //4
-void ResultRegistration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
+void result_registration(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
 	std::system("cls");
 	int coordinate_x = 15;
 	int coordinate_y = 6;
@@ -740,7 +739,7 @@ LOOP1:
 	}
 }
 //5
-void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher) {
+void delete_registered_course(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher) {
 	std::string cur_year;
 	std::string cur_semester;
 	get_current_schoolYear_semester(65, 14, cur_year, cur_semester);
@@ -790,7 +789,7 @@ void DeleteRegisteredCourse(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStud
 			return;
 		}
 	}
-	ResultRegistration(stu_course, loggedinStudent);
+	result_registration(stu_course, loggedinStudent);
 	int coordinate_x_tmp = 30;
 	int coordinate_y_tmp = 23;
 	int width_box = 30;
@@ -852,7 +851,7 @@ again_coutseID_delete:
 				gotoXY(coordinate_x_tmp + 30 + 10, coordinate_y_tmp + 1);
 				std::cout << "Delete successfully.";
 				textcolor(WHITE);
-				Read_After_Update_Student_Course(student, course, teacher, stu_course);
+				reread_after_update_student_course(student, course, teacher, stu_course);
 				char ans = _getch();
 				return;
 			}
@@ -881,7 +880,7 @@ again_coutseID_delete:
 		return;
 }
 //6
-void View_academic_result(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
+void view_academic_result(STU_COURSE_NODE* stu_course, STU_NODE* loggedinStudent) {
 	std::system("cls");
 	int coordinate_x = 15;
 	int coordinate_y = 6;

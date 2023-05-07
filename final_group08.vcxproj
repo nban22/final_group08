@@ -127,19 +127,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="delete_all_dll.cpp" />
-    <ClCompile Include="get_data_and_synch.cpp" />
+    <ClCompile Include="baseStructure.cpp" />
+    <ClCompile Include="deleteDLL.cpp" />
+    <ClCompile Include="getDataAndSynch.cpp" />
     <ClCompile Include="LINKED_LIST.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mylib.cpp" />
+    <ClCompile Include="myGraphicsLib.cpp" />
     <ClCompile Include="SEMESTER.cpp" />
+    <ClCompile Include="staff_1.cpp" />
+    <ClCompile Include="staff_2.cpp" />
+    <ClCompile Include="staff_3.cpp" />
+    <ClCompile Include="staff_4_5.cpp" />
+    <ClCompile Include="student.cpp" />
     <ClCompile Include="tachfilecsv.cpp" />
-    <ClCompile Include="the_features_of_staff.cpp" />
-    <ClCompile Include="the_features_of_student.cpp" />
     <ClCompile Include="USER.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="baseStructure.h" />
+    <ClInclude Include="deleteDLL.h" />
+    <ClInclude Include="getDataAndSynch.h" />
     <ClInclude Include="header.h" />
+    <ClInclude Include="myGraphicsLib.h" />
+    <ClInclude Include="staff.h" />
+    <ClInclude Include="student.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

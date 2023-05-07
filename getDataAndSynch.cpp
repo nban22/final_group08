@@ -1,4 +1,4 @@
-#include "header.h"
+#include "getDataAndSynch.h"
 
 //Read Teacher's Data and create D_Linked List
 void getData_A_Teacher(STAFF teacher, STFF_NODE*& head) {
@@ -286,7 +286,7 @@ void getData_A_StuCourse(STU_COURSE studentcourse, STU_COURSE_NODE*& head) {
 }
 
 // ===============Doc lai file sau khi da cap nhat=============
-bool Read_After_Update_Staffs(STFF_NODE* staff) {
+bool reread_after_update_staff(STFF_NODE* staff) {
 	std::ofstream outfile;
 	outfile.open("staffs_test.csv");
 	if (!outfile.is_open()) {
@@ -314,7 +314,7 @@ bool Read_After_Update_Staffs(STFF_NODE* staff) {
 	outfile.close();
 	return 1;
 }
-bool Read_After_Update_Teachers(STFF_NODE* teacher) {
+bool reread_after_update_teacher(STFF_NODE* teacher) {
 	std::ofstream outfile;
 	outfile.open("teachers_test.csv");
 	if (!outfile.is_open()) {
@@ -341,7 +341,7 @@ bool Read_After_Update_Teachers(STFF_NODE* teacher) {
 	outfile.close();
 	return 1;
 }
-bool Read_After_Update_Students(STU_NODE* student) {
+bool reread_after_update_student(STU_NODE* student) {
 	std::ofstream outfile;
 	outfile.open("students_TEST.csv");
 	if (!outfile.is_open()) {
@@ -371,13 +371,13 @@ bool Read_After_Update_Students(STU_NODE* student) {
 	outfile.close();
 	return 1;
 }
-bool Read_After_Update_Course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE* course) {
+bool reread_after_update_course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE* course) {
 	std::ofstream outfile;
 	outfile.open("coursestest.csv");
 	if (!outfile.is_open()) {
 		return 0;
 	}
-	updateCur_stdnInCourse(course, stu_course);
+	update_cur_stdn_in_course(course, stu_course);
 	int i = 1;
 	CR_NODE* cur_course = course;
 
@@ -419,7 +419,7 @@ bool Read_After_Update_Course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, C
 
 	return 1;
 }
-bool Read_After_Update_Student_Course(STU_NODE* student, CR_NODE* course, STFF_NODE* teacher, STU_COURSE_NODE* stu_course) {
+bool reread_after_update_student_course(STU_NODE* student, CR_NODE* course, STFF_NODE* teacher, STU_COURSE_NODE* stu_course) {
 	std::ofstream outfile;
 	outfile.open("Student_Course_test.csv");
 	if (!outfile.is_open()) {
@@ -467,24 +467,33 @@ bool Read_After_Update_Student_Course(STU_NODE* student, CR_NODE* course, STFF_N
 		cur_stu_course = cur_stu_course->next;
 	}
 	outfile.close();
-	/*updateCur_stdnInCourse(course, stu_course);*/
 	return 1;
 }
 
-void updateCur_stdnInCourse(CR_NODE*& course, STU_COURSE_NODE* head) {
+int counting_students_per_course(std::string CourseID, STU_COURSE_NODE* head) {
+	STU_COURSE_NODE* cur = head;
+	int count = 0;
+	while (cur) {
+		if (cur->stu_course.CouID == CourseID)
+			count++;
+		cur = cur->next;
+	}
+	return count;
+}
+
+void update_cur_stdn_in_course(CR_NODE*& course, STU_COURSE_NODE* head) {
 	CR_NODE* cur_course = course;
 	while (cur_course) {
-		cur_course->course.Cur_stdn = countTheNumberOfStudentsInEachCourse(cur_course->course.ID, head);
+		cur_course->course.Cur_stdn = counting_students_per_course(cur_course->course.ID, head);
 		cur_course = cur_course->next;
 	}
 }
-
-void updateListClass(CLASS_NODE*& listclass, STU_NODE* student) {
+void update_list_of_classes(CLASS_NODE*& listclass, STU_NODE* student) {
 	CLASS_NODE* cur_listclass = listclass;
 	STU_NODE* cur1_student = student;
 	int i = 1;
 	while (cur1_student) {
-		if (checkExistClassNODEIDinDLL(listclass, cur1_student->student.Classes.ClassID) == 0)
+		if (check_exist_class_node_in_DLL(listclass, cur1_student->student.Classes.ClassID) == 0)
 		{
 			if (i != 1) {
 				cur_listclass->next = new CLASS_NODE;
