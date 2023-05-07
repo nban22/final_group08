@@ -1545,7 +1545,7 @@ void set_time_course_regis() {
 			my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 8 + 1 + 1, LIGHT_AQUA, ":");
 			box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 8 + 1, width_small_box, height_box, LIGHT_AQUA);
 
-			my_print(coordinate_x, coordinate_y + 12, LIGHT_AQUA, "Enter start date:");
+			my_print(coordinate_x, coordinate_y + 12, LIGHT_AQUA, "Enter end date:");
 			box(coordinate_x, coordinate_y + 12 + 1, width_small_box, height_box, LIGHT_AQUA);
 			my_print(coordinate_x + width_small_box + 1, coordinate_y + 12 + 1 + 1, LIGHT_AQUA, "/");
 			box(coordinate_x + width_small_box + 2, coordinate_y + 12 + 1, width_small_box, height_box, LIGHT_AQUA);
