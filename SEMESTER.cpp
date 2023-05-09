@@ -4,43 +4,28 @@
 #include "myGraphicsLib.h"
 #include "staff.h"
 #include "student.h"
-//void AddStudent_csv(CLASS_NODE*& listclass) {
+//void import_students_from_file(CLASS_NODE*& listclass) {
 //AGAIN:
 //	system("cls");
-//	int x_box = 5;
-//	int y_box = 2;
+//	int coordinate_x = 5;
+//	int coordinate_y = 2;
 //	int width_box = 42;
 //	int height_box = 2;
+//	
+//	my_print(coordinate_x, coordinate_y -2, YELLOW*16 + BLACK, "Which method do you want to import:");
 //
-//	char check;
-//	int tmp_width = 60;
-//	int box_width = 32;
-//	my_print(tmp_width, -20, LIGHT_YELLOW, "Choose your option of importing student(s):");
-//
-//	std::string option_1[] = { "1. Add to a new Class.",
+//	std::string option[] = { "1. Add to a new Class.",
 //			"2. Add onto existing class.",
 //			"0. Come back." };
 //
-//	int x_boxOption1 = x_box + width_box + 2;
-//	int y_boxOption1 = y_box;
-//	int width_boxOption1 = 50;
-//	int height_boxOption1 = 3;
-//	int amount_option1 = sizeof(option_1) / sizeof(option_1[0]);
+//	
+//	int amount_option = sizeof(option) / sizeof(option[0]);
 //	int choose;
-//	choose = menu(x_boxOption1 - 39, y_boxOption1 + 8, width_boxOption1, height_boxOption1, amount_option1, option_1, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+//	choose = menu(coordinate_x, coordinate_y, width_box, height_box, amount_option, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 //
 //	if (choose == 1) {
-//		system("cls");
-//		ShowCur(1);
-//		int width_tmp1 = 50;
-//		int height_tmp1 = 10;
-//		int width_box1 = 40;
-//		int height_box1 = 2;
-//
-//		system("cls");
-//		//S: CREATE A NEW CLASS
+//		
 //	HERE:
-//		std::system("cls");
 //		std::string ClassID, ClassName, SchoolYear;
 //		std::cout << "Enter class ID: ";
 //		std::getline(std::cin, ClassID);

@@ -126,9 +126,10 @@ int main()
 			std::system("cls");
 			std::string option[] = { "1.Create new.",
 				"2.Enter information.",
-				"3.Look up.",
-				"4.Change password.",
-				"5.Update your info.",
+				"3.Edit about course",
+				"4.Look up.",
+				"5.Change password.",
+				"6.Update your info.",
 				"0.Log out.",
 				"-1.Exit." };
 			int x_boxStaff = 5;
@@ -138,7 +139,7 @@ int main()
 			int amount = sizeof(option) / sizeof(option[0]);
 			int choose_staff;
 
-			user_guide(x_boxStaff, y_boxStaff + 23);
+			user_guide(x_boxStaff, y_boxStaff + 26);
 			print_infor_staff(loggedinStaff->staff, x_boxStaff, y_boxStaff-3);
 
 			choose_staff = menu(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
@@ -164,7 +165,7 @@ int main()
 					int amount_option1 = sizeof(option_1) / sizeof(option_1[0]);
 					int choose;
 
-					user_guide(x_boxStaff, y_boxStaff + 23);
+					user_guide(x_boxStaff, y_boxStaff + 26);
 					print_infor_staff(loggedinStaff->staff, x_boxStaff, y_boxStaff - 3);
 					choose = menu(x_boxOption1, y_boxOption1, width_boxOption1, height_boxOption1, amount_option1, option_1, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
@@ -189,17 +190,13 @@ int main()
 				while (1) {
 					std::system("cls");
 
-					user_guide(x_boxStaff, y_boxStaff + 23);
+					user_guide(x_boxStaff, y_boxStaff + 26);
 					print_infor_staff(loggedinStaff->staff, x_boxStaff, y_boxStaff - 3);
 					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
 					std::string option_2[] = { "1.Add new 1st year students to 1st year classes.",
 						"2.Create a course registration session.",
-						"3.Add a new course.",
-						"4.Export file for editing list of students per class.",
-						"5.Delete a course.",
-						"6.Update a course.",
-						"7.Update the marks in a course.",
-						"8.Change information of a teacher.",
+						"3.Export file for editing list of students per class.",
+						"4.Change information of a teacher.",
 						"0.Come back." };
 					int x_boxOption2 = x_boxStaff + width_boxStaff + 2;
 					int y_boxOption2 = y_boxStaff;
@@ -215,10 +212,7 @@ int main()
 					else if (choose == 2) { //Registration
 						set_time_course_regis();
 					}
-					else if (choose == 3) { //Add a course
-						create_new_course(stu_course, teacher, course);
-					}
-					else if (choose == 4) { //Export the file to import the list of students in each class
+					else if (choose == 3) { 
 						//AddStudent_csv(listclass);
 
 						//int check;
@@ -233,32 +227,82 @@ int main()
 						//}
 						//std::system("pause");
 					}
-					else if (choose == 5) { //Delete a course
-						delete_course(stu_course, teacher, course);
-					}
-					else if (choose == 6) { //Update a course
-						update_course_information(stu_course, teacher, course);
-					}
-					else if (choose == 7) { //Update the marks in a course
-						update_mark_information(student, stu_course, teacher, course);
-					}
-					else if (choose == 8) {
+					else if (choose == 4) {
 						update_information_of_teacher(teacher);
 					}
-					else if (choose == 0 +9) { //COME BACK
+					else if (choose == 0 +5) { //COME BACK
 						break;
 					}
 				}
 			}
-			else if (choose_staff == 3) { //Look up
+			else if (choose_staff == 3) { //Edit about course
 				while (1) {
 					std::system("cls");
 
-					user_guide(x_boxStaff, y_boxStaff + 23);
+					user_guide(x_boxStaff, y_boxStaff + 26);
 					print_infor_staff(loggedinStaff->staff, x_boxStaff, y_boxStaff - 3);
 					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
 
-					std::string option_3[] = { "1.List of classes.",
+					std::string option_3[] = { 
+						"1.Add a new course.",
+						"2.Add a student to the course.",
+						"3.Remove a student from the course.",
+						"4.Delete a course.",
+						"5.Update course information.",
+						"6.Upload CSV file with enrolled students' list.",
+						"7.Export course students to CSV.",
+						"8.Update a student's result.",
+						"9.Export course scoreboard to enter scores.",
+						"0.Come back." };
+					int x_boxOption3 = x_boxStaff + width_boxStaff + 2;
+					int y_boxOption3 = y_boxStaff;
+					int width_boxOption3 = 50;
+					int height_boxOption3 = 3;
+					int amount_option3 = sizeof(option_3) / sizeof(option_3[0]);
+					int choose;
+					choose = menu(x_boxOption3, y_boxOption3, width_boxOption3, height_boxOption3, amount_option3, option_3, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+
+					if (choose == 1) { 
+						create_new_course(stu_course, teacher, course);
+					}
+					else if (choose == 2) { 
+						
+					}
+					else if (choose == 3) {
+
+					}
+					else if (choose == 4) { 
+						delete_course(stu_course, teacher, course);
+					}
+					else if (choose == 5) { 
+						update_course_information(stu_course, teacher, course);
+					}
+					else if (choose == 6) { 
+
+					}
+					else if (choose == 7) { 
+
+					}
+					else if (choose == 8) {
+						update_mark_information(student, stu_course, teacher, course);
+					}
+					else if (choose == 9) { 
+						export_scoreboard(stu_course, course, student);
+					}
+					else if (choose == 0 + 10) {
+						break;
+					}
+				}
+			}
+			else if (choose_staff == 4) { //Look up
+				while (1) {
+					std::system("cls");
+
+					user_guide(x_boxStaff, y_boxStaff + 26);
+					print_infor_staff(loggedinStaff->staff, x_boxStaff, y_boxStaff - 3);
+					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
+
+					std::string option_4[] = { "1.List of classes.",
 						"2.List of students in class.",
 						"3.List of courses.",
 						"4.List of students in a course.",
@@ -266,13 +310,13 @@ int main()
 						"6.View a scoreboard in class.",
 						"7.Export csv file about a scoreboard of students in course to enter score.",
 						"0.Come back." };
-					int x_boxOption3 = x_boxStaff + width_boxStaff + 2;
-					int y_boxOption3 = y_boxStaff;
-					int width_boxOption3 = 75;
-					int height_boxOption3 = 3;
-					int amount_option3 = sizeof(option_3) / sizeof(option_3[0]);
+					int x_boxOption4 = x_boxStaff + width_boxStaff + 2;
+					int y_boxOption4 = y_boxStaff;
+					int width_boxOption4 = 75;
+					int height_boxOption4 = 3;
+					int amount_option4 = sizeof(option_4) / sizeof(option_4[0]);
 					int choose;
-					choose = menu(x_boxOption3, y_boxOption3, width_boxOption3, height_boxOption3, amount_option3, option_3, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+					choose = menu(x_boxOption4, y_boxOption4, width_boxOption4, height_boxOption4, amount_option4, option_4, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 					if (choose == 1) { //List of classes
 						view_list_of_classes(listclass, student);
@@ -300,16 +344,16 @@ int main()
 					}
 				}
 			}
-			else if (choose_staff == 4) {
+			else if (choose_staff == 5) {
 				change_password_of_staff_account(loggedinStaff, staff);
 			}
-			else if (choose_staff == 5) {
+			else if (choose_staff == 6) {
 				update_your_information(loggedinStaff, teacher, staff);
 					}
-			else if (choose_staff == 0 + 6) { // ++++++++++++++++++++++++++LOG OUT++++++++++++++++++++++++++
+			else if (choose_staff == 0 + 7) { // ++++++++++++++++++++++++++LOG OUT++++++++++++++++++++++++++
 				break;
 			}
-			else if (choose_staff == -1 + 8) { // ++++++++++++++++++++++++++++EXIT++++++++++++++++++++++++++++
+			else if (choose_staff == -1 + 9) { // ++++++++++++++++++++++++++++EXIT++++++++++++++++++++++++++++
 				std::system("cls");
 				std::cout << "****************************THANK YOU FOR USING!********************************";
 				return 0;

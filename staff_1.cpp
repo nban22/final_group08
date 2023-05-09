@@ -243,7 +243,7 @@ void create_a_new_school_year() {
 
 					textcolor(LIGHT_GREEN * 16 + BLACK);
 					for (int j = 0; j < 3; j++)
-						for (int i = 0; i < 41; i++) {
+						for (int i = 0; i < 46; i++) {
 							gotoXY(coordinate_x + 2 + i, coordinate_y + 8 + j);
 							std::cout << " ";
 						}

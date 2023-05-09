@@ -691,7 +691,7 @@ void update_course_information(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, 
 	std::string UpID, tmp;
 Here_enter_y:
 	ShowCur(1);
-	my_print(x_tmp, y_tmp, LIGHT_RED, "Enter Course ID: ");
+	my_print(x_tmp, y_tmp, YELLOW * 16 + BLACK, "Enter Course ID: ");
 	box(x_tmp, y_tmp + 1, width_tmp, height_tmp, LIGHT_AQUA);
 	gotoXY(x_tmp + 1, y_tmp + 1 + 1);
 	tmp = (my_getline(width_tmp - 1));
