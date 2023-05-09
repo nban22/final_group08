@@ -302,7 +302,7 @@ update_Yourinfor:
 void register_for_course(STU_NODE*& student, STFF_NODE*& teacher, CR_NODE*& course, STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent) {
 	std::string cur_year;
 	std::string cur_semester;
-	get_current_schoolYear_semester(80, 15, cur_year, cur_semester);
+	get_curYear_and_curSemester(80, 15, cur_year, cur_semester);
 
 	std::ifstream fileCrsRegis("timeCrsRegis" + cur_year + "_" + std::to_string(stoi(cur_year) + 1) + "_" + cur_semester + ".txt");
 	if (!fileCrsRegis.is_open()) {
@@ -742,7 +742,7 @@ LOOP1:
 void delete_registered_course(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinStudent, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher) {
 	std::string cur_year;
 	std::string cur_semester;
-	get_current_schoolYear_semester(65, 14, cur_year, cur_semester);
+	get_curYear_and_curSemester(65, 14, cur_year, cur_semester);
 
 	std::ifstream fileCrsRegis("timeCrsRegis" + cur_year + "_" + std::to_string(stoi(cur_year) + 1) + "_" + cur_semester + ".txt");
 	if (!fileCrsRegis.is_open()) {

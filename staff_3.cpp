@@ -1082,7 +1082,7 @@ void export_scoreboard(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* s
 				"2. Export only a course.",
 				"0.Come back." };
 	int coordinate_x = 20;
-	int coordinate_y = 25;
+	int coordinate_y = 26;
 	int width_box = 30;
 	int height_box = 2;
 	int amount = sizeof(option) / sizeof(option[0]);
@@ -1135,10 +1135,10 @@ void export_scoreboard(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* s
 		std::ofstream output;
 		int i = 1;
 		//view_list_of_courses(course);
-		my_print(coordinate_x + width_box + 5, coordinate_y + 1, LIGHT_RED, "Enter ID of the course you want to export:");
+	Here_enter_y:
+		my_print(coordinate_x + width_box + 5, coordinate_y + 1, YELLOW*16 + BLACK, "Enter ID of the course you want to export:");
 		box(coordinate_x + width_box + 5, coordinate_y + 1 + 1, width_box, height_box, LIGHT_YELLOW);
 		ShowCur(1);
-	Here_enter_y:
 		gotoXY(coordinate_x + width_box + 5 + 1, coordinate_y + 1 + 2);
 		tmp = my_getline(width_box - 1);
 		if (tmp == "-1")
@@ -1154,36 +1154,22 @@ void export_scoreboard(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* s
 			cur_course = cur_course->next;
 		}
 		if (check == 0) {
-			my_print(coordinate_x + width_box + 5, coordinate_y + 1 + 5, RED, "Your course ID which you entered does not exist.");
-			my_print(coordinate_x + width_box + 5, coordinate_y + 1 + 6, LIGHT_RED, "Search for Course again? (y/n): ");
-			std::string ans;
-			int x_old = whereX();
-			int y_old = whereY();
-		LOOP_ans:
-			gotoXY(x_old, y_old);
-			textcolor(WHITE);
-			ans = my_getline(1);
-			if (ans != "y" && ans != "Y" && ans != "n" && ans != "N") {
-				gotoXY(x_old, y_old);
-				textcolor(BLACK);
-				std::cout << " ";
-				goto LOOP_ans;
-			}
-			if (ans == "y" || ans == "Y") {
-				textcolor(BLACK);
-				for (int j = 0; j < width_box - 1; j++) {
-					gotoXY(coordinate_x + width_box + 5 + 1 + j, coordinate_y + 1 + 2);
-					std::cout << " ";
+				ShowCur(0);
+				my_print(coordinate_x + width_box + 50, coordinate_y , RED * 16 + LIGHT_AQUA, "Course ID does not exist.");
+
+				my_print(coordinate_x + width_box + 50 , coordinate_y + 2 , LIGHT_GREEN * 16 + BLACK, "Do you want to enter again:");
+				int choice_enter = enter_again_yes_no(coordinate_x + width_box + 4 + 50, coordinate_y + 4, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
+				if (choice_enter == 1) {
+					textcolor(BLACK * 16 + BLACK);
+					for (int j = 0; j < 8; j++)
+						for (int i = 0; i < 107; i++) {
+							gotoXY(coordinate_x + i, coordinate_y + j);
+							std::cout << " ";
+						}
+					textcolor(WHITE);
+					goto Here_enter_y;
 				}
-				for (int j = 0; j <= 50; j++) {
-					gotoXY(coordinate_x + width_box + 5 + j, coordinate_y + 1 + 5);
-					std::cout << " ";
-					gotoXY(coordinate_x + width_box + 5 + j, coordinate_y + 1 + 6);
-					std::cout << " ";
-				}
-				textcolor(WHITE);
-				goto Here_enter_y;
-			}
+			
 		}
 		else {
 			output.open("Scoreboard_K22_2_" + cur_course->course.ID + ".csv");
@@ -1208,12 +1194,22 @@ void export_scoreboard(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* s
 				}
 				cur_stu_course = cur_stu_course->next;
 				output.close();
-				my_print(coordinate_x + width_box + 5, coordinate_y + 1 + 5, LIGHT_RED, "Export successfully");
-				gotoXY(coordinate_x + width_box + 5, coordinate_y + 1 + 6);
-				std::system("pause");
+				ShowCur(0);
+				textcolor(LIGHT_GREEN * 16 + BLACK);
+				for (int j = 0; j < 3; j++)
+					for (int i = 0; i < 41; i++) {
+						gotoXY(coordinate_x + width_box + 5 + i, coordinate_y + 1 + 5-1+ j);
+						std::cout << " ";
+					}
+				gotoXY(coordinate_x + width_box + 9, coordinate_y + 1 + 5);
+				std::cout << "Create a new staff successfully.";
+				textcolor(WHITE);
+				char ans = _getch();
+				return;
+
 			}
 		}
 	}
-	else if (choice == 0 + 3)
+	else 
 		return;
 }

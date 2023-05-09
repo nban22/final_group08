@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 #ifndef DELETE_DLL_H_
 #define DELETE_DLL_H_
 

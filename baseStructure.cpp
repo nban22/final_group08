@@ -84,29 +84,6 @@ STU_NODE* check_exist_classID_in_DLL(STU_NODE* listclass, std::string classID) {
 	return nullptr;
 }
 
-bool check_exist_of_schoolyear(std::string year) {
-	std::ifstream infile;
-	infile.open("NewSchoolYear.csv");
-	if (!infile.is_open()) {
-		std::cout << "No file founded";
-		return 0;
-	}
-
-	std::string tmp;
-	std::getline(infile, tmp);
-
-	while (!infile.eof()) {
-		std::string line;
-		std::getline(infile, line, '-');
-		if (line == "") {
-			return 0;
-		}
-		if (line.compare(year) == 0) {
-			return 1;
-		}
-	}
-	return 0;
-}
 
 CR_NODE* check_exist_of_course_record(CR_NODE*& head, std::string ID) {
 	CR_NODE* current = head;
@@ -132,7 +109,7 @@ STU_COURSE_NODE* check_exist_of_student_course_record(STU_COURSE_NODE*& stu_cour
 	return nullptr;
 }
 
-void get_current_schoolYear_semester(int coordinate_x, int coordinate_y, std::string& cur_year, std::string& cur_semester) {
+void get_curYear_and_curSemester(int coordinate_x, int coordinate_y, std::string& cur_year, std::string& cur_semester) {
 	std::ifstream fileSchoolYear("schoolYear.txt");
 	if (!fileSchoolYear.is_open()) {
 		my_print(coordinate_x, coordinate_y, RED * 16 + LIGHT_AQUA, "Can not open file schoolYear.txt");
@@ -247,3 +224,49 @@ bool check_time(Time start_time, Date start_date, Time end_time, Date end_date) 
 	}
 	return true;
 }
+
+void print_infor_staff(STAFF staff, int coordinate_x, int coordinate_y) {
+	int width = 43;
+	int height = 3;
+	std::string curYear, curSemester;
+	int backgroundColor = LIGHT_YELLOW;
+	int textColor = BLACK;
+
+	textcolor(backgroundColor * 16 + textColor);
+	for (int i = 0; i < height; i++)
+		for (int j = 0; j < width; j++) {
+			gotoXY(coordinate_x + j, coordinate_y + i);
+			std::cout << " ";
+		}
+	get_curYear_and_curSemester(coordinate_x, coordinate_y, curYear, curSemester);
+	//box(coordinate_x, coordinate_y, width, height, YELLOW);
+	my_print(coordinate_x + 3, coordinate_y, backgroundColor * 16 + textColor, "School Year: " + curYear + "-" + std::to_string(stoi(curYear) + 1));
+	my_print(coordinate_x + 3 + 27, coordinate_y, backgroundColor * 16 + textColor, "Semester: " + curSemester);
+	my_print(coordinate_x + 3, coordinate_y + 1, backgroundColor * 16 + textColor, "ID: " + staff.TeacherID);
+	my_print(coordinate_x + 3, coordinate_y + 2, backgroundColor * 16 + textColor, "Name: " + staff.LName + " " + staff.FName);
+	textcolor(WHITE);
+}
+
+void user_guide(int coordinate_x, int coordinate_y) {
+	int width = 23;
+	int height = 3;
+	int backgroundColor = LIGHT_YELLOW;
+	int textColor = BLACK;
+
+	textcolor(backgroundColor * 16 + textColor);
+	for (int i = 0; i < height; i++)
+		for (int j = 0; j < width; j++) {
+			gotoXY(coordinate_x + j, coordinate_y + i);
+			std::cout << " ";
+		}
+	
+	gotoXY(coordinate_x + 1, coordinate_y  );
+	std::cout << "Choose selection: " << char(31) << " " << char(30);
+	gotoXY(coordinate_x + 1, coordinate_y + 1);
+	std::cout << "Next page: " << char(17) << " " << char(16);
+	gotoXY(coordinate_x + 1, coordinate_y + 2);
+	std::cout << "Comback: esc";
+
+	
+	textcolor(WHITE);
+} 

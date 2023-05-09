@@ -431,7 +431,6 @@ void set_time_course_regis() {
 }
 //3
 void create_new_course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head) {
-	ShowCur(1);
 	CR_NODE* NewCourse = new CR_NODE;
 	CR_NODE* cur = head;
 
@@ -440,6 +439,9 @@ void create_new_course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*
 	int width_big_box = 40;
 	int width_small_box = 25;
 	int height_box = 2;
+
+	std::string curYear, curSemester;
+	get_curYear_and_curSemester(coordinate_x, coordinate_y, curYear, curSemester);
 
 	while (cur->next) {
 		cur = cur->next;
@@ -454,110 +456,18 @@ void create_new_course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*
 		NewCourse->course.No = NewNo;
 	}
 
-	std::string NewSchoolyear, tmp;
-	my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "Enter School Year:");
+	ShowCur(1);
+	my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "School Year:");
 	box(coordinate_x, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
-Here_enter_y:
-	gotoXY(coordinate_x + 1, coordinate_y + 1 + 1);
-	tmp = (my_getline_onlyNumber(4));
-	if (tmp == "-1")
-		return;
-	else
-		NewSchoolyear = (tmp);
-	if (check_exist_of_schoolyear(NewSchoolyear)) {
-		NewCourse->course.Schoolyear = NewSchoolyear;
-	}
-	else {
-		my_print(coordinate_x + 10, coordinate_y + 5, RED, "School year does not exist yet!");
-		my_print(coordinate_x + 10, coordinate_y + 7, RED, "Please create new schoolyear first!");
-		my_print(coordinate_x + 10, coordinate_y + 9, LIGHT_GREEN, "Search for Course again? (y/n): ");
-		std::string ans;
-		int x_old = whereX();
-		int y_old = whereY();
-	LOOP_ans:
-		gotoXY(x_old, y_old);
-		textcolor(WHITE);
-		ans = my_getline(1);
-		if (ans == "-1")
-			return;
-		if (ans != "y" && ans != "Y" && ans != "n" && ans != "N") {
-			gotoXY(x_old, y_old);
-			textcolor(BLACK);
-			std::cout << " ";
-			goto LOOP_ans;
-		}
-		if (ans == "y" || ans == "Y") {
-			textcolor(BLACK);
-			for (int j = 0; j < width_small_box - 1; j++) {
-				gotoXY(coordinate_x + 1 + j, coordinate_y + 1 + 1);
-				std::cout << " ";
-			}
-			for (int j = 0; j <= 55; j++) {
-				gotoXY(coordinate_x + 3 + j, coordinate_y + 5);
-				std::cout << " ";
-				gotoXY(coordinate_x + 3 + j, coordinate_y + 7);
-				std::cout << " ";
-				gotoXY(coordinate_x + 3 + j, coordinate_y + 9);
-				std::cout << " ";
-			}
-			textcolor(WHITE);
-			goto Here_enter_y;
-		}
-		else
-			return;
-	}
+	my_print(coordinate_x + 1 + 7, coordinate_y + 1 + 1,LIGHT_RED, curYear + "-" + std::to_string(stoi(curYear) + 1));
+	NewCourse->course.Schoolyear = curYear;
 
-	int NewSemester;
-
-	my_print(coordinate_x + 30, coordinate_y, LIGHT_AQUA, "Enter Semester (1 - 2 - 3 ):");
+	my_print(coordinate_x + 30, coordinate_y, LIGHT_AQUA, "Semester:");
 	box(coordinate_x + 30, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
-Here_enter_y2:
-	gotoXY(coordinate_x + 30 + 1, coordinate_y + 1 + 1);
-	tmp = my_getline_onlyNumber(1);
-	if (tmp == "-1")
-		return;
-	NewSemester = stoi(tmp);
-
-
-	if (NewSemester > 0 && NewSemester <= 3) {
-		NewCourse->course.Semester = NewSemester;
-	}
-	else {
-		my_print(coordinate_x + 10, coordinate_y + 5, RED, "Semester must be 1 to 3!");
-		my_print(coordinate_x + 10, coordinate_y + 7, LIGHT_GREEN, "Search for Course again? (y/n): ");
-		std::string ans;
-		int x_old = whereX();
-		int y_old = whereY();
-	LOOP_ans2:
-		gotoXY(x_old, y_old);
-		textcolor(WHITE);
-		ans = my_getline(1);
-		if (ans == "-1")
-			return;
-		if (ans != "y" && ans != "Y" && ans != "n" && ans != "N") {
-			gotoXY(x_old, y_old);
-			textcolor(BLACK);
-			std::cout << " ";
-			goto LOOP_ans2;
-		}
-		if (ans == "y" || ans == "Y") {
-			textcolor(BLACK);
-			for (int j = 0; j < width_small_box - 1; j++) {
-				gotoXY(coordinate_x + 30 + 1 + j, coordinate_y + 1 + 1);
-				std::cout << " ";
-			}
-			for (int j = 0; j <= 55; j++) {
-				gotoXY(coordinate_x + 3 + j, coordinate_y + 5);
-				std::cout << " ";
-				gotoXY(coordinate_x + 3 + j, coordinate_y + 7);
-				std::cout << " ";
-			}
-			textcolor(WHITE);
-			goto Here_enter_y2;
-		}
-		else
-			return;
-	}
+	my_print(coordinate_x + 30 + 1 + 12, coordinate_y + 1 + 1, LIGHT_RED, curSemester);
+	NewCourse->course.Semester = stoi(curSemester);
+	
+	std::string  tmp;
 
 	my_print(coordinate_x, coordinate_y + 4, LIGHT_AQUA, "Enter New Course Name:");
 	box(coordinate_x, coordinate_y + 4 + 1, width_big_box, height_box, LIGHT_AQUA);
@@ -685,7 +595,6 @@ Here_enter_y2:
 		NewCourse->course.endDate.year = stoi(tmp);
 
 
-
 	//Add course at the end
 	if (!cur) {
 		cur = NewCourse;
@@ -716,15 +625,16 @@ void delete_course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& he
 	CR_NODE* cur = head;
 
 	int coordinate_x = 30;
-	int coordinate_y = 25;
+	int coordinate_y = 26;
 	int width_box = 30;
 	int height_box = 2;
 
 	view_list_of_courses(cur);
 	std::string DelID, tmp;
-	my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "Enter Course ID you want to delete:");
 Here_enter_y3:
+	my_print(coordinate_x, coordinate_y, YELLOW*16 + BLACK, "Enter Course ID you want to delete:");
 	box(coordinate_x, coordinate_y + 1, width_box, height_box, LIGHT_AQUA);
+	ShowCur(1);
 	gotoXY(coordinate_x + 1, coordinate_y + 1 + 1);
 	tmp = (my_getline(width_box - 1));
 	if (tmp == "-1")
@@ -749,38 +659,24 @@ Here_enter_y3:
 		return;
 	}
 	else {
-		my_print(coordinate_x + 3, coordinate_y + 5, RED, "No Course Founded!");
-		my_print(coordinate_x + 3, coordinate_y + 6, LIGHT_GREEN, "Search for Course again? (y/n): ");
-		std::string ans;
-		int x_old = whereX();
-		int y_old = whereY();
-	LOOP_ans:
-		gotoXY(x_old, y_old);
-		textcolor(WHITE);
-		ans = my_getline(1);
-		if (ans != "y" && ans != "Y" && ans != "n" && ans != "N") {
-			gotoXY(x_old, y_old);
-			textcolor(BLACK);
-			std::cout << " ";
-			goto LOOP_ans;
-		}
-		if (ans == "y" || ans == "Y") {
-			textcolor(BLACK);
-			for (int j = 0; j < width_box - 1; j++) {
-				gotoXY(coordinate_x + 1 + j, coordinate_y + 1 + 1);
-				std::cout << " ";
-			}
-			for (int j = 0; j <= 55; j++) {
-				gotoXY(coordinate_x + 3 + j, coordinate_y + 5);
-				std::cout << " ";
-				gotoXY(coordinate_x + 3 + j, coordinate_y + 6);
-				std::cout << " ";
-			}
+		ShowCur(0);
+		my_print(coordinate_x + 60, coordinate_y, RED * 16 + LIGHT_AQUA, "Course ID does not exist.");
+
+		my_print(coordinate_x + 60, coordinate_y + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter again:");
+		int choice = enter_again_yes_no(coordinate_x + 60, coordinate_y + 4, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
+		if (choice == 1) {
+			textcolor(BLACK * 16 + BLACK);
+			for (int j = 0; j < 8; j++)
+				for (int i = 0; i < 87; i++) {
+					gotoXY(coordinate_x + i, coordinate_y + j);
+					std::cout << " ";
+				}
 			textcolor(WHITE);
 			goto Here_enter_y3;
 		}
-		else
+		else {
 			return;
+		}
 	}
 }
 //6
@@ -792,11 +688,12 @@ void update_course_information(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, 
 	int y_tmp = 26;
 	int width_tmp = 40;
 	int height_tmp = 2;
+	std::string UpID, tmp;
+Here_enter_y:
+	ShowCur(1);
 	my_print(x_tmp, y_tmp, LIGHT_RED, "Enter Course ID: ");
 	box(x_tmp, y_tmp + 1, width_tmp, height_tmp, LIGHT_AQUA);
-Here_enter_y:
 	gotoXY(x_tmp + 1, y_tmp + 1 + 1);
-	std::string UpID, tmp;
 	tmp = (my_getline(width_tmp - 1));
 	if (tmp == "-1")
 		return;
@@ -1050,47 +947,30 @@ Here_enter_y:
 		textcolor(WHITE);
 	}
 
-	my_print(x_tmp + 3, y_tmp + 4, RED, "Your course ID which you entered it does not exist.");
-	my_print(x_tmp + 3, y_tmp + 6, LIGHT_GREEN, "Search for Course again? (y/n): ");
-	std::string ans;
-	int x_old = whereX();
-	int y_old = whereY();
-LOOP_ans:
-	gotoXY(x_old, y_old);
-	textcolor(WHITE);
-	ans = my_getline(1);
-	if (ans == "-1")
-		return;
-	if (ans != "y" && ans != "Y" && ans != "n" && ans != "N") {
-		gotoXY(x_old, y_old);
-		textcolor(BLACK);
-		std::cout << " ";
-		goto LOOP_ans;
-	}
-	if (ans == "y" || ans == "Y") {
-		textcolor(BLACK);
-		for (int j = 0; j < width_tmp - 1; j++) {
-			gotoXY(x_tmp + 1 + j, y_tmp + 1 + 1);
-			std::cout << " ";
-		}
-		for (int j = 0; j <= 55; j++) {
-			gotoXY(x_tmp + 3 + j, y_tmp + 4);
-			std::cout << " ";
-			gotoXY(x_tmp + 3 + j, y_tmp + 6);
-			std::cout << " ";
-		}
+	ShowCur(0);
+	my_print(x_tmp + 60, y_tmp , RED * 16 + LIGHT_AQUA, "Course ID does not exist.");
+
+	my_print(x_tmp +60, y_tmp + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter again:");
+	int choice = enter_again_yes_no(x_tmp + 60, y_tmp + 4, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
+	if (choice == 1) {
+		textcolor(BLACK * 16 + BLACK);
+		for (int j = 0; j < 8; j++)
+			for (int i = 0; i < 87; i++) {
+				gotoXY(x_tmp + i, y_tmp + j);
+				std::cout << " ";
+			}
 		textcolor(WHITE);
 		goto Here_enter_y;
 	}
-	else
+	else {
 		return;
-
+	}
 }
 //7
 void update_mark_information(STU_NODE* student, STU_COURSE_NODE*& stu_course, STFF_NODE* teacher, CR_NODE*& course) {
 	system("cls");
 	int coordinate_x = 40;
-	int coordinate_y = 25;
+	int coordinate_y = 27;
 	int width_box = 30;
 	int width_small_box = 10;
 	int height_box = 2;
@@ -1227,7 +1107,7 @@ again_courseID:
 		}
 	}
 	else {
-		my_print(coordinate_x + 40, coordinate_y, RED * 16 + BLACK, "No Course Found!");
+		my_print(coordinate_x + 40, coordinate_y, RED * 16 + BLACK, "Course ID does not exist.");
 		my_print(coordinate_x + 40, coordinate_y + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter again:");
 		int choice = enter_again_yes_no(coordinate_x + 40 + 5, coordinate_y + 3, 7, 3, 4, LIGHT_AQUA, YELLOW);
 		if (choice == 1) {
@@ -1240,5 +1120,418 @@ again_courseID:
 			textcolor(WHITE);
 			goto again_courseID;
 		}
+	}
+}
+//8
+void display_list_of_teachers(STFF_NODE* teacher) {
+	STFF_NODE* cur_teacher = teacher;
+	int coordinate_x = 10;
+	int coordinate_y = 3;
+
+	int width_no = 5;
+	int width_teacherID = 12;
+	int width_teacherName = 25;
+	int width_gender = 8;
+	int width_DOB = 14;
+	int width_socialID = 14;
+	int width_faculty = 40;
+
+	int width = width_no + width_teacherID + width_teacherName + width_gender + width_DOB + width_socialID + width_faculty + 3 * 10 - 8;
+
+	gotoXY(coordinate_x, coordinate_y); std::cout << "+";
+	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
+		gotoXY(i, coordinate_y); std::cout << "-";
+	}
+	gotoXY(coordinate_x + width, coordinate_y); std::cout << "+";
+
+	gotoXY(coordinate_x, coordinate_y + 1);
+	std::cout << std::setw(4) << std::left << "|" << std::setw(width_no) << std::left << "No" << std::setw(3) << std::left << "|"
+		<< std::setw(width_teacherID) << std::left << "Teacher ID" << std::setw(3) << std::left << "|"
+		<< std::setw(width_teacherName) << std::left << "Teacher's Name" << std::setw(3) << std::left << "|"
+		<< std::setw(width_gender) << std::left << "Gender" << std::setw(3) << std::left << "|"
+		<< std::setw(width_DOB) << std::left << "Day of Birth" << std::setw(3) << std::left << "|"
+		<< std::setw(width_socialID) << std::left << "Social ID" << std::setw(3) << std::left << "|"
+		<< std::setw(width_faculty) << std::left << "Faculty";
+
+	gotoXY(coordinate_x, coordinate_y + 2); std::cout << "+";
+	for (int i = coordinate_x + 1; i < coordinate_x + width; i++) {
+		gotoXY(i, coordinate_y + 2); std::cout << "-";
+	}
+	gotoXY(coordinate_x + width, coordinate_y + 2); std::cout << "+";
+
+	int count = 0;
+	while (cur_teacher) {
+		count++;
+		cur_teacher = cur_teacher->next;
+	}
+	int page_max = (count - 1) / 15 + 1;
+	int page_index = 1;
+
+LOOP1:
+	cur_teacher = teacher;
+	int i = 0;
+	int page = 0;
+	int no = 1;
+	while (cur_teacher) {
+		ShowCur(1);
+		i++;
+		if (no > count)
+			no = 0;
+		gotoXY(coordinate_x, coordinate_y + 2 + i);
+		std::string birthday = std::to_string(cur_teacher->staff.DoB.day) + "/" + std::to_string(cur_teacher->staff.DoB.month) + "/" + std::to_string(cur_teacher->staff.DoB.year);
+		std::string fullname = cur_teacher->staff.LName + " " + cur_teacher->staff.FName;
+
+		std::cout << std::setw(4) << std::left << "|" << std::setw(width_no) << std::left << no++ << std::setw(3) << std::left << "|"
+			<< std::setw(width_teacherID) << std::left << cur_teacher->staff.TeacherID << std::setw(3) << std::left << "|"
+			<< std::setw(width_teacherName) << std::left << fullname << std::setw(3) << std::left << "|"
+			<< std::setw(width_gender) << std::left << cur_teacher->staff.Gender << std::setw(3) << std::left << "|"
+			<< std::setw(width_DOB) << std::left << birthday << std::setw(3) << "|"
+			<< std::setw(width_socialID) << std::left << cur_teacher->staff.SocialID << std::setw(3) << std::left << "|"
+			<< std::setw(width_faculty) << std::left << cur_teacher->staff.Faculty << std::setw(3) << std::left << "|";
+
+		if (i == 15 || cur_teacher->next == nullptr) {
+			gotoXY(coordinate_x, coordinate_y + 2 + i + 1); std::cout << "+";
+			for (int j = coordinate_x + 1; j < coordinate_x + width; j++) {
+				gotoXY(j, coordinate_y + 2 + i + 1); std::cout << "-";
+			}
+			gotoXY(coordinate_x + width, coordinate_y + 2 + i + 1); std::cout << "+";
+		}
+		for (int j = coordinate_y + 1; j <= coordinate_y + i + 2; j++)
+			if (j != coordinate_y + 2) {
+				gotoXY(coordinate_x, j); std::cout << "|";
+				gotoXY(coordinate_x + width, j); std::cout << "|";
+			}
+		if (cur_teacher->next == nullptr) {
+			for (int p = coordinate_x; p <= coordinate_x + width; p++)
+				for (int k = coordinate_y + 2 + i + 2; k <= coordinate_y + 2 + 15 + 1; k++) {
+					my_print(p, k, BLACK, " ");
+				}
+		}
+		if (i == 15 || cur_teacher->next == nullptr) {
+			page++;
+			my_print(coordinate_x + width / 2 - 4, coordinate_y + 20, GREEN, "page " + std::to_string(page_index) + "/" + std::to_string(page_max));
+			i = 0;
+			if (page != page_index) {
+				cur_teacher = cur_teacher->next;
+				continue;
+			}
+			char ch;
+		LOOP:
+
+			ch = _getch();
+			if (ch == 75) {
+				if (page_index == 1)
+					goto LOOP;
+				page_index--;
+				goto LOOP1;
+			}
+			else if (ch == 77) {
+				page_index++;
+			}
+			else {
+				goto LOOP;
+			}
+		}
+		cur_teacher = cur_teacher->next;
+	}
+
+}
+void update_information_of_teacher(STFF_NODE*& teacher) {
+	std::system("cls");
+	display_list_of_teachers(teacher);
+
+	int coordinate_x_display = 30;
+	int coordinate_y_display = 26;
+	int width_box_display = 40;
+	int height_box_display = 2;
+
+enter_teacherID:
+
+	my_print(coordinate_x_display, coordinate_y_display, YELLOW * 16 + BLACK, "Enter the ID of the teacher you want to update:");
+	box(coordinate_x_display, coordinate_y_display + 1, width_box_display, height_box_display, LIGHT_AQUA);
+	std::string teacherID;
+	gotoXY(coordinate_x_display + 1, coordinate_y_display + 2);
+	ShowCur(1);
+	teacherID = my_getline(width_box_display - 1);
+	ShowCur(0);
+	if (teacherID == "-1")
+		return;
+	STFF_NODE* cur_teacher = teacher;
+	int check = 0;
+	while (cur_teacher) {
+		if (cur_teacher->staff.TeacherID == teacherID) {
+			check = 1;
+			break;
+		}
+		cur_teacher = cur_teacher->next;
+	}
+
+	if (check != 1) {
+		ShowCur(0);
+		my_print(coordinate_x_display + 53, coordinate_y_display, RED * 16 + LIGHT_AQUA, "Teacher ID doesn't exist.");
+
+		my_print(coordinate_x_display + 53, coordinate_y_display + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter again:");
+		int choice = enter_again_yes_no(coordinate_x_display + 53, coordinate_y_display + 4, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
+		if (choice == 1) {
+			textcolor(BLACK * 16 + BLACK);
+			for (int j = 0; j < 8; j++)
+				for (int i = 0; i < 80; i++) {
+					gotoXY(coordinate_x_display + i, coordinate_y_display + j);
+					std::cout << " ";
+				}
+			textcolor(WHITE);
+			goto enter_teacherID;
+		}
+		else {
+			return;
+		}
+	}
+update_infor:
+	std::system("cls");
+
+	int coordinate_x_infor = 45;
+	int coordinate_y_infor = 3;
+	int width_box_infor = 60;
+	int height_box_infor = 7;
+	int width_small_box_infor = 25;
+	int color_infor = LIGHT_YELLOW;
+	int color_text = LIGHT_YELLOW;
+
+	box(coordinate_x_infor, coordinate_y_infor, width_box_infor, height_box_infor, color_infor);
+	box(coordinate_x_infor + width_box_infor / 2 - width_small_box_infor / 2, coordinate_y_infor - 2, width_small_box_infor, 2, color_infor);
+	textcolor(color_infor);
+	gotoXY(coordinate_x_infor + width_box_infor / 2 - width_small_box_infor / 2, coordinate_y_infor);
+	std::cout << (char)193;
+	gotoXY(coordinate_x_infor + width_box_infor / 2 - width_small_box_infor / 2 + width_small_box_infor, coordinate_y_infor);
+	std::cout << (char)193;
+	textcolor(WHITE);
+
+	my_print(coordinate_x_infor + width_box_infor / 2 - width_small_box_infor / 2 + 1, coordinate_y_infor - 2 + 1, color_text, " Teacher's information");
+
+	std::string fullname = cur_teacher->staff.LName + " " + cur_teacher->staff.FName;
+	std::string DoB = std::to_string(cur_teacher->staff.DoB.day / 10) + std::to_string(cur_teacher->staff.DoB.day % 10) + "/"
+		+ std::to_string(cur_teacher->staff.DoB.month / 10) + std::to_string(cur_teacher->staff.DoB.month % 10) + "/"
+		+ std::to_string(cur_teacher->staff.DoB.year);
+
+	textcolor(color_text);
+	gotoXY(coordinate_x_infor + 1, coordinate_y_infor + 1);
+	std::cout << std::setw(15) << std::left << "Full name : " << std::setw(44) << std::right << fullname;
+	gotoXY(coordinate_x_infor + 1, coordinate_y_infor + 2);
+	std::cout << std::setw(15) << std::left << "Teacher ID: " << std::setw(44) << std::right << cur_teacher->staff.TeacherID;
+	gotoXY(coordinate_x_infor + 1, coordinate_y_infor + 3);
+	std::cout << std::setw(15) << std::left << "Gender: " << std::setw(44) << std::right << cur_teacher->staff.Gender;
+	gotoXY(coordinate_x_infor + 1, coordinate_y_infor + 4);
+	std::cout << std::setw(15) << std::left << "Date of birth: " << std::setw(44) << std::right << DoB;
+	gotoXY(coordinate_x_infor + 1, coordinate_y_infor + 5);
+	std::cout << std::setw(15) << std::left << "Social ID: " << std::setw(44) << std::right << cur_teacher->staff.SocialID;
+	gotoXY(coordinate_x_infor + 1, coordinate_y_infor + 6);
+	std::cout << std::setw(15) << std::left << "Faculty: " << std::setw(44) << std::right << cur_teacher->staff.Faculty;
+	textcolor(WHITE);
+
+	std::string option[] = {
+				"1.Update Teacher's name",
+				"2.Update gender.",
+				"3.Update date of birth.",
+				"4.Update social ID.",
+				"5.Update Faculty.",
+				"0.Come back." };
+	int coordinate_x_option = 10;
+	int coordinate_y_option = 11;
+	int width_box_option = 30;
+	int height_box_option = 3;
+	int amount = sizeof(option) / sizeof(option[0]);
+	int choice;
+
+	choice = menu(coordinate_x_option, coordinate_y_option, width_box_option, height_box_option, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
+
+	int coordinate_x = 75;
+	int coordinate_y = 14;
+	int width_box = 30;
+	int width_small_box = 10;
+	int height_box = 3;
+
+	std::string tmp;
+	if (choice == 1) {
+		textcolor(LIGHT_YELLOW * 16 + BLACK);
+		for (int j = 0; j < 3; j++)
+			for (int i = 0; i < 40; i++) {
+				gotoXY(coordinate_x + i, coordinate_y - 2 + j);
+				std::cout << " ";
+			}
+		gotoXY(coordinate_x + 13 + 1, coordinate_y + 1 - 2);
+		std::cout << "UPDATE NAME";
+		textcolor(WHITE);
+
+		my_print(coordinate_x, coordinate_y + 6 - 2, LIGHT_RED, "Enter Last Name:");
+		box(coordinate_x, coordinate_y + 6 + 1 - 2, width_box, height_box, LIGHT_AQUA);
+
+		my_print(coordinate_x, coordinate_y + 11 - 2, LIGHT_RED, "Enter First Name:");
+		box(coordinate_x, coordinate_y + 11 + 1 - 2, width_box, height_box, LIGHT_AQUA);
+
+		std::string LName, FName;
+		ShowCur(1);
+		gotoXY(coordinate_x + 1, coordinate_y - 2 + 6 + 2);
+		LName = my_getline_addSpace(width_box - 1);
+		ShowCur(0);
+		if (LName == "-1")
+			goto update_infor;
+
+		ShowCur(1);
+		gotoXY(coordinate_x + 1, coordinate_y + -2 + 11 + 2);
+		FName = my_getline_addSpace(width_box - 1);
+		ShowCur(0);
+		if (FName == "-1")
+			goto update_infor;
+
+
+		my_print(coordinate_x + 36 + 1, coordinate_y - 5 + 6 + 2 + 4, LIGHT_GREEN, "Are you sure you want to change?");
+		int check = enter_again_yes_no(coordinate_x + 36 + 1, coordinate_y - 5 + 13, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
+		if (check == 1) {
+			cur_teacher->staff.LName = LName;
+			cur_teacher->staff.FName = FName;
+			reread_after_update_teacher(teacher);
+		}
+		goto update_infor;
+	}
+	else if (choice == 2) {
+		textcolor(LIGHT_YELLOW * 16 + BLACK);
+		for (int j = 0; j < 3; j++)
+			for (int i = 0; i < 40; i++) {
+				gotoXY(coordinate_x + i, coordinate_y + j);
+				std::cout << " ";
+			}
+		gotoXY(coordinate_x + 13 + 1, coordinate_y + 1);
+		std::cout << "UPDATE GENDER";
+		textcolor(WHITE);
+
+		my_print(coordinate_x, coordinate_y + 6, LIGHT_RED, "Enter gender which you want to update:");
+		box(coordinate_x, coordinate_y + 6 + 1, width_box, height_box, LIGHT_AQUA);
+		ShowCur(1);
+		gotoXY(coordinate_x + 1, coordinate_y + 6 + 2);
+		tmp = my_getline_addSpace(width_box - 1);
+		ShowCur(0);
+		if (tmp == "-1")
+			goto update_infor;
+
+		my_print(coordinate_x + 1, coordinate_y + 6 + 2 + 4, LIGHT_GREEN, "Are you sure you want to change?");
+		int check = enter_again_yes_no(coordinate_x + 1, coordinate_y + 13, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
+		if (check == 1) {
+			cur_teacher->staff.Gender = tmp;
+			reread_after_update_teacher(teacher);
+		}
+		goto update_infor;
+	}
+	else if (choice == 3) {
+		textcolor(LIGHT_YELLOW * 16 + BLACK);
+		for (int j = 0; j < 3; j++)
+			for (int i = 0; i < 40; i++) {
+				gotoXY(coordinate_x + i, coordinate_y + j);
+				std::cout << " ";
+			}
+		gotoXY(coordinate_x + 9 + 1, coordinate_y + 1);
+		std::cout << "UPDATE DATE OF BIRTH";
+		textcolor(WHITE);
+
+		my_print(coordinate_x, coordinate_y + 6, LIGHT_RED, "Enter date of birth which you want to update:");
+		box(coordinate_x, coordinate_y + 6 + 1, width_small_box, height_box, LIGHT_AQUA);
+		my_print(coordinate_x + width_small_box + 1, coordinate_y + 6 + 2, LIGHT_AQUA, "/");
+		box(coordinate_x + width_small_box + 2, coordinate_y + 6 + 1, width_small_box, height_box, LIGHT_AQUA);
+		my_print(coordinate_x + 2 * width_small_box + 3, coordinate_y + 6 + 2, LIGHT_AQUA, "/");
+		box(coordinate_x + 2 * width_small_box + 4, coordinate_y + 6 + 1, width_small_box, height_box, LIGHT_AQUA);
+
+		Date newDOB;
+		ShowCur(1);
+		gotoXY(coordinate_x + 1, coordinate_y + 6 + 2);
+		tmp = my_getline_onlyNumber(2);
+		ShowCur(0);
+		if (tmp == "-1")
+			goto update_infor;
+		else
+			newDOB.day = stoi(tmp);
+
+		ShowCur(1);
+		gotoXY(coordinate_x + width_small_box + 2 + 1, coordinate_y + 6 + 2);
+		tmp = my_getline_onlyNumber(2);
+		ShowCur(0);
+		if (tmp == "-1")
+			goto update_infor;
+		else
+			newDOB.month = stoi(tmp);
+
+		ShowCur(1);
+		gotoXY(coordinate_x + 2 * width_small_box + 4 + 1, coordinate_y + 6 + 2);
+		tmp = my_getline_onlyNumber(4);
+		ShowCur(0);
+		if (tmp == "-1")
+			goto update_infor;
+		else
+			newDOB.year = stoi(tmp);
+
+		my_print(coordinate_x + 1, coordinate_y + 6 + 2 + 4, LIGHT_GREEN, "Are you sure you want to change?");
+		int check = enter_again_yes_no(coordinate_x + 1, coordinate_y + 13, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
+		if (check == 1) {
+			cur_teacher->staff.DoB = newDOB;
+			reread_after_update_teacher(teacher);
+		}
+		goto update_infor;
+	}
+	else if (choice == 4) {
+		textcolor(LIGHT_YELLOW * 16 + BLACK);
+		for (int j = 0; j < 3; j++)
+			for (int i = 0; i < 40; i++) {
+				gotoXY(coordinate_x + i, coordinate_y + j);
+				std::cout << " ";
+			}
+		gotoXY(coordinate_x + 13 + 1, coordinate_y + 1);
+		std::cout << "UPDATE SOCIAL ID";
+		textcolor(WHITE);
+
+		my_print(coordinate_x, coordinate_y + 6, LIGHT_RED, "Enter social ID which you want to update:");
+		box(coordinate_x, coordinate_y + 6 + 1, width_box, height_box, LIGHT_AQUA);
+		ShowCur(1);
+		gotoXY(coordinate_x + 1, coordinate_y + 6 + 2);
+		tmp = my_getline_addSpace(width_box - 1);
+		ShowCur(0);
+		if (tmp == "-1")
+			goto update_infor;
+
+		my_print(coordinate_x + 1, coordinate_y + 6 + 2 + 4, LIGHT_GREEN, "Are you sure you want to change?");
+		int check = enter_again_yes_no(coordinate_x + 1, coordinate_y + 13, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
+		if (check == 1) {
+			cur_teacher->staff.SocialID = tmp;
+			reread_after_update_teacher(teacher);
+		}
+		goto update_infor;
+	}
+	else if (choice == 5) {
+		textcolor(LIGHT_YELLOW * 16 + BLACK);
+		for (int j = 0; j < 3; j++)
+			for (int i = 0; i < 40; i++) {
+				gotoXY(coordinate_x + i, coordinate_y + j);
+				std::cout << " ";
+			}
+		gotoXY(coordinate_x + 13 + 1, coordinate_y + 1);
+		std::cout << "UPDATE GENDER";
+		textcolor(WHITE);
+
+		my_print(coordinate_x, coordinate_y + 6, LIGHT_RED, "Enter faculty which you want to update:");
+		box(coordinate_x, coordinate_y + 6 + 1, width_box, height_box, LIGHT_AQUA);
+		ShowCur(1);
+		gotoXY(coordinate_x + 1, coordinate_y + 6 + 2);
+		tmp = my_getline_addSpace(width_box - 1);
+		ShowCur(0);
+		if (tmp == "-1")
+			goto update_infor;
+
+		my_print(coordinate_x + 1, coordinate_y + 6 + 2 + 4, LIGHT_GREEN, "Are you sure you want to change?");
+		int check = enter_again_yes_no(coordinate_x + 1, coordinate_y + 13, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
+		if (check == 1) {
+			cur_teacher->staff.Faculty = tmp;
+			reread_after_update_teacher(teacher);
+		}
+		goto update_infor;
+	}
+	else if (choice == 0 + 6) {
+		return;
 	}
 }
