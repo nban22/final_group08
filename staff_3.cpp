@@ -205,13 +205,12 @@ void Add_Student_To_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, CR_NO
 	int width_box = 30;
 	int height_box = 2;
 
-
 	int coordinate_x_display = 30;
 	int coordinate_y_display = 26;
 	int width_box_display = 40;
 	int height_box_display = 2;
+	
 	int check2 = 0;
-	do {
 	int check = 0;
 	std::string CourseID;
 
@@ -321,7 +320,6 @@ void Add_Student_To_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, CR_NO
 				return;
 			}
 		}
-	} while (check2 == 0);
 
 	textcolor(BLACK * 16 + BLACK);
 	for (int j = 0; j < 8; j++)
@@ -388,8 +386,7 @@ void Remove_Student_From_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, 
 	STU_NODE* cur_student = student;
 	STU_COURSE_NODE *cur_stu_course = stu_course;
 
-	int check2 = 0;
-	int check = 0;
+
 	int coordinate_x = 35;
 	int coordinate_y = 27;
 	int width_box = 30;
@@ -400,7 +397,8 @@ void Remove_Student_From_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, 
 	int width_box_display = 40;
 	int height_box_display = 2;
 
-	do {
+	int check2 = 0;
+	int check = 0;
 	std::string CourseID;
 
 	std::system("cls");
@@ -510,7 +508,6 @@ void Remove_Student_From_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, 
 				return;
 			}
 		}
-	} while (check2 == 0);
 
 	textcolor(BLACK * 16 + BLACK);
 	for (int j = 0; j < 8; j++)
@@ -538,19 +535,40 @@ void Remove_Student_From_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, 
 		cur_teacher = cur_teacher->next;
 	}
 
- 	while (cur_stu_course) {
-		if ((cur_stu_course->stu_course.StuID == cur_student->student.StudentID) && (cur_stu_course->stu_course.CouID == cur_course->course.ID))
+/* 	while (stu_course) {
+		if (stu_course == cur_stu_course) {
+				if (!stu_course->prev) {
+					if (stu_course->next) stu_course->next->prev = stu_course->prev;
+					stu_course = stu_course->next;
+					stu_course->prev = nullptr;
+					
+				}
+				else {
+					if (stu_course->next) stu_course->next->prev = stu_course->prev;
+					if (stu_course->prev) stu_course->prev->next = stu_course->next;
+					delete cur_stu_course;
+				}
+				break;
+		}
+		else stu_course = stu_course->next;
+	} */
+
+  	while (cur_stu_course) {
+		if ((cur_stu_course->stu_course.StuID == StudentID) && (cur_stu_course->stu_course.CouID == CourseID)) {
 			if(!cur_stu_course->prev) {
-				cur_stu_course = cur_stu_course->next;
+				//cur_stu_course->stu_course.CouID = "";
+				STU_COURSE tmp = cur_stu_course->stu_course;
+				cur_stu_course->stu_course = cur_stu_course->next->stu_course;
+				cur_stu_course->next = cur_stu_course->next->next;	
 			}
 			else {
 				if (cur_stu_course->next) cur_stu_course->next->prev = cur_stu_course->prev;
 				if (cur_stu_course->prev) cur_stu_course->prev->next = cur_stu_course->next;	
-				delete cur_stu_course;
 			}
 			break;
+		}
 		cur_stu_course = cur_stu_course->next;
-	} 
+	}  
 
 /* 	update_cur_stdn_in_course(course, stu_course);
 	reread_after_update_course(stu_course, cur_teacher, course);
