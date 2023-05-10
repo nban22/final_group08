@@ -193,69 +193,65 @@ void create_new_course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*
 }
 
 //2
-void Add_Student_To_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, CR_NODE* course) {
+void Add_Student_To_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, CR_NODE *course) {
 	system("cls");
-	/* 	view_list_of_courses(course);
-		bool check1;
-		int coordinate_x = 88;
-		int coordinate_y = 7;
-		int width_big_box = 40;
-		int width_small_box = 10;
-		int height_box = 2; */
 
-	CR_NODE* cur_course = course;
+	CR_NODE *cur_course = course; 
 	STU_NODE* cur_student = student;
-	STU_COURSE_NODE* cur_stu_course = stu_course;
-	/* 	do {
-			check1 = 0;
-			ShowCur(1);
+	STU_COURSE_NODE *cur_stu_course = stu_course;
+	
+	int coordinate_x = 35;
+	int coordinate_y = 27;
+	int width_box = 30;
+	int height_box = 2;
 
-		enterCourseID:
-			my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "Enter course ID:");
-			box(coordinate_x + 25, coordinate_y - 1, width_big_box, height_box, LIGHT_AQUA);
-			gotoXY(coordinate_x + 25 + 1, coordinate_y);
-			std::string tmp = my_getline(width_big_box - 1);
 
-			if (tmp == "-1") return;
-			else {
-				while (cur_course) {
-					if (cur_course->course.ID == tmp) {
-						check1 = 1;
-						break;
-					}
-					cur_course = cur_course->next;
-				}
-			}
-			if (check1 != 1) {
-				ShowCur(0);
-				my_print(coordinate_x + 3, coordinate_y + 3, RED * 16 + LIGHT_AQUA, "Your course ID which you entered it does not exist.");
-				my_print(coordinate_x + 17, coordinate_y + 5, LIGHT_GREEN * 16 + BLACK, "Do you want to enter again:");
-				int choice_again = enter_again_yes_no(coordinate_x + 19, coordinate_y + 7, 7, 3, 4, LIGHT_AQUA, YELLOW);
-				if (choice_again == 1) {
-					textcolor(BLACK * 16 + BLACK);
-					for (int j = 0; j < 12; j++)
-						for (int i = 0; i < 66; i++) {
-							gotoXY(coordinate_x + i, coordinate_y - 1 + j);
-							std::cout << " ";
-						}
-					textcolor(WHITE);
-					ShowCur(1);
-					goto enterCourseID;
-				}
-				else
-					return;
-			}
-		} while (check1 == 0); */
-
+	int coordinate_x_display = 30;
+	int coordinate_y_display = 26;
+	int width_box_display = 40;
+	int height_box_display = 2;
 	int check2 = 0;
 	do {
-		system("cls");
-		view_list_students_of_course(stu_course, student, course);
+	int check = 0;
+	std::string CourseID;
 
-		int coordinate_x_display = 30;
-		int coordinate_y_display = 26;
-		int width_box_display = 40;
-		int height_box_display = 2;
+	std::system("cls");
+	view_list_of_courses(course);
+	enter_courseID:
+		my_print(coordinate_x, coordinate_y, YELLOW * 16 + BLACK, "Enter Course ID which you want to open: ");
+		box(coordinate_x, coordinate_y + 1, width_box, height_box, LIGHT_AQUA);
+		gotoXY(coordinate_x + 1, coordinate_y + 2);
+		ShowCur(1);
+		CourseID = (my_getline(width_box - 1));
+		ShowCur(0);
+		if (CourseID == "-1")
+			return;
+
+		CR_NODE* cur = course;
+		while (cur) {
+			if (cur->course.ID == CourseID)
+				check = 1;
+			cur = cur->next;
+		}
+		if (check == 0) {
+			my_print(coordinate_x + 50, coordinate_y, RED * 16 + WHITE, "Your selection doesn't exist.");
+			my_print(coordinate_x + 50, coordinate_y + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter agagin:");
+			int choice = enter_again_yes_no(coordinate_x + 50 + 3, coordinate_y + 3, 7, 3, 4, LIGHT_AQUA, YELLOW);
+			if (choice == 1) {
+				textcolor(BLACK * 16 + BLACK);
+				for (int j = 0; j < 5 + 2; j++)
+					for (int i = 0; i < 70 + 9; i++) {
+						gotoXY(coordinate_x + i, coordinate_y + j);
+						std::cout << " ";
+					}
+				textcolor(WHITE);
+				goto enter_courseID;
+			}
+			else return;
+		}
+
+	system("cls");
+	display_list_students_of_course(stu_course, student, CourseID);
 
 	enter_StudentID:
 		my_print(coordinate_x_display, coordinate_y_display, YELLOW * 16 + BLACK, "Enter the ID of the student you want to add:");
@@ -277,7 +273,7 @@ void Add_Student_To_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, CR_NO
 			cur_student = cur_student->next;
 		}
 
-		while (cur_stu_course) {
+		while(cur_stu_course) {
 			if ((cur_stu_course->stu_course.StuID == StudentID) && (cur_stu_course->stu_course.CouID == cur_course->course.ID)) {
 				check2 = 1;
 				break;
@@ -327,7 +323,24 @@ void Add_Student_To_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, CR_NO
 		}
 	} while (check2 == 0);
 
-	std::system("pause");
+	textcolor(BLACK * 16 + BLACK);
+	for (int j = 0; j < 8; j++)
+		for (int i = 0; i < 80; i++) {
+			gotoXY(coordinate_x_display + i, coordinate_y_display + j);
+			std::cout << " ";
+		}
+	textcolor(WHITE);
+
+
+	textcolor(LIGHT_GREEN * 16 + BLACK);
+	for (int j = 0; j < 3; j++)
+		for (int i = 0; i < 48; i++) {
+			gotoXY(coordinate_x - 5 + i, coordinate_y + 5 + j);
+			std::cout << " ";
+		}
+	gotoXY(coordinate_x - 4, coordinate_y + 5 + 1);
+	std::cout << "Added student successfully.";
+	textcolor(WHITE);
 
 	STFF_NODE* cur_teacher = nullptr;
 	while (cur_teacher) {
@@ -358,77 +371,75 @@ void Add_Student_To_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, CR_NO
 	new_stu_course->other = 0;
 	new_stu_course->total = 0;
 	getData_A_StuCourse(*new_stu_course, stu_course);
-	/*
-		update_cur_stdn_in_course(course, stu_course);
-		reread_after_update_course(stu_course, cur_teacher, course);
-		reread_after_update_student_course(student, course, cur_teacher, stu_course); */
+/* 
+	update_cur_stdn_in_course(course, stu_course);
+	reread_after_update_course(stu_course, cur_teacher, course);
+	reread_after_update_student_course(student, course, cur_teacher, stu_course); */
+	gotoXY(coordinate_x - 4, coordinate_y + 10 + 1);
+	std::system("pause");
 	return;
 }
 
 //3
-void Remove_Student_From_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, CR_NODE* course) {
+void Remove_Student_From_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, CR_NODE *course) {
 	system("cls");
-	/* 	view_list_of_courses(course);
-		bool check1;
-		int coordinate_x = 88;
-		int coordinate_y = 7;
-		int width_big_box = 40;
-		int width_small_box = 10;
-		int height_box = 2;
-	 */
-	CR_NODE* cur_course = course;
+
+	CR_NODE *cur_course = course; 
 	STU_NODE* cur_student = student;
-	STU_COURSE_NODE* cur_stu_course = stu_course;
-	/* 	do {
-			check1 = 0;
-			ShowCur(1);
-
-		enterCourseID:
-			my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "Enter course ID:");
-			box(coordinate_x + 25, coordinate_y - 1, width_big_box, height_box, LIGHT_AQUA);
-			gotoXY(coordinate_x + 25 + 1, coordinate_y);
-			std::string tmp = my_getline(width_big_box - 1);
-
-			if (tmp == "-1") return;
-			else {
-				while (cur_course) {
-					if (cur_course->course.ID == tmp) {
-						check1 = 1;
-						break;
-					}
-					cur_course = cur_course->next;
-				}
-			}
-			if (check1 != 1) {
-				ShowCur(0);
-				my_print(coordinate_x + 3, coordinate_y + 3, RED * 16 + LIGHT_AQUA, "Your course ID which you entered it does not exist.");
-				my_print(coordinate_x + 17, coordinate_y + 5, LIGHT_GREEN * 16 + BLACK, "Do you want to enter again:");
-				int choice_again = enter_again_yes_no(coordinate_x + 19, coordinate_y + 7, 7, 3, 4, LIGHT_AQUA, YELLOW);
-				if (choice_again == 1) {
-					textcolor(BLACK * 16 + BLACK);
-					for (int j = 0; j < 12; j++)
-						for (int i = 0; i < 66; i++) {
-							gotoXY(coordinate_x + i, coordinate_y - 1 + j);
-							std::cout << " ";
-						}
-					textcolor(WHITE);
-					ShowCur(1);
-					goto enterCourseID;
-				}
-				else
-					return;
-			}
-		} while (check1 == 0); */
+	STU_COURSE_NODE *cur_stu_course = stu_course;
 
 	int check2 = 0;
-	do {
-		system("cls");
-		view_list_students_of_course(stu_course, student, course);
+	int check = 0;
+	int coordinate_x = 35;
+	int coordinate_y = 27;
+	int width_box = 30;
+	int height_box = 2;
 
-		int coordinate_x_display = 30;
-		int coordinate_y_display = 26;
-		int width_box_display = 40;
-		int height_box_display = 2;
+	int coordinate_x_display = 30;
+	int coordinate_y_display = 26;
+	int width_box_display = 40;
+	int height_box_display = 2;
+
+	do {
+	std::string CourseID;
+
+	std::system("cls");
+	view_list_of_courses(course);
+	enter_courseID:
+		my_print(coordinate_x, coordinate_y, YELLOW * 16 + BLACK, "Enter Course ID which you want to open: ");
+		box(coordinate_x, coordinate_y + 1, width_box, height_box, LIGHT_AQUA);
+		gotoXY(coordinate_x + 1, coordinate_y + 2);
+		ShowCur(1);
+		CourseID = (my_getline(width_box - 1));
+		ShowCur(0);
+		if (CourseID == "-1")
+			return;
+
+		CR_NODE* cur = course;
+		while (cur) {
+			if (cur->course.ID == CourseID)
+				check = 1;
+			cur = cur->next;
+		}
+		if (check == 0) {
+			my_print(coordinate_x + 50, coordinate_y, RED * 16 + WHITE, "Your selection doesn't exist.");
+			my_print(coordinate_x + 50, coordinate_y + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter agagin:");
+			int choice = enter_again_yes_no(coordinate_x + 50 + 3, coordinate_y + 3, 7, 3, 4, LIGHT_AQUA, YELLOW);
+			if (choice == 1) {
+				textcolor(BLACK * 16 + BLACK);
+				for (int j = 0; j < 5 + 2; j++)
+					for (int i = 0; i < 70 + 9; i++) {
+						gotoXY(coordinate_x + i, coordinate_y + j);
+						std::cout << " ";
+					}
+				textcolor(WHITE);
+				goto enter_courseID;
+			}
+			else return;
+		}
+
+	system("cls");
+	display_list_students_of_course(stu_course, student, CourseID);
 
 	enter_StudentID:
 		my_print(coordinate_x_display, coordinate_y_display, YELLOW * 16 + BLACK, "Enter the ID of the student you want to remove:");
@@ -450,7 +461,7 @@ void Remove_Student_From_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, 
 			cur_student = cur_student->next;
 		}
 
-		while (cur_stu_course) {
+		while(cur_stu_course) {
 			if ((cur_stu_course->stu_course.StuID == StudentID) && (cur_stu_course->stu_course.CouID == cur_course->course.ID)) {
 				check2 = 2;
 				break;
@@ -501,7 +512,24 @@ void Remove_Student_From_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, 
 		}
 	} while (check2 == 0);
 
-	std::system("pause");
+	textcolor(BLACK * 16 + BLACK);
+	for (int j = 0; j < 8; j++)
+		for (int i = 0; i < 80; i++) {
+			gotoXY(coordinate_x_display + i, coordinate_y_display + j);
+			std::cout << " ";
+		}
+	textcolor(WHITE);
+
+
+	textcolor(LIGHT_GREEN * 16 + BLACK);
+	for (int j = 0; j < 3; j++)
+		for (int i = 0; i < 48; i++) {
+			gotoXY(coordinate_x - 5 + i, coordinate_y + 5 + j);
+			std::cout << " ";
+		}
+	gotoXY(coordinate_x - 4, coordinate_y + 5 + 1);
+	std::cout << "Removed student successfully.";
+	textcolor(WHITE);
 
 	STFF_NODE* cur_teacher = nullptr;
 	while (cur_teacher) {
@@ -510,23 +538,25 @@ void Remove_Student_From_Course(STU_COURSE_NODE* stu_course, STU_NODE* student, 
 		cur_teacher = cur_teacher->next;
 	}
 
-	while (cur_stu_course) {
+ 	while (cur_stu_course) {
 		if ((cur_stu_course->stu_course.StuID == cur_student->student.StudentID) && (cur_stu_course->stu_course.CouID == cur_course->course.ID))
-			if (!cur_stu_course->prev) {
+			if(!cur_stu_course->prev) {
 				cur_stu_course = cur_stu_course->next;
 			}
 			else {
 				if (cur_stu_course->next) cur_stu_course->next->prev = cur_stu_course->prev;
-				if (cur_stu_course->prev) cur_stu_course->prev->next = cur_stu_course->next;
+				if (cur_stu_course->prev) cur_stu_course->prev->next = cur_stu_course->next;	
 				delete cur_stu_course;
 			}
-		break;
+			break;
 		cur_stu_course = cur_stu_course->next;
-	}
+	} 
 
-	/* 	update_cur_stdn_in_course(course, stu_course);
-		reread_after_update_course(stu_course, cur_teacher, course);
-		reread_after_update_student_course(student, course, cur_teacher, stu_course); */
+/* 	update_cur_stdn_in_course(course, stu_course);
+	reread_after_update_course(stu_course, cur_teacher, course);
+	reread_after_update_student_course(student, course, cur_teacher, stu_course); */
+	gotoXY(coordinate_x - 4, coordinate_y + 10 + 1);
+	std::system("pause");
 	return;
 }
 
