@@ -25,6 +25,10 @@ void Create_newStaff(STFF_NODE* staff);
 //2
 void add_new_first_year_student(STU_NODE*& student, CLASS_NODE* listclass);
 
+void Add_Student_To_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, CR_NODE *course);
+
+void Remove_Student_From_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, CR_NODE *course);
+
 void set_time_course_regis();
 
 void create_new_course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
