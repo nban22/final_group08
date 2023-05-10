@@ -253,11 +253,12 @@ int main()
 					if (choose == 1) { 
 						create_new_course(stu_course, teacher, course);
 					}
-					else if (choose == 2) { 
-						//"2.Add a student to the course.",
+					else if (choose == 2) {
+						Add_Student_To_Course(stu_course, student, course);
 					}
 					else if (choose == 3) {
-						//"3.Remove a student from the course.",
+						Remove_Student_From_Course(stu_course, student, course);
+
 					}
 					else if (choose == 4) { 
 						delete_course(stu_course, teacher, course);
@@ -296,7 +297,6 @@ int main()
 						"4.List of students in a course.",
 						"5.View a scoreboard in a course.",
 						"6.View a scoreboard in class.",
-						"7.Export csv file about a scoreboard of students in course to enter score.",
 						"0.Come back." };
 					int x_boxOption4 = x_boxStaff + width_boxStaff + 2;
 					int y_boxOption4 = y_boxStaff;
@@ -324,10 +324,7 @@ int main()
 					else if (choose == 6) { //View a scoreboard in class
 						view_scoreboard_in_class(stu_course, student, listclass);
 					}
-					else if (choose == 7) { //Export csv file about a scoreboard of students in course to enter score
-						export_scoreboard(stu_course, course, student);
-					}
-					else if (choose == 0 + 8) {
+					else if (choose == 0 + 7) {
 						break;
 					}
 				}

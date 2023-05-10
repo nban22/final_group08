@@ -12,6 +12,7 @@
     <ClCompile Include="staff_4_5.cpp" />
     <ClCompile Include="deleteDLL.cpp" />
     <ClCompile Include="student.cpp" />
+    <ClCompile Include="staff_4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="staff.h" />

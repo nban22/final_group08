@@ -135,6 +135,7 @@
     <ClCompile Include="staff_1.cpp" />
     <ClCompile Include="staff_2.cpp" />
     <ClCompile Include="staff_3.cpp" />
+    <ClCompile Include="staff_4.cpp" />
     <ClCompile Include="staff_4_5.cpp" />
     <ClCompile Include="student.cpp" />
     <ClCompile Include="tachfilecsv.cpp" />
