@@ -1612,20 +1612,20 @@ void Add_Student_To_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, CR_NO
 		if (StudentID == "-1")
 			return;
 
-		while(cur_stu_course) {
-			if (cur_stu_course->stu_course.StuID == StudentID) {
-				check2 = 1;
-				break;
-			}
-			cur_stu_course = cur_stu_course->next;
-		}
-
 		while (cur_student) {
-			if ((cur_student->student.StudentID == StudentID) && (cur_stu_course->stu_course.CouID != cur_course->course.ID)) {
+			if ((cur_student->student.StudentID == StudentID)) {
 				check2 = 2;
 				break;
 			}
 			cur_student = cur_student->next;
+		}
+
+		while(cur_stu_course) {
+			if ((cur_stu_course->stu_course.StuID == StudentID) && (cur_stu_course->stu_course.CouID == cur_course->course.ID)) {
+				check2 = 1;
+				break;
+			}
+			cur_stu_course = cur_stu_course->next;
 		}
 
 		if (check2 == 0) {
@@ -1650,7 +1650,7 @@ void Add_Student_To_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, CR_NO
 		}
 		else if (check2 == 1) {
 			ShowCur(0);
-			my_print(coordinate_x_display + 53, coordinate_y_display, RED * 16 + LIGHT_AQUA, "Student is already in course.");
+			my_print(coordinate_x_display + 53, coordinate_y_display, RED * 16 + LIGHT_AQUA, "Student is in the course.");
 
 			my_print(coordinate_x_display + 53, coordinate_y_display + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter again:");
 			int choice = enter_again_yes_no(coordinate_x_display + 53, coordinate_y_display + 4, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
@@ -1701,10 +1701,11 @@ void Add_Student_To_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, CR_NO
 	new_stu_course->other = 0;
 	new_stu_course->total = 0;
 	getData_A_StuCourse(*new_stu_course, stu_course);
-
+/* 
 	update_cur_stdn_in_course(course, stu_course);
 	reread_after_update_course(stu_course, cur_teacher, course);
-	reread_after_update_student_course(student, course, cur_teacher, stu_course);
+	reread_after_update_student_course(student, course, cur_teacher, stu_course); */
+	return;
 }
 
 void Remove_Student_From_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, CR_NODE *course) {
@@ -1760,7 +1761,7 @@ void Remove_Student_From_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, 
 				return;
 		}
 	} while (check1 == 0); */
-	
+
 	int check2 = 0;
 	do {
 	system("cls");
@@ -1783,20 +1784,21 @@ void Remove_Student_From_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, 
 		if (StudentID == "-1")
 			return;
 
-		while(cur_stu_course) {
-			if (cur_stu_course->stu_course.StuID == StudentID) {
-				check2 = 1;
-				break;
-			}
-			cur_stu_course = cur_stu_course->next;
-		}
-
 		while (cur_student) {
-			if ((cur_student->student.StudentID == StudentID) && (cur_stu_course->stu_course.CouID == cur_course->course.ID)) {
+			if (cur_student->student.StudentID == StudentID) {
 				check2 = 2;
 				break;
 			}
 			cur_student = cur_student->next;
+		}
+
+		while(cur_stu_course) {
+			if ((cur_stu_course->stu_course.StuID == StudentID) && (cur_stu_course->stu_course.CouID == cur_course->course.ID)) {
+				check2 = 2;
+				break;
+			}
+			else check2 = 1;
+			cur_stu_course = cur_stu_course->next;
 		}
 
 		if (check2 == 0) {
@@ -1821,7 +1823,7 @@ void Remove_Student_From_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, 
 		}
 		else if (check2 == 1) {
 			ShowCur(0);
-			my_print(coordinate_x_display + 53, coordinate_y_display, RED * 16 + LIGHT_AQUA, "Student isn't in the course already.");
+			my_print(coordinate_x_display + 53, coordinate_y_display, RED * 16 + LIGHT_AQUA, "No student in the course.");
 
 			my_print(coordinate_x_display + 53, coordinate_y_display + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter again:");
 			int choice = enter_again_yes_no(coordinate_x_display + 53, coordinate_y_display + 4, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
@@ -1850,17 +1852,22 @@ void Remove_Student_From_Course(STU_COURSE_NODE *stu_course, STU_NODE *student, 
 		cur_teacher = cur_teacher->next;
 	}
 
-	cur_student->prev = cur_student->next;
-	cur_student->next->prev = cur_student->prev;
-
-	while (cur_stu_course) {
+ 	while (cur_stu_course) {
 		if ((cur_stu_course->stu_course.StuID == cur_student->student.StudentID) && (cur_stu_course->stu_course.CouID == cur_course->course.ID))
+			if(!cur_stu_course->prev) {
+				cur_stu_course = cur_stu_course->next;
+			}
+			else {
+				if (cur_stu_course->next) cur_stu_course->next->prev = cur_stu_course->prev;
+				if (cur_stu_course->prev) cur_stu_course->prev->next = cur_stu_course->next;	
+				delete cur_stu_course;
+			}
 			break;
 		cur_stu_course = cur_stu_course->next;
-	}
-	delete cur_stu_course;
+	} 
 
-	update_cur_stdn_in_course(course, stu_course);
+/* 	update_cur_stdn_in_course(course, stu_course);
 	reread_after_update_course(stu_course, cur_teacher, course);
-	reread_after_update_student_course(student, course, cur_teacher, stu_course);
+	reread_after_update_student_course(student, course, cur_teacher, stu_course); */
+	return;
 }
