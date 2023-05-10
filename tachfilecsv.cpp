@@ -1,4 +1,3 @@
-#include "header.h"
 #include "baseStructure.h"
 #include "getDataAndSynch.h"
 #include "myGraphicsLib.h"

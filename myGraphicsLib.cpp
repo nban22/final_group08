@@ -377,7 +377,7 @@ std::string my_getline_addSpace(int max) {
 	while (1) {
 		if (_kbhit()) {
 			ch = _getch();
-			if ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'Z') || ch == '@' || ch == '.' || ch == ' ') {
+			if ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'Z') || ch == '@' || ch == '.' || ch == '-' || ch == ' ' || ch == '_') {
 				if (str.length() != max) {
 					str += ch;
 					std::cout << char(ch);

@@ -430,6 +430,91 @@ void set_time_course_regis() {
 	fileSchoolYear.close();
 }
 //3
+void import_students_from_file(STU_NODE* student, CLASS_NODE* listclass) {
+	int coordinate_x = 100;
+	int coordinate_y = 7;
+	int width_box = 40;
+	int height_box = 2;
+
+	textcolor(LIGHT_YELLOW * 16 + BLACK);
+	for (int j = 0; j < 3; j++)
+		for (int i = 0; i < width_box; i++) {
+			gotoXY(coordinate_x + i, coordinate_y - 5 + j);
+			std::cout << " ";
+		}
+	gotoXY(coordinate_x + 10, coordinate_y - 5 + 1);
+	std::cout << "CSV STUDENTS IMPORT";
+	textcolor(WHITE);
+
+	std::string fileName, classID, className, curYear, curSemester;
+	get_curYear_and_curSemester(coordinate_x, coordinate_y, curYear, curSemester);
+
+	if (curSemester != "1") {
+		my_print(coordinate_x, coordinate_y + height_box + 2, LIGHT_RED * 16 + BLACK, "Please create new school year before!");
+		char c;
+		c = _getch();
+		return;
+	}
+
+	my_print(coordinate_x, coordinate_y, YELLOW * 16 + BLACK, "School year:");
+	box(coordinate_x, coordinate_y + 1, width_box, height_box, LIGHT_AQUA);
+
+	my_print(coordinate_x, coordinate_y + 5, YELLOW * 16 + BLACK, "Enter file name (link to file):");
+	box(coordinate_x, coordinate_y + 5 + 1, width_box, height_box, LIGHT_AQUA);
+
+	my_print(coordinate_x, coordinate_y + 10, YELLOW * 16 + BLACK, "Enter class ID:");
+	box(coordinate_x, coordinate_y + 10 + 1, width_box, height_box, LIGHT_AQUA);
+
+	my_print(coordinate_x, coordinate_y + 15, YELLOW * 16 + BLACK, "Enter class name:");
+	box(coordinate_x, coordinate_y + 15 + 1, width_box, height_box, LIGHT_AQUA);
+
+	my_print(coordinate_x + 1 + 15, coordinate_y + 2, LIGHT_RED, curYear + "-" + std::to_string(stoi(curYear) + 1));
+
+	ShowCur(1);
+
+	gotoXY(coordinate_x + 1, coordinate_y + 5 + 1 + 1);
+	fileName = my_getline_addSpace(width_box - 1);
+	if (fileName == "-1")
+		return;
+	
+	gotoXY(coordinate_x + 1, coordinate_y + 10 + 1 + 1);
+	classID = my_getline_addSpace(width_box - 1);
+	if (classID == "-1")
+		return;
+
+	gotoXY(coordinate_x + 1, coordinate_y + 15 + 1 + 1);
+	className = my_getline_addSpace(width_box - 1);
+	if (className == "-1")
+		return;
+
+	int check = get_data_to_import_list_students_to_class(fileName, student, listclass, classID, className, curYear);
+
+
+	if (check == 0) {
+		ShowCur(0);
+		my_print(coordinate_x, coordinate_y + 21, RED * 16 + BLACK, "The file could not be found at the specified path.");
+		my_print(coordinate_x, coordinate_y + 23, GREEN * 16 + BLACK, "Please check the file path and try again.");
+		char ans = _getch();
+		return;
+	}
+	else {
+		textcolor(LIGHT_GREEN * 16 + BLACK);
+		for (int j = 0; j < 3; j++)
+			for (int i = 0; i < width_box; i++) {
+				gotoXY(coordinate_x + i, coordinate_y + 21 + j);
+				std::cout << " ";
+			}
+		gotoXY(coordinate_x + 10, coordinate_y + 21 + 1);
+		std::cout << "Import successfully.";
+		textcolor(WHITE);
+
+		char ans = _getch();
+		return;
+	}
+}
+
+
+
 void create_new_course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head) {
 	CR_NODE* NewCourse = new CR_NODE;
 	CR_NODE* cur = head;

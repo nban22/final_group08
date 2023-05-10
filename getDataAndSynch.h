@@ -31,5 +31,6 @@ bool reread_after_update_student_course(STU_NODE* student, CR_NODE* course, STFF
 void update_cur_stdn_in_course(CR_NODE*& course, STU_COURSE_NODE* head);
 void update_list_of_classes(CLASS_NODE*& listclass, STU_NODE* student);
 
-#endif // !GET_DATA_AND_SYNCH_H_
+bool get_data_to_import_list_students_to_class(std::string fileName, STU_NODE*& student, CLASS_NODE* listclass, std::string classID, std::string className, std::string schoolYear);
 
+#endif // !GET_DATA_AND_SYNCH_H_

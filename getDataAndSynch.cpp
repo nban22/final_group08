@@ -505,3 +505,71 @@ void update_list_of_classes(CLASS_NODE*& listclass, STU_NODE* student) {
 		cur1_student = cur1_student->next;
 	}
 }
+
+bool get_data_to_import_list_students_to_class(std::string fileName, STU_NODE*& student, CLASS_NODE* listclass, std::string classID, std::string className, std::string schoolYear)
+{
+	std::ifstream input;
+
+	input.open(fileName);
+	
+	if (!input.is_open()) {
+		return false;
+	}
+	else {
+		STU_NODE* cur = student;
+		if (cur == nullptr)
+			return 0;
+		while (cur->next != nullptr) {
+			cur = cur->next;
+		}
+		int no = cur->student.No_Student;
+
+		//No, Student ID, Last Name, First Name, Gender, Date Of Birth, Social ID
+		std::string tmp;
+		std::getline(input, tmp);
+
+		STUDENT stu_tmp;
+
+		while (!input.eof()) {
+			std::getline(input, tmp, ',');
+			stu_tmp.No_Student = ++no;
+
+			std::getline(input, tmp, ',');
+			stu_tmp.StudentID = tmp;
+
+			std::getline(input, tmp, ',');
+			stu_tmp.LName = tmp;
+
+			std::getline(input, tmp, ',');
+			stu_tmp.FName = tmp;
+
+			std::getline(input, tmp, ',');
+			stu_tmp.Gender = tmp;
+
+			std::getline(input, tmp, '/');
+			stu_tmp.DoB.month = stoi(tmp);
+			std::getline(input, tmp, '/');
+			stu_tmp.DoB.day = stoi(tmp);
+			std::getline(input, tmp, ',');
+			stu_tmp.DoB.year = stoi(tmp);
+
+			std::getline(input, tmp);
+			stu_tmp.SocialID = tmp;
+
+			stu_tmp.Classes.ClassID = classID;
+			stu_tmp.Classes.name = className;
+			stu_tmp.Classes.schoolYear = stoi(schoolYear);
+			stu_tmp.Password = "678910";
+
+			cur->next = new STU_NODE;
+			cur->next->student = stu_tmp;
+			cur->next->prev = cur;
+			cur = cur->next;
+			cur->next = nullptr;
+		}
+		input.close();
+		update_list_of_classes(listclass, student);
+		reread_after_update_student(student);
+		return true;
+	}
+}

@@ -27,6 +27,8 @@ void add_new_first_year_student(STU_NODE*& student, CLASS_NODE* listclass);
 
 void set_time_course_regis();
 
+void import_students_from_file(STU_NODE* student, CLASS_NODE* listclass);
+
 void create_new_course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);
 
 void delete_course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE*& head);

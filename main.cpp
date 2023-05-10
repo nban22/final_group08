@@ -1,4 +1,4 @@
-﻿#include "header.h"
+﻿
 #include "baseStructure.h"
 #include "getDataAndSynch.h"
 #include "myGraphicsLib.h"
@@ -195,12 +195,12 @@ int main()
 					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
 					std::string option_2[] = { "1.Add new 1st year students to 1st year classes.",
 						"2.Create a course registration session.",
-						"3.Export file for editing list of students per class.",
+						"3.Import CSV for Batch Student Addition.",
 						"4.Change information of a teacher.",
 						"0.Come back." };
 					int x_boxOption2 = x_boxStaff + width_boxStaff + 2;
 					int y_boxOption2 = y_boxStaff;
-					int width_boxOption2 = 54;
+					int width_boxOption2 = 50;
 					int height_boxOption2 = 3;
 					int amount_option2 = sizeof(option_2) / sizeof(option_2[0]);
 					int choose;
@@ -213,19 +213,7 @@ int main()
 						set_time_course_regis();
 					}
 					else if (choose == 3) { 
-						//AddStudent_csv(listclass);
-
-						//int check;
-						//std::system("cls");
-						//std::cout << "\n\t\t\t ********************************************" << std::endl;
-						//std::cout << "\t\t\t\t      ";
-						//std::cout << "Enter the scoreboard of a course." << std::endl;
-						//EnterCourseScore(stu_course, course, loggedinStaff, check);
-						//if (check != 0) {
-						//	reread_after_update_student_course(student, course, teacher, stu_course);
-						//	//count = 7;
-						//}
-						//std::system("pause");
+						import_students_from_file(student, listclass);
 					}
 					else if (choose == 4) {
 						update_information_of_teacher(teacher);
@@ -266,10 +254,10 @@ int main()
 						create_new_course(stu_course, teacher, course);
 					}
 					else if (choose == 2) { 
-						
+						//"2.Add a student to the course.",
 					}
 					else if (choose == 3) {
-
+						//"3.Remove a student from the course.",
 					}
 					else if (choose == 4) { 
 						delete_course(stu_course, teacher, course);
@@ -278,10 +266,10 @@ int main()
 						update_course_information(stu_course, teacher, course);
 					}
 					else if (choose == 6) { 
-
+						//"6.Upload CSV file with enrolled students' list.",
 					}
 					else if (choose == 7) { 
-
+						//"7.Export course students to CSV.",
 					}
 					else if (choose == 8) {
 						update_mark_information(student, stu_course, teacher, course);
