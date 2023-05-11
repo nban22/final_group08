@@ -85,18 +85,15 @@ STU_NODE* check_exist_classID_in_DLL(STU_NODE* listclass, std::string classID) {
 }
 
 
-CR_NODE* check_exist_of_course_record(CR_NODE*& head, std::string ID) {
-	CR_NODE* current = head;
-	CR_NODE* FoundNode = nullptr;
-	while (current) {
-		if (ID == current->course.ID) {
-			return FoundNode = current;
+CR_NODE* check_exist_of_course_record(CR_NODE*& course, std::string courseID) {
+	CR_NODE* cur_course = course;
+	while (cur_course) {
+		if (courseID == cur_course->course.ID) {
+			return cur_course;
 		}
-		else {
-			current = current->next;
-		}
+		cur_course = cur_course->next;
 	}
-	return FoundNode;
+	return nullptr;
 }
 STU_COURSE_NODE* check_exist_of_student_course_record(STU_COURSE_NODE*& stu_course, std::string courseID) {
 	STU_COURSE_NODE* cur_stu_course = stu_course;
@@ -247,6 +244,29 @@ void print_infor_staff(STAFF staff, int coordinate_x, int coordinate_y) {
 	textcolor(WHITE);
 }
 
+void print_infor_student(STUDENT student, int coordinate_x, int coordinate_y)
+{
+	int width = 43;
+	int height = 3;
+	std::string curYear, curSemester;
+	int backgroundColor = LIGHT_YELLOW;
+	int textColor = BLACK;
+
+	textcolor(backgroundColor * 16 + textColor);
+	for (int i = 0; i < height; i++)
+		for (int j = 0; j < width; j++) {
+			gotoXY(coordinate_x + j, coordinate_y + i);
+			std::cout << " ";
+		}
+	get_curYear_and_curSemester(coordinate_x, coordinate_y, curYear, curSemester);
+	//box(coordinate_x, coordinate_y, width, height, YELLOW);
+	my_print(coordinate_x + 3, coordinate_y, backgroundColor * 16 + textColor, "School Year: " + curYear + "-" + std::to_string(stoi(curYear) + 1));
+	my_print(coordinate_x + 3 + 27, coordinate_y, backgroundColor * 16 + textColor, "Semester: " + curSemester);
+	my_print(coordinate_x + 3, coordinate_y + 1, backgroundColor * 16 + textColor, "ID: " + student.StudentID);
+	my_print(coordinate_x + 3, coordinate_y + 2, backgroundColor * 16 + textColor, "Name: " + student.LName + " " + student.FName);
+	textcolor(WHITE);
+}
+
 void user_guide(int coordinate_x, int coordinate_y) {
 	int width = 23;
 	int height = 3;
@@ -259,14 +279,14 @@ void user_guide(int coordinate_x, int coordinate_y) {
 			gotoXY(coordinate_x + j, coordinate_y + i);
 			std::cout << " ";
 		}
-	
-	gotoXY(coordinate_x + 1, coordinate_y  );
+
+	gotoXY(coordinate_x + 1, coordinate_y);
 	std::cout << "Choose selection: " << char(31) << " " << char(30);
 	gotoXY(coordinate_x + 1, coordinate_y + 1);
 	std::cout << "Next page: " << char(17) << " " << char(16);
 	gotoXY(coordinate_x + 1, coordinate_y + 2);
 	std::cout << "Comback: esc";
 
-	
+
 	textcolor(WHITE);
-} 
+}

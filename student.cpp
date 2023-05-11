@@ -174,6 +174,7 @@ update_Yourinfor:
 	int amount = sizeof(option) / sizeof(option[0]);
 	int choice;
 
+	user_guide(5, 4 + 26);
 	choice = menu(coordinate_x_option, coordinate_y_option, width_box_option, height_box_option, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 	int coordinate_x = 75;
@@ -306,7 +307,7 @@ void register_for_course(STU_NODE*& student, STFF_NODE*& teacher, CR_NODE*& cour
 
 	std::ifstream fileCrsRegis("timeCrsRegis" + cur_year + "_" + std::to_string(stoi(cur_year) + 1) + "_" + cur_semester + ".txt");
 	if (!fileCrsRegis.is_open()) {
-		my_print(80, 15, RED * 16 + LIGHT_AQUA, "Can not open file timeCrsRegis" + cur_year + "_" + std::to_string(stoi(cur_year) + 1) + "_" + cur_semester + ".txt");
+		my_print(60, 15, RED * 16 + LIGHT_AQUA, "Registration is currently closed. Please check back later when registration is open.");
 		char ans = _getch();
 		return;
 	}
@@ -743,12 +744,14 @@ void delete_registered_course(STU_COURSE_NODE*& stu_course, STU_NODE* loggedinSt
 	std::string cur_year;
 	std::string cur_semester;
 	get_curYear_and_curSemester(65, 14, cur_year, cur_semester);
-
+	
 	std::ifstream fileCrsRegis("timeCrsRegis" + cur_year + "_" + std::to_string(stoi(cur_year) + 1) + "_" + cur_semester + ".txt");
+	
 	if (!fileCrsRegis.is_open()) {
-		my_print(65, 14, RED * 16 + LIGHT_AQUA, "Can not open file timeCrsRegis" + cur_year + "_" + std::to_string(stoi(cur_year) + 1) + "_" + cur_semester + ".txt");
+		my_print(65, 14, RED * 16 + LIGHT_AQUA, "Registration is currently closed.Please check back later when registration is open.");
 		char ans = _getch();
 		return;
+		
 	}
 	else {
 		Time start_time, end_time;

@@ -92,11 +92,11 @@ int main()
 			gotoXY(tmp_width - 1, 13);
 			//pass = my_getline(box_width - 1);
 
-			 user = "33383147";
-			pass = "123456"; 
+			/*user = "33383147";
+			pass = "123456";*/
 
-			/* user = "22240001";
-			pass = "678910";  */
+			 user = "22240001";
+			pass = "678910";  
 
 			check_T = check_exist_of_staff_account(staff, user, pass, loggedinStaff);
 			check_S = check_exist_of_student_account(student, user, pass, loggedinStudent);
@@ -140,7 +140,7 @@ int main()
 			int choose_staff;
 
 			user_guide(x_boxStaff, y_boxStaff + 26);
-			print_infor_staff(loggedinStaff->staff, x_boxStaff, y_boxStaff-3);
+			print_infor_staff(loggedinStaff->staff, x_boxStaff, y_boxStaff - 3);
 
 			choose_staff = menu(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
@@ -212,13 +212,13 @@ int main()
 					else if (choose == 2) { //Registration
 						set_time_course_regis();
 					}
-					else if (choose == 3) { 
+					else if (choose == 3) {
 						import_students_from_file(student, listclass);
 					}
 					else if (choose == 4) {
 						update_information_of_teacher(teacher);
 					}
-					else if (choose == 0 +5) { //COME BACK
+					else if (choose == 0 + 5) { //COME BACK
 						break;
 					}
 				}
@@ -231,16 +231,14 @@ int main()
 					print_infor_staff(loggedinStaff->staff, x_boxStaff, y_boxStaff - 3);
 					menu_Staff(x_boxStaff, y_boxStaff, width_boxStaff, height_boxStaff, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN, choose_staff);
 
-					std::string option_3[] = { 
+					std::string option_3[] = {
 						"1.Add a new course.",
 						"2.Add a student to the course.",
 						"3.Remove a student from the course.",
 						"4.Delete a course.",
 						"5.Update course information.",
 						"6.Upload CSV file with enrolled students' list.",
-						"7.Export course students to CSV.",
-						"8.Update a student's result.",
-						"9.Export course scoreboard to enter scores.",
+						"7.Update a student's result.",
 						"0.Come back." };
 					int x_boxOption3 = x_boxStaff + width_boxStaff + 2;
 					int y_boxOption3 = y_boxStaff;
@@ -250,35 +248,28 @@ int main()
 					int choose;
 					choose = menu(x_boxOption3, y_boxOption3, width_boxOption3, height_boxOption3, amount_option3, option_3, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
-					if (choose == 1) { 
+					if (choose == 1) {
 						create_new_course(stu_course, teacher, course);
 					}
 					else if (choose == 2) {
-						Add_Student_To_Course(stu_course, student,teacher, course);
+						Add_Student_To_Course(stu_course, student, teacher, course);
 					}
 					else if (choose == 3) {
 						Remove_Student_From_Course(stu_course, student, teacher, course);
 					}
-					else if (choose == 4) { 
+					else if (choose == 4) {
 						delete_course(stu_course, teacher, course);
 					}
-					else if (choose == 5) { 
+					else if (choose == 5) {
 						update_course_information(stu_course, teacher, course);
 					}
-					else if (choose == 6) { 
-						//"6.Upload CSV file with enrolled students' list.",
+					else if (choose == 6) {
 						upload_CSV_of_enrolled_students(stu_course, course, student, teacher);
 					}
-					else if (choose == 7) { 
-						//"7.Export course students to CSV.",
-					}
-					else if (choose == 8) {
+					else if (choose == 7) {
 						update_mark_information(student, stu_course, teacher, course);
 					}
-					else if (choose == 9) { 
-						export_scoreboard(stu_course, course, student);
-					}
-					else if (choose == 0 + 10) {
+					else if (choose == 0 + 8) {
 						break;
 					}
 				}
@@ -297,6 +288,8 @@ int main()
 						"4.List of students in a course.",
 						"5.View a scoreboard in a course.",
 						"6.View a scoreboard in class.",
+						"7.Export course students to CSV.",
+						"8.Export course scoreboard to enter scores.",
 						"0.Come back." };
 					int x_boxOption4 = x_boxStaff + width_boxStaff + 2;
 					int y_boxOption4 = y_boxStaff;
@@ -324,7 +317,13 @@ int main()
 					else if (choose == 6) { //View a scoreboard in class
 						view_scoreboard_in_class(stu_course, student, listclass);
 					}
-					else if (choose == 0 + 7) {
+					else if (choose == 7) {
+						export_course_students_to_csv(stu_course, course, student);
+					}
+					else if (choose == 8) {
+						export_scoreboard(stu_course, course, student);
+					}
+					else if (choose == 0 + 9) {
 						break;
 					}
 				}
@@ -334,7 +333,7 @@ int main()
 			}
 			else if (choose_staff == 6) {
 				update_your_information(loggedinStaff, teacher, staff);
-					}
+			}
 			else if (choose_staff == 0 + 7) { // ++++++++++++++++++++++++++LOG OUT++++++++++++++++++++++++++
 				break;
 			}
@@ -358,11 +357,14 @@ int main()
 						"-1. Exit." };
 
 			int x_boxStudent = 5;
-			int y_boxStudent = 2;
+			int y_boxStudent = 4;
 			int width_boxStudent = 42;
 			int height_boxStudent = 3;
 			int amount = sizeof(option) / sizeof(option[0]);
 			int choose;
+			
+			user_guide(x_boxStudent, y_boxStudent + 26);
+			print_infor_student(loggedinStudent->student, x_boxStudent, y_boxStudent - 3);
 			choose = menu(x_boxStudent, y_boxStudent, width_boxStudent, height_boxStudent, amount, option, WHITE, LIGHT_YELLOW, LIGHT_GREEN);
 
 			if (choose == 1) {

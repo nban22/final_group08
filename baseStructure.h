@@ -167,7 +167,7 @@ STFF_NODE* getInformationByTeacherID(std::string TeacherID, STFF_NODE* teacher);
 CLASS_NODE* check_exist_class_node_in_DLL(CLASS_NODE* listclass, std::string classID);
 STU_NODE* check_exist_classID_in_DLL(STU_NODE* listclass, std::string classID);
 
-CR_NODE* check_exist_of_course_record(CR_NODE*& head, std::string ID);
+CR_NODE* check_exist_of_course_record(CR_NODE*& course, std::string courseID);
 STU_COURSE_NODE* check_exist_of_student_course_record(STU_COURSE_NODE*& stu_course, std::string courseID);
 
 void get_curYear_and_curSemester(int coordinate_x, int coordinate_y, std::string& cur_year, std::string& cur_semester);
@@ -178,6 +178,7 @@ int check_exist_of_staff_account(STFF_NODE*& head, std::string user, std::string
 bool check_time(Time start_time, Date start_date, Time end_time, Date end_date);
 
 void print_infor_staff(STAFF staff, int coordinate_x, int coordinate_y);
+void print_infor_student(STUDENT student, int coordinate_x, int coordinate_y);
 void user_guide(int coordinate_x, int coordinate_y);
 
 #endif // !BASE_STRUCTURE_H_
