@@ -254,11 +254,10 @@ int main()
 						create_new_course(stu_course, teacher, course);
 					}
 					else if (choose == 2) {
-						Add_Student_To_Course(stu_course, student, course);
+						Add_Student_To_Course(stu_course, student,teacher, course);
 					}
 					else if (choose == 3) {
-						Remove_Student_From_Course(stu_course, student, course);
-
+						Remove_Student_From_Course(stu_course, student, teacher, course);
 					}
 					else if (choose == 4) { 
 						delete_course(stu_course, teacher, course);

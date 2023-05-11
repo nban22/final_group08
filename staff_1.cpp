@@ -29,6 +29,10 @@ bool is_valid_date(const Date& date) {
 	return true;
 }
 bool check_valid_date(SEMESTER* smter) {
+	if (!is_valid_date(smter->startDate) || !is_valid_date(smter->endDate)) {
+		return false;
+	}
+
 	if (smter->startDate.year > smter->endDate.year) {
 		return false;
 	}
