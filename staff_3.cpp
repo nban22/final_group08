@@ -846,6 +846,143 @@ Here_enter_y:
 
 //6
 
+bool Update_from_enrolled_students_file(STU_COURSE_NODE*& stu_course, std::string courseID, std::string fileName, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher) {
+	std::ifstream in;
+	STU_COURSE_NODE* cur_stu_course = stu_course;
+	CR_NODE* cur_course = course;
+	STU_NODE* cur_student = student;
+
+	while (cur_course->course.ID != courseID)
+		cur_course = cur_course->next;
+
+	while (cur_stu_course->next)
+		cur_stu_course = cur_stu_course->next;
+
+	int i = cur_stu_course->stu_course.No + 1;
+
+	in.open(fileName);
+
+	if (!in.is_open()) {
+		if (in.is_open())
+			in.close();
+		return false;
+	}
+
+	std::string tmp;
+	std::getline(in, tmp);
+
+	while (!in.eof()) {
+		STU_COURSE_NODE* new_stu_course = new STU_COURSE_NODE;
+		new_stu_course->stu_course.final = new_stu_course->stu_course.midterm = new_stu_course->stu_course.other = new_stu_course->stu_course.total = 0;
+
+		std::getline(in, tmp, ',');
+		std::getline(in, tmp, ',');
+		new_stu_course->stu_course.Schoolyear = cur_course->course.Schoolyear;
+		new_stu_course->stu_course.Semester = cur_course->course.Semester;
+
+		while (cur_student->student.StudentID != tmp)
+			cur_student = cur_student->next;
+
+		new_stu_course->stu_course.StudentName = cur_student->student.LName + " " + cur_student->student.FName;
+		new_stu_course->stu_course.StuID = cur_student->student.StudentID;
+		new_stu_course->stu_course.No = i;
+
+		new_stu_course->stu_course.Gen = cur_student->student.Gender;
+
+		new_stu_course->stu_course.Class = cur_student->student.Classes.ClassID;
+
+		new_stu_course->stu_course.CouID = cur_course->course.ID;
+		new_stu_course->stu_course.Cname = cur_course->course.CName;
+		new_stu_course->stu_course.credits = cur_course->course.Credits;
+		new_stu_course->stu_course.Max_stdn = cur_course->course.Max_stdn;
+		new_stu_course->stu_course.Teachername = cur_course->course.LNameTeacher + cur_course->course.FNameTeacher;
+
+		new_stu_course->stu_course.TeacherID = cur_course->course.teacherID;
+		new_stu_course->stu_course.weekday = ConvertStringWD(cur_course->course.dayOfWeek);
+		new_stu_course->stu_course.session = ConvertStringSS(cur_course->course.session);
+		new_stu_course->stu_course.startdate.day = cur_course->course.startDate.day;
+		new_stu_course->stu_course.startdate.month = cur_course->course.startDate.month;
+		new_stu_course->stu_course.enddate.day = cur_course->course.endDate.day;
+		new_stu_course->stu_course.enddate.month = cur_course->course.endDate.month;
+
+		cur_stu_course->next = new_stu_course;
+		new_stu_course->next = nullptr;
+		new_stu_course->prev = cur_stu_course;
+		cur_stu_course = cur_stu_course->next;
+		i++;
+
+		cur_student = student;
+		std::getline(in, tmp, '\n');
+	}
+	reread_after_update_student_course(student, course, teacher, stu_course);
+	in.close();
+	return true;
+}
+
+void upload_CSV_of_enrolled_students(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher) {
+	int coordinate_x = 95;
+	int coordinate_y = 8;
+	int width_box = 40;
+	int height_box = 2;
+	int width_small_box = 25;
+	std::string curYear, curSemester;
+	STU_COURSE newStudent;
+
+	get_curYear_and_curSemester(coordinate_x, coordinate_y, curYear, curSemester);
+
+	textcolor(LIGHT_YELLOW * 16 + BLACK);
+	for (int j = 0; j < 3; j++)
+		for (int i = 0; i < 40; i++) {
+			gotoXY(coordinate_x + 7 + i, coordinate_y - 5 + j);
+			std::cout << " ";
+		}
+	gotoXY(coordinate_x + 7 + 8, coordinate_y - 5 + 1);
+	std::cout << "ADD A STUDENT TO COURSE";
+	textcolor(WHITE);
+
+	ShowCur(1);
+	my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "School Year:");
+	box(coordinate_x, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+	my_print(coordinate_x + 1 + 7, coordinate_y + 1 + 1, LIGHT_RED, curYear + "-" + std::to_string(stoi(curYear) + 1));
+	newStudent.Schoolyear = curYear + "-" + std::to_string(stoi(curYear) + 1);
+
+	my_print(coordinate_x + 30, coordinate_y, LIGHT_AQUA, "Semester:");
+	box(coordinate_x + 30, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+	my_print(coordinate_x + 30 + 1 + 12, coordinate_y + 1 + 1, LIGHT_RED, curSemester);
+	newStudent.Semester = stoi(curSemester);
+
+
+
+
+	std::string course_id, filename;
+
+	my_print(coordinate_x, coordinate_y + 5, LIGHT_AQUA, "ID of the course you want to update: \n");
+	gotoXY(coordinate_x + 40, coordinate_y + 5);
+	course_id = my_getline(10);
+	if (course_id == "-1")
+		return;
+	else if (check_exist_of_course_record(course, course_id) == nullptr) {
+		my_print(coordinate_x, coordinate_y + 9, LIGHT_RED, "Your course ID is invalid.\n");
+		system("pause");
+		return;
+	}
+
+	my_print(coordinate_x, coordinate_y + 7, LIGHT_AQUA, "What is the name of your csv file?\n");
+	gotoXY(coordinate_x + 40, coordinate_y + 7);
+	filename = my_getline(30);
+	if (filename == "-1")
+		return;
+
+	if (!Update_from_enrolled_students_file(stu_course, course_id, filename, course, student, teacher)) {
+		my_print(coordinate_x, coordinate_y + 9, LIGHT_RED, "Can not open file\n");
+		system("pause");
+	}
+	else {
+		my_print(coordinate_x, coordinate_y + 9, LIGHT_GREEN, "Upload successfully\n");
+		system("pause");
+	}
+}
+
 //7
 
 //8

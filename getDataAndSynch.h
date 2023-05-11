@@ -33,6 +33,7 @@ void update_list_of_classes(CLASS_NODE*& listclass, STU_NODE* student);
 
 bool get_data_to_import_list_students_to_class(std::string fileName, STU_NODE*& student, CLASS_NODE* listclass, std::string classID, std::string className, std::string schoolYear);
 
-void Update_from_enrolled_students_file(STU_COURSE_NODE*& stu_course, std::string course_id, std::string filename, CR_NODE* course, STU_NODE* student);
+bool Update_from_enrolled_students_file(STU_COURSE_NODE*& stu_course, std::string courseID, std::string fileName, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher);
+void upload_CSV_of_enrolled_students(STU_COURSE_NODE* stu_course, CR_NODE* course, STU_NODE* student, STFF_NODE* teacher);
 
 #endif // !GET_DATA_AND_SYNCH_H_

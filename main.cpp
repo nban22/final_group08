@@ -267,24 +267,7 @@ int main()
 					}
 					else if (choose == 6) { 
 						//"6.Upload CSV file with enrolled students' list.",
-						system("cls");
-						std::string course_id, filename;
-
-						my_print(5, 5, YELLOW, "What is the ID of the course you want to update?\n");
-						box(5, 6, 10, 2, GREEN);
-						gotoXY(6, 7);
-						course_id = my_getline(10);
-						if (course_id == "-1")
-							break;
-
-						my_print(5, 10, YELLOW, "What is the name of your csv file?\n");
-						box(5, 11, 30, 2, GREEN);
-						gotoXY(6, 12);
-						filename = my_getline(30);
-						if (filename == "-1")
-							break;
-
-						Update_from_enrolled_students_file(stu_course, course_id, filename, course, student);
+						upload_CSV_of_enrolled_students(stu_course, course, student, teacher);
 					}
 					else if (choose == 7) { 
 						//"7.Export course students to CSV.",
