@@ -1178,3 +1178,125 @@ again_courseID:
 		}
 	}
 }
+
+//8
+void import_file_to_update_mark(STU_NODE* student, STU_COURSE_NODE*& stu_course, STFF_NODE* teacher, CR_NODE*& course)
+{
+	int coordinate_x = 95;
+	int coordinate_y = 8;
+	int width_box = 40;
+	int height_box = 2;
+	int width_small_box = 25;
+	std::string curYear, curSemester;
+	STU_COURSE newStudent;
+
+	get_curYear_and_curSemester(coordinate_x, coordinate_y, curYear, curSemester);
+
+	textcolor(LIGHT_YELLOW * 16 + BLACK);
+	for (int j = 0; j < 3; j++)
+		for (int i = 0; i < 40; i++) {
+			gotoXY(coordinate_x + 7 + i, coordinate_y - 5 + j);
+			std::cout << " ";
+		}
+	gotoXY(coordinate_x + 7 + 4, coordinate_y - 5 + 1);
+	std::cout << "IMPORT FILE TO UPDATE MARK";
+	textcolor(WHITE);
+
+	ShowCur(1);
+	my_print(coordinate_x, coordinate_y, LIGHT_AQUA, "School Year:");
+	box(coordinate_x, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+	my_print(coordinate_x + 1 + 7, coordinate_y + 1 + 1, LIGHT_RED, curYear + "-" + std::to_string(stoi(curYear) + 1));
+	newStudent.Schoolyear = curYear + "-" + std::to_string(stoi(curYear) + 1);
+
+	my_print(coordinate_x + 30, coordinate_y, LIGHT_AQUA, "Semester:");
+	box(coordinate_x + 30, coordinate_y + 1, width_small_box, height_box, LIGHT_AQUA);
+	my_print(coordinate_x + 30 + 1 + 12, coordinate_y + 1 + 1, LIGHT_RED, curSemester);
+	newStudent.Semester = stoi(curSemester);
+
+	std::string courseID, fileName;
+enter_fileName:
+	ShowCur(1);
+	my_print(coordinate_x, coordinate_y + 5, LIGHT_AQUA, "Enter file name to update mark: \n");
+	box(coordinate_x, coordinate_y + 5 + 1, width_box, height_box, LIGHT_AQUA);
+	gotoXY(coordinate_x + 1, coordinate_y + 5 + 1 + 1);
+	fileName = my_getline_addSpace(width_box - 1);
+	if (fileName == "-1")
+		return;
+	std::ifstream input(fileName);
+	if (!input.is_open()) {
+		ShowCur(0);
+		my_print(coordinate_x + 8, coordinate_y + 10, RED * 16 + LIGHT_AQUA, "We're sorry, there was an issue with the");
+		my_print(coordinate_x + 8, coordinate_y + 10 + 1, RED * 16 + LIGHT_AQUA, "file you provided. Please try again later");
+
+		my_print(coordinate_x + 8, coordinate_y + 10 + 2, LIGHT_GREEN * 16 + BLACK, "Do you want to enter again:");
+		int choice = enter_again_yes_no(coordinate_x + 10, coordinate_y + 10 + 4, 8, 3, 4, LIGHT_AQUA, LIGHT_GREEN);
+		if (choice == 1) {
+			textcolor(BLACK * 16 + BLACK);
+			for (int j = 0; j < 13; j++)
+				for (int i = 0; i < 50; i++) {
+					gotoXY(coordinate_x + i, coordinate_y + 5 + j);
+					std::cout << " ";
+				}
+			textcolor(WHITE);
+			goto enter_fileName;
+		}
+		else {
+			return;
+		}
+	}
+	else {
+		int startPos = 17;
+		int endPos = fileName.find_last_of(".");
+		courseID = fileName.substr(startPos, endPos - startPos);
+		std::string tmp;
+		while (!input.eof()) {
+			std::getline(input, tmp);
+
+			std::getline(input, tmp, ',');
+
+			std::string studentID = "";
+			std::getline(input, studentID, ',');
+
+			std::getline(input, tmp, ',');
+			std::getline(input, tmp, ',');
+
+			std::string other, final, midterm, total;
+
+			std::getline(input, other, ',');
+			std::getline(input, midterm, ',');
+			std::getline(input, final, ',');
+			std::getline(input, total);
+
+			STU_COURSE_NODE* cur = stu_course;
+			while (cur) {
+				if (cur->stu_course.CouID == courseID && cur->stu_course.StuID == studentID) {
+					cur->stu_course.other = stof(other);
+					cur->stu_course.midterm = stof(midterm);
+					cur->stu_course.final = stof(final);
+					cur->stu_course.total = stof(total);
+					break;
+				}
+				cur = cur->next;
+			}
+			reread_after_update_student_course(student, course, teacher, stu_course);
+			update_cur_stdn_in_course(course, stu_course);
+			input.close();
+			ShowCur(0);
+			textcolor(LIGHT_GREEN * 16 + BLACK);
+			for (int j = 0; j < 3; j++)
+				for (int i = 0; i < 48; i++) {
+					gotoXY(coordinate_x + i, coordinate_y + 15 + j);
+					std::cout << " ";
+				}
+			gotoXY(coordinate_x + 6, coordinate_y + 15 + 1);
+			std::cout << "Upload students successfully.";
+			textcolor(WHITE);
+
+			char ans = _getch();
+			return;
+
+		}
+
+	}
+}
+

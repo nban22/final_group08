@@ -87,16 +87,10 @@ int main()
 			ShowCur(1);
 
 			gotoXY(tmp_width - 1, 9);
-			//user = my_getline(box_width - 1);
+			user = my_getline(box_width - 1);
 
 			gotoXY(tmp_width - 1, 13);
-			//pass = my_getline(box_width - 1);
-
-			/*user = "33383147";
-			pass = "123456";*/
-
-			 user = "22240001";
-			pass = "678910";  
+			pass = my_getline(box_width - 1);
 
 			check_T = check_exist_of_staff_account(staff, user, pass, loggedinStaff);
 			check_S = check_exist_of_student_account(student, user, pass, loggedinStudent);
@@ -105,19 +99,40 @@ int main()
 				continue;
 			}
 			if (check_T == -1 || check_S == -1) {
-				my_print(tmp_width - 6, 16, RED, "Your password isn't correct. Please, enter again.");
 				ShowCur(0);
-				char c;
-				c = _getch();
-				ShowCur(1);
+				textcolor(LIGHT_RED * 16 + BLACK);
+				for (int j = 0; j < 4; j++)
+					for (int i = 0; i < 48; i++) {
+						gotoXY(tmp_width - 9 + i, 18 - 1 + j);
+						std::cout << " ";
+					}
+				gotoXY(tmp_width + 2, 18);
+				std::cout << "Your password isn't correct.";
+				gotoXY(tmp_width + 4, 18 + 1);
+				std::cout << "Please, enter again.";
+				textcolor(WHITE);
+
+				char ans = _getch();
+				
 				continue;
 			}
 			if (check_T == 0 || check_S == 0) {
-				my_print(tmp_width - 6, 16, RED, "Your account doesn't exist. Please, enter again.");
+
 				ShowCur(0);
-				char c;
-				c = _getch();
-				ShowCur(1);
+				textcolor(LIGHT_RED * 16 + BLACK);
+				for (int j = 0; j < 4; j++)
+					for (int i = 0; i < 48; i++) {
+						gotoXY(tmp_width - 9 + i, 18 - 1 + j);
+						std::cout << " ";
+					}
+				gotoXY(tmp_width +2, 18);
+				std::cout << "Your account doesn't exist";
+				gotoXY(tmp_width +4, 18 + 1);
+				std::cout << "Please, enter again.";
+				textcolor(WHITE);
+
+				char ans = _getch();
+
 			}
 		} while (!(check_T == 1 || check_S == 1));
 
@@ -239,6 +254,7 @@ int main()
 						"5.Update course information.",
 						"6.Upload CSV file with enrolled students' list.",
 						"7.Update a student's result.",
+						"8.Import file to update mark.",
 						"0.Come back." };
 					int x_boxOption3 = x_boxStaff + width_boxStaff + 2;
 					int y_boxOption3 = y_boxStaff;
@@ -269,7 +285,10 @@ int main()
 					else if (choose == 7) {
 						update_mark_information(student, stu_course, teacher, course);
 					}
-					else if (choose == 0 + 8) {
+					else if (choose == 8) {
+						import_file_to_update_mark(student, stu_course, teacher, course);
+					}
+					else if (choose == 0 + 9) {
 						break;
 					}
 				}

@@ -288,7 +288,7 @@ void getData_A_StuCourse(STU_COURSE studentcourse, STU_COURSE_NODE*& head) {
 // ===============Doc lai file sau khi da cap nhat=============
 bool reread_after_update_staff(STFF_NODE* staff) {
 	std::ofstream outfile;
-	outfile.open("staffs_test.csv");
+	outfile.open("staffs.csv");
 	if (!outfile.is_open()) {
 		return 0;
 	}
@@ -316,7 +316,7 @@ bool reread_after_update_staff(STFF_NODE* staff) {
 }
 bool reread_after_update_teacher(STFF_NODE* teacher) {
 	std::ofstream outfile;
-	outfile.open("teachers_test.csv");
+	outfile.open("teachers.csv");
 	if (!outfile.is_open()) {
 		return 0;
 	}
@@ -343,7 +343,7 @@ bool reread_after_update_teacher(STFF_NODE* teacher) {
 }
 bool reread_after_update_student(STU_NODE* student) {
 	std::ofstream outfile;
-	outfile.open("students_TEST.csv");
+	outfile.open("students.csv");
 	if (!outfile.is_open()) {
 		return 0;
 	}
@@ -373,7 +373,7 @@ bool reread_after_update_student(STU_NODE* student) {
 }
 bool reread_after_update_course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher, CR_NODE* course) {
 	std::ofstream outfile;
-	outfile.open("coursestest.csv");
+	outfile.open("courses.csv");
 	if (!outfile.is_open()) {
 		return 0;
 	}
@@ -421,7 +421,7 @@ bool reread_after_update_course(STU_COURSE_NODE* stu_course, STFF_NODE* teacher,
 }
 bool reread_after_update_student_course(STU_NODE* student, CR_NODE* course, STFF_NODE* teacher, STU_COURSE_NODE* stu_course) {
 	std::ofstream outfile;
-	outfile.open("Student_Course_test.csv");
+	outfile.open("student_course.csv");
 	if (!outfile.is_open()) {
 		return 0;
 	}

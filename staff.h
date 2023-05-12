@@ -48,6 +48,9 @@ void upload_CSV_of_enrolled_students(STU_COURSE_NODE* stu_course, CR_NODE* cours
 
 void update_mark_information(STU_NODE* student, STU_COURSE_NODE*& stu_course, STFF_NODE* teacher, CR_NODE*& course);
 
+void import_file_to_update_mark(STU_NODE* student, STU_COURSE_NODE*& stu_course, STFF_NODE* teacher, CR_NODE*& course);
+
+
 //4
 void display_list_of_classes(CLASS_NODE* listclass);
 void view_list_of_classes(CLASS_NODE*& listclass, STU_NODE* student);
